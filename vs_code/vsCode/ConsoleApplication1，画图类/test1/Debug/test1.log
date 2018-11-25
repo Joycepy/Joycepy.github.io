@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\asus\source\repos\consoleapplication1，画图类\test1\main.cpp(75): warning C4305: “初始化”: 从“double”到“float”截断
+c:\users\asus\source\repos\consoleapplication1，画图类\test1\main.cpp(77): warning C4326: “main”的返回类型应为“int”而非“void”
+  test1.vcxproj -> C:\Users\asus\source\repos\ConsoleApplication1，画图类\Debug\test1.exe
