@@ -1,3 +1,0 @@
-﻿  ConsoleApplication1.cpp
-c:\users\asus\source\repos\consoleapplication1，画图类\consoleapplication1\consoleapplication1.cpp(22): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-  ConsoleApplication1.vcxproj -> C:\Users\asus\source\repos\ConsoleApplication1，画图类\Debug\ConsoleApplication1.exe

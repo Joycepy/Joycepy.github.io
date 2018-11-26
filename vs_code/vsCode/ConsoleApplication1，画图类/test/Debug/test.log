@@ -1,5 +1,0 @@
-﻿  main.cpp
-c:\users\asus\source\repos\consoleapplication1，画图类\test\main.cpp(50): warning C4244: “return”: 从“int”转换到“float”，可能丢失数据
-c:\users\asus\source\repos\consoleapplication1，画图类\test\main.cpp(58): warning C4244: “return”: 从“int”转换到“float”，可能丢失数据
-c:\users\asus\source\repos\consoleapplication1，画图类\test\main.cpp(62): warning C4326: “main”的返回类型应为“int”而非“void”
-  test.vcxproj -> C:\Users\asus\source\repos\ConsoleApplication1，画图类\Debug\test.exe
