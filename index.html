@@ -62,10 +62,211 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Java11.14" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/Java11.14/" class="article-date">
+  <time datetime="2018-12-06T05:17:29.914Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/Java11.14/">Java-11.14</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-11-14"><a href="#Java-11-14" class="headerlink" title="Java-11.14"></a>Java-11.14</h1><h5 id="AWT——Swing区别："><a href="#AWT——Swing区别：" class="headerlink" title="AWT——Swing区别："></a>AWT——Swing区别：</h5><p><strong>名称改变</strong>：Button-JButton<br>    Frame-JFrame<br>    …….<br><strong>Swing:</strong></p>
+<ul>
+<li>新添JSplitPane、JTree、</li>
+<li>提供更多功能（组件形状任意、边框任意、显示多样）</li>
+<li>无native代码（light weight,无本地代码）</li>
+<li>可设置外观（look&amp;feel）</li>
+<li>MVC设计模式（model保存数据据</li>
+</ul>
+<p>==light weight与heavy weight勿混用==</p>
+<h5 id="布局管理器"><a href="#布局管理器" class="headerlink" title="布局管理器"></a>布局管理器</h5><ul>
+<li>BorderLayout—add(acomponent,BorderLayout.North/South/East/West/Center)控件相对位置不变</li>
+<li>FlowLayout(int align,int hgap,int vgap)参数可缺省，控件大小不变</li>
+<li>GridLayout  控件大小相同，相同位置不变，行数不为零时，列数被忽略</li>
+<li>GridBagLayout</li>
+<li>BoxLayout</li>
+</ul>
+<h6 id="Box容器"><a href="#Box容器" class="headerlink" title="Box容器"></a>Box容器</h6><p>……</p>
+<h6 id="直接管理组件"><a href="#直接管理组件" class="headerlink" title="直接管理组件"></a>直接管理组件</h6><p>setLayout(null)关闭布局管理器</p>
+<ol>
+<li>getInsets()边界空隙</li>
+<li>JButton.getPreferedSize()</li>
+<li>JButton.setBounds(x,x,x,x)</li>
+<li>主方法创建JFrame</li>
+</ol>
+<h4 id="事件及处理机制"><a href="#事件及处理机制" class="headerlink" title="事件及处理机制"></a>事件及处理机制</h4><p>KeyEvent\MouseEvent\ActionEvent……</p>
+<p>对应listener监听者接口</p>
+<p>JButton.addActionListener(ActionEvent)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/06/Java11.14/" data-id="cjpc5ld07000260v7xpagjd3e" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java-11.21" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/Java-11.21/" class="article-date">
+  <time datetime="2018-12-06T05:17:29.574Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/Java-11.21/">Java-11.21</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java12-21"><a href="#Java12-21" class="headerlink" title="Java12-21"></a>Java12-21</h1><ul>
+<li>低级事件（component,container,window,fous,key,mousewheel…）</li>
+<li>语义事件（action.itemevent,adjustment,textevent…）<h3 id="ActionEvent"><a href="#ActionEvent" class="headerlink" title="ActionEvent"></a>ActionEvent</h3><h3 id="KeyEvent"><a href="#KeyEvent" class="headerlink" title="KeyEvent"></a>KeyEvent</h3></li>
+<li>引发原因：敲完、按下、释放</li>
+<li>KeyListener:KeyPressed,KeyReleased</li>
+<li>方法：getKeyChar()</li>
+<li>事件适配器（有一个以上的方法）KeyAdapter<h3 id="MouseEvent"><a href="#MouseEvent" class="headerlink" title="MouseEvent"></a>MouseEvent</h3></li>
+<li>引发原因：移动拖动，点击</li>
+<li>两个接口：MouseListener，MouseMotionListene r=&gt; MouseInputListener</li>
+<li>方法：getClickCount,getPoint(getX/getY)，getModifiers(左右键)<h2 id="applet下载"><a href="#applet下载" class="headerlink" title="applet下载"></a>applet下载</h2>执行框架：init,start,stop,destroy</li>
+</ul>
+<p>……</p>
+<p>计算器：pannel做分割，一部分为grid</p>
+<h2 id="Swing"><a href="#Swing" class="headerlink" title="Swing"></a>Swing</h2><h3 id="常用控件："><a href="#常用控件：" class="headerlink" title="常用控件："></a>常用控件：</h3><h5 id="Buttons"><a href="#Buttons" class="headerlink" title="- Buttons"></a>- Buttons</h5><ol>
+<li>AbstractButton为父类：</li>
+</ol>
+<ul>
+<li>JButton</li>
+<li>JToggleButton</li>
+<li>JCheckBox</li>
+<li>RadioButton</li>
+<li>JMenuItem</li>
+</ul>
+<p>==ButtonGroup中只有一个按钮可以被选中==</p>
+<p><em>JPanel.setBorder(new TitleBorder(String))</em><br><em>JTextArea(m,n) t —- m行n列文本区</em><br><em>add(new JScrollPane(t))</em></p>
+<p>itemListener.itemStageChange()(监听程序)</p>
+<p>JCheckBox.addItemListener<br>2.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/06/Java-11.21/" data-id="cjpc5ld05000160v74z95viqh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java11.28" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/Java11.28/" class="article-date">
+  <time datetime="2018-12-06T05:17:29.567Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: Java-11.28<br>—### JComboBox<br>(下拉菜单)</p>
+<p>addItem(),getSelectedItem(),setEditable()</p>
+<h5 id="ComboBoxEditor接口，ListCellRenderer渲染"><a href="#ComboBoxEditor接口，ListCellRenderer渲染" class="headerlink" title="ComboBoxEditor接口，ListCellRenderer渲染"></a>ComboBoxEditor接口，ListCellRenderer渲染</h5><h3 id="Icon接口，由ImageIcon实现"><a href="#Icon接口，由ImageIcon实现" class="headerlink" title="Icon接口，由ImageIcon实现"></a>Icon接口，由ImageIcon实现</h3><p>Jcomponent,提示信息,setBorder设置边框</p>
+<h3 id="JList"><a href="#JList" class="headerlink" title="JList"></a>JList</h3><p>DefaultListModel,ListSelectedionListener</p>
+<h6 id="JTextField-JPasswordField-JFormattedTextField"><a href="#JTextField-JPasswordField-JFormattedTextField" class="headerlink" title="JTextField:JPasswordField,JFormattedTextField"></a>JTextField:JPasswordField,JFormattedTextField</h6><h5 id="Document接口"><a href="#Document接口" class="headerlink" title="Document接口"></a>Document接口</h5><h5 id="JOptionPane-Message-boxes对话框"><a href="#JOptionPane-Message-boxes对话框" class="headerlink" title="JOptionPane,Message boxes对话框"></a>JOptionPane,Message boxes对话框</h5><p>showConfirmDialogue,showOptionDialogue,showInputDialogue</p>
+<h5 id="JDialog"><a href="#JDialog" class="headerlink" title="JDialog"></a>JDialog</h5><h5 id="JSlider-JProgressBar"><a href="#JSlider-JProgressBar" class="headerlink" title="JSlider,JProgressBar"></a>JSlider,JProgressBar</h5><h5 id="JMenubar-JMenu-JMenuItem"><a href="#JMenubar-JMenu-JMenuItem" class="headerlink" title="JMenubar+JMenu+JMenuItem"></a>JMenubar+JMenu+JMenuItem</h5><p>setMenuBar</p>
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><p>JComponent–Graphics<br>改写paintComponent</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/06/Java11.28/" data-id="cjpc5ld09000360v77f4e3h7t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Java12.5" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/Java12.5/" class="article-date">
+  <time datetime="2018-12-06T05:17:29.560Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: Java-12.5—# 线程</p>
+<h3 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h3><ol>
+<li>自定义实现runnable接口<br>重载run()操作，作为参数创建Thread</li>
+<li>继承Thread类<br>extends Thread,间接实现runnable<br>run(),start()开始执行run(),Thread implements Runnnable</li>
+</ol>
+<h5 id="Thread构造方法"><a href="#Thread构造方法" class="headerlink" title="Thread构造方法"></a>Thread构造方法</h5><p>参数：无参、线程名、runnable<br><em>内部类保存了外部类的指针</em></p>
+<h5 id="Thread-sleep-100-休眠一百毫秒"><a href="#Thread-sleep-100-休眠一百毫秒" class="headerlink" title="Thread.sleep(100)休眠一百毫秒"></a>Thread.sleep(100)休眠一百毫秒</h5><p>注意使用try-catch(sleep可能被打断)<br>==native==方法：调用本地的、底层的代码，主要用于执行run()</p>
+<h5 id="对共享数据的访问不完整性-gt-解决方法："><a href="#对共享数据的访问不完整性-gt-解决方法：" class="headerlink" title="对共享数据的访问不完整性=&gt;解决方法："></a>对共享数据的访问不完整性=&gt;解决方法：</h5><ul>
+<li>做成一个整体：synchronized,修饰方法或代码段，每个包含synchronized的对象使用一把互斥锁</li>
+<li>使用时避免死锁</li>
+<li>若修饰一个静态方法，所有对象共用一把互斥锁<h4 id="线程生命周期"><a href="#线程生命周期" class="headerlink" title="线程生命周期"></a>线程生命周期</h4>新建、就绪、执行、阻塞/消亡<br>yield()放弃run()回到就绪<br><strong>blocked</strong>：I/O操作、wait()释放互斥锁、sleep()和suspend()不释放互斥锁</li>
+</ul>
+<p>wait()与notify():<br>消费者生产者模式，实现线程间通信</p>
+<p>但可能造成死锁，synchronized,同时等待对方放弃自己需要的资源</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/06/Java12.5/" data-id="cjpc5ld0b000460v7i1nu1fz7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/03/hello-world/" class="article-date">
-  <time datetime="2018-11-03T02:49:21.176Z" itemprop="datePublished">2018-11-03</time>
+  <time datetime="2018-11-03T02:47:04.388Z" itemprop="datePublished">2018-11-03</time>
 </a>
     
   </div>
@@ -97,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/03/hello-world/" data-id="cjo0upi9s0000s8v75riz90f9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/03/hello-world/" data-id="cjpc5ld0f000660v71vzi4fq4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -119,7 +320,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/2018/10/27/git_tip1/eg.png" rel="gallery_cjo0ux1k10000m4v7gig42su1">
+      <a class="article-gallery-img fancybox" href="/2018/10/27/git_tip1/eg.png" rel="gallery_cjpc5ld0d000560v7nds8laq7">
         <img src="/2018/10/27/git_tip1/eg.png" itemprop="image">
       </a>
     
@@ -156,48 +357,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/27/gittip1/" data-id="cjo0ux1k10000m4v7gig42su1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/27/gittip1/" data-id="cjpc5ld0d000560v7nds8laq7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-测试" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/24/测试/" class="article-date">
-  <time datetime="2018-10-24T10:40:06.000Z" itemprop="datePublished">2018-10-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/24/测试/">测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/24/测试/" data-id="cjo0ux1km0003m4v7hn6g4c8h" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
 
     </footer>
   </div>
@@ -218,7 +381,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li></ul>
     </div>
   </div>
 
@@ -228,7 +391,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a>
+      <a href="/tags/git/" style="font-size: 10px;">git</a>
     </div>
   </div>
 
@@ -237,7 +400,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -250,15 +413,23 @@
       <ul>
         
           <li>
+            <a href="/2018/12/06/Java11.14/">Java-11.14</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/Java-11.21/">Java-11.21</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/Java11.28/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/Java12.5/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/03/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/27/gittip1/">git_tip1</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/24/测试/">测试</a>
           </li>
         
       </ul>
