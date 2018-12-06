@@ -3,15 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Tag: git | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Java-11.14AWT——Swing区别：名称改变：Button-JButton    Frame-JFrame    …….Swing:  新添JSplitPane、JTree、 提供更多功能（组件形状任意、边框任意、显示多样） 无native代码（light weight,无本地代码） 可设置外观（look&amp;amp;feel） MVC设计模式（model保存数据据  ==light wei">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/tags/git/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/12/06/Java11.14/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java-11.14AWT——Swing区别：名称改变：Button-JButton    Frame-JFrame    …….Swing:  新添JSplitPane、JTree、 提供更多功能（组件形状任意、边框任意、显示多样） 无native代码（light weight,无本地代码） 可设置外观（look&amp;amp;feel） MVC设计模式（model保存数据据  ==light wei">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-14T07:35:53.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Java-11.14AWT——Swing区别：名称改变：Button-JButton    Frame-JFrame    …….Swing:  新添JSplitPane、JTree、 提供更多功能（组件形状任意、边框任意、显示多样） 无native代码（light weight,无本地代码） 可设置外观（look&amp;amp;feel） MVC设计模式（model保存数据据  ==light wei">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,39 +64,68 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/10/27/gittip1/" class="archive-article-date">
-  <time datetime="2018-10-27T02:31:28.000Z" itemprop="datePublished">Oct 27</time>
+        <section id="main"><article id="post-Java11.14" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/Java11.14/" class="article-date">
+  <time datetime="2018-12-06T05:17:29.914Z" itemprop="datePublished">2018-12-06</time>
 </a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/27/gittip1/">git_tip1</a>
-    </h1>
-  
-
-    </header>
+    
   </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-11-14"><a href="#Java-11-14" class="headerlink" title="Java-11.14"></a>Java-11.14</h1><h5 id="AWT——Swing区别："><a href="#AWT——Swing区别：" class="headerlink" title="AWT——Swing区别："></a>AWT——Swing区别：</h5><p><strong>名称改变</strong>：Button-JButton<br>    Frame-JFrame<br>    …….<br><strong>Swing:</strong></p>
+<ul>
+<li>新添JSplitPane、JTree、</li>
+<li>提供更多功能（组件形状任意、边框任意、显示多样）</li>
+<li>无native代码（light weight,无本地代码）</li>
+<li>可设置外观（look&amp;feel）</li>
+<li>MVC设计模式（model保存数据据</li>
+</ul>
+<p>==light weight与heavy weight勿混用==</p>
+<h5 id="布局管理器"><a href="#布局管理器" class="headerlink" title="布局管理器"></a>布局管理器</h5><ul>
+<li>BorderLayout—add(acomponent,BorderLayout.North/South/East/West/Center)控件相对位置不变</li>
+<li>FlowLayout(int align,int hgap,int vgap)参数可缺省，控件大小不变</li>
+<li>GridLayout  控件大小相同，相同位置不变，行数不为零时，列数被忽略</li>
+<li>GridBagLayout</li>
+<li>BoxLayout</li>
+</ul>
+<h6 id="Box容器"><a href="#Box容器" class="headerlink" title="Box容器"></a>Box容器</h6><p>……</p>
+<h6 id="直接管理组件"><a href="#直接管理组件" class="headerlink" title="直接管理组件"></a>直接管理组件</h6><p>setLayout(null)关闭布局管理器</p>
+<ol>
+<li>getInsets()边界空隙</li>
+<li>JButton.getPreferedSize()</li>
+<li>JButton.setBounds(x,x,x,x)</li>
+<li>主方法创建JFrame</li>
+</ol>
+<h4 id="事件及处理机制"><a href="#事件及处理机制" class="headerlink" title="事件及处理机制"></a>事件及处理机制</h4><p>KeyEvent\MouseEvent\ActionEvent……</p>
+<p>对应listener监听者接口</p>
+<p>JButton.addActionListener(ActionEvent)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/06/Java11.14/" data-id="cjpc5im9q0001xcv77nlp7ccm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/06/Java-11.21/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
