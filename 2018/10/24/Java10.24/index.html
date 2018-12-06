@@ -5,18 +5,18 @@
   
   <title>Java10.24 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="�����캯����Ϊprivate��ͨ���ڲ���������=&amp;gt;�ɿ��ƶ��󴴽�����һ������ֻ��һ����ʽ�����췽��ȷ����һ������������Ƕ�̬��    upcasting����ֱ�Ӹ�ֵ������-&amp;gt;����    downcast�����ȼ���Ƿ�Ϸ���ǿ��ת����        ������Ƚ���instanceof">
+  <meta name="description" content="将构造函数设为private，通过内部函数调用=&amp;gt;可控制对象创建个数一个对象只有一种形式（构造方法确定）一个对象的引用是多态的    upcasting：可直接赋值，子类-&amp;gt;父类    downcast：首先检查是否合法（强制转换）        解决：先进行instanceof判断，再分情况强转 interface（特殊的抽象类）：完全没有实现~abstract：部分未实现Java8">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java10.24">
 <meta property="og:url" content="http://yoursite.com/2018/10/24/Java10.24/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="�����캯����Ϊprivate��ͨ���ڲ���������=&amp;gt;�ɿ��ƶ��󴴽�����һ������ֻ��һ����ʽ�����췽��ȷ����һ������������Ƕ�̬��    upcasting����ֱ�Ӹ�ֵ������-&amp;gt;����    downcast�����ȼ���Ƿ�Ϸ���ǿ��ת����        ������Ƚ���instanceof">
+<meta property="og:description" content="将构造函数设为private，通过内部函数调用=&amp;gt;可控制对象创建个数一个对象只有一种形式（构造方法确定）一个对象的引用是多态的    upcasting：可直接赋值，子类-&amp;gt;父类    downcast：首先检查是否合法（强制转换）        解决：先进行instanceof判断，再分情况强转 interface（特殊的抽象类）：完全没有实现~abstract：部分未实现Java8">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-06T13:17:55.494Z">
+<meta property="og:updated_time" content="2018-12-06T13:26:46.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java10.24">
-<meta name="twitter:description" content="�����캯����Ϊprivate��ͨ���ڲ���������=&amp;gt;�ɿ��ƶ��󴴽�����һ������ֻ��һ����ʽ�����췽��ȷ����һ������������Ƕ�̬��    upcasting����ֱ�Ӹ�ֵ������-&amp;gt;����    downcast�����ȼ���Ƿ�Ϸ���ǿ��ת����        ������Ƚ���instanceof">
+<meta name="twitter:description" content="将构造函数设为private，通过内部函数调用=&amp;gt;可控制对象创建个数一个对象只有一种形式（构造方法确定）一个对象的引用是多态的    upcasting：可直接赋值，子类-&amp;gt;父类    downcast：首先检查是否合法（强制转换）        解决：先进行instanceof判断，再分情况强转 interface（特殊的抽象类）：完全没有实现~abstract：部分未实现Java8">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -87,14 +87,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>�����캯����Ϊprivate��ͨ���ڲ���������=&gt;�ɿ��ƶ��󴴽�����<br>һ������ֻ��һ����ʽ�����췽��ȷ����<br>һ������������Ƕ�̬��<br>    upcasting����ֱ�Ӹ�ֵ������-&gt;����<br>    downcast�����ȼ���Ƿ�Ϸ���ǿ��ת����<br>        ������Ƚ���instanceof�жϣ��ٷ����ǿת</p>
-<p>interface������ĳ����ࣩ����ȫû��ʵ��~abstract������δʵ��<br>Java8֮�����ʵ�ֵķ�������default<br>��ͬ�������ʵ��ͬһ���ӿڣ�ͬһ�������ʵ�ֶ���ӿڣ�implements��<br>�ӿڿɶ��ؼ̳�</p>
-<p>�ڲ��ڿɷ�����������������Ժͷ���</p>
+        <p>将构造函数设为private，通过内部函数调用=&gt;可控制对象创建个数<br>一个对象只有一种形式（构造方法确定）<br>一个对象的引用是多态的<br>    upcasting：可直接赋值，子类-&gt;父类<br>    downcast：首先检查是否合法（强制转换）<br>        解决：先进行instanceof判断，再分情况强转</p>
+<p>interface（特殊的抽象类）：完全没有实现~abstract：部分未实现<br>Java8之后可有实现的方法，加default<br>不同的类可以实现同一个接口，同一个类可以实现多个接口（implements）<br>接口可多重继承</p>
+<p>内部内可访问所在类的所有属性和方法</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/24/Java10.24/" data-id="cjpcmc7dc0002kgv7gooo7a7g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/24/Java10.24/" data-id="cjpcmntkf0003isv7epmy4a40" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -117,7 +117,7 @@
   
     <a href="/2018/10/17/Java10.17/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">Java10.17</div>
     </a>
   
 </nav>
@@ -180,7 +180,7 @@
           </li>
         
           <li>
-            <a href="/2018/11/17/Java11.7/">Java11.17</a>
+            <a href="/2018/11/17/Java11.17/">Java11.17</a>
           </li>
         
           <li>

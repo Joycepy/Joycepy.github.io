@@ -5,18 +5,18 @@
   
   <title>Java10.31 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="�����ڲ��࣬��Ҫ�õ��ⲿ���������Ϊstatic inner class,���ܷ����ⲿ��Ǿ�̬��Ա��    �ڴ���ʱ������Ҫ�ⲿ���������ⲿ��̳��ڲ���ʱ�����캯����Ҫ�������x��    x.super()�����ڲ��ڵĹ��췽�������ǵ���x�Ĺ��캯����    ���ǽ��ⲿ��Ķ���x��Ϊ���� Ob">
+  <meta name="description" content="创建内部类，需要用到外部类的引用若为static inner class,则不能访问外部类非静态成员，    在创建时不再需要外部类引用用外部类继承内部类时，构造函数需要特殊参数x，    x.super()调用内部内的构造方法，并非调用x的构造函数，    而是将外部类的对象x作为参数 Object的equals()，用==比较整个封装类（指针指向的位置）Integer.equals()被改写，">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java10.31">
 <meta property="og:url" content="http://yoursite.com/2018/10/31/Java10.31/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="�����ڲ��࣬��Ҫ�õ��ⲿ���������Ϊstatic inner class,���ܷ����ⲿ��Ǿ�̬��Ա��    �ڴ���ʱ������Ҫ�ⲿ���������ⲿ��̳��ڲ���ʱ�����캯����Ҫ�������x��    x.super()�����ڲ��ڵĹ��췽�������ǵ���x�Ĺ��캯����    ���ǽ��ⲿ��Ķ���x��Ϊ���� Ob">
+<meta property="og:description" content="创建内部类，需要用到外部类的引用若为static inner class,则不能访问外部类非静态成员，    在创建时不再需要外部类引用用外部类继承内部类时，构造函数需要特殊参数x，    x.super()调用内部内的构造方法，并非调用x的构造函数，    而是将外部类的对象x作为参数 Object的equals()，用==比较整个封装类（指针指向的位置）Integer.equals()被改写，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-06T13:17:30.586Z">
+<meta property="og:updated_time" content="2018-12-06T13:27:31.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java10.31">
-<meta name="twitter:description" content="�����ڲ��࣬��Ҫ�õ��ⲿ���������Ϊstatic inner class,���ܷ����ⲿ��Ǿ�̬��Ա��    �ڴ���ʱ������Ҫ�ⲿ���������ⲿ��̳��ڲ���ʱ�����캯����Ҫ�������x��    x.super()�����ڲ��ڵĹ��췽�������ǵ���x�Ĺ��캯����    ���ǽ��ⲿ��Ķ���x��Ϊ���� Ob">
+<meta name="twitter:description" content="创建内部类，需要用到外部类的引用若为static inner class,则不能访问外部类非静态成员，    在创建时不再需要外部类引用用外部类继承内部类时，构造函数需要特殊参数x，    x.super()调用内部内的构造方法，并非调用x的构造函数，    而是将外部类的对象x作为参数 Object的equals()，用==比较整个封装类（指针指向的位置）Integer.equals()被改写，">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -87,15 +87,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>�����ڲ��࣬��Ҫ�õ��ⲿ�������<br>��Ϊstatic inner class,���ܷ����ⲿ��Ǿ�̬��Ա��<br>    �ڴ���ʱ������Ҫ�ⲿ������<br>���ⲿ��̳��ڲ���ʱ�����캯����Ҫ�������x��<br>    x.super()�����ڲ��ڵĹ��췽�������ǵ���x�Ĺ��캯����<br>    ���ǽ��ⲿ��Ķ���x��Ϊ����</p>
-<p>Object��equals()����==�Ƚ�������װ�ָࣨ��ָ���λ�ã�<br>Integer.equals()����д���Ƚ�value��ֵ�������ж�instanceof��</p>
-<p>native�������ñ��صײ����<br>��+������toString()<br>clone��λǳ�㸴�ƣ�snakeΪ��,����¡������޸�</p>
-<p>string Ϊ���ɱ�����󣬷���ʱ�������µ��ַ���<br>stringBuilder��stringBufferΪ�ɱ��ַ���</p>
+        <p>创建内部类，需要用到外部类的引用<br>若为static inner class,则不能访问外部类非静态成员，<br>    在创建时不再需要外部类引用<br>用外部类继承内部类时，构造函数需要特殊参数x，<br>    x.super()调用内部内的构造方法，并非调用x的构造函数，<br>    而是将外部类的对象x作为参数</p>
+<p>Object的equals()，用==比较整个封装类（指针指向的位置）<br>Integer.equals()被改写，比较value的值，（先判断instanceof）</p>
+<p>native——调用本地底层操作<br>“+”调用toString()<br>clone按位浅层复制，snake为例,深层克隆需进行修改</p>
+<p>string 为不可变类对象，返回时创建了新的字符串<br>stringBuilder与stringBuffer为可变字符串</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/Java10.31/" data-id="cjpcmc7de0004kgv7ryexvz6i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/31/Java10.31/" data-id="cjpcmntkg0004isv75r2mnagi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -181,7 +181,7 @@
           </li>
         
           <li>
-            <a href="/2018/11/17/Java11.7/">Java11.17</a>
+            <a href="/2018/11/17/Java11.17/">Java11.17</a>
           </li>
         
           <li>
