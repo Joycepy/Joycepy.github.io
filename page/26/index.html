@@ -158,6 +158,210 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/Yii框架的那些坑（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/10/Yii框架的那些坑（二）/" class="post-title-link" itemprop="url">数据库大作业笔记（四）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-10 16:04:49 / 修改时间：17:19:48" itemprop="dateCreated datePublished" datetime="2019-05-10T16:04:49+08:00">2019-05-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在写今天的正经内容之前，我真的是要吐槽一下我的英语水平（也有可能是打字水平）！！！Yii报错：</p>
+<p><strong>Getting unknown property: common\models\Vborrow::browid</strong></p>
+<p>吓得我从vborrow, vborrowSearch, vborrowController, vborrow/index找了半天，原来是拼写错误！！”borw”不是”brow”！我觉得这个错误和sxr同学的”model”—“module”有异曲同工之妙……</p>
+<h4 id="mySql的存储过程"><a href="#mySql的存储过程" class="headerlink" title="mySql的存储过程"></a>mySql的存储过程</h4><h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><p>事先用“DELIMITER $$”或“DELIMITER //”声明当前段分隔符，让编译器把两个”//“之间的内容当做存储过程的代码，不会执行这些代码；“DELIMITER ;”的意为把分隔符还原。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$　　#将语句的结束符号从分号;临时改为两个$$(可以是自定义)</span><br><span class="line">CREATE PROCEDURE delete_matches(IN p_playerno INTEGER) #声明存储过程</span><br><span class="line">BEGIN</span><br><span class="line">SET @p_in=1; #变量赋值  </span><br><span class="line">DECLARE l_int int unsigned default 4000000; #变量定义</span><br><span class="line">DELETE FROM MATCHES WHERE playerno = p_playerno;</span><br><span class="line">END$$ #存储过程开始和结束符号</span><br><span class="line">elimiter; #将语句的结束符号恢复为分号</span><br><span class="line"></span><br><span class="line">call sp_name[(传参)];#调用存储过程</span><br></pre></td></tr></table></figure>
+<p>然后问题就来了，我在mySql里写的存储过程，是要更新某一个值，没有语法错误，成功执行了，但是结果显示影响了0行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set @p0=&apos;c1&apos;,@p1=&apos;120&apos; call proc_update(@p0,@p1)</span><br></pre></td></tr></table></figure>
+<p>错误的代码大概会在我交完作业之后放上来。大概的函数体是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">begin</span><br><span class="line">if(/*condition*/)</span><br><span class="line">then</span><br><span class="line">update -- statement1</span><br><span class="line">else</span><br><span class="line">update -- statement2</span><br><span class="line">end if;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>经过测试，这么写的话，不管是什么condition，两个statement都没有执行。</p>
+<hr>
+<p>上面都是废话。直接写解决方法吧——</p>
+<p><strong>存储过程中要有打印</strong>，比如在end if后面加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select @p0,@p1</span><br><span class="line">#select 1 都可以</span><br></pre></td></tr></table></figure>
+<p><strong>参数名</strong>要改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@p0,@p1</span><br><span class="line">#而不能是</span><br><span class="line">@catid,@price</span><br></pre></td></tr></table></figure>
+<p>不知道为什么，试了很久，这样改的时候就正常工作了。</p>
+<h5 id="另外补充，MySQL中的注释有三种："><a href="#另外补充，MySQL中的注释有三种：" class="headerlink" title="另外补充，MySQL中的注释有三种："></a>另外补充，MySQL中的注释有三种：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 一般用于单行注释（注意 -- 后面要有空格！）</span><br><span class="line">/*Information ，一般用于多行注释 */ </span><br><span class="line">#Information</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/2018_06CET6_3_Translation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/10/2018_06CET6_3_Translation/" class="post-title-link" itemprop="url">2018_06CET6_3_Translation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-10 08:53:37" itemprop="dateCreated datePublished" datetime="2019-05-10T08:53:37+08:00">2019-05-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Translation-30-minutes"><a href="#Translation-30-minutes" class="headerlink" title="Translation (30 minutes)"></a>Translation (30 minutes)</h4><p>自行车曾经是中国城乡最主要的交通工具，中国一度被称为“自行车王国”。如今，随着城市交通拥堵和空气污染日益严重，骑自行车又开始流行起来。近来，中国企业家将移动互联网 技术与传统自行车结合在一起，发明了一种称为共享单车（shared bikes）的商业模式。共享单车的出现使骑车出行更加方便，人们仅需一部手机就可以随时使用共享单车。为了鼓励人们骑车出行，很多城市修建了自行车道。现在，越来越多的中国人也喜欢通过骑车健身。</p>
+<p>Bicycles used to be <font color="red"> the leading means of transportation</font> in  <font color="#00ffff">  China’s cities and villages </font>, and China was <font color="Brown">once called</font> <font color="#FF8C00">“the Kingdom of Bicycles”</font>. Nowadays, with <font color="#8FBC8F">traffic congestion and air pollution</font> becoming more and more serious in cities, riding a bicycle is becoming popular again. Recently, China’s <font color="#ADFF2F">entrepreneurs</font> have <font color="#FF1493">combined mobile Internet technologies with bicycles</font>combined mobile Internet technologies with bicycles and invented the <font color="#FFD700">business model of bike-sharing</font>business model of bike-sharing. <font color="#008000">The appearance of shared bikes</font> has made it more convenient for people to <font color="#000080">get around</font>, and people can ride bikes at any time only with the help of a mobile phone. To encourage people to travel by bike, many cities have built <font color="#87CEEB">bike lanes</font>. Now, more and more Chinese people like exercising by riding bikes.</p>
+<h5 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h5><p>今天的笔记可能过于鲜艳，是因为我顺便熟悉了一下Markdown修改字体颜色、大小、格式的语法:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;font 更改语法&gt;文字内容&lt;/font&gt;</span><br><span class="line">更改语法包括：</span><br><span class="line">color=#0099ff   更改字体颜色</span><br><span class="line">face="黑体"   更改字体</span><br><span class="line">size= 7     更改字体大小</span><br><span class="line"></span><br><span class="line">&lt;font face="微软雅黑"&gt;我是微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face="STCAIYUN"&gt;我是华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=6 face="黑体"&gt;color=#0099ff size=72 face="黑体"&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<font face="微软雅黑">我是微软雅黑</font><br><font face="STCAIYUN">我是华文彩云</font><br><font color="#0099ff" size="6" face="黑体">color=#0099ff size=6 face=”黑体”</font>
+
+<p><strong>以下是今天的英语内容</strong></p>
+<p>经过我再次阅读范文，我觉得文中都是正常水平，没有需要特意学习的，背就是了 哈哈哈哈</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/数据库大作业笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/09/数据库大作业笔记（三）/" class="post-title-link" itemprop="url">数据库大作业笔记（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-09 11:24:04 / 修改时间：15:18:04" itemprop="dateCreated datePublished" datetime="2019-05-09T11:24:04+08:00">2019-05-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="数据库插入异常"><a href="#数据库插入异常" class="headerlink" title="数据库插入异常"></a>数据库插入异常</h5><p>mySql报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Column count doesn&apos;t match value count at row 1</span><br></pre></td></tr></table></figure>
+<p>网上给出的原因一致是：数据的个数、类型不符，或者就是中英文符号混用了。折腾了很久，终于发现是触发器导致了异常！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TRIGGER add_audit AFTER INSERT ON equipment</span><br><span class="line"> FOR EACH ROW BEGIN</span><br><span class="line">insert into audit_equipment VALUES(new.eqpid,user(),now(),1);</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<p>怎么回事呢——改了audit_equipment表的属性，但忘了改equipment中的触发器，实际上是插入audit_equipment表时失败了，但是报错时就会显示equipment的插入失败。</p>
+<h4 id="在MySQL中CHECK约束是无效的"><a href="#在MySQL中CHECK约束是无效的" class="headerlink" title="在MySQL中CHECK约束是无效的"></a>在MySQL中CHECK约束是无效的</h4><p>可以把对日期的约束写在yii中，也可以用触发器代替；</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/数据库大作业笔记（二）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -704,239 +908,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/SQL中的join操作/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/02/SQL中的join操作/" class="post-title-link" itemprop="url">join、check-engine、存储过程、变量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-02 11:38:38 / 修改时间：22:17:32" itemprop="dateCreated datePublished" datetime="2019-05-02T11:38:38+08:00">2019-05-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://www.cnblogs.com/logon/p/3748020.html" target="_blank" rel="noopener">https://www.cnblogs.com/logon/p/3748020.html</a></p>
-<p>A inner join B on …产生A和B的交集</p>
-<p>A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null</p>
-<p>A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null</p>
-<p>mysql的常用engine是InnoDB，在该引擎下使用check约束是无效的。但是可以通过使用触发器来做到检查约束的效果，通过使用触发器使mysql具有检查约束的功能。</p>
-<p>存储过程十一组SQL语句集，可以实现复杂的逻辑功能。触发器也是一组SQL集，但存储过程是主动调用的，且功能更强大，触发器石某事件触发后自动调用。</p>
-<p>有输入输出参数，可以声明变量，有if/else, case,while等控制语句，通过编写存储过程，可以实现复杂的逻辑功能；函数的普遍特性：模块化，封装，代码复用；速度快，只有首次执行需经过编译和优化步骤，后续被调用可以直接执行，省去以上步骤；</p>
-<p>mysql存储过程中的if语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN </span><br><span class="line">   statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
-<p>如果上述表达式(<code>expression</code>)计算结果为<code>TRUE</code>，那么将执行<code>statements</code>语句，否则控制流将传递到<code>END IF</code>之后的下一个语句.</p>
-<p><code>IF ELSE</code>语句的语法结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
-<p>如果要基于多个表达式有条件地执行语句，则使用<code>IF ELSEIF ELSE</code>语句，它的语法结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSEIF elseif-expression THEN</span><br><span class="line">   elseif-statements;</span><br><span class="line">...</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
-<p>mysql declare和set定义变量，除了一个不加@和一个加@这个区别之外，还有以下区别：</p>
-<p>declare用来定义局部变量</p>
-<p>@用来定义会话变量</p>
-<p>declare变量的作用范围同编程里面类似，在这里一般是在对应的begin和end之间。在end之后这个变量就没有作用了，不能使用了。这个同编程一样。</p>
-<p>另外有种变量叫做会话变量(session variable)，也叫做用户定义的变量(user defined variable)。这种变量要在变量名称前面加上“@”符号，叫做会话变量，代表整个会话过程他都是有作用的，这个有点类似于全局变量一样。这种变量用途比较广，因为只要在一个会话内(就是某个应用的一个连接过程中)，这个变量可以在被调用的存储过程或者代码之间共享数据。</p>
-<p><strong>sql server中变量要先申明后赋值：</strong></p>
-<p>局部变量用一个@标识，全局变量用两个@（常用的全局变量一般都是已经定义好的）；</p>
-<p>申明局部变量语法：declare @变量名 数据类型；例如：declare @num int；</p>
-<p>赋值：有两种方法式（@num为变量名，value为值）</p>
-<p>set @num=value;   或   select @num=value;</p>
-<p>如果想获取查询语句中的一个字段值可以用select给变量赋值,如下：</p>
-<p>select @num=字段名 from 表名 where ……</p>
-<p><strong>mysql中变量不用事前申明，在用的时候直接用“@变量名”使用就可以了。</strong></p>
-<p>第一种用法：set @num=1; 或set @num:=1; //这里要使用变量来保存数据，直接使用@num变量</p>
-<p>第二种用法：select @num:=1; 或 select @num:=字段名 from 表名 where ……</p>
-<p>注意上面两种赋值符号，使用set时可以用“=”或“：=”，但是<strong>使用select时必须用“：=赋值”</strong></p>
-<p>MySQL触发器不能执行SELECT返回结果</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/Machine-Learning-Note6/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/25/Machine-Learning-Note6/" class="post-title-link" itemprop="url">Machine-Learning-Note6</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-04-25 00:00:00 / 修改时间：21:23:16" itemprop="dateCreated datePublished" datetime="2019-04-25T00:00:00+08:00">2019-04-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h4><p>线性回归、逻辑回归（分类）：</p>
-<p>欠拟合—有高偏差</p>
-<p>过度拟合—具有高方差，变量太多，过度拟合数据而无法泛华</p>
-<p>解决过拟合方法：</p>
-<p>人工减少变量数量，或使用模型选择算法（自动），缺点：舍弃了一部分信息</p>
-<p>选择正则化，减少量级，保留所有特征变量</p>
-<p>####正则化</p>
-<p>加入惩罚，扩大参数值的影响，参数会尽可能小，使模型简化。</p>
-<p>$J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+1000\theta_3^2+1000\theta_4^2$</p>
-<p>在实际问题中很难判断哪些特征比较重要, 所以在正则化中，对每一个参数(除了第一个)参数进行惩罚, 将代价函数改为:</p>
-<p>$J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+\lambda\sum_{i=1}^n\theta_j^2\right]$</p>
-<p>$\lambda$叫做正则化参数(Regularization Parameter).$\lambda$的作用就是在”更好地拟合数据”和”防止过拟合”之间权衡。惩罚程度过大，会导致欠拟合。</p>
-<h5 id="正则化线性回归"><a href="#正则化线性回归" class="headerlink" title="正则化线性回归"></a>正则化线性回归</h5><p>梯度下降<img src="//yoursite.com/2019/04/25/Machine-Learning-Note6/blog\source\_posts\正则化.PNG" alt=""></p>
-<p>$\theta=(X^TX+\lambda\begin{bmatrix} 0&amp;0&amp;0&amp;0&amp;…&amp;0\ 0&amp;1&amp;0&amp;0&amp;…&amp;0\ 0&amp;0&amp;1&amp;0&amp;…&amp;0\ 0&amp;0&amp;0&amp;1&amp;…&amp;0\ 0&amp;0&amp;0&amp;0&amp;…&amp;0 \ 0&amp;0&amp;0&amp;0&amp;…&amp;1 \end{bmatrix})^{-1}X^Ty$</p>
-<p>对于正则化后的正规方程, 只要λ&gt;0λ&gt;0, 括号里的那一项总是可逆的。</p>
-<p>改进梯度算法和高级算法，以应用到正则化逻辑回归中。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/数据库中where和having的区别/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/24/数据库中where和having的区别/" class="post-title-link" itemprop="url">数据库中where和having的区别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-24 10:29:43" itemprop="dateCreated datePublished" datetime="2019-04-24T10:29:43+08:00">2019-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-31 09:21:00" itemprop="dateModified" datetime="2019-05-31T09:21:00+08:00">2019-05-31</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>where是一个约束声明，在查询结果返回之前起作用，where后面不能使用“聚合函数”，因为where的执行顺序在聚合函数之前；</p>
-<p>having是一个过滤声明，分组筛选，在查询结果返回之后起作用，不能对没有查出来的值使用having，having后面可以使用“聚合函数”。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1003,7 +978,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

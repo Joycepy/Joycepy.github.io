@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ByteDancer后端开发 - 视频二面  c++多态、虚函数多态底层实现：动态绑定，运行时才把方法调用与方法实现关联起来。  编译时多态：方法重载，有多个同名的方法，在编译时根据参数确定调用哪个方法。 运行时多态：方法重写，子类重写父类的方法，当父类引用指向子类对象时，只有在运行时才能确定调用哪个方法。">
+<meta name="keywords" content="interview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interview-note-2">
+<meta property="og:url" content="http://yoursite.com/2020/07/06/bytedancer-interview-note-2/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="ByteDancer后端开发 - 视频二面  c++多态、虚函数多态底层实现：动态绑定，运行时才把方法调用与方法实现关联起来。  编译时多态：方法重载，有多个同名的方法，在编译时根据参数确定调用哪个方法。 运行时多态：方法重写，子类重写父类的方法，当父类引用指向子类对象时，只有在运行时才能确定调用哪个方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20171030140338428?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanp5aHl3eHo=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-my.csdn.net/uploads/201207/18/1342619750_6710.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707170401286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-07-07T09:27:04.394Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="interview-note-2">
+<meta name="twitter:description" content="ByteDancer后端开发 - 视频二面  c++多态、虚函数多态底层实现：动态绑定，运行时才把方法调用与方法实现关联起来。  编译时多态：方法重载，有多个同名的方法，在编译时根据参数确定调用哪个方法。 运行时多态：方法重写，子类重写父类的方法，当父类引用指向子类对象时，只有在运行时才能确定调用哪个方法。">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20171030140338428?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanp5aHl3eHo=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/06/bytedancer-interview-note-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>interview-note-2 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/bytedancer-interview-note-2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          interview-note-2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-06 20:02:34" itemprop="dateCreated datePublished" datetime="2020-07-06T20:02:34+08:00">2020-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-07 17:27:04" itemprop="dateModified" datetime="2020-07-07T17:27:04+08:00">2020-07-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ByteDancer"><a href="#ByteDancer" class="headerlink" title="ByteDancer"></a>ByteDancer</h2><font color="grey">后端开发 - 视频二面</font>
+
+<h3 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h3><h4 id="多态、虚函数"><a href="#多态、虚函数" class="headerlink" title="多态、虚函数"></a>多态、虚函数</h4><p>多态底层实现：动态绑定，运行时才把方法调用与方法实现关联起来。</p>
+<ul>
+<li>编译时多态：方法重载，有多个同名的方法，在编译时根据参数确定调用哪个方法。</li>
+<li>运行时多态：方法重写，子类重写父类的方法，当父类引用指向子类对象时，只有在运行时才能确定调用哪个方法。</li>
+</ul>
+<a id="more"></a>
+<p>虚函数表存放在哪里？全局数据区。虚函数表类似一个数组，类对象存储了指向虚函数表的指针。虚函数表vtable在Linux/Unix中存放在可执行文件的只读数据段中(rodata)，微软的编译器将虚函数表存放在常量段。</p>
+<p>构造函数可以是虚函数吗？构造函数不能声明为虚函数，析构函数可以声明为虚函数，而且有时是必须声明为虚函数（一面中有案例）。构造函数不能声明为虚函数的原因：</p>
+<p>A virtual call is a mechanism to get work done given partial information. In particular, “virtual” allows us to call a function knowing only an interfaces and not the exact type of the object. To create an object you need complete information. In particular, you need to know the exact type of what you want tocreate. Consequently, a “call to a constructor” cannot be virtual. 虚函数的作用在于通过子类的指针或引用来调用父类的那个成员函数。而构造函数是在创建对象时自己主动调用的，不可能通过子类的指针或者引用去调用。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><h5 id="建立索引的原则"><a href="#建立索引的原则" class="headerlink" title="建立索引的原则"></a>建立索引的原则</h5><ul>
+<li>表的主键外键必须有索引;</li>
+<li>数据量过多的表应该有索引;</li>
+<li>经常与其他表进行连接的表，在连接字段上应该建立索引;</li>
+<li>经常出现在Where子句中的字段，特别是大表的字段，应该建立索引;</li>
+<li>索引应该建在选择性高的字段上; 为经常需要排序、分组和联合操作的字段建立索引；</li>
+<li>索引应该建在小字段上，对于大的文本字段甚至超长字段，不要建索引;</li>
+<li>复合索引的建立需要进行仔细分析;尽量考虑用单字段索引代替：</li>
+<li>频繁进行数据操作的表，不要建立太多的索引;</li>
+<li>删除无用的索引，避免对执行计划造成负面影响;</li>
+</ul>
+<h5 id="对性别建立索引"><a href="#对性别建立索引" class="headerlink" title="对性别建立索引"></a>对性别建立索引</h5><p>理论上，重复率高的字段不适合建索引。</p>
+<p>但是，如果把性别字段设为表的聚集索引，那么就肯定能加快大约一半该字段的查询速度了。聚集索引指的是表本身中数据按哪个字段的值来进行排序。因此，聚集索引只能有一个，而且使用聚集索引不会付出额外IO开销。</p>
+<p>链接：<a href="https://www.jianshu.com/p/4305bedeb5c9" target="_blank" rel="noopener">https://www.jianshu.com/p/4305bedeb5c9</a></p>
+<h5 id="对身份证号建立索引"><a href="#对身份证号建立索引" class="headerlink" title="对身份证号建立索引"></a>对身份证号建立索引</h5><p>身份证长度太长，不适合做索引。</p>
+<p>对于长度较长的字符串建立索引：</p>
+<ul>
+<li>前缀索引</li>
+<li>倒序存储</li>
+<li>哈希存储</li>
+<li>字段拆分</li>
+</ul>
+<p>如果维护系统是一个市政系统，前6位区分度不高，浪费空间。身份证后六位区分度高，将身份证<strong>倒序存储</strong>，然后索引为id_card(6)：select <em> from user where id_card = reverse(‘输入的正序身份证号码’)；倒序存储只适用等值查询。新增一个字段存储身份证号码的<strong>哈希值</strong>，加上索引，存入身份证时候，对身份证进行crc3()计算，得到的值存入id_card_crc,索引长度为4，因为hash可能会发生碰撞，所以查询时候加上身份证作为筛选条件：select </em> from user where id_card_crc = crc32(“输入的身份证号码”) and id_card = ‘输入身份证号’；哈希存储只适用等值查询。<strong>拆分存储</strong>，将区分度高的，比如后六位单独存储。</p>
+<h4 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h4><p><strong>乐观锁</strong>：总是假设最好的情况，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据。<strong>乐观锁适用于多读的应用类型，这样可以提高吞吐量</strong>，像数据库提供的类似于<strong>write_condition机制</strong>，其实都是提供的乐观锁。</p>
+<p><u>常见实现方式</u>：</p>
+<ol>
+<li><p>版本号机制：一般是在数据表中加上一个数据版本号version字段，表示数据被修改的次数，当数据被修改时，version值会加一。当线程A要更新数据值时，在读取数据的同时也会读取version值，在提交更新时，若刚才读取到的version值为当前数据库中的version值相等时才更新，否则重试更新操作，直到更新成功。</p>
+</li>
+<li><p>CAS算法：即compare and swap（比较与交换），是一种有名的无锁算法。无锁编程，即不使用锁的情况下实现多线程之间的变量同步，也就是在没有线程被阻塞的情况下实现变量的同步，所以也叫非阻塞同步（Non-blocking Synchronization）。CAS算法涉及到三个操作数：需要读写的内存值 V、进行比较的值 A、拟写入的新值 B</p>
+<p>当且仅当 V 的值等于 A时，CAS通过原子方式用新值B来更新V的值，否则不会执行任何操作（比较和替换是一个原子操作）。一般情况下是一个自旋操作，即不断的重试。</p>
+</li>
+</ol>
+<p><strong>悲观锁</strong>：总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。</p>
+<p><strong>版本号机制</strong>（如果有两个线程同时改变了版本号？）</p>
+<p>乐观锁本身是不加锁的，只是在更新时判断一下数据是否被其他线程更新了；所以如果没有线程安全方面的</p>
+<p>保护会出现ABA问题（如果另一个线程修改V值假设原来是A，先修改成B，再修改回成A。当前线程的CAS操作无法分辨当前V值是否发生过变化。）导致乐观锁失效，可行方法是在线程安全上进行保护处理。</p>
+<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><p><u>如果有10M数据， 允许丢包，应该使用哪种方法？</u></p>
+<p><u>send/sendto/recv/recvfrom</u></p>
+<blockquote>
+<p>一般情况下：<br>send(),recv()用于TCP，sendto()及recvfrom（）用于UDP,但send(),recv()也可以用于UDP，sendto()及recvfrom()也可以用于TCP</p>
+</blockquote>
+<p>TCP中一端用send函数向另一端发送消息，recv用于接收；</p>
+<p><strong>sendto和recvfrom一般用于UDP协议中,但是如果在TCP中connect函数调用后也可以用.</strong></p>
+<p>理论上UDP报文最大长度是65507字节，虽然在实际应用中sendto确实会切片分包，但是考虑到理论问题那就还是用TCP的send吧，毕竟TCP面向字节流对包的大小没有限制</p>
+<p><u>面向报文和面向流</u></p>
+<p>面向报文的传输方式是应用层交给UDP多长的报文，UDP就照样发送，即一次发送一个报文。因此，应用程序必须选择合适大小的报文。若报文太长，则IP层需要分片，降低效率。若太短，会是IP太小。UDP对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。这也就是说，应用层交给UDP多长的报文，UDP就照样发送，即一次发送一个报文。</p>
+<p>面向字节流的话，虽然应用程序和TCP的交互是一次一个数据块（大小不等），但TCP把应用程序看成是一连串的无结构的字节流。TCP有一个缓冲，当应用程序传送的数据块太长，TCP就可以把它划分短一些再传送。如果应用程序一次只发送一个字节，TCP也可以等待积累有足够多的字节后再构成报文段发送出去。</p>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><p>Windows可以删除正在使用的文件吗？</p>
+<p>可以，<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;ved=2ahUKEwiS8P_F1rrqAhWKP3AKHb3aDlAQFjAAegQIBxAB&amp;url=https%3A%2F%2Fwww.diyihuifu.com%2Fdelete-file-in-use.html&amp;usg=AOvVaw3tyTcD-oX33pS-Bzgj4Ka2" target="_blank" rel="noopener">强制删除方法</a></p>
+<p>如果要实现文件系统，可以删除正在使用的文件，如何实现？</p>
+<p>无法被删除是因为有其他进程正在占用这部分资源，在内存中的表现应为不可写，所以重点在这里进行改进</p>
+<h3 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h3><p>给一个未排序的整数数组，找第一个缺失的正数，要求时间复杂度O(n)，空间复杂度O(1)。</p>
+<p>将数组视为哈希表，哈希函数的规则：将数值 i 映射到下标 i-1。</p>
+<p>在对于下标为i的位置进行映射时，不断交换直到nums[i] == i+1，或者，遇到负数、遇到大于size的数、当前数值应放的位置上已经是正确的数值。</p>
+<p>最后遍历一遍数组，第一个遇到的值不等于下标+1的那个数，就是缺失的第一个正数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">firstMissingPositive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size=nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(nums[i]!=i+<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="keyword">if</span>(nums[i]&lt;=<span class="number">0</span> || nums[i]&gt;=size+<span class="number">1</span> || nums[i]==nums[nums[i]<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">int</span> tmp=nums[i];</span><br><span class="line">                nums[i]=nums[tmp<span class="number">-1</span>];</span><br><span class="line">                nums[tmp<span class="number">-1</span>]=tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]!=i+<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>难顶。</p>
+<p>这次，可能，真的，有点，凉。</p>
+<p>另外，ios一面问到的的两个算法题：</p>
+<ul>
+<li>上楼梯——动态规划求解</li>
+<li>多个闭区间求并集——先排序，然后左右端点依次比较</li>
+</ul>
+<h2 id="Tencent"><a href="#Tencent" class="headerlink" title="Tencent"></a>Tencent</h2><font color="grey">后端开发 - 电话一面</font>
+
+<h3 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h3><p><img src="https://img-blog.csdn.net/20171030140338428?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanp5aHl3eHo=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<h4 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h4><p>词法分析使用状态转换图来识别单词符号。</p>
+<p>对于输入的字符串，按照构词规则将其分解为一系列单词符号，包括关键字、标识符、运算符、常量等。输出单词符号常常表示成： (单词种别，单词符号的属性值)。</p>
+<p><img src="https://img-my.csdn.net/uploads/201207/18/1342619750_6710.png" alt=""></p>
+<p>用lex做词法分析，mylexer.l 文件被%%分成三个区域：declarations section、rules section、programs section</p>
+<p>冲突解决规则：<br>1） 总是选择最长的前缀<br>2） 如果最长的可能前缀与多个模式匹配，总是选择Lex中先被列出的模式。</p>
+<h4 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h4><p>语法分析器从词法分析器获得一个词素序列，并验证这个序列是否可以由源语言的文法生成。语法分析器会构造一棵语法分析树，并把它传递给编译器的其他部分进一步处理，在构建语法分析树的过程中，就验证了这个词素序列是否符合源语言的文法。</p>
+<p>上下文无关文法（context-free grammar, CFG），四元组（N, T, P, S）</p>
+<p>分析方法：</p>
+<ul>
+<li><a href="https://www.nosuchfield.com/2017/07/30/Talk-about-compilation-principles-2/#1-__u81EA_u9876_u5411_u4E0B_u5206_u6790_u7B97_u6CD5" target="_blank" rel="noopener">自顶向下分析算法</a></li>
+<li><a href="https://www.nosuchfield.com/2017/07/30/Talk-about-compilation-principles-2/#2-__u9012_u5F52_u4E0B_u964D_u5206_u6790_u7B97_u6CD5" target="_blank" rel="noopener">递归下降分析算法</a></li>
+<li><a href="https://www.nosuchfield.com/2017/07/30/Talk-about-compilation-principles-2/#3-_LL_281_29_u5206_u6790_u7B97_u6CD5" target="_blank" rel="noopener">LL(1)分析算法</a></li>
+<li><a href="https://www.nosuchfield.com/2017/07/30/Talk-about-compilation-principles-2/#4-__u81EA_u5E95_u5411_u4E0A_u5206_u6790_u7B97_u6CD5" target="_blank" rel="noopener">自底向上分析算法</a></li>
+</ul>
+<h3 id="c-1"><a href="#c-1" class="headerlink" title="c++"></a>c++</h3><h4 id="类的大小"><a href="#类的大小" class="headerlink" title="类的大小"></a>类的大小</h4><ul>
+<li>空类A，sizeof(A)=1，默认空类有一个占位符。</li>
+<li>类A中只有静态成员变量，sizeof(A)=1，因为静态成员变量在全局存储区，A相当于空类。</li>
+<li>类A中只有一个虚函数，sizeof(A)=4，任何含有虚函数的类都有一个虚函数表指针。</li>
+<li>类A中有一个char变量、一个int变量，sizeof(A)=8，高位对齐。</li>
+<li>空类C虚拟继承类A，sizeof(C)=4，因为空类C含有虚函数表指针。（虚拟继承的提出是为了解决多重继承中的内存空间浪费问题）</li>
+<li>派生类A，sizeof(A)等于A的每个父类大小之和。</li>
+</ul>
+<h4 id="重载-amp-覆盖-amp-隐藏"><a href="#重载-amp-覆盖-amp-隐藏" class="headerlink" title="重载&amp;覆盖&amp;隐藏"></a>重载&amp;覆盖&amp;隐藏</h4><ul>
+<li>重载：不同函数使用相同的函数名，但函数的参数个数或类型不同，调用时根据参数来区别函数。</li>
+<li>覆盖：在派生类中对积累的虚函数重新实现，函数名和参数都一样，函数体不同。</li>
+<li>隐藏：派生类中的函数把积累中同名的函数屏蔽掉了。     这这这……这情况我写过但我不知道他叫隐藏啊……想起了“常驻内存”……</li>
+</ul>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><p>放在函数前、函数后、参数前有什么区别？</p>
+<ul>
+<li>类成员函数，const放在函数体后面时，则不允许对数据成员进行修改。</li>
+<li>const修饰函数参数时，不能修改传进来的值。（常用语参数为指针或引用的情况）。</li>
+<li>const放在函数前，用于修饰返回值（多用于二目操作符重载函数并产生新对象的时候）。</li>
+</ul>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>int a[10]，sizeof(a)/sizeof(int)=10，若a作为函数参数传入，则sizeof(a)/sizeof(int)=1.</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h4><p>list vs vector：</p>
+<ul>
+<li>vector基于数组实现，占用连续的内存空间，支持随机存取，插入和删除操作需要进行内存块拷贝。若进行插入操作，需要内存扩充时，容量会变成原来的1.5倍（vs）或2倍（gcc）。</li>
+<li>list基于双向链表实现，在内存中离散存储，不支持随机访问，插入和删除的效率高。</li>
+</ul>
+<h4 id="hashmap"><a href="#hashmap" class="headerlink" title="hashmap"></a>hashmap</h4><p>哈哈又问hashmap怎么实现了：</p>
+<p>hasnmap是一个链表的数组，对于每个 key-value对元素，根据其key的哈希，该元素被分配到某个桶当中，桶使用链表实现，链表的节点包含了一个key，一个value，以及一个指向下一个节点的指针。当桶的大小大于8时会转化为红黑树存储数据。</p>
+<p><img src="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""></p>
+<ul>
+<li><a href="https://blog.csdn.net/jiange_zh/article/details/81588983" target="_blank" rel="noopener">https://blog.csdn.net/jiange_zh/article/details/81588983</a></li>
+<li><a href="https://blog.csdn.net/daiyuhe/article/details/89424736" target="_blank" rel="noopener">https://blog.csdn.net/daiyuhe/article/details/89424736</a></li>
+</ul>
+<p><a href="https://www.jianshu.com/p/8b372f3a195d" target="_blank" rel="noopener">https://www.jianshu.com/p/8b372f3a195d</a></p>
+<h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>n个节点的平衡二叉树，叶子结点数量，树的高度</p>
+<p>插入流程：<a href="https://blog.csdn.net/qq_34840129/article/details/80728186" target="_blank" rel="noopener">https://blog.csdn.net/qq_34840129/article/details/80728186</a></p>
+<h4 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h4><p>拓扑</p>
+<p>找环</p>
+<p><a href="http://www.hongyanliren.com/2014m07/11402.html" target="_blank" rel="noopener">http://www.hongyanliren.com/2014m07/11402.html</a></p>
+<h3 id="计算机网络-1"><a href="#计算机网络-1" class="headerlink" title="计算机网络"></a>计算机网络</h3><h4 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a>三次握手四次挥手</h4><h5 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h5><p>进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。</p>
+<p>第一次握手：客户端给服务端发一个 SYN 报文，并指明客户端的初始化序列号 ISN(c)。此时客户端处于 SYN_SEND 状态。首部的同步位SYN=1，初始序号seq=x，SYN=1的报文段不能携带数据，但要消耗掉一个序号。</p>
+<p>第二次握手：服务器收到客户端的 SYN 报文之后，会以自己的 SYN 报文作为应答，并且也是指定了自己的初始化序列号 ISN(s)。同时会把客户端的 ISN + 1 作为ACK 的值，表示自己已经收到了客户端的 SYN，此时服务器处于 SYN_RCVD 的状态。在确认报文段中SYN=1，ACK=1，确认号ack=x+1，初始序号seq=y。</p>
+<p>第三次握手：客户端收到 SYN 报文之后，会发送一个 ACK 报文，当然，也是一样把服务器的 ISN + 1 作为 ACK 的值，表示已经收到了服务端的 SYN 报文，此时客户端处于 ESTABLISHED 状态。服务器收到 ACK 报文之后，也处于 ESTABLISHED 状态，此时，双方已建立起了连接。确认报文段ACK=1，确认号ack=y+1，序号seq=x+1（初始为seq=x，第二个报文段所以要+1），ACK报文段可以携带数据，不携带数据则不消耗序号。</p>
+<h5 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h5><p>刚开始双方都处于 ESTABLISHED 状态，假如是客户端先发起关闭请求。四次挥手的过程如下：</p>
+<p>第一次挥手：客户端发送一个 FIN 报文，报文中会指定一个序列号。此时客户端处于 FIN_WAIT1 状态。即发出连接释放报文段（FIN=1，序号seq=u），并停止再发送数据，主动关闭TCP连接，进入<strong>FIN_WAIT1</strong>（终止等待1）状态，等待服务端的确认。</p>
+<p>第二次挥手：服务端收到 FIN 之后，会发送 ACK 报文，且把客户端的序列号值 +1 作为 ACK 报文的序列号值，表明已经收到客户端的报文了，此时服务端处于 <strong>CLOSE_WAIT</strong> 状态。即服务端收到连接释放报文段后即发出确认报文段（ACK=1，确认号ack=u+1，序号seq=v），服务端进入CLOSE_WAIT（关闭等待）状态，此时的TCP处于半关闭状态，客户端到服务端的连接释放。客户端收到服务端的确认后，进入<strong>FIN_WAIT2</strong>（终止等待2）状态，等待服务端发出的连接释放报文段。</p>
+<p>第三次挥手：如果服务端也想断开连接了，和客户端的第一次挥手一样，发给 FIN 报文，且指定一个序列号。此时服务端处于 LAST_ACK 的状态。即服务端没有要向客户端发出的数据，服务端发出连接释放报文段（FIN=1，ACK=1，序号seq=w，确认号ack=u+1），服务端进入LAST_ACK（最后确认）状态，等待客户端的确认。</p>
+<p>第四次挥手：客户端收到 FIN 之后，一样发送一个 ACK 报文作为应答，且把服务端的序列号值 +1 作为自己 ACK 报文的序列号值，此时客户端处于 <strong>TIME_WAIT</strong> 状态。需要过一阵子以确保服务端收到自己的 ACK 报文之后才会进入 CLOSED 状态，服务端收到 ACK 报文之后，就处于关闭连接了，处于 CLOSED 状态。即客户端收到服务端的连接释放报文段后，对此发出确认报文段（ACK=1，seq=u+1，ack=w+1），客户端进入TIME_WAIT（时间等待）状态。此时TCP未释放掉，需要经过时间等待计时器设置的时间2MSL后，客户端才进入CLOSED状态。</p>
+<p>MSL：Maximum Segment Lifetime，报文最大生存时间，Windows : MSL = 2 min，linux(Ubuntu, CentOs) : MSL = 60s，Unix : MSL = 30s。</p>
+<h5 id="CLOSE-WAIT"><a href="#CLOSE-WAIT" class="headerlink" title="CLOSE_WAIT"></a>CLOSE_WAIT</h5><p>进入到close_wait状态后，服务器需要查看自己是否还有数据要发送给对方，如果没有的话就可以关掉socket链接，发送FIN给客户端。在客户端连接关闭之后，程序里没有检测到，或者程序压根就忘记了这个时候需要关闭连接，于是这个资源就一直被程序占着。一般是代码的问题。</p>
+<h4 id="拥塞控制-amp-流量控制"><a href="#拥塞控制-amp-流量控制" class="headerlink" title="拥塞控制&amp;流量控制"></a>拥塞控制&amp;流量控制</h4><p>流量控制是由接收方控制的，发送方始终是被迫调整至与接收方同步。流量控制解决的只是过快的发送方的问题，思路也很简单，得到ACK确认来调整发送速率，对于未收到的包再重传。</p>
+<p>拥塞控制可以针对以下几种典型的情景：</p>
+<ol>
+<li>两组通信共享一个无限缓存的路由器，那么这里的拥塞问题仅仅是由于链路容量，分组到达速率接近链路容量时会出现巨大的<em>排队时延</em>。</li>
+<li>当路由器的缓存有限时，还可能因为发送速率过快导致缓存溢出，这时会增加一个<em>分组重传开销</em>。</li>
+<li>在路由器缓存容量有限的多跳网络中，如果一个分组沿着一条路径被丢弃，那么该路径上其他参与转发该分组的路由的缓存资源也被浪费了，这在一定程度上也引起了拥塞。</li>
+</ol>
+<h4 id="HTTPS工作原理"><a href="#HTTPS工作原理" class="headerlink" title="HTTPS工作原理"></a>HTTPS工作原理</h4><p>HTTPS（Hypertext Transfer Protocol over Secure Socket Layer）以安全为目标的HTTP通道，HTTP的安全版本。HTTPS由两部分组成的：<strong>HTTP+TLS/SSL</strong>，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传输的数据都是加密之后的数据。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200707170401286.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><a href="https://www.cnblogs.com/xrq730/p/5041921.html" target="_blank" rel="noopener">https://www.cnblogs.com/xrq730/p/5041921.html</a></p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>两个单向链表判断是否相交</p>
+<p><strong>双指针法</strong>：链表A： a+c，链表B : b+c， a+c+b = b+c+a</p>
+<p>如果两链表不相交的话，即c = 0，当两个指针都走完 a+b 的路程后，会同时处于两链表的末端，出现这种情况就直接返回nullptr。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!headA||!headB)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        ListNode*p=headA;</span><br><span class="line">        ListNode*q=headB;</span><br><span class="line">        <span class="keyword">while</span>(p!=q)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!p-&gt;next&amp;&amp;!q-&gt;next)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">            p=p-&gt;next?p-&gt;next:headB;</span><br><span class="line">            q=q-&gt;next?q-&gt;next:headA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Anyway，enjoy it.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/interview/" rel="tag"># interview</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/06/索引覆盖/" rel="prev" title="索引覆盖">
+      <i class="fa fa-chevron-left"></i> 索引覆盖
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/08/valid-number/" rel="next" title="valid-number">
+      valid-number <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteDancer"><span class="nav-number">1.</span> <span class="nav-text">ByteDancer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c"><span class="nav-number">1.1.</span> <span class="nav-text">c++</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多态、虚函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">多态、虚函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.2.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#建立索引的原则"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">建立索引的原则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对性别建立索引"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">对性别建立索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对身份证号建立索引"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">对身份证号建立索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁和悲观锁"><span class="nav-number">1.2.1.</span> <span class="nav-text">乐观锁和悲观锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机网络"><span class="nav-number">1.3.</span> <span class="nav-text">计算机网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统"><span class="nav-number">1.4.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程"><span class="nav-number">1.5.</span> <span class="nav-text">编程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tencent"><span class="nav-number">2.</span> <span class="nav-text">Tencent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译原理"><span class="nav-number">2.1.</span> <span class="nav-text">编译原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#词法分析"><span class="nav-number">2.1.1.</span> <span class="nav-text">词法分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法分析"><span class="nav-number">2.1.2.</span> <span class="nav-text">语法分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-1"><span class="nav-number">2.2.</span> <span class="nav-text">c++</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类的大小"><span class="nav-number">2.2.1.</span> <span class="nav-text">类的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重载-amp-覆盖-amp-隐藏"><span class="nav-number">2.2.2.</span> <span class="nav-text">重载&amp;覆盖&amp;隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const"><span class="nav-number">2.2.3.</span> <span class="nav-text">const</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">2.2.4.</span> <span class="nav-text">数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.3.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STL"><span class="nav-number">2.3.1.</span> <span class="nav-text">STL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashmap"><span class="nav-number">2.3.2.</span> <span class="nav-text">hashmap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">2.3.3.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有向图"><span class="nav-number">2.3.4.</span> <span class="nav-text">有向图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机网络-1"><span class="nav-number">2.4.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手四次挥手"><span class="nav-number">2.4.1.</span> <span class="nav-text">三次握手四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#三次握手"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四次挥手"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CLOSE-WAIT"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">CLOSE_WAIT</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拥塞控制-amp-流量控制"><span class="nav-number">2.4.2.</span> <span class="nav-text">拥塞控制&amp;流量控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS工作原理"><span class="nav-number">2.4.3.</span> <span class="nav-text">HTTPS工作原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">2.5.</span> <span class="nav-text">算法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="search-in-rotated-sorted-array题目描述假设按照升序排序的数组在预先未知的某个点上进行了旋转。搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 你可以假设数组中不存在重复的元素。 你的算法时间复杂度必须是 O(log n) 级别。">
+<meta name="keywords" content="interview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bytedancer-interview-note">
+<meta property="og:url" content="http://yoursite.com/2020/07/03/bytedancer-interview-note/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="search-in-rotated-sorted-array题目描述假设按照升序排序的数组在预先未知的某个点上进行了旋转。搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 你可以假设数组中不存在重复的元素。 你的算法时间复杂度必须是 O(log n) 级别。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/5426480/g6a1xnfunp.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11043-39d6838a371b6c83.jpg?imageMogr2/auto-orient/strip|imageView2/2/format/webp">
+<meta property="og:updated_time" content="2020-07-06T13:07:24.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bytedancer-interview-note">
+<meta name="twitter:description" content="search-in-rotated-sorted-array题目描述假设按照升序排序的数组在预先未知的某个点上进行了旋转。搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 你可以假设数组中不存在重复的元素。 你的算法时间复杂度必须是 O(log n) 级别。">
+<meta name="twitter:image" content="https://ask.qcloudimg.com/http-save/5426480/g6a1xnfunp.jpeg?imageView2/2/w/1620">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/03/bytedancer-interview-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>bytedancer-interview-note | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/03/bytedancer-interview-note/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          bytedancer-interview-note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-03 16:25:15" itemprop="dateCreated datePublished" datetime="2020-07-03T16:25:15+08:00">2020-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-06 21:07:24" itemprop="dateModified" datetime="2020-07-06T21:07:24+08:00">2020-07-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="search-in-rotated-sorted-array"><a href="#search-in-rotated-sorted-array" class="headerlink" title="search-in-rotated-sorted-array"></a>search-in-rotated-sorted-array</h4><h5 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h5><p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</p>
+<p><u>你可以假设数组中不存在重复的元素。</u></p>
+<p>你的算法时间复杂度必须是 O(log n) 级别。</p>
+<a id="more"></a>
+<h5 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h5><p>重点在于确定下一次搜索范围在右边还是左边。</p>
+<p>如果nums[mid]&gt;nums[left]，说明左边是有序的；这个时候如果nums[left]&lt;target&lt;nums[mid]，那么在左边继续搜索，否则在右边搜索。</p>
+<p>如果nums[mid]&lt;nums[left]，说明右边是有序的；这个时候如果nums[mid]&lt;target&lt;nums[right]，那么在右边继续搜索，否则在左边搜索。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size=nums.size();</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>,right=size<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> mid;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)</span><br><span class="line">        &#123;</span><br><span class="line">            mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]==target)</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]&lt;nums[left])</span><br><span class="line">            &#123;<span class="comment">//右边有序</span></span><br><span class="line">                <span class="keyword">if</span>(nums[mid]&lt;target&amp;&amp;target&lt;=nums[right])</span><br><span class="line">                &#123;</span><br><span class="line">                    left=mid+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    right=mid<span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;<span class="comment">//左边有序</span></span><br><span class="line">                <span class="keyword">if</span>(nums[left]&lt;=target&amp;&amp;target&lt;nums[mid])</span><br><span class="line">                &#123;</span><br><span class="line">                    right=mid<span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    left=mid+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时：0 ms, 在所有 C++ 提交中击败了100.00%的用户</p>
+<p>内存消耗：6.6 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
+<h4 id="search-in-rotated-sorted-array-ii"><a href="#search-in-rotated-sorted-array-ii" class="headerlink" title="search-in-rotated-sorted-array-ii"></a>search-in-rotated-sorted-array-ii</h4><h5 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h5><p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 <code>true</code>，否则返回 <code>false</code>。</p>
+<ul>
+<li><code>nums</code>  可能包含重复元素。</li>
+<li>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</li>
+</ul>
+<h5 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h5><p>相比于上面多出了nums[mid]==nums[left]这种情况，此时不知道哪半边是有序的，所以只能一位位地移动，left++。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size=nums.size();</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>,right=size<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> mid;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)</span><br><span class="line">        &#123;</span><br><span class="line">            mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]==target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]&lt;nums[left])</span><br><span class="line">            &#123;<span class="comment">//右边有序</span></span><br><span class="line">                <span class="keyword">if</span>(nums[mid]&lt;target&amp;&amp;target&lt;=nums[right])</span><br><span class="line">                &#123;</span><br><span class="line">                    left=mid+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    right=mid<span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid]&gt;nums[left])</span><br><span class="line">            &#123;<span class="comment">//左边有序</span></span><br><span class="line">                <span class="keyword">if</span>(nums[left]&lt;=target&amp;&amp;target&lt;nums[mid])</span><br><span class="line">                &#123;</span><br><span class="line">                    right=mid<span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    left=mid+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时：4 ms, 在所有 C++ 提交中击败了97.26%的用户</p>
+<p>内存消耗：6.7 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
+<h4 id="虚拟内存-共享内存-常驻内存"><a href="#虚拟内存-共享内存-常驻内存" class="headerlink" title="虚拟内存 共享内存 常驻内存"></a>虚拟内存 共享内存 常驻内存</h4><h5 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h5><p>虚拟内存的设计是为了让操作系统对进程地址空间进行管理，这是一个逻辑上的概念。页表将虚拟内存空间映射到物理内存空间，内核为每个进程维护一份相互独立的页表，“页”是映射的基本单位。在程序运行过程中虚拟内存空间中==需要被访问==的部分会被映射到物理内存空间中。</p>
+<p><img src="https://ask.qcloudimg.com/http-save/5426480/g6a1xnfunp.jpeg?imageView2/2/w/1620" alt=""></p>
+<h5 id="驻留内存"><a href="#驻留内存" class="headerlink" title="驻留内存"></a>驻留内存</h5><p>驻留内存是指==被映射==到进程虚拟内存空间的==物理==内存，进程的驻留内存就是他实际上占用的内存。</p>
+<h5 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h5><p>进程运行过程中，会用到操作系统的动态库，例如 libc.so、libld.so等，这些库对于每个进程都是公用的，在内存中只加载一份，这部分成为共享内存，是同一块物理地址，但不是同一块虚拟地址。</p>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>Domain Name System，根据域名查出IP地址。</p>
+<p>本机需要先知道DNS服务器的IP地址。DNS服务器的IP地址，可能是动态的（DHCP机制，每次上网时由网关分配），也有可能是静态的（事先指定）。</p>
+<p>分级查询：主机名.次级域名.顶级域名.根域名，两种查询方式：递归和迭代。</p>
+<p>每一级域名都有自己的NS记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，过程大致如下。（<a href="http://www.ruanyifeng.com/blog/2016/06/dns.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2016/06/dns.html</a>）</p>
+<blockquote>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+</blockquote>
+<h4 id="为什么数据库索引不使用hashmap而是B-树"><a href="#为什么数据库索引不使用hashmap而是B-树" class="headerlink" title="为什么数据库索引不使用hashmap而是B+树"></a>为什么数据库索引不使用hashmap而是B+树</h4><p>（hash的查询效率高于B+树）</p>
+<ul>
+<li>hash表只能匹配是否相等（”=”,”IN”和”&lt;=&gt;”），不能实现范围查找。select * from xxx where id&gt;4</li>
+<li>当数据量很大时，hash冲突的概率会很大</li>
+</ul>
+<p>emm网上说，当需要按照索引排序时，hash值无法辅助排序（B+树可以？？）select * from xx order by score desc;  score为建立索引的字段；hash运算前后不会保持原有的大小关系，所以数据库无法利用索引的数据来避免任何排序运算。</p>
+<p>另外，组合索引可以支持部分索引查询，如(a,b,c)的组合索引，查询中只用到了a和b也可以查询的，如果使用hash表，组合索引会将几个字段合并hash，没办法支持部分索引。</p>
+<h4 id="socket通信"><a href="#socket通信" class="headerlink" title="socket通信"></a>socket通信</h4><p>不同计算机上的进程之间的通信，调用操作系统提供的socket接口。</p>
+<p>socket套接字。socket()、bind()、listen()、connect()、accept()、read()、write()、close()，三次握手、四次挥手。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11043-39d6838a371b6c83.jpg?imageMogr2/auto-orient/strip|imageView2/2/format/webp" alt=""></p>
+<h4 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h4><p>OSI：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层</p>
+<p>应用层：文件传输，电子邮件，文件服务，虚拟终端；HTTP，FTP，SMTP，DNS</p>
+<p>传输层：提供端对端的接口；TCP，UDP</p>
+<p>网络层：为数据包选择路由；IP，ICMP，RIP，OSPF，BGP，IGMP</p>
+<p>数据链路层：传输有地址的帧以及错误检测功能；ARP</p>
+<hr>
+<p>另外，能记起来的、被问到的全部问题：</p>
+<h4 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h4><ul>
+<li>dns</li>
+<li>有哪些网络层协议</li>
+<li>有哪些传输层协议</li>
+<li>tcp udp有啥区别和适用范围</li>
+<li>tcp如何实现拥塞控制</li>
+<li>滑动窗口</li>
+</ul>
+<h4 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h4><ul>
+<li>进程间通信方式，细问了共享内存和两种管道，哦，还有socket，从而牵扯出了 七/五层模型</li>
+<li>共享内存 虚拟内存 常驻内存</li>
+</ul>
+<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><ul>
+<li>索引，用了b+树，为啥索引不用hashmap，hashmap怎么实现的</li>
+<li>redis</li>
+</ul>
+<h4 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h4><ul>
+<li>一个类占空的空间大小计算(32bit/64bit)</li>
+<li>static</li>
+<li>virtual</li>
+<li>const，问的很细</li>
+</ul>
+<font color="grey">难顶哦，我怀疑他们是在以秋招的标准来要求一个想日常实习的孩子</font>
+
+
+
+
+
+
+
+<p>我太菜了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/interview/" rel="tag"># interview</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/01/小兔的棋盘/" rel="prev" title="小兔的棋盘">
+      <i class="fa fa-chevron-left"></i> 小兔的棋盘
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/04/大锤的自动校对程序/" rel="next" title="大锤的自动校对程序">
+      大锤的自动校对程序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#search-in-rotated-sorted-array"><span class="nav-number">1.</span> <span class="nav-text">search-in-rotated-sorted-array</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#题解"><span class="nav-number">1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#search-in-rotated-sorted-array-ii"><span class="nav-number">2.</span> <span class="nav-text">search-in-rotated-sorted-array-ii</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟内存-共享内存-常驻内存"><span class="nav-number">3.</span> <span class="nav-text">虚拟内存 共享内存 常驻内存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存"><span class="nav-number">3.1.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#驻留内存"><span class="nav-number">3.2.</span> <span class="nav-text">驻留内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#共享内存"><span class="nav-number">3.3.</span> <span class="nav-text">共享内存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-number">4.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么数据库索引不使用hashmap而是B-树"><span class="nav-number">5.</span> <span class="nav-text">为什么数据库索引不使用hashmap而是B+树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket通信"><span class="nav-number">6.</span> <span class="nav-text">socket通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络协议"><span class="nav-number">7.</span> <span class="nav-text">网络协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计网"><span class="nav-number">8.</span> <span class="nav-text">计网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作系统"><span class="nav-number">9.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库"><span class="nav-number">10.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c"><span class="nav-number">11.</span> <span class="nav-text">c++</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

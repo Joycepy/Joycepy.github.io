@@ -158,6 +158,232 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/recover-binary-search-tree/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/recover-binary-search-tree/" class="post-title-link" itemprop="url">recover-binary-search-tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-21 19:34:15 / 修改时间：22:13:02" itemprop="dateCreated datePublished" datetime="2020-03-21T19:34:15+08:00">2020-03-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>二叉搜索树中的两个节点被错误地交换。</p>
+<p>请在不改变其结构的情况下，恢复这棵树。</p>
+<p><strong>进阶:</strong></p>
+<ul>
+<li>使用 O(<em>n</em>) 空间复杂度的解法很容易实现。</li>
+<li>你能想出一个只使用常数空间的解决方案吗？</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>中序遍历，结果中如果有一个降序对，说明该两个node需交换；若有两个降序对，说明第一对的前一个node和第二对的后一个node需要交换。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midtravel2</span><span class="params">(TreeNode* root,<span class="built_in">vector</span>&lt;TreeNode*&gt;&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>)<span class="keyword">return</span>;</span><br><span class="line">	midtravel2(root-&gt;left,v);</span><br><span class="line">	<span class="keyword">if</span> (!v.empty())</span><br><span class="line">		<span class="keyword">if</span> (v[v.size()<span class="number">-1</span>]-&gt;val&lt;root-&gt;val)</span><br><span class="line">			v.pop_back();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			v.push_back(root);</span><br><span class="line">	v.push_back(root);</span><br><span class="line">	midtravel2(root-&gt;right,v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recoverTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;TreeNode*&gt; v;</span><br><span class="line">	midtravel2(root,v);</span><br><span class="line">	<span class="keyword">int</span> vs = v.size();</span><br><span class="line">	<span class="keyword">if</span> (v[vs - <span class="number">1</span>]-&gt;val &gt; v[vs - <span class="number">2</span>]-&gt;val) &#123;</span><br><span class="line">		v.pop_back(); vs--;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> t1 = v[<span class="number">0</span>]-&gt;val;</span><br><span class="line">	v[<span class="number">0</span>]-&gt;val = v[vs- <span class="number">1</span>]-&gt;val;</span><br><span class="line">	v[vs - <span class="number">1</span>]-&gt;val = t1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :44 ms, 在所有 C++ 提交中击败了16.36%的用户</p>
+<p>内存消耗 :17.7 MB, 在所有 C++ 提交中击败了63.97%的用户</p>
+<p>这效率也太垃圾了。</p>
+<hr>
+<p>要求O(1)空间，采用 <font color="red">Morris遍历</font>。学吧。</p>
+<p>今天不太想写。复制代码了。<a href="https://www.jianshu.com/p/484f587c967c" target="_blank" rel="noopener">https://www.jianshu.com/p/484f587c967c</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MorrisTraval</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TreeNode root = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MorrisTraval</span><span class="params">(TreeNode r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.root = r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">travel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TreeNode n = <span class="keyword">this</span>.root;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (n != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n.left == <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.print(n.vaule + <span class="string">" "</span>);</span><br><span class="line">                n = n.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                TreeNode pre = getPredecessor(n);</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (pre.right == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    pre.right = n;</span><br><span class="line">                    n = n.left;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (pre.right == n) &#123;</span><br><span class="line">                    pre.right = <span class="keyword">null</span>;</span><br><span class="line">                    System.out.print(n.vaule + <span class="string">" "</span>);</span><br><span class="line">                    n = n.right;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">getPredecessor</span><span class="params">(TreeNode n)</span> </span>&#123;</span><br><span class="line">        TreeNode pre = n;</span><br><span class="line">        <span class="keyword">if</span> (n.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            pre = pre.left;</span><br><span class="line">            <span class="keyword">while</span> (pre.right != <span class="keyword">null</span> &amp;&amp; pre.right != n) &#123;</span><br><span class="line">                pre = pre.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getPredecessor 作用是获得给定节点的前序节点，travel  接口做的就是前面描述的算法步骤，在while循环中，进入一个节点时，先判断节点是否有左孩子，没有的话就把节点值打印出来，有的话，先获得前序节点，然后判断前序节点的右孩子指针是否指向自己，是的话把自己的值打印出来，进入右孩子，前序孩子的右孩子指针是空的话，就把右孩子指针指向自己，然后进入左孩子。</p>
+<p>Morris遍历，由于要把前缀节点的右指针指向自己，所以暂时会改变二叉树的结构，但在从前缀节点返回到自身时，算法会把前缀节点的右指针重新设置为空，所以二叉树在结构改变后，又会更改回来。</p>
+<p>在遍历过程中，每个节点最多会被访问两次，一次是从父节点到当前节点，第二次是从前缀节点的右孩子指针返回当前节点，所以Morris遍历算法的复杂度是O(n)。在遍历过程中，没有申请新内存，因此算法的空间复杂度是O(1).</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/validate-binary-search-tree/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/19/validate-binary-search-tree/" class="post-title-link" itemprop="url">validate-binary-search-tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-19 23:59:41" itemprop="dateCreated datePublished" datetime="2020-03-19T23:59:41+08:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-20 11:52:25" itemprop="dateModified" datetime="2020-03-20T11:52:25+08:00">2020-03-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
+<p>假设一个二叉搜索树具有如下特征：</p>
+<ul>
+<li>节点的左子树只包含<strong>小于</strong>当前节点的数。</li>
+<li>节点的右子树只包含<strong>大于</strong>当前节点的数。</li>
+<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>这不就，递归吗？有快一点的方法吗……</p>
+<p>注意不能相等哦。还要注意左边的最大值小于右边的最小值。</p>
+<p>第一版：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMax</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;right)</span><br><span class="line">		<span class="keyword">return</span> root-&gt;val;</span><br><span class="line">	<span class="keyword">return</span> getMax(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;left)</span><br><span class="line">		<span class="keyword">return</span> root-&gt;val;</span><br><span class="line">	<span class="keyword">return</span> getMax(root-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span> || (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span> ((root-&gt;left&amp;&amp;root-&gt;val&lt;=getMax(root-&gt;left)) || (root-&gt;right&amp;&amp;root-&gt;val&gt;=getMin(root-&gt;right)))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> isValidBST(root-&gt;left) &amp;&amp; isValidBST(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :24 ms, 在所有 C++ 提交中击败了27.46%的用户</p>
+<p>内存消耗 :20.1 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
+<p>做了很多重复的工作，所以时间效率很低。再改改。</p>
+<p>我真是傻逼。中序遍历啊！！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">midtravel</span><span class="params">(TreeNode* root,<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt;&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span> (root-&gt;left)</span><br><span class="line">		<span class="keyword">if</span>(!midtravel(root-&gt;left,s))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (!s.empty() &amp;&amp; s.top() &gt;= root-&gt;val)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	s.push(root-&gt;val);</span><br><span class="line">	<span class="keyword">if</span> (root-&gt;right)</span><br><span class="line">		<span class="keyword">if</span> (!midtravel(root-&gt;right, s))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span> || (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	<span class="keyword">return</span> midtravel(root, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :16 ms, 在所有 C++ 提交中击败了76.37%的用户</p>
+<p>内存消耗 :20.3 MB, 在所有 C++ 提交中击败了97.25%的用户</p>
+<p>再来个下酒菜</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSameTree</span><span class="params">(TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (q == <span class="literal">NULL</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (q == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (p-&gt;val != q-&gt;val)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> isSameTree(p-&gt;left, q-&gt;left) &amp;&amp; isSameTree(p-&gt;right, q-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/interleaving-string/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/19/interleaving-string/" class="post-title-link" itemprop="url">interleaving-string</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-19 20:52:03 / 修改时间：23:59:26" itemprop="dateCreated datePublished" datetime="2020-03-19T20:52:03+08:00">2020-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定三个字符串 <em>s1</em>, <em>s2</em>, <em>s3</em>, 验证 <em>s3</em> 是否是由 <em>s1</em> 和 <em>s2</em> 交错组成的。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>不能简单地认为，从s3里面过滤掉s1，把结果与s2比较久可以。  <font color="red"><strong>×</strong></font></p>
+<p>动态规划！二维数组。s3要么和s1匹配一位，要么和s2匹配一位，在二维数组里体现为：上面或左边的布尔值，结合两个串中特定位置的字符，决定了当前矩阵元素的值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len1 = s1.length();</span><br><span class="line">	<span class="keyword">int</span> len2 = s2.length();</span><br><span class="line">	<span class="keyword">int</span> len3 = s3.length();</span><br><span class="line">	<span class="keyword">if</span> (len1 + len2 != len3)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">bool</span> **dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[len1+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len1; i++)</span><br><span class="line">		dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[len2+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= len2; j++)</span><br><span class="line">			dp[i][j] = <span class="literal">false</span>;</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">if</span> (dp[i - <span class="number">1</span>][<span class="number">0</span>] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>])dp[i][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= len2; j++)</span><br><span class="line">		<span class="keyword">if</span> (dp[<span class="number">0</span>][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[j - <span class="number">1</span>])dp[<span class="number">0</span>][j] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= len2; j++)</span><br><span class="line">			<span class="keyword">if</span> (dp[i - <span class="number">1</span>][j] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">				dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(dp[i][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">				dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> dp[len1][len2];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :0 ms, 在所有 C++ 提交中击败了100.00%的用户</p>
+<p>内存消耗 :8.3 MB, 在所有 C++ 提交中击败了94.76%的用户</p>
+<p>666……现在我信了，遇到字符串题，先想DP。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/python的socket编程笔记/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -781,233 +1007,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/memcpy()address-overlap/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/13/memcpy()address-overlap/" class="post-title-link" itemprop="url">memcpy()地址重叠</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-13 21:56:46" itemprop="dateCreated datePublished" datetime="2020-03-13T21:56:46+08:00">2020-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 11:03:41" itemprop="dateModified" datetime="2020-03-14T11:03:41+08:00">2020-03-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="memcpy-如果源区间和目的区间有重叠时-它的行为会怎么样"><a href="#memcpy-如果源区间和目的区间有重叠时-它的行为会怎么样" class="headerlink" title="memcpy(), 如果源区间和目的区间有重叠时, 它的行为会怎么样?"></a>memcpy(), 如果源区间和目的区间有重叠时, 它的行为会怎么样?</h3><p>首先 man memcpy，看一下相关描述：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200313215316803.png" alt="description"></p>
-<p><img src="https://img-blog.csdnimg.cn/2020031321532313.png" alt="note"></p>
-<p>从网上又找到memcpy的定义：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> *dst, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> n)</span></span>;</span><br><span class="line"><span class="comment">//If copying takes place between objects that overlap, the behavior is undefined.</span></span><br></pre></td></tr></table></figure>
-<p>对于地址重叠的情况，该函数的行为是未定义的。</p>
-<h4 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h4><p><img src="https://img-blog.csdnimg.cn/20200313220917263.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70" alt="test"></p>
-<p>尴尬了……理论上不该是这样的正确结果啊……</p>
-<p>知乎上说结果会是“hhhhhhhhhhhhhh”，还分析了一大波。</p>
-<p><img src="https://pic3.zhimg.com/v2-c5725ef19e0b7cde0c9b4b9bfa0b50e2_r.jpg" alt="fugai"></p>
-<p>其实关键就在于，对于上面两种情况，从高地址还是低地址开始拷贝。</p>
-<p>如果要自己实现这个函数的话，<font color="red"><strong>判断源地址和目的地址的大小，才决定到底是从高地址开始拷贝还是低地址开始拷贝。</strong></font></p>
-<p>看看memcpy()的源码，其实就是这样实现滴。（Linux v5.5.9 <a href="https://elixir.bootlin.com/linux/latest/source/arch/alpha/lib/memcpy.c" target="_blank" rel="noopener">https://elixir.bootlin.com/linux/latest/source/arch/alpha/lib/memcpy.c</a>）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> *dst, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> len)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> * dest, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!(((<span class="keyword">unsigned</span> <span class="keyword">long</span>) dest ^ (<span class="keyword">unsigned</span> <span class="keyword">long</span>) src) &amp; <span class="number">7</span>)) &#123;</span><br><span class="line">		__memcpy_aligned_up ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) dest, (<span class="keyword">unsigned</span> <span class="keyword">long</span>) src,</span><br><span class="line">				     n);</span><br><span class="line">		<span class="keyword">return</span> dest;</span><br><span class="line">	&#125;</span><br><span class="line">	__memcpy_unaligned_up ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) dest, (<span class="keyword">unsigned</span> <span class="keyword">long</span>) src, n);</span><br><span class="line">	<span class="keyword">return</span> dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>光是下面这样的话，会有问题啊。(<a href="git://gcc.gnu.org/git/gcc.git" target="_blank" rel="noopener">git://gcc.gnu.org/git/gcc.git</a>)</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* Public domain. */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="keyword">void</span> *</span><br><span class="line"><span class="built_in">memcpy</span> (<span class="keyword">void</span> *dest, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> len)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">char</span> *d = dest;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *s = src;</span><br><span class="line"><span class="keyword">while</span> (len--)</span><br><span class="line">*d++ = *s++;</span><br><span class="line"><span class="keyword">return</span> dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://android.googlesource.com/?format=HTML" target="_blank" rel="noopener">android</a> / <a href="https://android.googlesource.com/kernel/" target="_blank" rel="noopener">kernel</a> / <a href="https://android.googlesource.com/kernel/lk/" target="_blank" rel="noopener">lk</a> / <a href="https://android.googlesource.com/kernel/lk/+/master" target="_blank" rel="noopener">master</a> / <a href="https://android.googlesource.com/kernel/lk/+/master/" target="_blank" rel="noopener">.</a> / <a href="https://android.googlesource.com/kernel/lk/+/master/lib" target="_blank" rel="noopener">lib</a> / <a href="https://android.googlesource.com/kernel/lk/+/master/lib/libc" target="_blank" rel="noopener">libc</a> / <a href="https://android.googlesource.com/kernel/lk/+/master/lib/libc/string" target="_blank" rel="noopener">string</a> / memcpy.c这里面倒没看见有判断。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/12/restore-ip-addresses/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/12/restore-ip-addresses/" class="post-title-link" itemprop="url">restore-ip-addresses</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-12 22:14:15" itemprop="dateCreated datePublished" datetime="2020-03-12T22:14:15+08:00">2020-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 23:15:39" itemprop="dateModified" datetime="2020-03-14T23:15:39+08:00">2020-03-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><font color="red"><strong>DFS + 剪枝</strong>：</font>每次取一个字符，要么直接拼上去，要么加个小数点再拼上去，然后剔除掉不符合条件的分支。</p>
-<p>看评论区似乎要重点考虑“0”的情况。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> start, <span class="keyword">int</span> end,<span class="keyword">int</span> count,<span class="built_in">string</span> des)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//位数错误</span></span><br><span class="line">	<span class="keyword">if</span> (count&gt;end - start || <span class="number">3</span> * count &lt; end- start)<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">string</span> k = des.substr(<span class="number">1</span>,des.length()<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">int</span> i = start;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; end)</span><br><span class="line">		&#123;</span><br><span class="line">			k = k + s[i];</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		res.push_back(k); </span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	dfs(s, start + <span class="number">1</span>, end, count - <span class="number">1</span>,des+ <span class="string">'.'</span> + s[start]);</span><br><span class="line">	<span class="keyword">if</span> (s[start] != <span class="string">'0'</span>)</span><br><span class="line">		dfs(s, start + <span class="number">2</span>, end, count - <span class="number">1</span>,  des + <span class="string">'.'</span> + s[start] + s[start + <span class="number">1</span>] );</span><br><span class="line">	<span class="keyword">if</span>(s[start] != <span class="string">'0'</span>&amp;&amp;end-start&gt;=<span class="number">3</span>&amp;&amp;(s[start]-<span class="string">'0'</span>)*<span class="number">100</span>+(s[start+<span class="number">1</span>]-<span class="string">'0'</span>)*<span class="number">10</span>+(s[start+<span class="number">2</span>]-<span class="string">'0'</span>)&lt;<span class="number">256</span>)<span class="comment">//三位数的值不大于255</span></span><br><span class="line">		dfs(s, start + <span class="number">3</span>, end, count - <span class="number">1</span>, des + <span class="string">'.'</span> + s[start]+ s[start + <span class="number">1</span>] + s[start + <span class="number">2</span>] );</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; restoreIpAddresses(<span class="built_in">string</span> s) &#123;</span><br><span class="line">	dfs(s, <span class="number">0</span>, s.length(), <span class="number">4</span>,<span class="string">""</span>);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>666，我自己都没想到这么快。</p>
-<p>执行用时 :0 ms, 在所有 C++ 提交中击败了100.00%的用户</p>
-<p>内存消耗 :8.4 MB, 在所有 C++ 提交中击败了89.69%的用户</p>
-<p>字符串与数值的转化，已经有现成的函数，<code>sscanf</code>和<code>sprintf</code>要学会用了。</p>
-<p>函数形参声明为引用，能提高效率。</p>
-<p>回溯算法事实上就是在一个树形问题上做深度优先遍历。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/11/reverse-linked-list-ii/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/11/reverse-linked-list-ii/" class="post-title-link" itemprop="url">reverse-linked-list-ii</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-11 18:47:05" itemprop="dateCreated datePublished" datetime="2020-03-11T18:47:05+08:00">2020-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-12 22:09:32" itemprop="dateModified" datetime="2020-03-12T22:09:32+08:00">2020-03-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>反转从位置 <em>m</em> 到 <em>n</em> 的链表。请使用一趟扫描完成反转。1 ≤ <em>m</em> ≤ <em>n</em> ≤ 链表长度。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">reverseBetween</span><span class="params">(ListNode* head, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == n)<span class="keyword">return</span> head;</span><br><span class="line">	ListNode* prehead = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">	prehead-&gt;next = head;</span><br><span class="line">	<span class="keyword">int</span> i = m;</span><br><span class="line">	ListNode* front = prehead;</span><br><span class="line">	<span class="keyword">while</span> (i)</span><br><span class="line">	&#123;</span><br><span class="line">		front = front-&gt;next;</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	ListNode* back;</span><br><span class="line">	back = front;</span><br><span class="line">	<span class="keyword">int</span> k = n - m;</span><br><span class="line">	<span class="keyword">while</span> (k)</span><br><span class="line">	&#123;</span><br><span class="line">		s.push(back-&gt;val);</span><br><span class="line">		back = back-&gt;next;</span><br><span class="line">		k--;</span><br><span class="line">	&#125;</span><br><span class="line">	s.push(back-&gt;val);</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		front-&gt;val = s.top();</span><br><span class="line">		s.pop();</span><br><span class="line">		front = front-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> prehead-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看到官方题解里还有一些其他思路：</p>
-<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>对于反转字符串，可以创建两个指针，一个开头，一个结尾。不断地交换这两个指针指向的元素，并将两个指针向中间移动。但是对于反转链表，链表中没有向后指针，也没有下标。因此，我们需要使用递归来 <strong>模拟</strong> 向后指针。递归中的回溯可以帮助我们模拟一个指针从第n个结点向中心移动的移动过程。</p>
-<h5 id="反转指针"><a href="#反转指针" class="headerlink" title="反转指针"></a>反转指针</h5>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1074,7 +1077,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

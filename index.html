@@ -223,6 +223,126 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/22/BT-interview-note-i/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/22/BT-interview-note-i/" class="post-title-link" itemprop="url">BT-interview-note-i</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-22 23:12:00" itemprop="dateCreated datePublished" datetime="2020-11-22T23:12:00+08:00">2020-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-23 00:08:05" itemprop="dateModified" datetime="2020-11-23T00:08:05+08:00">2020-11-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="字节跳动飞书后端一面"><a href="#字节跳动飞书后端一面" class="headerlink" title="字节跳动飞书后端一面"></a>字节跳动飞书后端一面</h4><p>上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识：</p>
+<h5 id="Java的反射机制"><a href="#Java的反射机制" class="headerlink" title="Java的反射机制"></a>Java的反射机制</h5><p>Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，</p>
+<ul>
+<li>判断任意一个对象所属类。</li>
+<li>构造任意一个对象。</li>
+<li>判断任意一个类所具备的成员变量和方法</li>
+<li><p>调用任意一个对象的方法。</p>
+<p>通常而言：程序运行时容许改变程序结构和变量类型称为动态语言。因而可知Java并非动态语言，可是Java的Reflection机制，能够运行时加载、探知、使用编译期间彻底未知classes。因此Reflection是Java视为动态语言的关键性质，容许在程序运行时经过Reflection APIs 取得任何一个已知名称的class的内部信息（包括父类，接口，变量，方法等）。</p>
+</li>
+</ul>
+<p>IOC：Inversion of Control —— 控制反转，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象。</p>
+<p>DI：Dependency Injection —— 依赖注入，在系统运行中，动态的向某个对象提供它所需要的其他对象。</p>
+<p>AOP —— Asepct-Orentid-Programming，面向切面编程，把与核心业务逻辑无关的代码全部抽取出来，放置到某个地方集中管理，然后在具体运行时，再由容器动态织入这些共有代码。</p>
+<h5 id="Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC"><a href="#Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC" class="headerlink" title="Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC"></a>Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC</h5><p>堆内存划分为 Eden、Survivor 和 Tenured/Old 空间。</p>
+<ul>
+<li>从年轻代空间（包括 Eden 和 Survivor 区域）回收内存被称为 Minor GC；</li>
+<li>对老年代GC称为Major GC；</li>
+<li>而Full GC是对整个堆来说的；</li>
+</ul>
+<p>发生Full GC的情况及避免方法：</p>
+<ol>
+<li>直接调用System.gc</li>
+<li>旧生代空间不足。调优时应尽量做到让对象在Minor GC阶段被回收、让对象在新生代多存活一段时间及不要创建过大的对象及数组。</li>
+<li>Permanet Generation空间满。增大Perm Gen空间或转为使用CMS GC。</li>
+<li>CMS GC时出现promotion failed和concurrent mode failure。增大survivorspace、旧生代空间或调低触发并发GC的比率。</li>
+<li>统计得到的Minor GC晋升到旧生代的平均大小大于旧生代的剩余空间</li>
+<li>对于使用RMI来进行RPC或管理的Sun JDK应用而言，默认情况下会一小时执行一次Full GC</li>
+</ol>
+<h5 id="http和https什么区别"><a href="#http和https什么区别" class="headerlink" title="http和https什么区别"></a>http和https什么区别</h5><p><a href="https://blog.csdn.net/xionghuixionghui/article/details/68569282" target="_blank" rel="noopener">https://blog.csdn.net/xionghuixionghui/article/details/68569282</a></p>
+<p>1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p>
+<p>2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p>
+<p>3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p>
+<p>4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p>
+<p>（好像还问了一道网络题，记不清了……）</p>
+<h5 id="什么是跨域问题？如何解决跨域问题？"><a href="#什么是跨域问题？如何解决跨域问题？" class="headerlink" title="什么是跨域问题？如何解决跨域问题？"></a>什么是跨域问题？如何解决跨域问题？</h5><p>由浏览器的同源策略造成。同源是指，域名，协议，端口均相同。</p>
+<p>解决方法：</p>
+<ol>
+<li>JSONP</li>
+<li>代理</li>
+<li>PHP端修改header（XHR2方式）</li>
+</ol>
+<h5 id="算法：二分查找"><a href="#算法：二分查找" class="headerlink" title="算法：二分查找"></a>算法：二分查找</h5><p>是指在有序数组中查找某一特定元素的算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束;如果特定元素大于或者小于中间元素,则在数组大于或小于中间元素的那一半中查找，且跟开始一样从中间元素开始比较。如果在某一步骤数组为空,则代表找不到。这种搜索算法每-次比较都使搜索范围缩小一半。</p>
+<h5 id="索引是什么？索引过多会出现什么问题？"><a href="#索引是什么？索引过多会出现什么问题？" class="headerlink" title="索引是什么？索引过多会出现什么问题？"></a>索引是什么？索引过多会出现什么问题？</h5><p>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。通过使用索引，可以让数据库系统不必扫描整个表，而是直接定位到符合条件的记录，这样就大大加快了查询速度。</p>
+<p>1.一个索引会在update或insert时增加一次I/O, 对于操作系统底层来说是非常损耗性能的。<br>2.索引过多会导致索引文件过大， 系统在寻址时查询时间增长。</p>
+<p>在表上建立的每个索引都会增加存储开销，索引对于插入、删除、更新操作也会增加处理上的开销。另外，过多的复合索引，在有单字段索引的情况下，一般都是没有存在价值的；相反，还会降低数据增加删除时的性能，特别是对频繁更新的表来说，负面影响更大。</p>
+<h5 id="hashmap-数据结构"><a href="#hashmap-数据结构" class="headerlink" title="hashmap 数据结构"></a>hashmap 数据结构</h5><font color="grey">真 每次必问啊</font>
+
+<p>hasnmap是一个链表的数组，对于每个 key-value对元素，根据其key的哈希，该元素被分配到某个桶当中，桶使用链表实现，链表的节点包含了一个key，一个value，以及一个指向下一个节点的指针。当桶的大小大于8时会转化为红黑树存储数据。</p>
+<p><img src="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<ul>
+<li><a href="https://blog.csdn.net/jiange_zh/article/details/81588983" target="_blank" rel="noopener">https://blog.csdn.net/jiange_zh/article/details/81588983</a></li>
+<li><a href="https://blog.csdn.net/daiyuhe/article/details/89424736" target="_blank" rel="noopener">https://blog.csdn.net/daiyuhe/article/details/89424736</a></li>
+</ul>
+<p><a href="https://www.jianshu.com/p/8b372f3a195d" target="_blank" rel="noopener">https://www.jianshu.com/p/8b372f3a195d</a></p>
+<h5 id="你对飞书怎么看？有没有了解过飞书的开放平台？"><a href="#你对飞书怎么看？有没有了解过飞书的开放平台？" class="headerlink" title="你对飞书怎么看？有没有了解过飞书的开放平台？"></a>你对飞书怎么看？有没有了解过飞书的开放平台？</h5><p><del>我不想看</del><a href="https://www.feishu.cn/product/overview" target="_blank" rel="noopener">https://www.feishu.cn/product/overview</a></p>
+<p><del>没有，下次一定</del><a href="https://www.feishu.cn/webinar/feishu-openapi" target="_blank" rel="noopener">https://www.feishu.cn/webinar/feishu-openapi</a></p>
+<font color="grey">居然只面了十五分钟？？就挺突然的。而且用的是飞书视频，没有考编程？？算法题 也挺 意外的……整理之后发现一半的题目回答都有点凉啊</font>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/21/spider-for-hiresearch/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -820,70 +940,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/06/dungeon-game/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/06/dungeon-game/" class="post-title-link" itemprop="url">dungeon-game</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-06 15:47:50" itemprop="dateCreated datePublished" datetime="2020-10-06T15:47:50+08:00">2020-10-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>编写一个函数来计算确保骑士能够拯救到公主所需的最低初始健康点数。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>动态规划</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; dungeon)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//dp[i][j] 表示从 dp[i][j] 到达 目的地 时最少需要的 HP，应该从右下角推到左上角</span></span><br><span class="line">    <span class="comment">//dp[i][j] = max(1， min(dp[i+1][j], dp[i][j+1]) - dungeon[i][j])</span></span><br><span class="line">    <span class="keyword">int</span> row = dungeon.size();</span><br><span class="line">    <span class="keyword">int</span> col = dungeon[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">int</span>** dp = <span class="keyword">new</span> <span class="keyword">int</span>* [row];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        dp[i] = <span class="keyword">new</span> <span class="keyword">int</span>[col];</span><br><span class="line">    &#125;</span><br><span class="line">    dp[row - <span class="number">1</span>][col - <span class="number">1</span>] = max(<span class="number">1</span>, <span class="number">1</span>- dungeon[row - <span class="number">1</span>][col - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = row<span class="number">-2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i][col<span class="number">-1</span>] = max(<span class="number">1</span>, dp[i + <span class="number">1</span>][col<span class="number">-1</span>] - dungeon[i][col<span class="number">-1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = col<span class="number">-2</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">        dp[row<span class="number">-1</span>][j] = max(<span class="number">1</span>, dp[row<span class="number">-1</span>][j + <span class="number">1</span>] - dungeon[row<span class="number">-1</span>][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = row - <span class="number">2</span>; i &gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = col - <span class="number">2</span>; j &gt;=<span class="number">0</span>; j--) &#123;</span><br><span class="line">            dp[i][j]= max(<span class="number">1</span>, min(dp[i + <span class="number">1</span>][j], dp[i][j + <span class="number">1</span>]) - dungeon[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//print the dp</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; dp[i][j] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -950,7 +1010,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

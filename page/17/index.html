@@ -158,6 +158,217 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/语法分析器tips/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/19/语法分析器tips/" class="post-title-link" itemprop="url">语法分析器tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-19 12:29:31" itemprop="dateCreated datePublished" datetime="2019-11-19T12:29:31+08:00">2019-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 21:29:11" itemprop="dateModified" datetime="2019-12-02T21:29:11+08:00">2019-12-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> <strong>关键字struct</strong></p>
+<p>c++ 的struct 声明变量的时候不需要加struct前缀。在C语言中，实例化一个结构体必须要加上关键字struct。为了避免每次用的时候都要加上struct前缀，可以定义的时候加上typedef。</p>
+<p><strong>YACC文件格式</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">... definitions ...（%&#123;&#125;%）</span><br><span class="line">%%</span><br><span class="line">... rules ...</span><br><span class="line">%%</span><br><span class="line">... subroutines ...</span><br></pre></td></tr></table></figure>
+<p>第一部分包括标志（token）定义和C代码（用“%{”和“%}”括起来）。<br>如在定义部分定义标志：<br>%token INTEGER<br>当运行yacc后，会产生头文件，里面包含该标志的预定义，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifndef YYSTYPE </span><br><span class="line">#define YYSTYPE int </span><br><span class="line">#endif </span><br><span class="line">#define INTEGER 258 </span><br><span class="line">extern YYSTYPE yylval;</span><br></pre></td></tr></table></figure>
+<p>lex使用该头文件中的标志定义。Yacc调用lex的yylex()来获得标志（token），与标志对应的值由lex放在变量yylval中。</p>
+<p><strong>yylyal</strong></p>
+<p>Lex 将解析的token保存在yylval中，yylval的类型由YYSTYPE决定，YYSTYPE缺省类型是int。为了保存不同类型的变量，yylval 别定义为union（详情见下面参考部分）。</p>
+<p>如果没有指定 \<member> &amp;&amp; 就是指向yylval 本身。</member></p>
+<p><strong>yytext</strong></p>
+<p>由于yytext是字符串指针，所以注意要进行深拷贝，否则yytext最后指向}，会赋给所有的symbol</p>
+<p><a href="http://www.gnu.org/software/bison/manual/html_node/Token-Values.html" target="_blank" rel="noopener">参考</a>：</p>
+<p>If the type is <code>int</code> (the default), you might write this in <code>yylex</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">…</span><br><span class="line">yylval = value;  /* Put value onto Bison stack. */</span><br><span class="line">return INT;      /* Return the type of the token. */</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+<p>When you are using multiple data types, <code>yylval</code>’s type is a union made from the <code>%union</code> declaration (see <a href="http://www.gnu.org/software/bison/manual/html_node/Union-Decl.html#Union-Decl" target="_blank" rel="noopener">The Union Declaration</a>). So when you store a token’s value, you must use the proper member of the union. If the <code>%union</code> declaration looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%union &#123;</span><br><span class="line">  int intval;</span><br><span class="line">  double val;</span><br><span class="line">  symrec *tptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>then the code in <code>yylex</code> might look like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">…</span><br><span class="line">yylval.intval = value; /* Put value onto Bison stack. */</span><br><span class="line">return INT;            /* Return the type of the token. */</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+<p><strong>enum枚举类型</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span>　枚举名　&#123;枚举元素<span class="number">1</span>,枚举元素<span class="number">2</span>,……&#125;;</span><br></pre></td></tr></table></figure>
+<p>第一个枚举成员的默认值为整型的 0，后续枚举成员的值在前一个成员上加 1,可以在定义枚举类型时改变枚举元素的值。在C 语言中，枚举类型是被当做 int 或者 unsigned int 类型来处理的。</p>
+<h3 id="vs报错"><a href="#vs报错" class="headerlink" title="vs报错"></a>vs报错</h3><h4 id="0xC0000005-读取位置-xxx时发生访问冲突"><a href="#0xC0000005-读取位置-xxx时发生访问冲突" class="headerlink" title="0xC0000005: 读取位置 xxx时发生访问冲突"></a>0xC0000005: 读取位置 xxx时发生访问冲突</h4><p>访问了不该访问的地方。越界了。</p>
+<h4 id="VS2017”const-char-“-类型的实参与-“char-“-类型的形参不兼容"><a href="#VS2017”const-char-“-类型的实参与-“char-“-类型的形参不兼容" class="headerlink" title="VS2017”const char “ 类型的实参与 “char “ 类型的形参不兼容"></a>VS2017”const char <em>“ 类型的实参与 “char </em>“ 类型的形参不兼容</h4><p>属性 – C/C++ – 语言 – 符合模式 改为“否”</p>
+<p>分不清=和==是要吃大亏的。循环写错了递增条件是要吃大亏的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/Lab_note_11.10/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/10/Lab_note_11.10/" class="post-title-link" itemprop="url">Lab_note_11.10</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-10 16:57:02" itemprop="dateCreated datePublished" datetime="2019-11-10T16:57:02+08:00">2019-11-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/remove-nth-node-from-end-of-list/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/01/remove-nth-node-from-end-of-list/" class="post-title-link" itemprop="url">remove-nth-node-from-end-of-list</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-01 20:34:23 / 修改时间：21:25:31" itemprop="dateCreated datePublished" datetime="2019-11-01T20:34:23+08:00">2019-11-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>对于给定的链表，删除倒数第n个节点，返回头节点。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>一个指针遍历两次，或者两个指针遍历一次。对于两个指针p,q，需要固定间隔长度n (p-q=n)，然后同时移动两个指针，直至q移到链表尾。此时q指向需要被移除的节点。注意返回空指针的处理。</p>
+<p>易错情况：</p>
+<p>([1,2],1)  ([1,2],2)  ([1],1)</p>
+<p>编译时报错：<code>error: expected unqualified-id before &#39;while&#39;</code></p>
+<p>原因是在类的定义中误写了循环体。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode *next;</span><br><span class="line">     ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line"> &#125;;	</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode * <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	ListNode *p =head, *q = head;</span><br><span class="line">	<span class="keyword">int</span> i = n;</span><br><span class="line">    <span class="keyword">bool</span> flag=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (i--)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="keyword">if</span>(q-&gt;next)</span><br><span class="line">		    q = q-&gt;next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            flag=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!q-&gt;next&amp;&amp;flag)<span class="comment">//要删除的是头节点</span></span><br><span class="line">		<span class="keyword">if</span> (p-&gt;next)</span><br><span class="line">			<span class="keyword">return</span> p-&gt;next;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (q-&gt;next)</span><br><span class="line">	&#123;</span><br><span class="line">		q = q-&gt;next;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;next = p-&gt;next-&gt;next;</span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/19/4Sum/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -642,207 +853,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/3Sum/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/09/3Sum/" class="post-title-link" itemprop="url">3Sum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-09-09 08:52:44 / 修改时间：15:31:52" itemprop="dateCreated datePublished" datetime="2019-09-09T08:52:44+08:00">2019-09-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给一组整数，求出所有和为零的三元组。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>暂时只想到了遍历，还没有想到复杂度更低的方法</p>
-<ul>
-<li><p>vector&lt;vector<int>&gt; res;  注意赋值时，要使用push_back()，而不是=</int></p>
-</li>
-<li><p>注意去重！</p>
-</li>
-<li>最开始使用了三层循环，结果时间超限，所以将最内层循环换成了二分查找</li>
-</ul>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">	<span class="comment">//为了去重，将数字排序，与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	sort(nums.begin(), nums.end());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">	<span class="keyword">int</span> usedi = <span class="number">0</span>; <span class="keyword">int</span> usedj = <span class="number">0</span>; </span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;<span class="comment">//有三个以上的0时，只加入一次</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">2</span>; ++i)</span><br><span class="line">	&#123;		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; size - <span class="number">1</span>; ++j)</span><br><span class="line">		&#123;			</span><br><span class="line">			<span class="keyword">int</span> t = <span class="number">0</span> - nums[i] - nums[j];</span><br><span class="line">			<span class="keyword">if</span> (t &gt;= <span class="number">0</span>)</span><br><span class="line">			&#123;<span class="comment">//既然已经经过排序，那么要找的第三个数一定是个非负数</span></span><br><span class="line">			 <span class="comment">//复杂度过高，将内层的遍历改成二分查找</span></span><br><span class="line">				<span class="keyword">int</span> left = j + <span class="number">1</span>; <span class="keyword">int</span> right = size - <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">					<span class="keyword">if</span> (nums[mid] &lt; t)</span><br><span class="line">					&#123;</span><br><span class="line">						left = mid+<span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &gt; t)</span><br><span class="line">					&#123;</span><br><span class="line">						right = mid<span class="number">-1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">					&#123;</span><br><span class="line">						<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; y;</span><br><span class="line">						y.push_back(nums[i]);</span><br><span class="line">						y.push_back(nums[j]);</span><br><span class="line">						y.push_back(t);</span><br><span class="line">						res.push_back(y);</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			usedj = nums[j];</span><br><span class="line">			<span class="keyword">while</span> ( j &lt; size - <span class="number">2</span> &amp;&amp; usedj == nums[j+<span class="number">1</span>])</span><br><span class="line">				++j;</span><br><span class="line">		&#125;	</span><br><span class="line">		usedi = nums[i];</span><br><span class="line">		<span class="keyword">while</span> ( i &lt; size - <span class="number">3</span> &amp;&amp; usedi == nums[i+<span class="number">1</span>])</span><br><span class="line">			++i;<span class="comment">//与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>找到另外一种思路：不需要三层，两层就够了，外层思路不变，在内层，从两端向中间移动。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum2(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">	<span class="comment">//为了去重，将数字排序，与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	sort(nums.begin(), nums.end());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">	<span class="keyword">int</span> usedi = <span class="number">0</span>; <span class="keyword">int</span> usedj = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;<span class="comment">//有三个以上的0时，只加入一次</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">2</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = i + <span class="number">1</span>; <span class="keyword">int</span> k = size - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (j &lt; k)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> t = nums[i] + nums[j] + nums[k];</span><br><span class="line">			<span class="keyword">if</span> (t == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; y;</span><br><span class="line">				y.push_back(nums[i]);</span><br><span class="line">				y.push_back(nums[j]);</span><br><span class="line">				y.push_back(nums[k]);</span><br><span class="line">				res.push_back(y);</span><br><span class="line">				<span class="keyword">while</span> (j &lt; size - <span class="number">2</span> &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) ++j;</span><br><span class="line">				<span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; nums[k] == nums[k - <span class="number">1</span>]) --k;</span><br><span class="line">				++j;</span><br><span class="line">				--k;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (t &gt; <span class="number">0</span>)</span><br><span class="line">				--k;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				++j;</span><br><span class="line">		&#125;</span><br><span class="line">		usedi = nums[i];</span><br><span class="line">		<span class="keyword">while</span> (i &lt; size - <span class="number">3</span> &amp;&amp; usedi == nums[i + <span class="number">1</span>])</span><br><span class="line">			++i;<span class="comment">//与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/LongestCommonPrefix/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/08/LongestCommonPrefix/" class="post-title-link" itemprop="url">LongestCommonPrefix</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-09-08 16:33:04 / 修改时间：16:45:23" itemprop="dateCreated datePublished" datetime="2019-09-08T16:33:04+08:00">2019-09-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font color="blue">注意数组为空的情况！！！</font>
-
-<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一组字符串，输出这些字符串共有的最长前缀</p>
-<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>二重循环，外层是字符串长度向后移动，内层是每个字符串依次比较。得到了最容易想到的解决方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> size = strs.size();</span><br><span class="line">	<span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	<span class="keyword">int</span>* lens = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">	<span class="keyword">int</span> min= strs[<span class="number">0</span>].length();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		lens[i] = strs[i].length();</span><br><span class="line">		<span class="keyword">if</span> (lens[i] &lt; min)</span><br><span class="line">			min = lens[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> ch;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; min &amp;&amp; flag; ++i)<span class="comment">//字符串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		ch = strs[<span class="number">0</span>][i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size; ++j)<span class="comment">//遍历每个字符串</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (strs[j][i] != ch)</span><br><span class="line">			&#123;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			s = s + ch;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是提交之后发现内存使用量太大，难道是因为我开了一个记录长度的数组？突然想到递归也是可以解决的。</p>
-<p>查了一下其他人的做法，发现了自己的不足：需要返回的字符串prefix，不需要一个个字母地附加。当字符串数组strs不为空时，令prefix=strs[0]，然后外层遍历res的字符，内层遍历strs数组，利用strs[i].indexOf(prefix) != 0和prefix.substring(0, prefix.length() - 1)已有的函数。这样空间复杂度为O(1)。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/Roman-to-Integer/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/08/Roman-to-Integer/" class="post-title-link" itemprop="url">Roman-to-Integer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-09-08 08:14:05 / 修改时间：08:22:12" itemprop="dateCreated datePublished" datetime="2019-09-08T08:14:05+08:00">2019-09-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>犯了一个严重的错误，居然忘了switch-case，在执行完一个case之后是继续向下走的！因此注意是否要在每个case中加‘break’</p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>罗马数字转阿拉伯数字。注意类似“4”和“9”的情况。</p>
-<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>想到了最简单地解决方法：从前向后遍历，遇到字母就加上对应的数字，只不过要注意‘I’等字母，看是否出现类似“4”和“9”的情况。更高效的方法暂时还没想到。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.length();</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">switch</span> (s[i])</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">1000</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">500</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'C'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'D'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">400</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'M'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">900</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">100</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">100</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'L'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">50</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'X'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'L'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">40</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'C'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">90</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">10</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'V'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">5</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'V'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">4</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'X'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">9</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -909,7 +923,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

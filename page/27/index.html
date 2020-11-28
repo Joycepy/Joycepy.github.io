@@ -158,6 +158,235 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/SQL中的join操作/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/02/SQL中的join操作/" class="post-title-link" itemprop="url">join、check-engine、存储过程、变量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-02 11:38:38 / 修改时间：22:17:32" itemprop="dateCreated datePublished" datetime="2019-05-02T11:38:38+08:00">2019-05-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://www.cnblogs.com/logon/p/3748020.html" target="_blank" rel="noopener">https://www.cnblogs.com/logon/p/3748020.html</a></p>
+<p>A inner join B on …产生A和B的交集</p>
+<p>A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null</p>
+<p>A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null</p>
+<p>mysql的常用engine是InnoDB，在该引擎下使用check约束是无效的。但是可以通过使用触发器来做到检查约束的效果，通过使用触发器使mysql具有检查约束的功能。</p>
+<p>存储过程十一组SQL语句集，可以实现复杂的逻辑功能。触发器也是一组SQL集，但存储过程是主动调用的，且功能更强大，触发器石某事件触发后自动调用。</p>
+<p>有输入输出参数，可以声明变量，有if/else, case,while等控制语句，通过编写存储过程，可以实现复杂的逻辑功能；函数的普遍特性：模块化，封装，代码复用；速度快，只有首次执行需经过编译和优化步骤，后续被调用可以直接执行，省去以上步骤；</p>
+<p>mysql存储过程中的if语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN </span><br><span class="line">   statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>如果上述表达式(<code>expression</code>)计算结果为<code>TRUE</code>，那么将执行<code>statements</code>语句，否则控制流将传递到<code>END IF</code>之后的下一个语句.</p>
+<p><code>IF ELSE</code>语句的语法结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>如果要基于多个表达式有条件地执行语句，则使用<code>IF ELSEIF ELSE</code>语句，它的语法结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSEIF elseif-expression THEN</span><br><span class="line">   elseif-statements;</span><br><span class="line">...</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>mysql declare和set定义变量，除了一个不加@和一个加@这个区别之外，还有以下区别：</p>
+<p>declare用来定义局部变量</p>
+<p>@用来定义会话变量</p>
+<p>declare变量的作用范围同编程里面类似，在这里一般是在对应的begin和end之间。在end之后这个变量就没有作用了，不能使用了。这个同编程一样。</p>
+<p>另外有种变量叫做会话变量(session variable)，也叫做用户定义的变量(user defined variable)。这种变量要在变量名称前面加上“@”符号，叫做会话变量，代表整个会话过程他都是有作用的，这个有点类似于全局变量一样。这种变量用途比较广，因为只要在一个会话内(就是某个应用的一个连接过程中)，这个变量可以在被调用的存储过程或者代码之间共享数据。</p>
+<p><strong>sql server中变量要先申明后赋值：</strong></p>
+<p>局部变量用一个@标识，全局变量用两个@（常用的全局变量一般都是已经定义好的）；</p>
+<p>申明局部变量语法：declare @变量名 数据类型；例如：declare @num int；</p>
+<p>赋值：有两种方法式（@num为变量名，value为值）</p>
+<p>set @num=value;   或   select @num=value;</p>
+<p>如果想获取查询语句中的一个字段值可以用select给变量赋值,如下：</p>
+<p>select @num=字段名 from 表名 where ……</p>
+<p><strong>mysql中变量不用事前申明，在用的时候直接用“@变量名”使用就可以了。</strong></p>
+<p>第一种用法：set @num=1; 或set @num:=1; //这里要使用变量来保存数据，直接使用@num变量</p>
+<p>第二种用法：select @num:=1; 或 select @num:=字段名 from 表名 where ……</p>
+<p>注意上面两种赋值符号，使用set时可以用“=”或“：=”，但是<strong>使用select时必须用“：=赋值”</strong></p>
+<p>MySQL触发器不能执行SELECT返回结果</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/Machine-Learning-Note6/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/25/Machine-Learning-Note6/" class="post-title-link" itemprop="url">Machine-Learning-Note6</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-04-25 00:00:00 / 修改时间：21:23:16" itemprop="dateCreated datePublished" datetime="2019-04-25T00:00:00+08:00">2019-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h4><p>线性回归、逻辑回归（分类）：</p>
+<p>欠拟合—有高偏差</p>
+<p>过度拟合—具有高方差，变量太多，过度拟合数据而无法泛华</p>
+<p>解决过拟合方法：</p>
+<p>人工减少变量数量，或使用模型选择算法（自动），缺点：舍弃了一部分信息</p>
+<p>选择正则化，减少量级，保留所有特征变量</p>
+<p>####正则化</p>
+<p>加入惩罚，扩大参数值的影响，参数会尽可能小，使模型简化。</p>
+<p>$J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+1000\theta_3^2+1000\theta_4^2$</p>
+<p>在实际问题中很难判断哪些特征比较重要, 所以在正则化中，对每一个参数(除了第一个)参数进行惩罚, 将代价函数改为:</p>
+<p>$J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+\lambda\sum_{i=1}^n\theta_j^2\right]$</p>
+<p>$\lambda$叫做正则化参数(Regularization Parameter).$\lambda$的作用就是在”更好地拟合数据”和”防止过拟合”之间权衡。惩罚程度过大，会导致欠拟合。</p>
+<h5 id="正则化线性回归"><a href="#正则化线性回归" class="headerlink" title="正则化线性回归"></a>正则化线性回归</h5><p>梯度下降<img src="//yoursite.com/2019/04/25/Machine-Learning-Note6/blog\source\_posts\正则化.PNG" alt=""></p>
+<p>$\theta=(X^TX+\lambda\begin{bmatrix} 0&amp;0&amp;0&amp;0&amp;…&amp;0\ 0&amp;1&amp;0&amp;0&amp;…&amp;0\ 0&amp;0&amp;1&amp;0&amp;…&amp;0\ 0&amp;0&amp;0&amp;1&amp;…&amp;0\ 0&amp;0&amp;0&amp;0&amp;…&amp;0 \ 0&amp;0&amp;0&amp;0&amp;…&amp;1 \end{bmatrix})^{-1}X^Ty$</p>
+<p>对于正则化后的正规方程, 只要λ&gt;0λ&gt;0, 括号里的那一项总是可逆的。</p>
+<p>改进梯度算法和高级算法，以应用到正则化逻辑回归中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/数据库中where和having的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/24/数据库中where和having的区别/" class="post-title-link" itemprop="url">数据库中where和having的区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-24 10:29:43" itemprop="dateCreated datePublished" datetime="2019-04-24T10:29:43+08:00">2019-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-31 09:21:00" itemprop="dateModified" datetime="2019-05-31T09:21:00+08:00">2019-05-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>where是一个约束声明，在查询结果返回之前起作用，where后面不能使用“聚合函数”，因为where的执行顺序在聚合函数之前；</p>
+<p>having是一个过滤声明，分组筛选，在查询结果返回之后起作用，不能对没有查出来的值使用having，having后面可以使用“聚合函数”。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/JavaScript_tips/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -681,311 +910,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/C++_tips/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/13/C++_tips/" class="post-title-link" itemprop="url">C++_tips</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-13 15:58:26" itemprop="dateCreated datePublished" datetime="2019-04-13T15:58:26+08:00">2019-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:22:24" itemprop="dateModified" datetime="2020-02-10T21:22:24+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="lt-bits-stdc-h-gt-in-C"><a href="#lt-bits-stdc-h-gt-in-C" class="headerlink" title="&lt;bits/stdc++.h&gt; in C++"></a>&lt;bits/stdc++.h&gt; in C++</h4><p>引入一堆的头文件会显得冗杂，有时会出现CE。&lt;bits/stdc++.h&gt;包含了目前c++所包含的所有头文件，只要用了这个头文件就不用再写其他头文件。但这个头文件属于gcc 的内部实现，不是标准库头文件，可能导致不可移植的问题。</p>
-<p><strong>Disadvantages of bits/stdc++</strong></p>
-<ul>
-<li>bits/stdc++.h is not a standard header file of GNU C++ library. So, if you try to compile your code with some compiler other than GCC it might fail; e.g. MSVC do not have this header.</li>
-<li>Using it would include a lot of unnecessary stuff and increases compilation time.</li>
-<li>This header file is not part of the C++ standard and is therefore, non-portable, and should be avoided.</li>
-<li>Moreover, even if there were some catch-all header in the standard, you would want to avoid it in lieu of specific headers, since the compiler has to actually read in and parse every included header (including recursively included headers) every single time that translation unit is compiled.</li>
-</ul>
-<p><strong>Advantages of bits/stdc++</strong></p>
-<ul>
-<li>In contests, using this file is a good idea, when you want to reduce the time wasted in doing chores; especially when your rank is time sensitive.</li>
-<li>This also reduces all the chores of writing all the necessary header files.</li>
-<li>You don’t have to remember all the STL of GNU C++ for every function you use.</li>
-</ul>
-<p>So, the user can either use it and save the time of writing every include or save the compilation time by not using it and writing necessary header files.</p>
-<h4 id="OJ中的常用术语"><a href="#OJ中的常用术语" class="headerlink" title="OJ中的常用术语"></a>OJ中的常用术语</h4><table>
-<thead>
-<tr>
-<th style="text-align:center">简写</th>
-<th style="text-align:center">全拼</th>
-<th style="text-align:center">中文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">OJ</td>
-<td style="text-align:center">Online Judge</td>
-<td style="text-align:center">在线判题系统</td>
-</tr>
-<tr>
-<td style="text-align:center">AC</td>
-<td style="text-align:center">Accepted</td>
-<td style="text-align:center">通过</td>
-</tr>
-<tr>
-<td style="text-align:center">WA</td>
-<td style="text-align:center">Wrong Answer</td>
-<td style="text-align:center">答案错误</td>
-</tr>
-<tr>
-<td style="text-align:center">TLE</td>
-<td style="text-align:center">Time Limit Exceed</td>
-<td style="text-align:center">超时</td>
-</tr>
-<tr>
-<td style="text-align:center">OLE</td>
-<td style="text-align:center">Output Limit Exceed</td>
-<td style="text-align:center">超出输出限制</td>
-</tr>
-<tr>
-<td style="text-align:center">MLE</td>
-<td style="text-align:center">Memory Limit Exceed</td>
-<td style="text-align:center">超内存</td>
-</tr>
-<tr>
-<td style="text-align:center">RE</td>
-<td style="text-align:center">Runtime Error</td>
-<td style="text-align:center">运行时错误</td>
-</tr>
-<tr>
-<td style="text-align:center">PE</td>
-<td style="text-align:center">Presentation Error</td>
-<td style="text-align:center">格式错误</td>
-</tr>
-<tr>
-<td style="text-align:center">CE</td>
-<td style="text-align:center">Compile Error</td>
-<td style="text-align:center">无法编译</td>
-</tr>
-</tbody>
-</table>
-<h4 id="std-ios-sync-with-stdio-false"><a href="#std-ios-sync-with-stdio-false" class="headerlink" title="std::ios::sync_with_stdio(false)"></a>std::ios::sync_with_stdio(false)</h4><p>（如果用了using namespace std;就可以去掉前面的std::）</p>
-<p>这句话在IO之前将stdio解除绑定，这样做了之后要注意不要同时混用cin/cout和scanf，sscanf, getchar, fgets/printf之类。</p>
-<p>在默认的情况下cin绑定的是cout，每次执行 &lt;&lt; 操作符的时候都要调用flush，这样会增加IO负担。可以通过tie(0)（0表示NULL）来解除cin与cout的绑定，进一步加快执行效率。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">//IO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>取消同步的目的，是为了让cin不超时，另外cout的时候尽量少用endl，换用”\n”，也是防止超时的方法。若用scanf，printf就不用考虑这种因为缓冲的超时了。</p>
-<hr>
-<p>每一次都不得不感慨——他的代码像是一件艺术品！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/HTML-tips/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/HTML-tips/" class="post-title-link" itemprop="url">HTML-tips</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-11 23:12:37" itemprop="dateCreated datePublished" datetime="2019-04-11T23:12:37+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-16 23:01:42" itemprop="dateModified" datetime="2019-04-16T23:01:42+08:00">2019-04-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="Style覆盖优先级："><a href="#Style覆盖优先级：" class="headerlink" title="Style覆盖优先级："></a>Style覆盖优先级：</h6><p>!important属性 &gt; in-line style &gt; id &gt; class(后覆盖前)</p>
-<p>CSS 中，可以使用 6 位十六进制数字表示颜色，每 2 位分别表示红色 (R)、绿色 (G) 和蓝色 (B) 成分。例如，<code>#000000</code>是黑色，也可以表示为 <code>rgb(0, 0, 0)</code> </p>
-<h6 id="script元素："><a href="#script元素：" class="headerlink" title="script元素："></a>script元素：</h6><p>元素选择器：<code>$(&quot;button&quot;)</code>、class选择器：<code>$(&quot;.btn&quot;)</code>、id选择器：<code>$(&quot;#target1&quot;)</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $(document).ready(function() &#123;</span></span><br><span class="line"><span class="undefined">	$("button").addClass("animated");</span></span><br><span class="line"><span class="undefined">    $(".btn").addClass("shake");</span></span><br><span class="line"><span class="undefined">    $("#target1").addClass("btn-primary");</span></span><br><span class="line"><span class="undefined">  &#125;);    </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h6 id="继承"><a href="#继承" class="headerlink" title="继承:"></a>继承:</h6><p>h3继承div，div继承body</p>
-<p>.parent()    .children()</p>
-<p>jQuery 用CSS选择器来选取元素，<code>target:nth-child(n)</code> CSS选择器允许你按照索引顺序(从1开始)选择目标元素的所有子元素。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/median-of-two-sorted-arrays/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">median-of-two-sorted-arrays</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-11 22:35:19" itemprop="dateCreated datePublished" datetime="2019-04-11T22:35:19+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-13 22:41:51" itemprop="dateModified" datetime="2019-04-13T22:41:51+08:00">2019-04-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.</p>
-<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
-<p>You may assume <strong>nums1</strong> and <strong>nums2</strong> cannot be both empty.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">The median is 2.0</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line">The median is (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于复杂度的要求加大了题目的难度，一般容易想到线性级别的解决方法，如果要降到对数级别，要用到二分查找法。这里的二分其实是针对切割的位置。参考了LeetCode上的解答。</p>
-<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation</a></p>
-<p>为了简化问题，偶数和奇数个数的有序数组，可以综合成一种情况：数组长度为N时，index of L = (N-1)/2, and R is at N/2。 中位数的下标可以表示为(L + R)/2 = (A[(N-1)/2] + A[N/2])/2。函数中使A1是更长的数组。</p>
-<p>设想数组中有更多的位置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1: [# 1 # 2 # 3 # 4 # 5 #]    (N1 = 5, N1_positions = 11)</span><br><span class="line">A2: [# 1 # 1 # 1 # 1 #]     (N2 = 4, N2_positions = 9)</span><br></pre></td></tr></table></figure>
-<p>两个数组共有2<em>N1 + 2</em>N2 + 2个位置，每次分割后左右分别有N1 + N2个位置，最终的分割应保证L1 &lt;= R1 &amp;&amp; L1 &lt;= R2 &amp;&amp; L2 &lt;= R1 &amp;&amp; L2 &lt;= R2，相当于L1 &lt;= R2&amp;&amp;L2 &lt;= R1。</p>
-<p>在两种情况下需要对切割的位置做出调整：</p>
-<ul>
-<li><p>L1&gt;R2：说明A1左边大数过多，A1的切割点左移，同时A2切割点右移；</p>
-</li>
-<li><p>L2&gt;R1：说明A2左边大数过多，A2的切割点左移，同时A1切割点右移；</p>
-<p>否则，找到的即为中位数的位置，中位数等于(max(L1, L2) + min(R1, R2)) / 2。</p>
-</li>
-</ul>
-<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = nums1.size();</span><br><span class="line">	<span class="keyword">int</span> n = nums2.size();</span><br><span class="line">	<span class="keyword">if</span> (m &lt; n)</span><br><span class="line">		<span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lo = <span class="number">0</span>, hi = n * <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt;= hi)</span><br><span class="line">	&#123;<span class="comment">//移动A2的切割点，A2为长度更短的数组</span></span><br><span class="line">		<span class="keyword">int</span> c2 = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c1 = m + n - c2;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> L1 = (c1 == <span class="number">0</span>) ? INT_MIN : nums1[(c1 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> L2 = (c2 == <span class="number">0</span>) ? INT_MIN : nums2[(c2 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R1 = (c1 == m*<span class="number">2</span>) ? INT_MAX : nums1[(c1) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R2 = (c2 == n*<span class="number">2</span>) ? INT_MAX : nums2[(c2) / <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (L1 &gt; R2) lo = c2 + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (L2 &gt; R1)hi = c2 - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (((L1&gt; L2)?L1:L2) + ((R1&lt;R2)?R1:R2)) / <span class="number">2.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i * <span class="number">2</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums1.push_back(i * <span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; j * j &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums2.push_back(j*j);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">double</span> a=findMedianSortedArrays(nums1, nums2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>复杂度：O(log(min(N1, N2))) </p>
-<p>若下标超出数组界限，可以假设有两个额外的值 INT_MAX at A[-1] 和 INT_MAX at A[N]，不影响结果并且简化了情况。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1052,7 +980,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

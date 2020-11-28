@@ -158,6 +158,215 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/convert-sorted-list-to-binary-search-tree/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/02/convert-sorted-list-to-binary-search-tree/" class="post-title-link" itemprop="url">convert-sorted-list-to-binary-search-tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-02 22:49:30" itemprop="dateCreated datePublished" datetime="2020-04-02T22:49:30+08:00">2020-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-07 22:50:16" itemprop="dateModified" datetime="2020-04-07T22:50:16+08:00">2020-04-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。</p>
+<p>本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>链表，相比于上一题的数组，有什么区别呢？不好找节点了啊……</p>
+<p>用两个指针，一块一慢，快的每次走两步，慢的每次走一步，这样当快指针遍历结束时，慢指针指向的也就是链表的中间位置。这时候把中间位置的结点的值作为二叉搜索树当前结点的值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">ListToBST</span><span class="params">(ListNode* head, ListNode* tail)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (head==tail)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (head-&gt;next==tail)<span class="keyword">return</span> <span class="keyword">new</span> TreeNode(head-&gt;val);</span><br><span class="line">	ListNode *p, *q;</span><br><span class="line">	p = head; q = head;</span><br><span class="line">	<span class="keyword">while</span> (q != tail) &#123;</span><br><span class="line">		<span class="keyword">if</span> (q-&gt;next == tail)<span class="keyword">break</span>;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">		q = q-&gt;next-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	TreeNode* root = <span class="keyword">new</span> TreeNode(p-&gt;val);</span><br><span class="line">	root-&gt;left = ListToBST(head, p);</span><br><span class="line">	root-&gt;right = ListToBST(p-&gt;next, tail);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">TreeNode* <span class="title">sortedListToBST</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!head)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (!head-&gt;next)<span class="keyword">return</span> <span class="keyword">new</span> TreeNode(head-&gt;val);</span><br><span class="line">	<span class="keyword">return</span> ListToBST(head, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要学会用双指针。改的好看点：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">ListToBST</span><span class="params">(ListNode* head, ListNode* tail)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (head==tail)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *p, *q;</span><br><span class="line">	p = head; q = head;</span><br><span class="line">	<span class="keyword">while</span> (q!=tail&amp;&amp;q-&gt;next!=tail)&#123;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">		q = q-&gt;next-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	TreeNode* root = <span class="keyword">new</span> TreeNode(p-&gt;val);</span><br><span class="line">	root-&gt;left = ListToBST(head, p);</span><br><span class="line">	root-&gt;right = ListToBST(p-&gt;next, tail);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">TreeNode* <span class="title">sortedListToBST</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ListToBST(head, <span class="literal">NULL</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过上面的代码效率也太低了，去学个好的来。空间换时间？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">sortedListToBST</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="keyword">while</span>(head != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        v.push_back(head-&gt;val);</span><br><span class="line">        head = head-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> buildTree(v, <span class="number">0</span>, v.size());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">TreeNode * <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; v, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(begin == end) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">int</span> middle = (begin+end)/<span class="number">2</span>;</span><br><span class="line">    TreeNode * root = <span class="keyword">new</span> TreeNode(v[middle]);</span><br><span class="line">    root-&gt;left = buildTree(v, begin, middle);</span><br><span class="line">    root-&gt;right = buildTree(v, middle+<span class="number">1</span>, end);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/solution/c-2chong-jie-fa-bu-yong-duan-kai-lian-biao-by-alex/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/solution/c-2chong-jie-fa-bu-yong-duan-kai-lian-biao-by-alex/</a></p>
+<p>还是慢。那就不是我的问题了。</p>
+<p>偷懒了好几天实在抱歉，从今天开始继续吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/convert-sorted-array-to-binary-search-tree/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/02/convert-sorted-array-to-binary-search-tree/" class="post-title-link" itemprop="url">convert-sorted-array-to-binary-search-tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-02 22:45:50 / 修改时间：22:47:06" itemprop="dateCreated datePublished" datetime="2020-04-02T22:45:50+08:00">2020-04-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。</p>
+<p>本题中，一个高度平衡二叉树是指一个二叉树<em>每个节点</em> 的左右两个子树的高度差的绝对值不超过 1。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>转化的结果是不唯一的。不过代码写好了转换出来就是唯一的了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">ArrayToBST</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (left == right)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (left == right - <span class="number">1</span>)<span class="keyword">return</span> <span class="keyword">new</span> TreeNode(nums[left]);</span><br><span class="line">	<span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">	TreeNode* root= <span class="keyword">new</span> TreeNode(nums[mid]);</span><br><span class="line">	root-&gt;left = ArrayToBST(nums, left, mid);</span><br><span class="line">	root-&gt;right = ArrayToBST(nums, mid+<span class="number">1</span>, right);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">TreeNode* <span class="title">sortedArrayToBST</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> vsize = nums.size();</span><br><span class="line">	<span class="keyword">if</span> (!vsize)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span>(vsize==<span class="number">1</span>)<span class="keyword">return</span> <span class="keyword">new</span> TreeNode(nums[<span class="number">0</span>]);</span><br><span class="line">	<span class="keyword">return</span> ArrayToBST(nums, <span class="number">0</span>, vsize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最近写的效率都太低了。大概是因为我只会用递归来解决树的问题。</p>
+<p>还有static inline这种要学着用啊。会的东西还是太少了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/安装jupyter/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/02/安装jupyter/" class="post-title-link" itemprop="url">安装和使用jupyter</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-02 16:22:08 / 修改时间：20:31:46" itemprop="dateCreated datePublished" datetime="2020-04-02T16:22:08+08:00">2020-04-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>其实是件很简单的事，就在控制台，先<code>pip install ipython</code>，再<code>pip install jupyter</code>，然后输入<code>jupyter notebook</code>就可以运行了。</p>
+<hr>
+<p>但是在输入<code>jupyter notebook</code>之后报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ImportError: No module named &apos;pyrsistent&apos;</span><br><span class="line"></span><br><span class="line">    Jupyter notebook format depends on the jsonschema package:</span><br><span class="line"></span><br><span class="line">        https://pypi.python.org/pypi/jsonschema</span><br><span class="line"></span><br><span class="line">    Please install it first.</span><br></pre></td></tr></table></figure>
+<p>找不到，那就装嘛，<code>pip install pyrsistent</code>、<code>pip install jsonschema</code>都试过了，过程中也不报错，但就是装不上，让我一度想离线安装。</p>
+<hr>
+<p>在C:\Users\asus\AppData\Local\Programs\Python\Python36\Lib\site-packages下面，发现只有pyrsistent-0.16.0-py3.6.egg-info文件夹，没有pyrsistent文件夹，也就是只有版本信息。把pyrsistent-0.16.0-py3.6.egg-info文件夹删掉，重新<code>pip install pyrsistent</code>，问题解决了。输入<code>jupyter notebook</code>，在浏览器<code>&lt;http://localhost:8888/tree&gt;</code>可以看到jupyter的页面。</p>
+<h3 id="配置Jupyter-Notebook的默认开启目录"><a href="#配置Jupyter-Notebook的默认开启目录" class="headerlink" title="配置Jupyter Notebook的默认开启目录"></a>配置Jupyter Notebook的默认开启目录</h3><p>在命令行输入<code>jupyter notebook --generate-config</code>，可以得到 jupyter_notebook_config.py文件的路径，打开该文件，找到<code>#c.NotebookApp.notebook_dir = &#39;&#39;</code> ，将‘#’号删除，在后面输入需要的目录，如<code>c.NotebookApp.notebook_dir = &#39;F:\\Python\Supyter&#39;</code>。一定注意盘符后面是双’\’</p>
+<font color="green">只是突然想起来些事情，想避免函数调用的开销，那你用内联函数啊，为什么要用宏去定义函数，那么麻烦，是不是傻。</font>
+
+<p> 内联函数有些类似于宏。内联函数的代码会被直接嵌入在它被调用的地方，调用几次就嵌入几次，没有使用call指令。这样省去了函数调用时的一些额外开销，比如保存和恢复函数返回地址等，可以加快速度。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/binary-tree-level-order-traversal-ii/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -728,236 +937,10 @@ A   输入欲添加文本   \&lt;ESC&gt;             在一行后添加文本
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/recover-binary-search-tree/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/21/recover-binary-search-tree/" class="post-title-link" itemprop="url">recover-binary-search-tree</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-21 19:34:15 / 修改时间：22:13:02" itemprop="dateCreated datePublished" datetime="2020-03-21T19:34:15+08:00">2020-03-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>二叉搜索树中的两个节点被错误地交换。</p>
-<p>请在不改变其结构的情况下，恢复这棵树。</p>
-<p><strong>进阶:</strong></p>
-<ul>
-<li>使用 O(<em>n</em>) 空间复杂度的解法很容易实现。</li>
-<li>你能想出一个只使用常数空间的解决方案吗？</li>
-</ul>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>中序遍历，结果中如果有一个降序对，说明该两个node需交换；若有两个降序对，说明第一对的前一个node和第二对的后一个node需要交换。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midtravel2</span><span class="params">(TreeNode* root,<span class="built_in">vector</span>&lt;TreeNode*&gt;&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>)<span class="keyword">return</span>;</span><br><span class="line">	midtravel2(root-&gt;left,v);</span><br><span class="line">	<span class="keyword">if</span> (!v.empty())</span><br><span class="line">		<span class="keyword">if</span> (v[v.size()<span class="number">-1</span>]-&gt;val&lt;root-&gt;val)</span><br><span class="line">			v.pop_back();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			v.push_back(root);</span><br><span class="line">	v.push_back(root);</span><br><span class="line">	midtravel2(root-&gt;right,v);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recoverTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;TreeNode*&gt; v;</span><br><span class="line">	midtravel2(root,v);</span><br><span class="line">	<span class="keyword">int</span> vs = v.size();</span><br><span class="line">	<span class="keyword">if</span> (v[vs - <span class="number">1</span>]-&gt;val &gt; v[vs - <span class="number">2</span>]-&gt;val) &#123;</span><br><span class="line">		v.pop_back(); vs--;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> t1 = v[<span class="number">0</span>]-&gt;val;</span><br><span class="line">	v[<span class="number">0</span>]-&gt;val = v[vs- <span class="number">1</span>]-&gt;val;</span><br><span class="line">	v[vs - <span class="number">1</span>]-&gt;val = t1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行用时 :44 ms, 在所有 C++ 提交中击败了16.36%的用户</p>
-<p>内存消耗 :17.7 MB, 在所有 C++ 提交中击败了63.97%的用户</p>
-<p>这效率也太垃圾了。</p>
-<hr>
-<p>要求O(1)空间，采用 <font color="red">Morris遍历</font>。学吧。</p>
-<p>今天不太想写。复制代码了。<a href="https://www.jianshu.com/p/484f587c967c" target="_blank" rel="noopener">https://www.jianshu.com/p/484f587c967c</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MorrisTraval</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TreeNode root = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MorrisTraval</span><span class="params">(TreeNode r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.root = r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">travel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TreeNode n = <span class="keyword">this</span>.root;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (n != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n.left == <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.print(n.vaule + <span class="string">" "</span>);</span><br><span class="line">                n = n.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                TreeNode pre = getPredecessor(n);</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (pre.right == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    pre.right = n;</span><br><span class="line">                    n = n.left;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (pre.right == n) &#123;</span><br><span class="line">                    pre.right = <span class="keyword">null</span>;</span><br><span class="line">                    System.out.print(n.vaule + <span class="string">" "</span>);</span><br><span class="line">                    n = n.right;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">getPredecessor</span><span class="params">(TreeNode n)</span> </span>&#123;</span><br><span class="line">        TreeNode pre = n;</span><br><span class="line">        <span class="keyword">if</span> (n.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            pre = pre.left;</span><br><span class="line">            <span class="keyword">while</span> (pre.right != <span class="keyword">null</span> &amp;&amp; pre.right != n) &#123;</span><br><span class="line">                pre = pre.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>getPredecessor 作用是获得给定节点的前序节点，travel  接口做的就是前面描述的算法步骤，在while循环中，进入一个节点时，先判断节点是否有左孩子，没有的话就把节点值打印出来，有的话，先获得前序节点，然后判断前序节点的右孩子指针是否指向自己，是的话把自己的值打印出来，进入右孩子，前序孩子的右孩子指针是空的话，就把右孩子指针指向自己，然后进入左孩子。</p>
-<p>Morris遍历，由于要把前缀节点的右指针指向自己，所以暂时会改变二叉树的结构，但在从前缀节点返回到自身时，算法会把前缀节点的右指针重新设置为空，所以二叉树在结构改变后，又会更改回来。</p>
-<p>在遍历过程中，每个节点最多会被访问两次，一次是从父节点到当前节点，第二次是从前缀节点的右孩子指针返回当前节点，所以Morris遍历算法的复杂度是O(n)。在遍历过程中，没有申请新内存，因此算法的空间复杂度是O(1).</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/validate-binary-search-tree/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/19/validate-binary-search-tree/" class="post-title-link" itemprop="url">validate-binary-search-tree</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-19 23:59:41" itemprop="dateCreated datePublished" datetime="2020-03-19T23:59:41+08:00">2020-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-20 11:52:25" itemprop="dateModified" datetime="2020-03-20T11:52:25+08:00">2020-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
-<p>假设一个二叉搜索树具有如下特征：</p>
-<ul>
-<li>节点的左子树只包含<strong>小于</strong>当前节点的数。</li>
-<li>节点的右子树只包含<strong>大于</strong>当前节点的数。</li>
-<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
-</ul>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>这不就，递归吗？有快一点的方法吗……</p>
-<p>注意不能相等哦。还要注意左边的最大值小于右边的最小值。</p>
-<p>第一版：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMax</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;right)</span><br><span class="line">		<span class="keyword">return</span> root-&gt;val;</span><br><span class="line">	<span class="keyword">return</span> getMax(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;left)</span><br><span class="line">		<span class="keyword">return</span> root-&gt;val;</span><br><span class="line">	<span class="keyword">return</span> getMax(root-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span> || (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span> ((root-&gt;left&amp;&amp;root-&gt;val&lt;=getMax(root-&gt;left)) || (root-&gt;right&amp;&amp;root-&gt;val&gt;=getMin(root-&gt;right)))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> isValidBST(root-&gt;left) &amp;&amp; isValidBST(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行用时 :24 ms, 在所有 C++ 提交中击败了27.46%的用户</p>
-<p>内存消耗 :20.1 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
-<p>做了很多重复的工作，所以时间效率很低。再改改。</p>
-<p>我真是傻逼。中序遍历啊！！</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">midtravel</span><span class="params">(TreeNode* root,<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt;&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">if</span> (root-&gt;left)</span><br><span class="line">		<span class="keyword">if</span>(!midtravel(root-&gt;left,s))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (!s.empty() &amp;&amp; s.top() &gt;= root-&gt;val)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	s.push(root-&gt;val);</span><br><span class="line">	<span class="keyword">if</span> (root-&gt;right)</span><br><span class="line">		<span class="keyword">if</span> (!midtravel(root-&gt;right, s))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span> || (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	<span class="keyword">return</span> midtravel(root, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行用时 :16 ms, 在所有 C++ 提交中击败了76.37%的用户</p>
-<p>内存消耗 :20.3 MB, 在所有 C++ 提交中击败了97.25%的用户</p>
-<p>再来个下酒菜</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSameTree</span><span class="params">(TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (q == <span class="literal">NULL</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (q == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (p-&gt;val != q-&gt;val)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> isSameTree(p-&gt;left, q-&gt;left) &amp;&amp; isSameTree(p-&gt;right, q-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/interleaving-string/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/19/interleaving-string/" class="post-title-link" itemprop="url">interleaving-string</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-19 20:52:03 / 修改时间：23:59:26" itemprop="dateCreated datePublished" datetime="2020-03-19T20:52:03+08:00">2020-03-19</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定三个字符串 <em>s1</em>, <em>s2</em>, <em>s3</em>, 验证 <em>s3</em> 是否是由 <em>s1</em> 和 <em>s2</em> 交错组成的。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>不能简单地认为，从s3里面过滤掉s1，把结果与s2比较久可以。  <font color="red"><strong>×</strong></font></p>
-<p>动态规划！二维数组。s3要么和s1匹配一位，要么和s2匹配一位，在二维数组里体现为：上面或左边的布尔值，结合两个串中特定位置的字符，决定了当前矩阵元素的值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len1 = s1.length();</span><br><span class="line">	<span class="keyword">int</span> len2 = s2.length();</span><br><span class="line">	<span class="keyword">int</span> len3 = s3.length();</span><br><span class="line">	<span class="keyword">if</span> (len1 + len2 != len3)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">bool</span> **dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[len1+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len1; i++)</span><br><span class="line">		dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[len2+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= len2; j++)</span><br><span class="line">			dp[i][j] = <span class="literal">false</span>;</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">if</span> (dp[i - <span class="number">1</span>][<span class="number">0</span>] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>])dp[i][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= len2; j++)</span><br><span class="line">		<span class="keyword">if</span> (dp[<span class="number">0</span>][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[j - <span class="number">1</span>])dp[<span class="number">0</span>][j] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len1; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= len2; j++)</span><br><span class="line">			<span class="keyword">if</span> (dp[i - <span class="number">1</span>][j] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">				dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(dp[i][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">				dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> dp[len1][len2];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行用时 :0 ms, 在所有 C++ 提交中击败了100.00%的用户</p>
-<p>内存消耗 :8.3 MB, 在所有 C++ 提交中击败了94.76%的用户</p>
-<p>666……现在我信了，遇到字符串题，先想DP。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1024,7 +1007,7 @@ A   输入欲添加文本   \&lt;ESC&gt;             在一行后添加文本
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

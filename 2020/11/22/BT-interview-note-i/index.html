@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="字节跳动飞书后端一面上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识： Java的反射机制Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，  判断任意一个对象所属类。 构造任意一个对象。 判断任意一个类所具备的成员变量和方法 调用任意一个对象的方法。 通常而言：程序运行时容许改变程序结构和变量类型称为动">
+<meta name="keywords" content="interview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BT-interview-note-i">
+<meta property="og:url" content="http://yoursite.com/2020/11/22/BT-interview-note-i/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="字节跳动飞书后端一面上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识： Java的反射机制Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，  判断任意一个对象所属类。 构造任意一个对象。 判断任意一个类所具备的成员变量和方法 调用任意一个对象的方法。 通常而言：程序运行时容许改变程序结构和变量类型称为动">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2020-11-22T16:08:05.444Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BT-interview-note-i">
+<meta name="twitter:description" content="字节跳动飞书后端一面上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识： Java的反射机制Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，  判断任意一个对象所属类。 构造任意一个对象。 判断任意一个类所具备的成员变量和方法 调用任意一个对象的方法。 通常而言：程序运行时容许改变程序结构和变量类型称为动">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/22/BT-interview-note-i/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>BT-interview-note-i | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/22/BT-interview-note-i/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BT-interview-note-i
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-22 23:12:00" itemprop="dateCreated datePublished" datetime="2020-11-22T23:12:00+08:00">2020-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-23 00:08:05" itemprop="dateModified" datetime="2020-11-23T00:08:05+08:00">2020-11-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="字节跳动飞书后端一面"><a href="#字节跳动飞书后端一面" class="headerlink" title="字节跳动飞书后端一面"></a>字节跳动飞书后端一面</h4><p>上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识：</p>
+<h5 id="Java的反射机制"><a href="#Java的反射机制" class="headerlink" title="Java的反射机制"></a>Java的反射机制</h5><p>Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，</p>
+<ul>
+<li>判断任意一个对象所属类。</li>
+<li>构造任意一个对象。</li>
+<li>判断任意一个类所具备的成员变量和方法</li>
+<li><p>调用任意一个对象的方法。</p>
+<p>通常而言：程序运行时容许改变程序结构和变量类型称为动态语言。因而可知Java并非动态语言，可是Java的Reflection机制，能够运行时加载、探知、使用编译期间彻底未知classes。因此Reflection是Java视为动态语言的关键性质，容许在程序运行时经过Reflection APIs 取得任何一个已知名称的class的内部信息（包括父类，接口，变量，方法等）。</p>
+</li>
+</ul>
+<p>IOC：Inversion of Control —— 控制反转，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象。</p>
+<p>DI：Dependency Injection —— 依赖注入，在系统运行中，动态的向某个对象提供它所需要的其他对象。</p>
+<p>AOP —— Asepct-Orentid-Programming，面向切面编程，把与核心业务逻辑无关的代码全部抽取出来，放置到某个地方集中管理，然后在具体运行时，再由容器动态织入这些共有代码。</p>
+<h5 id="Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC"><a href="#Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC" class="headerlink" title="Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC"></a>Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC</h5><p>堆内存划分为 Eden、Survivor 和 Tenured/Old 空间。</p>
+<ul>
+<li>从年轻代空间（包括 Eden 和 Survivor 区域）回收内存被称为 Minor GC；</li>
+<li>对老年代GC称为Major GC；</li>
+<li>而Full GC是对整个堆来说的；</li>
+</ul>
+<p>发生Full GC的情况及避免方法：</p>
+<ol>
+<li>直接调用System.gc</li>
+<li>旧生代空间不足。调优时应尽量做到让对象在Minor GC阶段被回收、让对象在新生代多存活一段时间及不要创建过大的对象及数组。</li>
+<li>Permanet Generation空间满。增大Perm Gen空间或转为使用CMS GC。</li>
+<li>CMS GC时出现promotion failed和concurrent mode failure。增大survivorspace、旧生代空间或调低触发并发GC的比率。</li>
+<li>统计得到的Minor GC晋升到旧生代的平均大小大于旧生代的剩余空间</li>
+<li>对于使用RMI来进行RPC或管理的Sun JDK应用而言，默认情况下会一小时执行一次Full GC</li>
+</ol>
+<h5 id="http和https什么区别"><a href="#http和https什么区别" class="headerlink" title="http和https什么区别"></a>http和https什么区别</h5><p><a href="https://blog.csdn.net/xionghuixionghui/article/details/68569282" target="_blank" rel="noopener">https://blog.csdn.net/xionghuixionghui/article/details/68569282</a></p>
+<p>1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p>
+<p>2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p>
+<p>3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p>
+<p>4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p>
+<p>（好像还问了一道网络题，记不清了……）</p>
+<h5 id="什么是跨域问题？如何解决跨域问题？"><a href="#什么是跨域问题？如何解决跨域问题？" class="headerlink" title="什么是跨域问题？如何解决跨域问题？"></a>什么是跨域问题？如何解决跨域问题？</h5><p>由浏览器的同源策略造成。同源是指，域名，协议，端口均相同。</p>
+<p>解决方法：</p>
+<ol>
+<li>JSONP</li>
+<li>代理</li>
+<li>PHP端修改header（XHR2方式）</li>
+</ol>
+<h5 id="算法：二分查找"><a href="#算法：二分查找" class="headerlink" title="算法：二分查找"></a>算法：二分查找</h5><p>是指在有序数组中查找某一特定元素的算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束;如果特定元素大于或者小于中间元素,则在数组大于或小于中间元素的那一半中查找，且跟开始一样从中间元素开始比较。如果在某一步骤数组为空,则代表找不到。这种搜索算法每-次比较都使搜索范围缩小一半。</p>
+<h5 id="索引是什么？索引过多会出现什么问题？"><a href="#索引是什么？索引过多会出现什么问题？" class="headerlink" title="索引是什么？索引过多会出现什么问题？"></a>索引是什么？索引过多会出现什么问题？</h5><p>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。通过使用索引，可以让数据库系统不必扫描整个表，而是直接定位到符合条件的记录，这样就大大加快了查询速度。</p>
+<p>1.一个索引会在update或insert时增加一次I/O, 对于操作系统底层来说是非常损耗性能的。<br>2.索引过多会导致索引文件过大， 系统在寻址时查询时间增长。</p>
+<p>在表上建立的每个索引都会增加存储开销，索引对于插入、删除、更新操作也会增加处理上的开销。另外，过多的复合索引，在有单字段索引的情况下，一般都是没有存在价值的；相反，还会降低数据增加删除时的性能，特别是对频繁更新的表来说，负面影响更大。</p>
+<h5 id="hashmap-数据结构"><a href="#hashmap-数据结构" class="headerlink" title="hashmap 数据结构"></a>hashmap 数据结构</h5><font color="grey">真 每次必问啊</font>
+
+<p>hasnmap是一个链表的数组，对于每个 key-value对元素，根据其key的哈希，该元素被分配到某个桶当中，桶使用链表实现，链表的节点包含了一个key，一个value，以及一个指向下一个节点的指针。当桶的大小大于8时会转化为红黑树存储数据。</p>
+<p><img src="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<ul>
+<li><a href="https://blog.csdn.net/jiange_zh/article/details/81588983" target="_blank" rel="noopener">https://blog.csdn.net/jiange_zh/article/details/81588983</a></li>
+<li><a href="https://blog.csdn.net/daiyuhe/article/details/89424736" target="_blank" rel="noopener">https://blog.csdn.net/daiyuhe/article/details/89424736</a></li>
+</ul>
+<p><a href="https://www.jianshu.com/p/8b372f3a195d" target="_blank" rel="noopener">https://www.jianshu.com/p/8b372f3a195d</a></p>
+<h5 id="你对飞书怎么看？有没有了解过飞书的开放平台？"><a href="#你对飞书怎么看？有没有了解过飞书的开放平台？" class="headerlink" title="你对飞书怎么看？有没有了解过飞书的开放平台？"></a>你对飞书怎么看？有没有了解过飞书的开放平台？</h5><p><del>我不想看</del><a href="https://www.feishu.cn/product/overview" target="_blank" rel="noopener">https://www.feishu.cn/product/overview</a></p>
+<p><del>没有，下次一定</del><a href="https://www.feishu.cn/webinar/feishu-openapi" target="_blank" rel="noopener">https://www.feishu.cn/webinar/feishu-openapi</a></p>
+<font color="grey">居然只面了十五分钟？？就挺突然的。而且用的是飞书视频，没有考编程？？算法题 也挺 意外的……整理之后发现一半的题目回答都有点凉啊</font>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/interview/" rel="tag"># interview</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/21/spider-for-hiresearch/" rel="prev" title="spider for hiresearch">
+      <i class="fa fa-chevron-left"></i> spider for hiresearch
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/28/BT-interview-note-ii/" rel="next" title="BT-interview-note-ii">
+      BT-interview-note-ii <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#字节跳动飞书后端一面"><span class="nav-number">1.</span> <span class="nav-text">字节跳动飞书后端一面</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java的反射机制"><span class="nav-number">1.1.</span> <span class="nav-text">Java的反射机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC"><span class="nav-number">1.2.</span> <span class="nav-text">Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http和https什么区别"><span class="nav-number">1.3.</span> <span class="nav-text">http和https什么区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是跨域问题？如何解决跨域问题？"><span class="nav-number">1.4.</span> <span class="nav-text">什么是跨域问题？如何解决跨域问题？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法：二分查找"><span class="nav-number">1.5.</span> <span class="nav-text">算法：二分查找</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引是什么？索引过多会出现什么问题？"><span class="nav-number">1.6.</span> <span class="nav-text">索引是什么？索引过多会出现什么问题？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hashmap-数据结构"><span class="nav-number">1.7.</span> <span class="nav-text">hashmap 数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#你对飞书怎么看？有没有了解过飞书的开放平台？"><span class="nav-number">1.8.</span> <span class="nav-text">你对飞书怎么看？有没有了解过飞书的开放平台？</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

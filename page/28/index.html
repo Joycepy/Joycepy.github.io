@@ -158,6 +158,307 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/C++_tips/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/13/C++_tips/" class="post-title-link" itemprop="url">C++_tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-13 15:58:26" itemprop="dateCreated datePublished" datetime="2019-04-13T15:58:26+08:00">2019-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-10 21:22:24" itemprop="dateModified" datetime="2020-02-10T21:22:24+08:00">2020-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="lt-bits-stdc-h-gt-in-C"><a href="#lt-bits-stdc-h-gt-in-C" class="headerlink" title="&lt;bits/stdc++.h&gt; in C++"></a>&lt;bits/stdc++.h&gt; in C++</h4><p>引入一堆的头文件会显得冗杂，有时会出现CE。&lt;bits/stdc++.h&gt;包含了目前c++所包含的所有头文件，只要用了这个头文件就不用再写其他头文件。但这个头文件属于gcc 的内部实现，不是标准库头文件，可能导致不可移植的问题。</p>
+<p><strong>Disadvantages of bits/stdc++</strong></p>
+<ul>
+<li>bits/stdc++.h is not a standard header file of GNU C++ library. So, if you try to compile your code with some compiler other than GCC it might fail; e.g. MSVC do not have this header.</li>
+<li>Using it would include a lot of unnecessary stuff and increases compilation time.</li>
+<li>This header file is not part of the C++ standard and is therefore, non-portable, and should be avoided.</li>
+<li>Moreover, even if there were some catch-all header in the standard, you would want to avoid it in lieu of specific headers, since the compiler has to actually read in and parse every included header (including recursively included headers) every single time that translation unit is compiled.</li>
+</ul>
+<p><strong>Advantages of bits/stdc++</strong></p>
+<ul>
+<li>In contests, using this file is a good idea, when you want to reduce the time wasted in doing chores; especially when your rank is time sensitive.</li>
+<li>This also reduces all the chores of writing all the necessary header files.</li>
+<li>You don’t have to remember all the STL of GNU C++ for every function you use.</li>
+</ul>
+<p>So, the user can either use it and save the time of writing every include or save the compilation time by not using it and writing necessary header files.</p>
+<h4 id="OJ中的常用术语"><a href="#OJ中的常用术语" class="headerlink" title="OJ中的常用术语"></a>OJ中的常用术语</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">简写</th>
+<th style="text-align:center">全拼</th>
+<th style="text-align:center">中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">OJ</td>
+<td style="text-align:center">Online Judge</td>
+<td style="text-align:center">在线判题系统</td>
+</tr>
+<tr>
+<td style="text-align:center">AC</td>
+<td style="text-align:center">Accepted</td>
+<td style="text-align:center">通过</td>
+</tr>
+<tr>
+<td style="text-align:center">WA</td>
+<td style="text-align:center">Wrong Answer</td>
+<td style="text-align:center">答案错误</td>
+</tr>
+<tr>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">Time Limit Exceed</td>
+<td style="text-align:center">超时</td>
+</tr>
+<tr>
+<td style="text-align:center">OLE</td>
+<td style="text-align:center">Output Limit Exceed</td>
+<td style="text-align:center">超出输出限制</td>
+</tr>
+<tr>
+<td style="text-align:center">MLE</td>
+<td style="text-align:center">Memory Limit Exceed</td>
+<td style="text-align:center">超内存</td>
+</tr>
+<tr>
+<td style="text-align:center">RE</td>
+<td style="text-align:center">Runtime Error</td>
+<td style="text-align:center">运行时错误</td>
+</tr>
+<tr>
+<td style="text-align:center">PE</td>
+<td style="text-align:center">Presentation Error</td>
+<td style="text-align:center">格式错误</td>
+</tr>
+<tr>
+<td style="text-align:center">CE</td>
+<td style="text-align:center">Compile Error</td>
+<td style="text-align:center">无法编译</td>
+</tr>
+</tbody>
+</table>
+<h4 id="std-ios-sync-with-stdio-false"><a href="#std-ios-sync-with-stdio-false" class="headerlink" title="std::ios::sync_with_stdio(false)"></a>std::ios::sync_with_stdio(false)</h4><p>（如果用了using namespace std;就可以去掉前面的std::）</p>
+<p>这句话在IO之前将stdio解除绑定，这样做了之后要注意不要同时混用cin/cout和scanf，sscanf, getchar, fgets/printf之类。</p>
+<p>在默认的情况下cin绑定的是cout，每次执行 &lt;&lt; 操作符的时候都要调用flush，这样会增加IO负担。可以通过tie(0)（0表示NULL）来解除cin与cout的绑定，进一步加快执行效率。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">//IO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取消同步的目的，是为了让cin不超时，另外cout的时候尽量少用endl，换用”\n”，也是防止超时的方法。若用scanf，printf就不用考虑这种因为缓冲的超时了。</p>
+<hr>
+<p>每一次都不得不感慨——他的代码像是一件艺术品！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/HTML-tips/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/HTML-tips/" class="post-title-link" itemprop="url">HTML-tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 23:12:37" itemprop="dateCreated datePublished" datetime="2019-04-11T23:12:37+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-16 23:01:42" itemprop="dateModified" datetime="2019-04-16T23:01:42+08:00">2019-04-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="Style覆盖优先级："><a href="#Style覆盖优先级：" class="headerlink" title="Style覆盖优先级："></a>Style覆盖优先级：</h6><p>!important属性 &gt; in-line style &gt; id &gt; class(后覆盖前)</p>
+<p>CSS 中，可以使用 6 位十六进制数字表示颜色，每 2 位分别表示红色 (R)、绿色 (G) 和蓝色 (B) 成分。例如，<code>#000000</code>是黑色，也可以表示为 <code>rgb(0, 0, 0)</code> </p>
+<h6 id="script元素："><a href="#script元素：" class="headerlink" title="script元素："></a>script元素：</h6><p>元素选择器：<code>$(&quot;button&quot;)</code>、class选择器：<code>$(&quot;.btn&quot;)</code>、id选择器：<code>$(&quot;#target1&quot;)</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $(document).ready(function() &#123;</span></span><br><span class="line"><span class="undefined">	$("button").addClass("animated");</span></span><br><span class="line"><span class="undefined">    $(".btn").addClass("shake");</span></span><br><span class="line"><span class="undefined">    $("#target1").addClass("btn-primary");</span></span><br><span class="line"><span class="undefined">  &#125;);    </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="继承"><a href="#继承" class="headerlink" title="继承:"></a>继承:</h6><p>h3继承div，div继承body</p>
+<p>.parent()    .children()</p>
+<p>jQuery 用CSS选择器来选取元素，<code>target:nth-child(n)</code> CSS选择器允许你按照索引顺序(从1开始)选择目标元素的所有子元素。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/median-of-two-sorted-arrays/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">median-of-two-sorted-arrays</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 22:35:19" itemprop="dateCreated datePublished" datetime="2019-04-11T22:35:19+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-13 22:41:51" itemprop="dateModified" datetime="2019-04-13T22:41:51+08:00">2019-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.</p>
+<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<p>You may assume <strong>nums1</strong> and <strong>nums2</strong> cannot be both empty.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">The median is 2.0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line">The median is (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于复杂度的要求加大了题目的难度，一般容易想到线性级别的解决方法，如果要降到对数级别，要用到二分查找法。这里的二分其实是针对切割的位置。参考了LeetCode上的解答。</p>
+<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation</a></p>
+<p>为了简化问题，偶数和奇数个数的有序数组，可以综合成一种情况：数组长度为N时，index of L = (N-1)/2, and R is at N/2。 中位数的下标可以表示为(L + R)/2 = (A[(N-1)/2] + A[N/2])/2。函数中使A1是更长的数组。</p>
+<p>设想数组中有更多的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1: [# 1 # 2 # 3 # 4 # 5 #]    (N1 = 5, N1_positions = 11)</span><br><span class="line">A2: [# 1 # 1 # 1 # 1 #]     (N2 = 4, N2_positions = 9)</span><br></pre></td></tr></table></figure>
+<p>两个数组共有2<em>N1 + 2</em>N2 + 2个位置，每次分割后左右分别有N1 + N2个位置，最终的分割应保证L1 &lt;= R1 &amp;&amp; L1 &lt;= R2 &amp;&amp; L2 &lt;= R1 &amp;&amp; L2 &lt;= R2，相当于L1 &lt;= R2&amp;&amp;L2 &lt;= R1。</p>
+<p>在两种情况下需要对切割的位置做出调整：</p>
+<ul>
+<li><p>L1&gt;R2：说明A1左边大数过多，A1的切割点左移，同时A2切割点右移；</p>
+</li>
+<li><p>L2&gt;R1：说明A2左边大数过多，A2的切割点左移，同时A1切割点右移；</p>
+<p>否则，找到的即为中位数的位置，中位数等于(max(L1, L2) + min(R1, R2)) / 2。</p>
+</li>
+</ul>
+<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = nums1.size();</span><br><span class="line">	<span class="keyword">int</span> n = nums2.size();</span><br><span class="line">	<span class="keyword">if</span> (m &lt; n)</span><br><span class="line">		<span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lo = <span class="number">0</span>, hi = n * <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt;= hi)</span><br><span class="line">	&#123;<span class="comment">//移动A2的切割点，A2为长度更短的数组</span></span><br><span class="line">		<span class="keyword">int</span> c2 = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c1 = m + n - c2;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> L1 = (c1 == <span class="number">0</span>) ? INT_MIN : nums1[(c1 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> L2 = (c2 == <span class="number">0</span>) ? INT_MIN : nums2[(c2 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R1 = (c1 == m*<span class="number">2</span>) ? INT_MAX : nums1[(c1) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R2 = (c2 == n*<span class="number">2</span>) ? INT_MAX : nums2[(c2) / <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (L1 &gt; R2) lo = c2 + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (L2 &gt; R1)hi = c2 - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (((L1&gt; L2)?L1:L2) + ((R1&lt;R2)?R1:R2)) / <span class="number">2.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i * <span class="number">2</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums1.push_back(i * <span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; j * j &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums2.push_back(j*j);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">double</span> a=findMedianSortedArrays(nums1, nums2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>复杂度：O(log(min(N1, N2))) </p>
+<p>若下标超出数组界限，可以假设有两个额外的值 INT_MAX at A[-1] 和 INT_MAX at A[N]，不影响结果并且简化了情况。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -741,285 +1042,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/BFS & binaryTest/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/29/BFS & binaryTest/" class="post-title-link" itemprop="url">BFS & 二分性测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-03-29 00:00:00 / 修改时间：22:03:35" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">2019-03-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="BFS-amp-二分性测试"><a href="#BFS-amp-二分性测试" class="headerlink" title="BFS &amp; 二分性测试"></a>BFS &amp; 二分性测试</h3><h5 id="二部图定义："><a href="#二部图定义：" class="headerlink" title="二部图定义："></a>二部图定义：</h5><p>​    二部图是一个图，其中节点集可以划分为X与Y，每条边一段在X中，另一端在Y中。直观地，一个图是二部图，如果能对节点着红色和蓝色，使得每条边有一个红色端点和一个蓝端点。</p>
-<h5 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h5><p>如果一个图是二部图，那么它不可能存在奇圈。</p>
-<h5 id="BFS与二部图的联系"><a href="#BFS与二部图的联系" class="headerlink" title="BFS与二部图的联系"></a>BFS与二部图的联系</h5><p>G中没有边与同一层的两个节点相交。这种情况下G是二部图，其中偶数层的节点可以着红色，奇数层的节点可以着蓝色。G中有一条边与同一层的两个节点相交，则存在一个奇圈，不可能是二部图。</p>
-<p>依照这一想法，对BFS算法稍作修改，给出二部图的判别方法如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">8</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span>** a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; N; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; a[i][j] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span>** a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	<span class="keyword">int</span> label[N], layer[N];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">		label[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> width;</span><br><span class="line">	s.push(<span class="number">1</span>); label[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		width = s.size();</span><br><span class="line">		<span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">			layer[i]= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (width--)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//同一层的节点存在layer中</span></span><br><span class="line">			<span class="keyword">int</span> k = s.front();</span><br><span class="line">			s.pop();</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++)</span><br><span class="line">				<span class="keyword">if</span> (!label[i] &amp;&amp; a[k][i])</span><br><span class="line">				&#123;</span><br><span class="line">					++label[i];</span><br><span class="line">					s.push(i);</span><br><span class="line">					<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">					layer[x++] = i;</span><br><span class="line">				&#125;	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//检查同一层借点是否相连</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; layer[j]; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j1 = j + <span class="number">1</span>; layer[j1]; j1++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (a[layer[j1]][layer[j]])</span><br><span class="line">					<span class="built_in">cout</span> &lt;&lt; <span class="string">"wrong!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="comment">//若存在奇圈，则在有两个节点相交的那一层给出提示</span></span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//初始化数据</span></span><br><span class="line">	<span class="keyword">int</span>** a = <span class="keyword">new</span> <span class="keyword">int</span>*[N];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; N; j++)</span><br><span class="line">			a[i][j] = <span class="number">0</span>;	</span><br><span class="line">	a[<span class="number">1</span>][<span class="number">2</span>] = a[<span class="number">2</span>][<span class="number">1</span>] = a[<span class="number">1</span>][<span class="number">4</span>] = a[<span class="number">4</span>][<span class="number">1</span>] = a[<span class="number">1</span>][<span class="number">6</span>]=a[<span class="number">4</span>][<span class="number">7</span>]=a[<span class="number">7</span>][<span class="number">4</span>]</span><br><span class="line">		= a[<span class="number">2</span>][<span class="number">5</span>] = a[<span class="number">5</span>][<span class="number">7</span>] = a[<span class="number">4</span>][<span class="number">3</span>] = a[<span class="number">6</span>][<span class="number">1</span>] = a[<span class="number">5</span>][<span class="number">2</span>] = a[<span class="number">7</span>][<span class="number">5</span>] = a[<span class="number">3</span>][<span class="number">4</span>] = <span class="number">1</span>;</span><br><span class="line">	print(a);</span><br><span class="line">    <span class="comment">//二分性测试</span></span><br><span class="line">	BFS(a);</span><br><span class="line">    </span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Machine-Learning-Note3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/29/Machine-Learning-Note3/" class="post-title-link" itemprop="url">Machine-Learning-Note3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">2019-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-30 19:58:02" itemprop="dateModified" datetime="2019-03-30T19:58:02+08:00">2019-03-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>###Octave的使用</p>
-<p>更改提示符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:11&gt; PS1(&apos;&gt;&gt;&apos;)</span><br><span class="line">&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>添加分号抑制输出</p>
-<p>查看帮助：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; help eye</span><br></pre></td></tr></table></figure>
-<p>构造10000个随机数并绘制高斯分布：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; w=randn(1,10000);</span><br><span class="line">&gt;&gt; hist(w,50)</span><br></pre></td></tr></table></figure>
-<p>圆周率：pi ，常数：e</p>
-<p>格式化输出</p>
-<p><img src="//yoursite.com/2019/03/29/Machine-Learning-Note3/blog\.deploy_git\images\octave_output.PNG" width="50%" height="50%"></p>
-<p><strong>矩阵</strong></p>
-<p>横向量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1,2,3]</span><br></pre></td></tr></table></figure>
-<p>列向量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1;2;3]</span><br></pre></td></tr></table></figure>
-<p>2*3，所有元素均为1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ones(2,3)</span><br></pre></td></tr></table></figure>
-<p>1*3，所有元素均为0：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w=zeros(1,3)</span><br></pre></td></tr></table></figure>
-<p>5*5单位矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I=eye(5)</span><br></pre></td></tr></table></figure>
-<p>3*3高斯随机数矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rand(3,3)</span><br></pre></td></tr></table></figure>
-<p>矩阵数乘：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C=2*ones(2,3)</span><br></pre></td></tr></table></figure>
-<p>读取A[3,2]:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(3,2)</span><br></pre></td></tr></table></figure>
-<p>读取矩阵A第2列所有元素：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)</span><br></pre></td></tr></table></figure>
-<p>读取矩阵A第1行和第3行所有元素：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A([1 3],:)</span><br></pre></td></tr></table></figure>
-<p>将A第二列替换为[10;11;12]：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)=[10;11;12]</span><br></pre></td></tr></table></figure>
-<p>在A的最后加上一列:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[A,[100,101,102]]</span><br></pre></td></tr></table></figure>
-<p>将A所有的元素合并成一个列向量:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:)</span><br></pre></td></tr></table></figure>
-<p>两个矩阵列合并：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; C=[A B]</span><br></pre></td></tr></table></figure>
-<p>两个矩阵行合并</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; D=[A;B]</span><br></pre></td></tr></table></figure>
-<h4 id="移动数据"><a href="#移动数据" class="headerlink" title="移动数据"></a>移动数据</h4><p>所用到的数据: <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/featuresX.dat" target="_blank" rel="noopener">featuresX.dat</a>, <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/priceY.dat" target="_blank" rel="noopener">priceY.dat</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; cd E:\桌面 %Octave中不能输入中文，在左上窗口双击打开</span><br><span class="line">&gt;&gt; load featuresX.dat</span><br><span class="line">&gt;&gt; load(&apos;priceY.dat&apos;)</span><br><span class="line">&gt;&gt; who %使用who命令显示当前所有变量,使用whos查看变量更详细的信息</span><br><span class="line">&gt;&gt; featuresX %展示数据</span><br><span class="line">featuresX =</span><br><span class="line"></span><br><span class="line">   2104      3</span><br><span class="line">   1600      3</span><br><span class="line">   2400      3</span><br><span class="line">   1416      2</span><br><span class="line">   3000      4</span><br><span class="line"> ......</span><br><span class="line">&gt;&gt; size(featuresX)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   27    2</span><br><span class="line">&gt;&gt; v=featuresX(1:5)</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">   2104   1600   2400   1416   3000</span><br><span class="line"></span><br><span class="line">&gt;&gt; save hello.mat v %二进制方式存储数据</span><br><span class="line">&gt;&gt; save hello.txt v -ascii %存储数据</span><br><span class="line">&gt;&gt;clear %清空所有变量</span><br></pre></td></tr></table></figure>
-<h5 id="数据的计算"><a href="#数据的计算" class="headerlink" title="数据的计算"></a>数据的计算</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%各种矩阵的运算</span><br><span class="line">&gt;&gt; A*B</span><br><span class="line">&gt;&gt; A.*b</span><br><span class="line">&gt;&gt; A.^2</span><br><span class="line">&gt;&gt; 1 ./A</span><br><span class="line">&gt;&gt; log(A)</span><br><span class="line">&gt;&gt; exp(A)</span><br><span class="line">&gt;&gt; -A</span><br></pre></td></tr></table></figure>
-<p>A中每个元素加1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A+ones(size(A))</span><br><span class="line">%或者：</span><br><span class="line">&gt;&gt; A+1</span><br></pre></td></tr></table></figure>
-<p>矩阵转置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A&apos;</span><br></pre></td></tr></table></figure>
-<p>最值，比较大小</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 0.5 100]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">     1.00000     3.00000     0.50000   100.00000</span><br><span class="line"></span><br><span class="line">&gt;&gt; [val ind]=max(A)</span><br><span class="line">val =  100</span><br><span class="line">ind =  4</span><br><span class="line">&gt;&gt; [val]=min(A)</span><br><span class="line">val =  0.50000</span><br><span class="line">&gt;&gt; A&gt;2</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  0  1  0  1</span><br></pre></td></tr></table></figure>
-<p>查找特定元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 5;6 8 9]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   3   5</span><br><span class="line">   6   8   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; find(a&gt;3)</span><br><span class="line">error: &apos;a&apos; undefined near line 1 column 6</span><br><span class="line">&gt;&gt; find(A&gt;3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   5</span><br><span class="line">   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; [r c]=find(A&gt;=2)</span><br><span class="line">r =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">c =</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   2</span><br><span class="line">   3</span><br><span class="line">   3</span><br></pre></td></tr></table></figure>
-<p>生成任意行、列、对角线和相等的矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; magic(3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   8   1   6</span><br><span class="line">   3   5   7</span><br><span class="line">   4   9   2</span><br></pre></td></tr></table></figure>
-<p>列向量求和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; sum(A)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">    7   11   14</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; floor(a)%向下取整</span><br><span class="line">&gt;&gt; ceil(a)%向上取整</span><br></pre></td></tr></table></figure>
-<p>最值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 2;3 4;5 6]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; A=[1 2;3 4;5 6],</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; B=[3 1;4 6;2 9]</span><br><span class="line">B =</span><br><span class="line"></span><br><span class="line">   3   1</span><br><span class="line">   4   6</span><br><span class="line">   2   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,B)</span><br><span class="line">%构造一个由A,B两个矩阵中对应位置较大的数组成的矩阵</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   3   2</span><br><span class="line">   4   6</span><br><span class="line">   5   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],1)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],2)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   6</span><br><span class="line">%获取矩阵中最大元素两种方式</span><br><span class="line">&gt;&gt; max(max(A))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; max(A(:))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; flipud(A)%矩阵上下翻转</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line">   3   4</span><br><span class="line">   1   2</span><br><span class="line">&gt;&gt; pinv(A)%矩阵的逆</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  -1.33333  -0.33333   0.66667</span><br><span class="line">   1.08333   0.33333  -0.41667</span><br></pre></td></tr></table></figure>
-<h5 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h5><p>（将函数画在同一图中、添加坐标轴说明、图示、存储图像、同一窗口不同位置显示两个图像、坐标轴刻度）</p>
-<p>将矩阵可视化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; imagesc(magic(15))</span><br></pre></td></tr></table></figure>
-<h5 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h5><p>循环语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; for i=1:10,</span><br><span class="line">v(i)=i^2;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">     1     4     9    16    25    36    49    64    81   100</span><br><span class="line"></span><br><span class="line">&gt;&gt; i=1;</span><br><span class="line">&gt;&gt; while i&lt;=10,</span><br><span class="line">v(i)=sqrt(v(i));</span><br><span class="line">i=i+1;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">    1    2    3    4    5    6    7    8    9   10</span><br></pre></td></tr></table></figure>
-<p>定义函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; [y1,y2]=squareAndcube(5)</span><br><span class="line">y1 =  25</span><br><span class="line">y2 =  125</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/17/Machine-Learning-Note2/" class="post-title-link" itemprop="url">Machine-Learning-Note2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-17 19:55:43" itemprop="dateCreated datePublished" datetime="2019-03-17T19:55:43+08:00">2019-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-18 20:14:52" itemprop="dateModified" datetime="2019-03-18T20:14:52+08:00">2019-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="矩阵和向量"><a href="#矩阵和向量" class="headerlink" title="矩阵和向量"></a>矩阵和向量</h5><p>大写字母-矩阵，小写字母-向量（特殊的矩阵）  </p>
-<ul>
-<li>加减，数乘</li>
-<li>数据矩阵乘参数向量  </li>
-<li>矩阵乘矩阵-大量运算打包，有结合律无交换律 <h5 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h5>特征量，训练样本数<br>定义第0个向量<br>多元梯度下降法<br><strong>特征缩放</strong>:使不同特征的取值在相近的范围内（例如-1~+1），梯度下降法能更快收敛，减少迭代次数。  </li>
-</ul>
-<p>方法：</p>
-<ol>
-<li>将特征除以最大值</li>
-<li>均值归一化，使特征值的均值为0 &lt;= 减均值，除以范围。<br>解决细长的椭圆等高线，梯度下降时来回波动，速度较慢的问题。  <h5 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h5>根据代价函数随迭代步数增加的变化曲线，判断是否已经收敛。或自动判断，选择合适阈值。<br>若发散或反复升降，选择更小的学习率。<h5 id="选择学习率α"><a href="#选择学习率α" class="headerlink" title="选择学习率α"></a>选择学习率α</h5>大致按3的倍数取值，结合代价函数随迭代步数增加的变化曲线。  </li>
-</ol>
-<h5 id="特征选择—多项式回归"><a href="#特征选择—多项式回归" class="headerlink" title="特征选择—多项式回归"></a>特征选择—多项式回归</h5><p>使数据与模型更好的拟合。<br>特征缩放更显重要。</p>
-<h5 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h5><p>不再像梯度下降中，迭代地求最优解，而是直接一次性求解0最优解。–&gt; 求导，导数置零。<br>加额外的特征变量x_0,用所有的特征变量构造矩阵<br>设计矩阵（特征矩阵的转置）<br>不需要做特征缩放！<br>在Octave中使用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinv(x&apos;*x)*x&apos;*y</span><br></pre></td></tr></table></figure>
-<p>对比梯度下降法与正规方程法：<br>梯度下降法 | 正规方程法<br>—|—<br>需要选择学习率α | 无需选择学习率α<br>需要多次迭代 | 无需多次迭代<br>适用于大样本量 | 样本较多时速度较慢,O(n^3)<br>当样本量大于10^6时，更适合采用梯度下降法。样本量较小时，正规方程法更优。<br>正规方程法适用于线性回归，不适合复杂的算法。</p>
-<h5 id="正规方程以及不可逆性"><a href="#正规方程以及不可逆性" class="headerlink" title="正规方程以及不可逆性"></a>正规方程以及不可逆性</h5><p>不可逆的矩阵（奇异或退化矩阵），很少发生，在软件中可得到正解。–&gt;数值计算问题</p>
-<p> 原因：可能是因为我们使用了冗余的特征,或是我们使用了太多的特征(特征的数量超过了样本的数量)<br>解决：去掉多余特征或使用正规化方法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1086,7 +1112,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

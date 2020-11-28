@@ -158,6 +158,203 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/3Sum/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/09/3Sum/" class="post-title-link" itemprop="url">3Sum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-09 08:52:44 / 修改时间：15:31:52" itemprop="dateCreated datePublished" datetime="2019-09-09T08:52:44+08:00">2019-09-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给一组整数，求出所有和为零的三元组。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>暂时只想到了遍历，还没有想到复杂度更低的方法</p>
+<ul>
+<li><p>vector&lt;vector<int>&gt; res;  注意赋值时，要使用push_back()，而不是=</int></p>
+</li>
+<li><p>注意去重！</p>
+</li>
+<li>最开始使用了三层循环，结果时间超限，所以将最内层循环换成了二分查找</li>
+</ul>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">	<span class="comment">//为了去重，将数字排序，与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	sort(nums.begin(), nums.end());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">	<span class="keyword">int</span> usedi = <span class="number">0</span>; <span class="keyword">int</span> usedj = <span class="number">0</span>; </span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;<span class="comment">//有三个以上的0时，只加入一次</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">2</span>; ++i)</span><br><span class="line">	&#123;		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; size - <span class="number">1</span>; ++j)</span><br><span class="line">		&#123;			</span><br><span class="line">			<span class="keyword">int</span> t = <span class="number">0</span> - nums[i] - nums[j];</span><br><span class="line">			<span class="keyword">if</span> (t &gt;= <span class="number">0</span>)</span><br><span class="line">			&#123;<span class="comment">//既然已经经过排序，那么要找的第三个数一定是个非负数</span></span><br><span class="line">			 <span class="comment">//复杂度过高，将内层的遍历改成二分查找</span></span><br><span class="line">				<span class="keyword">int</span> left = j + <span class="number">1</span>; <span class="keyword">int</span> right = size - <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">					<span class="keyword">if</span> (nums[mid] &lt; t)</span><br><span class="line">					&#123;</span><br><span class="line">						left = mid+<span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &gt; t)</span><br><span class="line">					&#123;</span><br><span class="line">						right = mid<span class="number">-1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">					&#123;</span><br><span class="line">						<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; y;</span><br><span class="line">						y.push_back(nums[i]);</span><br><span class="line">						y.push_back(nums[j]);</span><br><span class="line">						y.push_back(t);</span><br><span class="line">						res.push_back(y);</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			usedj = nums[j];</span><br><span class="line">			<span class="keyword">while</span> ( j &lt; size - <span class="number">2</span> &amp;&amp; usedj == nums[j+<span class="number">1</span>])</span><br><span class="line">				++j;</span><br><span class="line">		&#125;	</span><br><span class="line">		usedi = nums[i];</span><br><span class="line">		<span class="keyword">while</span> ( i &lt; size - <span class="number">3</span> &amp;&amp; usedi == nums[i+<span class="number">1</span>])</span><br><span class="line">			++i;<span class="comment">//与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>找到另外一种思路：不需要三层，两层就够了，外层思路不变，在内层，从两端向中间移动。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum2(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">	<span class="comment">//为了去重，将数字排序，与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	sort(nums.begin(), nums.end());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">	<span class="keyword">int</span> usedi = <span class="number">0</span>; <span class="keyword">int</span> usedj = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;<span class="comment">//有三个以上的0时，只加入一次</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">2</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = i + <span class="number">1</span>; <span class="keyword">int</span> k = size - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (j &lt; k)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> t = nums[i] + nums[j] + nums[k];</span><br><span class="line">			<span class="keyword">if</span> (t == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; y;</span><br><span class="line">				y.push_back(nums[i]);</span><br><span class="line">				y.push_back(nums[j]);</span><br><span class="line">				y.push_back(nums[k]);</span><br><span class="line">				res.push_back(y);</span><br><span class="line">				<span class="keyword">while</span> (j &lt; size - <span class="number">2</span> &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) ++j;</span><br><span class="line">				<span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; nums[k] == nums[k - <span class="number">1</span>]) --k;</span><br><span class="line">				++j;</span><br><span class="line">				--k;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (t &gt; <span class="number">0</span>)</span><br><span class="line">				--k;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				++j;</span><br><span class="line">		&#125;</span><br><span class="line">		usedi = nums[i];</span><br><span class="line">		<span class="keyword">while</span> (i &lt; size - <span class="number">3</span> &amp;&amp; usedi == nums[i + <span class="number">1</span>])</span><br><span class="line">			++i;<span class="comment">//与前面重复的数字就不要再向后搜索</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/LongestCommonPrefix/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/LongestCommonPrefix/" class="post-title-link" itemprop="url">LongestCommonPrefix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-08 16:33:04 / 修改时间：16:45:23" itemprop="dateCreated datePublished" datetime="2019-09-08T16:33:04+08:00">2019-09-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font color="blue">注意数组为空的情况！！！</font>
+
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一组字符串，输出这些字符串共有的最长前缀</p>
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>二重循环，外层是字符串长度向后移动，内层是每个字符串依次比较。得到了最容易想到的解决方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> size = strs.size();</span><br><span class="line">	<span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	<span class="keyword">int</span>* lens = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">	<span class="keyword">int</span> min= strs[<span class="number">0</span>].length();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		lens[i] = strs[i].length();</span><br><span class="line">		<span class="keyword">if</span> (lens[i] &lt; min)</span><br><span class="line">			min = lens[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> ch;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; min &amp;&amp; flag; ++i)<span class="comment">//字符串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		ch = strs[<span class="number">0</span>][i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size; ++j)<span class="comment">//遍历每个字符串</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (strs[j][i] != ch)</span><br><span class="line">			&#123;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			s = s + ch;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是提交之后发现内存使用量太大，难道是因为我开了一个记录长度的数组？突然想到递归也是可以解决的。</p>
+<p>查了一下其他人的做法，发现了自己的不足：需要返回的字符串prefix，不需要一个个字母地附加。当字符串数组strs不为空时，令prefix=strs[0]，然后外层遍历res的字符，内层遍历strs数组，利用strs[i].indexOf(prefix) != 0和prefix.substring(0, prefix.length() - 1)已有的函数。这样空间复杂度为O(1)。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/Roman-to-Integer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/Roman-to-Integer/" class="post-title-link" itemprop="url">Roman-to-Integer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-08 08:14:05 / 修改时间：08:22:12" itemprop="dateCreated datePublished" datetime="2019-09-08T08:14:05+08:00">2019-09-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>犯了一个严重的错误，居然忘了switch-case，在执行完一个case之后是继续向下走的！因此注意是否要在每个case中加‘break’</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>罗马数字转阿拉伯数字。注意类似“4”和“9”的情况。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>想到了最简单地解决方法：从前向后遍历，遇到字母就加上对应的数字，只不过要注意‘I’等字母，看是否出现类似“4”和“9”的情况。更高效的方法暂时还没想到。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.length();</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">switch</span> (s[i])</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">1000</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">500</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'C'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'D'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">400</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'M'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">900</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">100</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">100</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'L'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">50</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'X'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'L'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">40</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'C'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">90</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">10</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'V'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">5</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'V'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">4</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'X'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">9</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/07/integer-to-roman/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -681,323 +878,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/mini-pro-Note2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/03/mini-pro-Note2/" class="post-title-link" itemprop="url">mini-pro-Note2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-03 23:25:42" itemprop="dateCreated datePublished" datetime="2019-08-03T23:25:42+08:00">2019-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-12 18:08:53" itemprop="dateModified" datetime="2019-08-12T18:08:53+08:00">2019-08-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="“我的页面”"><a href="#“我的页面”" class="headerlink" title="“我的页面”"></a>“我的页面”</h4><p><font color="red">./</font> 表示同级目录</p>
-<p><strong>媒体组件 image 属性</strong></p>
-<p> image 链接语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src=&quot;&#123;&#123;userInfo.head_img1?userInfo.head_img:&apos;/image s/default_head_circle.png&apos;&#125;&#125;&quot;</span><br></pre></td></tr></table></figure>
-<p>如果 storage当中获取到 userInfo.head_img，则打印出 userInfo.head_img，反之 则打印 image 文件中的 default_head_circle.png 图片</p>
-<p><strong>WXSS属性</strong></p>
-<p>rpx（responsivepixel）: 可以根据屏幕宽度进行自适应。</p>
-<hr>
-<p>userinfo 的值是通过向后台访问请求，获取到的用户信息，并存在本地， 然后从本地读取出来进行赋值。请求的代码写在 app.js 中。myinfo.js 文件的 data 数组中定义 userinfo，并在 onLoad 函数中对 userinfo变量进行赋值。</p>
-<p>bindchange检测输入框中的文字变化，bingchange=”changeName”，”changeName”函数写在js中，与data同级</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">    name:<span class="string">''</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  changeName:<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">      name: e.detail.value</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-<p>bindtap：按键的事件处理函数</p>
-<p><strong>报错：</strong>app is not defined;</p>
-<p><strong>解决：</strong>js文件Page同级，Page前面增加：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = getApp()</span><br></pre></td></tr></table></figure>
-<p>我的页面的样式选择的是带说明、跳转的列项表，用到了 navigator 组件。</p>
-<h4 id="change页面"><a href="#change页面" class="headerlink" title="change页面"></a>change页面</h4><p><strong>valuechange 函数</strong> </p>
-<p><strong>submit 函数</strong> </p>
-<p>onLoad函数只有在重新编译或者关闭该页面重新打开时才会执行，onShow 函数的作用是<br>监听页面显示，会在页面每次显示时执行。</p>
-<p>wx.showToast()弹窗</p>
-<p><strong>配置文件</strong>：所有的 wx.request()请求，url 的网址都有很多共同之处，所以把共同之<br>处作为一个宏进行定义，后面维护起来方便修改与迁移。增加config.js（与app.js同级）</p>
-<p>userUrl: `${apiUrl}/User/`</p>
-<p>model.export = config 接口暴露</p>
-<p>例如在app.js中使用配置文件的数据时：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wxUrl = <span class="built_in">require</span>(<span class="string">'./config.js'</span>).wxUrl</span><br></pre></td></tr></table></figure>
-<p>model.export = config 接口暴露</p>
-<p><strong>报错：</strong>Setting data field “value” to undefined is invalid.</p>
-<p><strong>解决：</strong>可能是与后台命名不一致的问题</p>
-<h4 id="课程模块"><a href="#课程模块" class="headerlink" title="课程模块"></a>课程模块</h4><p>访问<a href="http://zjgsujiaoxue.applinzi.com/index.php/Api/User/createCourse?appid=wx54986cc2cae48b8b&amp;courseName=%E4%B8%93%E5%B1%9E%E4%BA%8C%E7%BA%A7%E9%A2%98%E7%9B%AE&amp;questionSet=1008&amp;creater=PY" target="_blank" rel="noopener">链接</a>向后台申请课程号，响应结果：课程号创建成功，课程号：10853</p>
-<p><strong>报错：</strong>getLocation需要在app.json中声明permission字段</p>
-<p><strong>解决：</strong>在app.json中增加以下代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"permission": &#123;</span><br><span class="line">"scope.userLocation": &#123;</span><br><span class="line">"desc": "你的位置信息将用于小程序位置接口的效果展示"</span><br><span class="line">&#125;</span><br><span class="line">&#125;，</span><br></pre></td></tr></table></figure>
-<h4 id="做题模块"><a href="#做题模块" class="headerlink" title="做题模块"></a>做题模块</h4><p>要在 app.json 文件中加上对应的所有页面路径</p>
-<p>url链接里面不能存在空格</p>
-<p>如果因为this.setData()使用次数过多而报错，可以使用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">that.setData(that.data);</span><br></pre></td></tr></table></figure>
-<p>data数组中部分大小写，触发函数的返回值中都是小写，所以在使用返回值进行赋值时使用小写。</p>
-<h4 id="签到测距模块"><a href="#签到测距模块" class="headerlink" title="签到测距模块"></a>签到测距模块</h4><p><strong>wx.chooseLocation()</strong></p>
-<p><strong>wx.getLocation()</strong></p>
-<p><strong>buttonde disabled属性</strong></p>
-<p><strong>JS实现经纬测距</strong></p>
-<p>let 只能在一块（即一个｛｝中的区域叫做一个块域）中使用定义过的变量，可以是用 var 来定义变量，因为 var 是全局变量，跳出 for 循环以后还是可以使用，还有 const 用来定义常量，使用时必须初始化(即必须赋值)，只能在块作用域里访问，跳出块也不能访问变量，而且不能修改。</p>
-<p>成功回调函数里面默认this是指成功回调函数里的this而不是与函数同级的data数组，解决方案：在回调函数外面定义var that = this，在回调函数中可以使用that，或者，改变回调函数的定义，使用success: (res) =&gt; {…}</p>
-<p>保留到小数点后三位：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = ...</span><br><span class="line">s = s.toFixed(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="后台与数据库"><a href="#后台与数据库" class="headerlink" title="后台与数据库"></a>后台与数据库</h4><p>采用 wampserver 即 Windows、Apache、 MySQL 和 PHP 的集成环境，搭建本地环境</p>
-<p>tableBar跳转失效：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.redirectTo(&#123;</span><br><span class="line">            url: <span class="string">'../index/index'</span>,</span><br><span class="line">          &#125;)</span><br></pre></td></tr></table></figure>
-<p>解决方法：使用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.switchTab(&#123;</span><br><span class="line">           url: <span class="string">'../index/index'</span>,</span><br><span class="line">         &#125;)</span><br></pre></td></tr></table></figure>
-<p>后台向前台返回值使用ajaxReturn</p>
-<p>后台使用I()方法获取前台传来的值</p>
-<p>后台通过M()方法实例化数据库（M()使用驼峰命名法，因此数据库表名中的下划线需要修改）</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$model = M(<span class="string">"Column"</span>);</span><br><span class="line"><span class="comment">//创建一个Column模型，对应数据库中的Column表，如果有前缀就是 前缀_Column表</span></span><br><span class="line"> </span><br><span class="line">$columninfo = $model -&gt; field(<span class="string">"pid,image"</span>)-&gt;where(<span class="string">"id="</span>.$pid) -&gt; find() ;</span><br><span class="line"><span class="comment">//设定查询字段为 pid 和 image，条件是 id=$pid</span></span><br><span class="line"><span class="comment">//find()方法是找出一条数据</span></span><br><span class="line"><span class="comment">//$columninfof是一个数组返回值，起结构为 array('pid'=&gt;"***",'image'=&gt;"***")</span></span><br></pre></td></tr></table></figure>
-<h4 id="API开发与云平台使用"><a href="#API开发与云平台使用" class="headerlink" title="API开发与云平台使用"></a>API开发与云平台使用</h4><p>带餐返回的值储存在option里面</p>
-<p>课程号创建成功，课程号：10016</p>
-<p><strong>云开发</strong>（使用JSON数据库）</p>
-<p>关系型数据库和JSON数据库：</p>
-<table>
-<thead>
-<tr>
-<th>关系型</th>
-<th>文档型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>数据库database</td>
-<td>数据库database</td>
-</tr>
-<tr>
-<td>表table</td>
-<td>集合collection</td>
-</tr>
-<tr>
-<td>行row</td>
-<td>记录record/doc</td>
-</tr>
-<tr>
-<td>列column</td>
-<td>字段field</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/mini-pro-Note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/29/mini-pro-Note1/" class="post-title-link" itemprop="url">mini-pro-Note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-29 22:45:23" itemprop="dateCreated datePublished" datetime="2019-07-29T22:45:23+08:00">2019-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-03 23:23:45" itemprop="dateModified" datetime="2019-08-03T23:23:45+08:00">2019-08-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> MOOC教程：<a href="https://www.icourse163.org/learn/HZIC-1205901813?tid=1206204209#/learn/content" target="_blank" rel="noopener">https://www.icourse163.org/learn/HZIC-1205901813?tid=1206204209#/learn/content</a></p>
-<p>微信小程序诞生背景：网页速度慢，APP开发、下载及更新问题，借助微信的推广</p>
-<ol>
-<li><p><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/quickstart/getstart.html#%E7%94%B3%E8%AF%B7%E5%B8%90%E5%8F%B7" target="_blank" rel="noopener">注册微信小程序</a></p>
-</li>
-<li><p><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank" rel="noopener">安装开发者工具</a></p>
-</li>
-<li><p>创建小程序</p>
-</li>
-</ol>
-<p>项目文件结构：</p>
-<p>pages：小程序的页面，每个页面有js(定义函数)，wxml，wxss(页面样式)，json(配置文件)文件</p>
-<p>app：全局页面，app.json中pages第一行是进入小程序的首页，windows状态栏、导航栏等设置</p>
-<p>在index.js的data里面定义参数(可定义初始值或之后赋值)，bindViewTag定义事件处理函数，在index.wxml里使用，变量要使用双括号。</p>
-<p>右下方窗口APPData中可查看登录者微信设置</p>
-<p><strong>tabBar</strong>：</p>
-<p>在app.json文件中与window同级，若要为按钮增加图标，需要将图片保存在与pages同级的文件夹(images)中，iconPath指的是没有被选中时的按钮图标，selectedIconPath表示被选中时的图标。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"tabBar"</span>:&#123;</span><br><span class="line">  <span class="string">"list"</span>:[</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"pagePath"</span>:<span class="string">"pages/index/index"</span>,</span><br><span class="line">      <span class="string">"text"</span>:<span class="string">"首页"</span>,</span><br><span class="line">      <span class="string">"iconPath"</span>:<span class="string">"images/first1.png"</span>,</span><br><span class="line">      <span class="string">"selectedIconPath"</span>:<span class="string">"images/first2.png"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"pagePath"</span>: <span class="string">"pages/logs/logs"</span>,</span><br><span class="line">      <span class="string">"text"</span>: <span class="string">"日志"</span>,</span><br><span class="line">      <span class="string">"iconPath"</span>: <span class="string">"images/log1.png"</span>,</span><br><span class="line">      <span class="string">"selectedIconPath"</span>: <span class="string">"images/log2.png"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ] </span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p><strong>调试</strong>可使用console.log(&lt;要打印的内容&gt;)</p>
-<p>C语言测试小程序，增加做题情况</p>
-<h3 id="我的页面模块开发"><a href="#我的页面模块开发" class="headerlink" title="我的页面模块开发"></a><strong>我的页面</strong>模块开发</h3><p><img src="//yoursite.com/2019/07/29/mini-pro-Note1/blog\source\_posts\3.PNG" alt="3"></p>
-<p>要使 wx.login 方法的 wx.request()中的 url 实现访问后台，需要前往<a href="https://zjgsujiaoxue.applinzi.com/index.php/Page/Index/register进行进行使用注册。" target="_blank" rel="noopener">https://zjgsujiaoxue.applinzi.com/index.php/Page/Index/register进行进行使用注册。</a> 调用该接口需要 2 个参数，即开发者的 appid 与 appsecret。</p>
-<p><strong>微信官方 UI 库 WeUI</strong></p>
-<p>将 style 文件夹拷贝至自己开发的项目后，在 app.wxss 文件中使用 @import 导入 weui 的样式</p>
-<p><strong>bindchange 事件</strong></p>
-<p>当输入框中的内容发生改变时， 触发对应的事件处理函数，并且输入框中的值可以通过 event.detail.value 来获取</p>
-<p>在wxml中使用\<view>的 class 类最后新加一个 submit 子类，在 wxss 文件中写 submit 子类样式的相关属性</view></p>
-<p><strong>openAlert 函数</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/Dino-Run/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/27/Dino-Run/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-27 23:19:33" itemprop="dateCreated datePublished" datetime="2019-07-27T23:19:33+08:00">2019-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:12:00" itemprop="dateModified" datetime="2020-02-10T21:12:00+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<p>title: Dino Run<br>tags: tip—</p>
-<p>强化学习训练把dino run玩到4000分，<a href="https://blog.paperspace.com/dino-run/" target="_blank" rel="noopener">教程链接</a>，需要云服务器，所以放弃了。</p>
-<p>在网上找到了外挂的方法：<a href="https://blog.csdn.net/weixin_41474364/article/details/85613923" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41474364/article/details/85613923</a></p>
-<p>根据判断X轴方向小恐龙和前面物品距离进行自动跳跃，添加了代码避免小恐龙跳过蛋糕、避而不吃，调整了对障碍物需要跳跃的高度判断，防止小恐龙看到低飞的鸟儿迎面而上，还有能够在代码执行后，自动开始游戏。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TrexRunnerBot</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> makeKeyArgs = (keyCode) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> preventDefault = () =&gt; void <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;keyCode, preventDefault&#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> upKeyArgs = makeKeyArgs(<span class="number">38</span>);</span><br><span class="line">  <span class="keyword">const</span> downKeyArgs = makeKeyArgs(<span class="number">40</span>);</span><br><span class="line">  <span class="keyword">const</span> startArgs = makeKeyArgs(<span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!Runner().playing) &#123;</span><br><span class="line">    Runner().onKeyDown(startArgs);</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      Runner().onKeyUp(startArgs);</span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">conquerTheGame</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!Runner || !Runner().horizon.obstacles[<span class="number">0</span>]) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> obstacle = Runner().horizon.obstacles[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (obstacle.typeConfig &amp;&amp; obstacle.typeConfig.type === <span class="string">'SNACK'</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (needsToTackle(obstacle) &amp;&amp; closeEnoughToTackle(obstacle)) tackle(obstacle);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">needsToTackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.yPos !== <span class="number">50</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">closeEnoughToTackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.xPos &lt;= Runner().currentSpeed * <span class="number">18</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">tackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isDuckable(obstacle)) &#123;</span><br><span class="line">      duck();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      jumpOver(obstacle);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isDuckable</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.yPos === <span class="number">50</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Runner().onKeyDown(downKeyArgs);</span><br><span class="line"></span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      Runner().onKeyUp(downKeyArgs);</span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">jumpOver</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isNextObstacleCloseTo(obstacle))</span><br><span class="line">      jumpFast();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      Runner().onKeyDown(upKeyArgs);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isNextObstacleCloseTo</span><span class="params">(currentObstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> nextObstacle = Runner().horizon.obstacles[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nextObstacle &amp;&amp; nextObstacle.xPos - currentObstacle.xPos &lt;= Runner().currentSpeed * <span class="number">42</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">jumpFast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Runner().onKeyDown(upKeyArgs);</span><br><span class="line">    Runner().onKeyUp(upKeyArgs);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;conquerTheGame: conquerTheGame&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let bot = TrexRunnerBot();</span><br><span class="line">let botInterval = setInterval(bot.conquerTheGame, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-<p>将代码复制到console，回车，会自动进行跳跃，获取分数的速度依然和正常游玩的玩家是一样的，小恐龙走一步记一分。</p>
-<p>下面的方法，可以在短时间内迅速加分：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Runner.instance_.setSpeed(<span class="number">99999</span>); 试试 瞬间 满分</span><br><span class="line">window.tempGameOver = Runner.instance_.gameOver;</span><br><span class="line">Runner.instance_.gameOver = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;&#125;<span class="comment">// 不会死亡</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1064,7 +948,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
