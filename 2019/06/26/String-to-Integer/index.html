@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="问题描述Example 1: 12Input: &amp;quot;42&amp;quot;Output: 42 Example 2: 1234Input: &amp;quot;   -42&amp;quot;Output: -42Explanation: The first non-whitespace character is &amp;apos;-&amp;apos;, which is the minus sign.">
+<meta name="keywords" content="LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String to Integer">
+<meta property="og:url" content="http://yoursite.com/2019/06/26/String-to-Integer/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="问题描述Example 1: 12Input: &amp;quot;42&amp;quot;Output: 42 Example 2: 1234Input: &amp;quot;   -42&amp;quot;Output: -42Explanation: The first non-whitespace character is &amp;apos;-&amp;apos;, which is the minus sign.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-26T15:00:09.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String to Integer">
+<meta name="twitter:description" content="问题描述Example 1: 12Input: &amp;quot;42&amp;quot;Output: 42 Example 2: 1234Input: &amp;quot;   -42&amp;quot;Output: -42Explanation: The first non-whitespace character is &amp;apos;-&amp;apos;, which is the minus sign.">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/26/String-to-Integer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>String to Integer | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/26/String-to-Integer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          String to Integer
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-26 22:54:30 / 修改时间：23:00:09" itemprop="dateCreated datePublished" datetime="2019-06-26T22:54:30+08:00">2019-06-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;42&quot;</span><br><span class="line">Output: 42</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;   -42&quot;</span><br><span class="line">Output: -42</span><br><span class="line">Explanation: The first non-whitespace character is &apos;-&apos;, which is the minus sign.</span><br><span class="line">             Then take as many numerical digits as possible, which gets 42.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;4193 with words&quot;</span><br><span class="line">Output: 4193</span><br><span class="line">Explanation: Conversion stops at digit &apos;3&apos; as the next character is not a numerical digit.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;words and 987&quot;</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: The first non-whitespace character is &apos;w&apos;, which is not a numerical </span><br><span class="line">             digit or a +/- sign. Therefore no valid conversion could be performed.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;-91283472332&quot;</span><br><span class="line">Output: -2147483648</span><br><span class="line">Explanation: The number &quot;-91283472332&quot; is out of the range of a 32-bit signed integer.</span><br><span class="line">             Thefore INT_MIN (−231) is returned.</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>主要就是要考虑的细节比较多，特殊的情况及其处理在注释中给出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = str.length();</span><br><span class="line">	<span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> numLen = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> minus = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">bool</span> hasNum = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len &amp;&amp; ((str[s] == <span class="string">' '</span> &amp;&amp; !hasNum) || str[s] == <span class="string">'0'</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//第二个条件针对"0  123"</span></span><br><span class="line">		<span class="keyword">if</span> (str[s] == <span class="string">'0'</span>)hasNum = <span class="literal">true</span>;</span><br><span class="line">		++s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!hasNum)</span><br><span class="line">	&#123;<span class="comment">//hasNum的判断针对"0-1"</span></span><br><span class="line">		<span class="comment">//if-else语句针对"-+1"，"-+1"，"+1"</span></span><br><span class="line">		<span class="keyword">if</span> (str[s] == <span class="string">'-'</span>) &#123; ++s; minus = <span class="literal">true</span>; &#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (str[s] == <span class="string">'+'</span>) &#123; ++s; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len &amp;&amp; (str[s] == <span class="string">'0'</span>))++s;<span class="comment">//针对"   +0 123"，"-000000000000001"，"  0000000000012345678"</span></span><br><span class="line">	<span class="keyword">if</span> (str[s]&lt;<span class="string">'0'</span> || str[s]&gt;<span class="string">'9'</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len&amp;&amp;str[s] &gt;= <span class="string">'0'</span> &amp;&amp; str[s] &lt;= <span class="string">'9'</span>&amp;&amp;numLen&lt;<span class="number">11</span>)</span><br><span class="line">	&#123;<span class="comment">//INT_MAX是10位数，numLen针对"20000000000000000000"</span></span><br><span class="line">		res *= <span class="number">10</span>;</span><br><span class="line">		res += (str[s] - <span class="string">'0'</span>);</span><br><span class="line">		++s; ++numLen;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (minus)res *= (<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">if</span> (res &gt; INT_MAX)<span class="keyword">return</span> INT_MAX;</span><br><span class="line">	<span class="keyword">if</span> (res &lt; INT_MIN) <span class="keyword">return</span> INT_MIN;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外看到一个解决方法，在处理数字串前面的空白、0、正负号时更简洁：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> neg = <span class="literal">false</span>, caled = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it=str.begin(); it!=str.end(); ++it) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">' '</span> &amp;&amp; !caled) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">'-'</span> &amp;&amp; !caled) &#123; neg = <span class="literal">true</span>; caled = <span class="literal">true</span>; <span class="keyword">continue</span>; &#125;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">'+'</span> &amp;&amp; !caled) &#123; neg = <span class="literal">false</span>; caled = <span class="literal">true</span>; <span class="keyword">continue</span>; &#125;</span><br><span class="line">            <span class="keyword">if</span> ( *it &gt;= <span class="string">'0'</span> &amp;&amp; *it &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">                tmp = *it - <span class="string">'0'</span>;</span><br><span class="line">                caled = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span> ( res &gt; <span class="number">0</span> &amp;&amp; !neg &amp;&amp;</span><br><span class="line">                    (( res &gt; INT_MAX / <span class="number">10</span>) || ((INT_MAX - res*<span class="number">10</span>) &lt; tmp)) ) &#123;</span><br><span class="line">                    res = INT_MAX;</span><br><span class="line">                    <span class="keyword">return</span> res;&#125;</span><br><span class="line">                <span class="keyword">if</span> (res &gt; <span class="number">0</span> &amp;&amp; neg &amp;&amp;</span><br><span class="line">                    (( <span class="number">-1</span> * res &lt; INT_MIN / <span class="number">10</span>) || (res*<span class="number">-10</span> &lt;= INT_MIN + tmp)) ) &#123;</span><br><span class="line">                    res = INT_MIN;</span><br><span class="line">                    <span class="keyword">return</span> res;&#125;</span><br><span class="line">                res = res*<span class="number">10</span> + tmp;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (caled) res = neg ? <span class="number">-1</span> * res : res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/26/Reverse-Integer/" rel="prev" title="Reverse Integer">
+      <i class="fa fa-chevron-left"></i> Reverse Integer
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/27/神经网络学习/" rel="next" title="神经网络学习">
+      神经网络学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

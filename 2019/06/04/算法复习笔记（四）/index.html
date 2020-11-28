@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="动态规划找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。  带权的区间调度对区间j定义p(j)为使得区间i与j不相交的最大的标记i &amp;lt; j, i是最右边的与j不冲突的区间。$$OPT(j)=\begin{cases}0,\quad if\ j=0 \\max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise\end{cases}$$ 递归的备">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法复习笔记（四）">
+<meta property="og:url" content="http://yoursite.com/2019/06/04/算法复习笔记（四）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="动态规划找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。  带权的区间调度对区间j定义p(j)为使得区间i与j不相交的最大的标记i &amp;lt; j, i是最右边的与j不冲突的区间。$$OPT(j)=\begin{cases}0,\quad if\ j=0 \\max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise\end{cases}$$ 递归的备">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/04/算法复习笔记（四）/blog/source/_posts/sql/算法1.PNG">
+<meta property="og:updated_time" content="2019-06-12T03:10:20.696Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法复习笔记（四）">
+<meta name="twitter:description" content="动态规划找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。  带权的区间调度对区间j定义p(j)为使得区间i与j不相交的最大的标记i &amp;lt; j, i是最右边的与j不冲突的区间。$$OPT(j)=\begin{cases}0,\quad if\ j=0 \\max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise\end{cases}$$ 递归的备">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/04/算法复习笔记（四）/blog/source/_posts/sql/算法1.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/04/算法复习笔记（四）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法复习笔记（四） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/算法复习笔记（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法复习笔记（四）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-04 18:04:17" itemprop="dateCreated datePublished" datetime="2019-06-04T18:04:17+08:00">2019-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-12 11:10:20" itemprop="dateModified" datetime="2019-06-12T11:10:20+08:00">2019-06-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><font color="red">找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。</font>
+
+<h3 id="带权的区间调度"><a href="#带权的区间调度" class="headerlink" title="带权的区间调度"></a>带权的区间调度</h3><p>对区间j定义p(j)为使得区间i与j不相交的最大的标记i &lt; j, i是最右边的与j不冲突的区间。<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise<br>\end{cases}<br>$$</p>
+<h4 id="递归的备忘录形式-自顶向下"><a href="#递归的备忘录形式-自顶向下" class="headerlink" title="递归的备忘录形式 自顶向下"></a>递归的备忘录形式 自顶向下</h4><p>用一个数组M[0…n]保存中间计算结果</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Input: n,  s1,...,sn,  f1,...,fn,   v1,...,vn</span><br><span class="line">sort jobs by finish times so that f1 &lt;= f2 &lt;=...&lt;= fn <span class="comment">//O(nlogn)</span></span><br><span class="line">compute p(<span class="number">1</span>)，p(<span class="number">2</span>),...,p(n) <span class="comment">//如果已对开始时间排序，只需O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j<span class="number">-1</span> to n</span><br><span class="line">	M[j]=empty</span><br><span class="line">M[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">M-Compute_Opt(j)&#123; <span class="comment">//O(n) ，每次递归时，M[]被填充一个，至多有2n次递归调用</span></span><br><span class="line">    <span class="keyword">if</span> (M[j] is empty)&#123;</span><br><span class="line">        M[j]=max(wj+M-Compute_Opt(p(j)),M-Compute_Opt(j<span class="number">-1</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> M[j]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="输出最优解-O-n"><a href="#输出最优解-O-n" class="headerlink" title="输出最优解 O(n)"></a>输出最优解 O(n)</h4><p>j属于一个区间集合{1,…,j} 的最优解当且仅当：$v_j+OPT(p(j)) &gt; OPT(j-1)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Find-Solution(j)&#123;</span><br><span class="line">    <span class="keyword">if</span>(j=<span class="number">0</span>)</span><br><span class="line">        output nothing</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(vj+M[p(j)] &gt;M[j<span class="number">-1</span>])</span><br><span class="line">        print j</span><br><span class="line">        Find-Solution(p(j))</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        Find-Solution(j<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="迭代算法计算M-自底向上"><a href="#迭代算法计算M-自底向上" class="headerlink" title="迭代算法计算M[] 自底向上"></a>迭代算法计算M[] 自底向上</h4><p>Input: n, s1,…,sn, f1,…,fn , v1,…,vn </p>
+<p>Sort jobs by finish times so that f1≤f2≤… ≤fn.</p>
+<p>Computep(1), p(2), …, p(n)</p>
+<p>Iterative-Compute-Opt { //O(n)</p>
+<p>​    M[0] = 0 forj = 1 to n </p>
+<p>​    M[j] = max(vj+ M[p(j)], M[j-1]) </p>
+<p>}</p>
+<p>区别动态规划与分治策略：子问题是否独立</p>
+<h3 id="分段的最小二乘"><a href="#分段的最小二乘" class="headerlink" title="分段的最小二乘"></a>分段的最小二乘</h3><p>罚分度量函数:  E + c L  在所有直线上的平方误差之和E，直线的数目L</p>
+<p>OPT(j) =对于点pi, pi+1, . . . , pj的最优解 </p>
+<p>e(i, j)  = 关系到pi, pi+1, . . . , pj的任何直线的最小误差<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>min_{1≤i≤j}{e(i,j)+c+OPT(i-1)},\quad otherwise<br>\end{cases}<br>$$</p>
+<h4 id="自底向上"><a href="#自底向上" class="headerlink" title="自底向上"></a>自底向上</h4><p>INPUT: n, p1,…,pN,c</p>
+<p>Segmented-Least-Squares() { </p>
+<p>​    M[0] = 0 </p>
+<p>​    for j = 1 to n </p>
+<p>​        for i = 1 to j </p>
+<p>​            compute the least square error eij for the segment pi,…, pj //O(n)<br>​    for j = 1 to n </p>
+<p>​        M[j] =$min_{1≤i≤j}{e(i,j)+c+OPT(i-1)}$ //O(n^2) </p>
+<p>​    return M[n]<br>}</p>
+<p>总的算法代价是O(n^3)；如果预先计算了统计信息e(i, j) ，那么代价就是 O(n^2)</p>
+<h4 id="通过数组M-向回寻找计算最优的划分"><a href="#通过数组M-向回寻找计算最优的划分" class="headerlink" title="通过数组M 向回寻找计算最优的划分"></a>通过数组M 向回寻找计算最优的划分</h4><p>Find-Segments(j) </p>
+<p>​    If j=0 then </p>
+<p>​        不用输出 </p>
+<p>​    Else </p>
+<p>​        找一个使得e(i,j)+c+M[i-1]最小的i </p>
+<p>​    输出这一段{pi,…,pj}作为直线段，以及输出递归函数Find-Segments(i-1)的结果 </p>
+<p>End if</p>
+<h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p>增加一个变量<br>$$<br>OPT(i,w)=\begin{cases}<br>0,\quad if\ i=0 \\<br>OPT(i-1,w),\quad if\ wi&gt;w \\<br>max{OPT(i-1,w),vi+OPT(i-1,w-wi)},\quad otherwise<br>\end{cases}<br>$$<br>自底向上算法，填满一个n*W的二维数组</p>
+<p>Input: n, w1,…,wN, v1,…,vN</p>
+<p>for w = 0 to W </p>
+<p>​    M[0, w] = 0</p>
+<p>for i = 1 to n </p>
+<p>​    for w = 1 to W </p>
+<p>​        if(wi&gt; w) </p>
+<p>​            M[i, w] = M[i-1, w] </p>
+<p>​        else </p>
+<p>​            M[i, w] = $max{OPT(i-1,w),vi+OPT(i-1,w-wi)}$</p>
+<p>return M[n, W]</p>
+<p><img src="//yoursite.com/2019/06/04/算法复习笔记（四）/blog\source\_posts\sql\算法1.PNG" width="60%"></p>
+<p>Θ(nW)，伪多项式。在O(n)时间内找到最优集合。</p>
+<h3 id="RNA二级结构"><a href="#RNA二级结构" class="headerlink" title="RNA二级结构"></a>RNA二级结构</h3><p>没有尖的转弯：S中每个对的两端被至少四个插入的碱基所分割.  即如果(bi, bj) ∈S, 那么i &lt; j -4.<br>$$<br>OPT(i,j)=\begin{cases}<br>0,\quad if\ i≥j-4 \\<br>max{OPT(i,j-1),1+max_t{OPT(i,t-1)+OPT(t+1,j)}},\quad otherwise<br>\end{cases}<br>$$<br>$max_t$遍取所有的t,使得bt与bj是一对被允许的碱基.</p>
+<p>存在O(n^2)个子问题;每次求值用O(n)时间,总运行时间是O(n^3)</p>
+<h3 id="序列比对"><a href="#序列比对" class="headerlink" title="序列比对"></a>序列比对</h3><p>空隙罚分δ; 不匹配罚分$α_{pq}$</p>
+<p> 一个比对M是一些有序配对xi-yj 的集合，每一项至多出现在一个配对中， 而且没有配对交叉.<br>$$<br>OPT(i,j)=\begin{cases}<br>jδ,\quad if\ i=0 \\<br>min\begin{cases}<br>α_{x_iy_j}+OPT(i-1,j-1)\quad\\<br>δ+OPT(i-1,j)\quad \\<br>δ+OPT(i,j-1)\quad<br>\end{cases}\quad otherwise\\<br>iδ,\quad if\ j=0<br>\end{cases}<br>$$</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><strong>Sequence-Alignment(m, n, x1x2…xm, y1y2…yn, δ, α)</strong> { </p>
+<p>for i = 0 to m M[0, i] = iδ </p>
+<p>for j = 0 to n M[j, 0] = jδ</p>
+<p>for i = 1 to m </p>
+<p>​    for j = 1 to n </p>
+<p>​        M[i, j] = min(α[xi, yj] + M[i-1, j-1], δ+ M[i-1, j], δ+ M[i, j-1]) </p>
+<p>returnM[m, n]<br>}</p>
+<p>时间和空间复杂度：Θ(mn)</p>
+<h4 id="线性空间的序列比对"><a href="#线性空间的序列比对" class="headerlink" title="线性空间的序列比对"></a>线性空间的序列比对</h4><p><strong>Space-Efficient-Alignment(X,Y)</strong></p>
+<p>​    数组B[0…m,0…1] </p>
+<p>​    初始化对每个i令B[i,0]=iδ </p>
+<p>​    For j=1,…,n</p>
+<p>​        B[0,1] =jδ </p>
+<p>​        For i=1,…,m </p>
+<p>​            B[i,1]=  min(α[xi, yj] + B[i-1, 0], δ+ B[i-1, 1], δ+ B[i,0]) </p>
+<p>​        Endfor </p>
+<p>​        将B的第一列移到第0列来为下一次迭代留出空间 </p>
+<p>​        对每个i修改B[i,0]=B[i,1] </p>
+<p>​    Endfor</p>
+<p>O(mn)的时间与O(m)的空间.</p>
+<font color="red">最优序列比对算法可以在O(m + n) 空间，O(mn)时间复杂度内完成。把动态规划算法和分治算法结合起来</font>
+
+<p><strong>Divide-and-Conquer-Alignment(X,Y)</strong> </p>
+<p>令m是X中的符号个数 </p>
+<p>令n是Y中的符合个数 </p>
+<p>If m&lt;=1或N&lt;=2, then </p>
+<p>​    使用Alignment(X,Y)计算最优比对 </p>
+<p>调用Space-Efficient-Alignment(X,Y[1:n/2]) </p>
+<p>调用Backward-Space-Efficient-Alignment(X,Y[n/2+1:n]) </p>
+<p>令q是使得f(q,n/2)+g(q,n/2)达到最小的指标 </p>
+<p>把(q,n/2)加到全局表P中 </p>
+<p>Divide-and-Conquer-Alignment(X[1:q],Y[1:n/2]) </p>
+<p>Divide-and-Conquer-Alignment(X[q:m],Y[n/2:n]) </p>
+<p>返回P</p>
+<p>采用待定系数法式的归纳法可以证明算法Divide-and-Conquer在长度为m与n的串上运行时间是O(mn). </p>
+<h3 id="图中的最短路径"><a href="#图中的最短路径" class="headerlink" title="图中的最短路径"></a>图中的最短路径</h3><p>OPT(i, v) 表示至多使用i条边的v-t最短路径的最小费用。<br>$$<br>OPT(i,v)=\begin{cases}<br>0,\quad if\ i=0 \\<br>min{OPT(i-1,v),min_{(v,w)∈E}{OPT(i-1,w)+c_{vw}}},\quad otherwise<br>\end{cases}<br>$$</p>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><strong>Shortest-Path(G, t)</strong> { </p>
+<p>foreach node v ∈V </p>
+<p>​    M[0, v] ←∞ </p>
+<p>M[0, t] ←0<br>for i = 1 to n-1 </p>
+<p>​    foreach node v ∈V </p>
+<p>​        M[i, v] ←M[i-1, v] </p>
+<p>​    foreach edge (v, w) ∈E </p>
+<p>​        M[i, v] ←min { M[i, v], M[i-1, w] + cvw}<br>}</p>
+<p>表M有n^2项，每项O(n)时间计算，时间复杂度：O(n^3)，空间复杂度：O(n^2)</p>
+<h4 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h4><p>对每个结点v更新一个值M[v]，即我们至今已经找到的从v到t的最短路径的长度。为了帮助复原这条最短路径，记录每个结点通向终点t的路径上它后面的第一个结点；只要距离M[v]更新，我们就更新 这个值(first[v]).</p>
+<p>O(mn)时间</p>
+<p>$M[v]=min(M[v],min_{w∈V}(M[w]+c_{vw}))$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PUsh-Based-Shortest-Path(G,s,t)&#123;</span><br><span class="line">    foreach node v∈V&#123;</span><br><span class="line">        M[v]←∞ </span><br><span class="line">        successor[v]←∅</span><br><span class="line">    &#125;</span><br><span class="line">    M[t]=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to n<span class="number">-1</span>&#123;</span><br><span class="line">        foreach node w∈V&#123;</span><br><span class="line">            <span class="keyword">if</span>(M[w]has been updated in previous iteration)&#123;</span><br><span class="line">                foreach node v such that (v,w)∈E &#123;</span><br><span class="line">                    <span class="keyword">if</span>(M[v]&gt;M[w]+Cvw)&#123;</span><br><span class="line">                        M[v]←M[w]+Cvw</span><br><span class="line">                        successor[v]←w   </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> no M[w]value changed in iteration i, stop.</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="图中的负圈"><a href="#图中的负圈" class="headerlink" title="图中的负圈"></a>图中的负圈</h4><p>增加一个终点t。如果G有n个结点且 OPT(n,v)!=OPT(n-1,v),那么一条从v到t 的费用OPT(n,v)的路径P包含一个圈C,并 且C有负费用。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/04/201812CET6_02Trans/" rel="prev" title="201812CET6_02Trans">
+      <i class="fa fa-chevron-left"></i> 201812CET6_02Trans
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/05/201812CET_01Comp/" rel="next" title="201812CET_01Comp">
+      201812CET_01Comp <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#带权的区间调度"><span class="nav-number">1.1.</span> <span class="nav-text">带权的区间调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归的备忘录形式-自顶向下"><span class="nav-number">1.1.1.</span> <span class="nav-text">递归的备忘录形式 自顶向下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出最优解-O-n"><span class="nav-number">1.1.2.</span> <span class="nav-text">输出最优解 O(n)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代算法计算M-自底向上"><span class="nav-number">1.1.3.</span> <span class="nav-text">迭代算法计算M[] 自底向上</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段的最小二乘"><span class="nav-number">1.2.</span> <span class="nav-text">分段的最小二乘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自底向上"><span class="nav-number">1.2.1.</span> <span class="nav-text">自底向上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过数组M-向回寻找计算最优的划分"><span class="nav-number">1.2.2.</span> <span class="nav-text">通过数组M 向回寻找计算最优的划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背包问题"><span class="nav-number">1.3.</span> <span class="nav-text">背包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNA二级结构"><span class="nav-number">1.4.</span> <span class="nav-text">RNA二级结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列比对"><span class="nav-number">1.5.</span> <span class="nav-text">序列比对</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线性空间的序列比对"><span class="nav-number">1.5.2.</span> <span class="nav-text">线性空间的序列比对</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图中的最短路径"><span class="nav-number">1.6.</span> <span class="nav-text">图中的最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法-1"><span class="nav-number">1.6.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改进"><span class="nav-number">1.6.2.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图中的负圈"><span class="nav-number">1.6.3.</span> <span class="nav-text">图中的负圈</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

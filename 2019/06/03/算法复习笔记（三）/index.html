@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="分治策略归并排序递推关系$$T(n)=\begin{cases}2T(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 用归纳法可证：$$T(n)=O(nlogn)$$ 其他递推关系$$T(n)=\begin{cases}qT(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 对于q&amp;gt;2，$T(n)=">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法复习笔记（三）">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/算法复习笔记（三）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="分治策略归并排序递推关系$$T(n)=\begin{cases}2T(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 用归纳法可证：$$T(n)=O(nlogn)$$ 其他递推关系$$T(n)=\begin{cases}qT(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 对于q&amp;gt;2，$T(n)=">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/03/算法复习笔记（三）/Users/asus/AppData/Roaming/Typora/typora-user-images/1559642308319.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/03/算法复习笔记（三）/Users/asus/AppData/Roaming/Typora/typora-user-images/1559642268376.png">
+<meta property="og:updated_time" content="2019-06-04T10:32:29.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法复习笔记（三）">
+<meta name="twitter:description" content="分治策略归并排序递推关系$$T(n)=\begin{cases}2T(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 用归纳法可证：$$T(n)=O(nlogn)$$ 其他递推关系$$T(n)=\begin{cases}qT(n/2)+cn,\quad n&amp;gt;2 \\c,\quad n=2\end{cases}$$ 对于q&amp;gt;2，$T(n)=">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/03/算法复习笔记（三）/Users/asus/AppData/Roaming/Typora/typora-user-images/1559642308319.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/03/算法复习笔记（三）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法复习笔记（三） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/算法复习笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法复习笔记（三）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-03 21:44:51" itemprop="dateCreated datePublished" datetime="2019-06-03T21:44:51+08:00">2019-06-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-04 18:32:29" itemprop="dateModified" datetime="2019-06-04T18:32:29+08:00">2019-06-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="分治策略"><a href="#分治策略" class="headerlink" title="分治策略"></a>分治策略</h2><h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><h4 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h4><p>$$<br>T(n)=\begin{cases}<br>2T(n/2)+cn,\quad n&gt;2 \\<br>c,\quad n=2<br>\end{cases}<br>$$</p>
+<p>用归纳法可证：<br>$$<br>T(n)=O(nlogn)<br>$$</p>
+<h4 id="其他递推关系"><a href="#其他递推关系" class="headerlink" title="其他递推关系"></a>其他递推关系</h4><p>$$<br>T(n)=\begin{cases}qT(n/2)+cn,\quad n&gt;2 \\c,\quad n=2\end{cases}<br>$$</p>
+<p>对于q&gt;2，$T(n)=O(n^{log_2q})$</p>
+<p>对于q=1，$T(n)=O(n)$<br>$$<br>T(n)=\begin{cases}2T(n/2)+cn^2,\quad n&gt;2 \\c,\quad n=2\end{cases}<br>$$</p>
+<p>$$<br>T(n)=O(n^2)<br>$$</p>
+<h3 id="计数逆序-O-nlogn"><a href="#计数逆序-O-nlogn" class="headerlink" title="计数逆序 $O(nlogn)$"></a>计数逆序 $O(nlogn)$</h3><p>Merge-and-Count(A,B)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">维护一个Current指针指向每个表，初始化指向首元素</span><br><span class="line">维护一个变量Count用于逆序的计数，初始为<span class="number">0</span></span><br><span class="line">While两个表都不空</span><br><span class="line">	令ai和bj是由Current指针指向的元素</span><br><span class="line">	把这两个表中娇小的元素输出到表中</span><br><span class="line">	If bj是较小的元素 then</span><br><span class="line">		把Count加上在A中的剩余元素数</span><br><span class="line">	Endif</span><br><span class="line">	把较小元素选出的表中的Current指针前移</span><br><span class="line">EndWhile</span><br><span class="line">一旦一个表为空，把另一个表剩余所有元素加到输出中</span><br><span class="line">返回Count和合并后的表</span><br></pre></td></tr></table></figure>
+<p>Sort-and-Count(L)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">If这个表中有一个元素 then</span><br><span class="line">	没有逆序</span><br><span class="line">Else</span><br><span class="line">	把这个表划分成两半</span><br><span class="line">	A包含前n/<span class="number">2</span>个元素</span><br><span class="line">	B包含剩下的n/<span class="number">2</span>个元素</span><br><span class="line">	(rA,A)=Sort-<span class="keyword">and</span>-Count(A)</span><br><span class="line">    (rB,B)=Sort-<span class="keyword">and</span>-Count(B)</span><br><span class="line">    (r,L)=Merge-<span class="keyword">and</span>-Count(A,B)</span><br><span class="line">Endif</span><br><span class="line">返回r=rA+rB+r以及排好序的L</span><br></pre></td></tr></table></figure>
+<h3 id="最邻近点对"><a href="#最邻近点对" class="headerlink" title="最邻近点对"></a>最邻近点对</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Closest-Pair(p1, …, pn) &#123; </span><br><span class="line">    <span class="comment">//O(n log n)</span></span><br><span class="line">    Compute separation line L such that half the points are on one side <span class="keyword">and</span> half on the other side.      </span><br><span class="line">    <span class="comment">//2T(n / 2)</span></span><br><span class="line">	δ<span class="number">1</span>= Closest-Pair(left half) </span><br><span class="line">    δ<span class="number">2</span>= Closest-Pair(right half) </span><br><span class="line">    δ= min(δ<span class="number">1</span>, δ<span class="number">2</span>)</span><br><span class="line">    <span class="comment">//O(n) </span></span><br><span class="line">	Delete all points further than δ from separation line L</span><br><span class="line">	<span class="comment">//O(n log n)  改进时，通过预处理去掉这一步排序</span></span><br><span class="line">    Sort remaining points by y-coordinate.</span><br><span class="line">    <span class="comment">//O(n)</span></span><br><span class="line">	Scan points in y-order <span class="keyword">and</span> compare distance between each point <span class="keyword">and</span> next <span class="number">7</span> neighbors. If any of these distances is less than δ, update δ.</span><br><span class="line">	<span class="keyword">return</span> δ.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面算法的时间复杂度为$T(n)=O(nlog^2n)$</p>
+<p>改进后时间复杂度为$T(n)=O(nlogn)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Closest-Pair-Rec(Px,Py) &#123;</span><br><span class="line">    If |P|&lt;=<span class="number">3</span> then </span><br><span class="line">    	进行简单穷举排序 </span><br><span class="line">        <span class="comment">//在这里按y坐标将点排序，方便下面直接对窄带内的点归并排序</span></span><br><span class="line">    End <span class="keyword">if</span></span><br><span class="line">        </span><br><span class="line">	构造Qx,Qy,Rx,Ry(O(n)时间) </span><br><span class="line">    （q0*,q1*）=Closest-Pair-Rec(Qx,Qy) </span><br><span class="line">    （r0*,r1*）=Closest-Pair-Rec(Rx,Ry)</span><br><span class="line">        </span><br><span class="line">	Delta=min(d(qo*,q1*),（r0*,r1*）) </span><br><span class="line">    x*=集合Q中的点的大的x坐标 </span><br><span class="line">    L=&#123;(x,y):x=x*&#125; </span><br><span class="line">	S=P中与L相距在Delta之内的点集</span><br><span class="line"></span><br><span class="line">    构造Sy(O(n)时间) </span><br><span class="line">    For每个点Sy中的点s, 计算从s到跟着Sy的<span class="number">7</span>个点中每个点的距离 </span><br><span class="line">    令s,s'是达到其中小距离的点对(O(n)时间)</span><br><span class="line"></span><br><span class="line">    If d(s,s')&lt;Delta then </span><br><span class="line">         Return (s,s') </span><br><span class="line">    Else <span class="keyword">if</span> d(q0*,q1*)&lt;d(r0*,r1*) then</span><br><span class="line">        Return (q0*,q1*) </span><br><span class="line">    Else </span><br><span class="line">        Return（r0*,r1*） </span><br><span class="line">    End <span class="keyword">if</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="整数乘法"><a href="#整数乘法" class="headerlink" title="整数乘法"></a>整数乘法</h3><h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p>$x=x_12^{n/2}+x_0$</p>
+<p>$y=y_12^{n/2}+y_0$</p>
+<p>$xy=2^n<em>x_1y_1+2^{n/2}</em>(x_1y_0+x_0y_1)+x_0y_0$</p>
+<p>$=2^n<em>x_1y_1+2^{n/2}</em>((x_1+x_0)(y_1+y_0)-x_1y_1-x_0y_0)+x_0y_0$</p>
+<p>把4个乘法变成3个.</p>
+<h4 id="Recursive-Multiply-x-y-Karatsuba-Ofman"><a href="#Recursive-Multiply-x-y-Karatsuba-Ofman" class="headerlink" title="Recursive-Multiply(x,y)   [Karatsuba-Ofman]"></a>Recursive-Multiply(x,y)   [Karatsuba-Ofman]</h4><p>令$x=x_12^{n/2}+x_0，y=y_12^{n/2}+y_0$，</p>
+<p>计算$x_1+x_0，y_1+y_0$，</p>
+<p>p=Recursive-Multiply($x_1+x_0，y_1+y_0$) </p>
+<p>x1y1=Recursive-Multiply(x1,y1) </p>
+<p>x0y0=Recursive-Multiply(x0,y0) </p>
+<p>return  $x_1y_12^n+(p-x_1y_1-x_0y_0)2^{n/2}+x_0y_0$</p>
+<p>在两个n位因数上的运行时间是  $T(n)=O(n^{log_23})=O(n^{1.59})$</p>
+<h3 id="矩阵乘积-Strassen"><a href="#矩阵乘积-Strassen" class="headerlink" title="矩阵乘积  (Strassen)"></a>矩阵乘积  (Strassen)</h3><p>P1=A11×(B12−B22) </p>
+<p>P2=(A11+A12)×B22</p>
+<p>P3=(A21+A22)×B11 </p>
+<p>P4=A22×(B21−B11) </p>
+<p>P5=(A11+A22)×(B11+B22)</p>
+<p>P6=(A12−A22)×(B21+B22) </p>
+<p>P7=(A11−A21)×(B11+B12)</p>
+<p>$C_{2<em>2}=A_{2</em>2}B_{2*2}$</p>
+<p>C11=P 5+P4−P 2+P 6 </p>
+<p>C12=P1+P2 </p>
+<p>C21=P3+P4 </p>
+<p>C22=P5+P1−P3−P7</p>
+<p>7 次乘法，18 = 10 + 8 次加减法</p>
+<p>$T(n)=O(n^{log_27})=O(n^{2.81})$</p>
+<p>类Strassen算法上每获得一点理论上的改进， 实际上的可用性就会降低。 （需要n达到一定规模，例：两个70×70分块矩阵乘法可以用143,640次向量乘法 ）</p>
+<h3 id="卷积与快速傅立叶变换"><a href="#卷积与快速傅立叶变换" class="headerlink" title="卷积与快速傅立叶变换"></a>卷积与快速傅立叶变换</h3><h4 id="多项式"><a href="#多项式" class="headerlink" title="多项式"></a>多项式</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>系数表示</th>
+<th>点值表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>求值</td>
+<td>O(n) (采用Horner方法)</td>
+<td>O(n^2)</td>
+</tr>
+<tr>
+<td>加法</td>
+<td>O(n) arithmetic operations</td>
+<td>O(n) arithmetic operations</td>
+</tr>
+<tr>
+<td>乘法(卷积)</td>
+<td>采用直接算法O(n^2)</td>
+<td>需要2n-1 个点 O(n)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="系数表达到点值表达"><a href="#系数表达到点值表达" class="headerlink" title="系数表达到点值表达"></a>系数表达到点值表达</h4><p>把多项式表达分成奇偶部分。选择$x_k= ω^k$，其中ω是n次单位根。求$A(x) = a_0+ … + a_{n-1}x^{n-1}$在n次单位根$ω^0, ω^1, …, ω^{n-1}$处的值。 </p>
+<p><img src="//yoursite.com/2019/06/03/算法复习笔记（三）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559642308319.png" alt="1559642308319"></p>
+<p>如果n是偶数，那么n/2次单位根可以表 示为$ν^0, ν^1, …, ν^{n/2-1}$，其中$ν= e ^{4πi / n}$.</p>
+<p>$A(x)   =A_{even}(x^2) + xA_{odd}(x^2)$.   $A(-x)   =A_{even}(x^2) - xA_{odd}(x^2)$.</p>
+<p>分别计算多项式：</p>
+<p>$A_{even}(x)$ ，$A_{odd}(x)$在$½n$th单位根$ν^0, ν^1, …, ν^{n/2-1}$处的值. </p>
+<p>组合：</p>
+<p>$A(ω^k) = A_{even}(ν^k) + ω^kA_{odd}(ν^k),   0 ≤k &lt; n/2$</p>
+<p>$A(ω^{k+n/2}) = A_{even}(ν^k) - ω^kA_{odd}(ν^k),   0 ≤k &lt; n/2$</p>
+<p>$ω^{k+n/2}= -ω^k，ν^k  =  (ω^k)^2   =  (ω^{k+n/2})^2$</p>
+<h4 id="FFT算法-O-n-log-n"><a href="#FFT算法-O-n-log-n" class="headerlink" title="FFT算法 O(n log n)"></a>FFT算法 O(n log n)</h4><p>fft(n,$a^0,a^1, …, a^{n-1}$) {</p>
+<p>​    if(n == 1) return  $a_0$</p>
+<p>​    $(e_0,e_1,…,e_{n/2-1}) ←FFT(n/2, a_0,a_2,a_4,…,a_{n-2}) $</p>
+<p>​    $(d_0,d_1,…,d_{n/2-1}) ←FFT(n/2, a_1,a_3,a_5,…,a_{n-1})$</p>
+<p>​    for k = 0 to n/2 -1 { </p>
+<p>​        $ω^k←e^{2πik/n}$</p>
+<p>​        $y_k←e_k+ ω^kd_k$</p>
+<p>​        $y_{k+n/2}←e_k-ω^kd_k$}</p>
+<p>​    return ($y_0,y_1,…,y_{n-1}$)</p>
+<p>}</p>
+<h4 id="傅立叶变换逆变换"><a href="#傅立叶变换逆变换" class="headerlink" title="傅立叶变换逆变换"></a>傅立叶变换逆变换</h4><p><img src="//yoursite.com/2019/06/03/算法复习笔记（三）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559642268376.png" alt="1559642268376"></p>
+<p>$F_n×G_n=I_n$</p>
+<p>把 $ω^{-1}=e^{-2πi / n}$看成是n次单位根的生成元.</p>
+<h4 id="IFFT算法-O-n-log-n"><a href="#IFFT算法-O-n-log-n" class="headerlink" title="IFFT算法 O(n log n)"></a>IFFT算法 O(n log n)</h4><p>ifft(n,$a^0,a^1, …, a^{n-1}$) {</p>
+<p>​    if(n == 1) return  $a_0$</p>
+<p>​    $(e_0,e_1,…,e_{n/2-1}) ←FFT(n/2, a_0,a_2,a_4,…,a_{n-2}) $</p>
+<p>​    $(d_0,d_1,…,d_{n/2-1}) ←FFT(n/2, a_1,a_3,a_5,…,a_{n-1})$</p>
+<p>​    for k = 0 to n/2 -1 { </p>
+<p>​        $ω^k←e^{-2πik/n}$</p>
+<p>​        $y_k←(e_k+ ω^kd_k)/n$</p>
+<p>​        $y_{k+n/2}←(e_k-ω^kd_k)/n$}</p>
+<p>​    return ($y_0,y_1,…,y_{n-1}$)</p>
+<p>}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/03/使用优先队列的dijkstra和prim算法/" rel="prev" title="使用优先队列的dijkstra和prim算法">
+      <i class="fa fa-chevron-left"></i> 使用优先队列的dijkstra和prim算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/04/数据库外键约束/" rel="next" title="数据库外键约束">
+      数据库外键约束 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分治策略"><span class="nav-number">1.</span> <span class="nav-text">分治策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序"><span class="nav-number">1.1.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递推关系"><span class="nav-number">1.1.1.</span> <span class="nav-text">递推关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他递推关系"><span class="nav-number">1.1.2.</span> <span class="nav-text">其他递推关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计数逆序-O-nlogn"><span class="nav-number">1.2.</span> <span class="nav-text">计数逆序 $O(nlogn)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最邻近点对"><span class="nav-number">1.3.</span> <span class="nav-text">最邻近点对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数乘法"><span class="nav-number">1.4.</span> <span class="nav-text">整数乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式"><span class="nav-number">1.4.1.</span> <span class="nav-text">公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Recursive-Multiply-x-y-Karatsuba-Ofman"><span class="nav-number">1.4.2.</span> <span class="nav-text">Recursive-Multiply(x,y)   [Karatsuba-Ofman]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵乘积-Strassen"><span class="nav-number">1.5.</span> <span class="nav-text">矩阵乘积  (Strassen)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积与快速傅立叶变换"><span class="nav-number">1.6.</span> <span class="nav-text">卷积与快速傅立叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多项式"><span class="nav-number">1.6.1.</span> <span class="nav-text">多项式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系数表达到点值表达"><span class="nav-number">1.6.2.</span> <span class="nav-text">系数表达到点值表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFT算法-O-n-log-n"><span class="nav-number">1.6.3.</span> <span class="nav-text">FFT算法 O(n log n)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#傅立叶变换逆变换"><span class="nav-number">1.6.4.</span> <span class="nav-text">傅立叶变换逆变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IFFT算法-O-n-log-n"><span class="nav-number">1.6.5.</span> <span class="nav-text">IFFT算法 O(n log n)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

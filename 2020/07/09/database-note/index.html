@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="存储引擎（InnoDB和MyISAM）MySQL的核心是插件式存储引擎，存储引擎是数据库底层软件组织，定义与磁盘打交道的方式，处理的内容：并发性、事务支持(ACID)、外键、物理存储、索引支持、内存高速缓存等。数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。MySQL常用的四种存储引擎包括MyISAM[maɪ-zeim]、InnoDB[,ɪnnə-db]、memory、me">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="database-note">
+<meta property="og:url" content="http://yoursite.com/2020/07/09/database-note/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="存储引擎（InnoDB和MyISAM）MySQL的核心是插件式存储引擎，存储引擎是数据库底层软件组织，定义与磁盘打交道的方式，处理的内容：并发性、事务支持(ACID)、外键、物理存储、索引支持、内存高速缓存等。数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。MySQL常用的四种存储引擎包括MyISAM[maɪ-zeim]、InnoDB[,ɪnnə-db]、memory、me">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200709150249714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-07-09T14:04:47.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="database-note">
+<meta name="twitter:description" content="存储引擎（InnoDB和MyISAM）MySQL的核心是插件式存储引擎，存储引擎是数据库底层软件组织，定义与磁盘打交道的方式，处理的内容：并发性、事务支持(ACID)、外键、物理存储、索引支持、内存高速缓存等。数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。MySQL常用的四种存储引擎包括MyISAM[maɪ-zeim]、InnoDB[,ɪnnə-db]、memory、me">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200709150249714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/09/database-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>database-note | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/09/database-note/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          database-note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-09 11:48:42 / 修改时间：22:04:47" itemprop="dateCreated datePublished" datetime="2020-07-09T11:48:42+08:00">2020-07-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200709150249714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzEyNTEz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="存储引擎（InnoDB和MyISAM）"><a href="#存储引擎（InnoDB和MyISAM）" class="headerlink" title="存储引擎（InnoDB和MyISAM）"></a>存储引擎（InnoDB和MyISAM）</h4><p>MySQL的核心是插件式存储引擎，存储引擎是数据库底层软件组织，定义与磁盘打交道的方式，处理的内容：并发性、事务支持(ACID)、外键、物理存储、索引支持、内存高速缓存等。数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。MySQL常用的四种存储引擎包括MyISAM[maɪ-zeim]、InnoDB[,ɪnnə-db]、memory、merge。</p>
+<a id="more"></a>
+<p>设置存储引擎：CREATE TABLE 建表语句带上 “ENGINE = ”子句。</p>
+<p>查看存储引擎：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">ENGINES</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>MyISAM</th>
+<th>BDB</th>
+<th>Memory</th>
+<th>InnoDB</th>
+<th>Archive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储限制</td>
+<td>没有</td>
+<td>没有</td>
+<td>有</td>
+<td>64TB</td>
+<td>没有</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td></td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>锁机制</td>
+<td>表锁</td>
+<td>页锁</td>
+<td>表锁</td>
+<td>行锁</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>B树索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>哈希索引</td>
+<td></td>
+<td></td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>集群索引</td>
+<td></td>
+<td></td>
+<td></td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据缓存</td>
+<td></td>
+<td></td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>索引缓存</td>
+<td>支持</td>
+<td></td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据可压缩</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td>支持</td>
+</tr>
+<tr>
+<td>空间使用</td>
+<td>低</td>
+<td>低</td>
+<td>N/A</td>
+<td>高</td>
+<td>非常低</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>低</td>
+<td>低</td>
+<td>中等</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>批量插入的速度</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>低</td>
+<td>非常高</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td></td>
+<td></td>
+<td></td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://blog.csdn.net/qq_39387475/article/details/78217147" target="_blank" rel="noopener">https://blog.csdn.net/qq_39387475/article/details/78217147</a></p>
+<p><strong>InnoDB</strong>：MySQL的默认引擎。具有提交、回滚、崩溃恢复能力。 银行：对事物的完整性要求很高。售票：要求并发控制。</p>
+<p><strong>MyISAM</strong>：(Indexed Sequential Access Method ,“有索引的顺序访问方法”) 较高的插入、查询效率，但不支持事务。在Web、数据仓储和其他应用环境下最常使用的存储引擎之一。</p>
+<h4 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h4><p>数据类型会影响存储空间的开销和数据查询的性能。相同的数据，字符处理往往比数字慢（查询条件、join条件及排序），在数据库中，数据的处理是以页为单位，列的长度越小，数据类型占用的空间越小，利于性能的提升。</p>
+<p>选择原则：优先考虑数字类型，其次是日期或二进制类型，最后是字符类型。</p>
+<h4 id="范式与逆范式"><a href="#范式与逆范式" class="headerlink" title="范式与逆范式"></a>范式与逆范式</h4><p>第一范式：确保数据表中每列的原子性（不可再分的最小数据单元，如user表包括id，username，password）</p>
+<p>第二范式：在第一范式的基础上，表中每列都依赖于主键。</p>
+<p>第三范式：在第二范式的基础上，要求一个数据库表中，不包含在其他表中已包含的非主关键字的信息。消除传递依赖。</p>
+<p>有时候拆分得太细致，会产生很多连表。</p>
+<p><strong>逆范式</strong>：通过增加冗余或重复的数据来提高数据库的读性能。可以减少关联查询时，join表的次数。</p>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>索引就好比是一本书的目录。</p>
+<ul>
+<li>主键索引：ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) </li>
+<li>唯一索引：ALTER TABLE `table_name` ADD UNIQUE (`column`)</li>
+<li>普通索引：ALTER TABLE`table_name` ADD INDEX index_name ( `column` ) </li>
+<li>全文索引：ALTER TABLE `table_name` ADD FULLTEXT ( `column`) </li>
+<li>联合索引：ALTER TABLE `table_name` ADD INDEX index_name ( `column1`, `column2`, `column3` )</li>
+</ul>
+<ul>
+<li>普通索引：最基本的索引，没有任何限制</li>
+<li>唯一索引：与”普通索引”类似，不同的就是：索引列的值必须唯一，但允许有空值。</li>
+<li>主键索引：它 是一种特殊的唯一索引，不允许有空值。 </li>
+<li>全文索引：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
+<li>联合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
+</ul>
+<p>原文链接：<a href="https://blog.csdn.net/leyangjun/article/details/42461879" target="_blank" rel="noopener">https://blog.csdn.net/leyangjun/article/details/42461879</a></p>
+<p>最左前缀：如果表拥有一个联合索引, 任何一个索引的最左前缀都会被优化器用于查找列. 比如, 如果你创建了一个三列的联合索引包含(col1, col2, col3), 你的索引会生效于(col1), (col1, col2), 以及(col1, col2, col3).</p>
+<h5 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h5><p><a href="https://joycepy.github.io/2020/07/06/%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96/" target="_blank" rel="noopener">索引覆盖</a></p>
+<h5 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h5><p>对文本的前几个字符（具体是几个字符在建立索引时指定）建立索引，索引更小查询更快。</p>
+<h4 id="SQL优化（并发，大量数据插入，分页）"><a href="#SQL优化（并发，大量数据插入，分页）" class="headerlink" title="SQL优化（并发，大量数据插入，分页）"></a>SQL优化（并发，大量数据插入，分页）</h4><p>查询缓存query_cache<br>分区与分表（分区算法；水平分表，垂直分表）<br>慢查询日志<br>数据库服务器架构（主从复制，读写分离）<br>（选）系统日志与事务日志（binlog、redo log和undo log）<br>（选）消息队列</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/09/maximum-product-subarray/" rel="prev" title="maximum-product-subarray">
+      <i class="fa fa-chevron-left"></i> maximum-product-subarray
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/10/Trace-marking-d1/" rel="next" title="Trace-marking-note">
+      Trace-marking-note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#存储引擎（InnoDB和MyISAM）"><span class="nav-number">1.</span> <span class="nav-text">存储引擎（InnoDB和MyISAM）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字段类型"><span class="nav-number">2.</span> <span class="nav-text">字段类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#范式与逆范式"><span class="nav-number">3.</span> <span class="nav-text">范式与逆范式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#索引覆盖"><span class="nav-number">4.1.</span> <span class="nav-text">索引覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前缀索引"><span class="nav-number">4.2.</span> <span class="nav-text">前缀索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL优化（并发，大量数据插入，分页）"><span class="nav-number">5.</span> <span class="nav-text">SQL优化（并发，大量数据插入，分页）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="或许该妥协了，看看要不要换题吧。 题目有m块蛋糕,要分发给n个顾客来吃,每个蛋糕大小不等,每个顾客的饭量也不同。 举个例子我们有5块蛋糕，蛋糕的大小分别是 5，17，25，3，15   我们有7位顾客，他们的饭量分别是 2，5，7，9，12，14，20 （每个蛋糕大小和顾客食量都是小于1000的整数，蛋糕和顾客的数量不超过1000） 在分发蛋糕时，有一个特殊的规则：蛋糕可分不可合。 最后的问题是：">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法大作业笔记（四）">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/算法大作业笔记（四）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="或许该妥协了，看看要不要换题吧。 题目有m块蛋糕,要分发给n个顾客来吃,每个蛋糕大小不等,每个顾客的饭量也不同。 举个例子我们有5块蛋糕，蛋糕的大小分别是 5，17，25，3，15   我们有7位顾客，他们的饭量分别是 2，5，7，9，12，14，20 （每个蛋糕大小和顾客食量都是小于1000的整数，蛋糕和顾客的数量不超过1000） 在分发蛋糕时，有一个特殊的规则：蛋糕可分不可合。 最后的问题是：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGrFjibuNBnxbaufBpr0yy1iaQesiaAUPAgCibnZLGUZ40KmBAsYFicfV9CQsUaafc0IicEKeBfvrXevXPVw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ncFkeT3icOOoF9uHEoWiaWtAkdCp4DRRrxy39MKWTEUld1qo1AjqWEiaQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54cpjMnesHtiaYWFR5gZlbDeqXEEsIZ5pymmAJCLcN7jRIOdfEbkBQ0zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54gwF8WtLJsoCO4k3aAjkujS6EBcTiaZsia1GpEch9QOvQ7gzf3k0Zaf4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K545WhzZIXIa2b9ibwtD7djknibDvvuwYW9EyGichUwVAwKThDjic6HoxuogQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54Fm3QOKjYUAficT1icGwIHXytZoeuauICIibT09phBiceo0MMFmEW56GqKw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54hic97icyVQ9mIggS53pktWEB6Ay1ibxyaSnpDZ0H6liceBAGicRicvIvPbTA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqtIn7jibO7nXHoSBVJt6YNiaI9ssD6Fkjia8fcC7oLSNoLfDKYymCvCfwS1xLcXcazy6JLgIZNsfuIA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54yJ2f9nFkfgiaDHMqqiaPsrLcibjjiaaYxvia4SLYXicM3qBHs2m9Piba6gH6A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ACt1h8ryu5s0T5U6EB6X5KickRauD7KZOsXyyVgEhlzjdQq7nnSz5Eg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ncFkeT3icOOoF9uHEoWiaWtAkdCp4DRRrxy39MKWTEUld1qo1AjqWEiaQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54z7qQHAuCnFcD07niajeYL1McibdTrPfQ4VaSpuVd9XazbL7VtTLic74mQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54bzQmqkoo0baA7rULkz7ibD9NicHUjfeuhJYZOFSAcMp1FdmETiaiauAciag/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54POqic6y1LDYqyMMqjB1omGUlmZVxyBDPzgNZrlRicN4o0xLbgJ28vuHQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ficbibe7ibpHoCicshJiaxKh0wLib9TgJmv3vebmRx3xD0zMymBSWg2NkvnQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54F9UPoWtbzsNxMKCLMaWnqnib369g8nXKXRIsLZtrlolrbbE2AsSPHJA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K541CERUkdeicTFaibdtu3nma3nuEUficno93p8h978yOfpFEpUicTLUsWibDg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54r2sFic0mnvHheK0se1L6cwgciaXn85VL8I2GZzNlAMbIS43AulkF7ib0g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54EHcjADjXQ0vAKG29UvhlbfvksicBNDrqvLrUAJsjVevkMNFJwhaCOEQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K546UfWtUh70Fj0lX11MRuLPicu0PfmRPrsBSeW4jmZymSFUQlgVkibsp4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54jVLpUF3X6icP4SxicOaAog3tXynkKYJ8icfapCYtYXgw4FicXOFeSXSjTQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54vw2cV6f1Em6Pghrpup9y5EQAVwC71ImeQZBzsZVnoFXAVgiaBl1y4Kw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:updated_time" content="2019-05-20T12:16:41.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法大作业笔记（四）">
+<meta name="twitter:description" content="或许该妥协了，看看要不要换题吧。 题目有m块蛋糕,要分发给n个顾客来吃,每个蛋糕大小不等,每个顾客的饭量也不同。 举个例子我们有5块蛋糕，蛋糕的大小分别是 5，17，25，3，15   我们有7位顾客，他们的饭量分别是 2，5，7，9，12，14，20 （每个蛋糕大小和顾客食量都是小于1000的整数，蛋糕和顾客的数量不超过1000） 在分发蛋糕时，有一个特殊的规则：蛋糕可分不可合。 最后的问题是：">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGrFjibuNBnxbaufBpr0yy1iaQesiaAUPAgCibnZLGUZ40KmBAsYFicfV9CQsUaafc0IicEKeBfvrXevXPVw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/16/算法大作业笔记（四）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法大作业笔记（四） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/算法大作业笔记（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法大作业笔记（四）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-16 22:49:50" itemprop="dateCreated datePublished" datetime="2019-05-16T22:49:50+08:00">2019-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-20 20:16:41" itemprop="dateModified" datetime="2019-05-20T20:16:41+08:00">2019-05-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>或许该妥协了，看看要不要换题吧。</p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>有m块蛋糕,要分发给n个顾客来吃,每个蛋糕大小不等,每个顾客的饭量也不同。</p>
+<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><p>我们有5块蛋糕，蛋糕的大小分别是 <strong>5，17，25，3，15</strong> </p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGrFjibuNBnxbaufBpr0yy1iaQesiaAUPAgCibnZLGUZ40KmBAsYFicfV9CQsUaafc0IicEKeBfvrXevXPVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>我们有7位顾客，他们的饭量分别是 <strong>2，5，7，9，12，14，20</strong></p>
+<p>（每个蛋糕大小和顾客食量都是小于1000的整数，蛋糕和顾客的数量不超过1000）</p>
+<p>在分发蛋糕时，有一个特殊的规则：<strong>蛋糕可分不可合</strong>。</p>
+<p>最后的问题是：<strong>给定蛋糕大小的集合cakes，给定顾客饭量的集合mouths，如何计算出这些蛋糕可以满足的最大顾客数量？</strong></p>
+<p>比如：输入cakes集合 {2，9}；输入mouths集合 {5，4， 2，8}</p>
+<p>正确返回：3</p>
+<h5 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h5><p>为了让更多的顾客吃饱，肯定要优先满足食量小的顾客，所以小灰决定使用<strong>贪心算法</strong>。</p>
+<p>首先，把蛋糕和顾客从小到大进行排序：</p>
+<p>按照上面的例子，排序结果如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ncFkeT3icOOoF9uHEoWiaWtAkdCp4DRRrxy39MKWTEUld1qo1AjqWEiaQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>接下来，让每一个蛋糕和顾客按照从左到右的顺序匹配。如果蛋糕大于顾客饭量，则切分蛋糕；如果蛋糕小于顾客饭量，则丢弃该蛋糕。</p>
+<p>第1块蛋糕大小是3，第1个顾客饭量是2，于是把蛋糕切分成2+1，满足顾客。剩下的1大小蛋糕无法满足下一位顾客，丢弃掉。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54cpjMnesHtiaYWFR5gZlbDeqXEEsIZ5pymmAJCLcN7jRIOdfEbkBQ0zg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>第2块蛋糕大小是5，第2个顾客饭量是5，刚好满足顾客。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54gwF8WtLJsoCO4k3aAjkujS6EBcTiaZsia1GpEch9QOvQ7gzf3k0Zaf4A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>第3块蛋糕大小是15，第3个顾客饭量是7，于是把蛋糕切分成7+8，满足顾客。剩下的8大小蛋糕无法满足下一位顾客，丢弃掉。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K545WhzZIXIa2b9ibwtD7djknibDvvuwYW9EyGichUwVAwKThDjic6HoxuogQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>第4块蛋糕大小是17，第4个顾客饭量是9，于是把蛋糕切分成9+8，满足顾客。剩下的8大小蛋糕无法满足下一位顾客，丢弃掉。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54Fm3QOKjYUAficT1icGwIHXytZoeuauICIibT09phBiceo0MMFmEW56GqKw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>第5块蛋糕大小是25，第5个顾客饭量是12，于是把蛋糕切分成12+13，满足顾客。剩下的13大小蛋糕无法满足下一位顾客，丢弃掉。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54hic97icyVQ9mIggS53pktWEB6Ay1ibxyaSnpDZ0H6liceBAGicRicvIvPbTA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>这样一来，所有蛋糕都用完了，由贪心算法得出结论，最大能满足的顾客数量是5。</p>
+<h4 id="这种算法不是最优："><a href="#这种算法不是最优：" class="headerlink" title="这种算法不是最优："></a>这种算法不是最优：</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqtIn7jibO7nXHoSBVJt6YNiaI9ssD6Fkjia8fcC7oLSNoLfDKYymCvCfwS1xLcXcazy6JLgIZNsfuIA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>例子当中，</p>
+<p>3的蛋糕满足2的顾客，</p>
+<p>5的蛋糕满足5的顾客，</p>
+<p>15的蛋糕满足12的顾客，</p>
+<p>17的蛋糕满足7和9的顾客，</p>
+<p>25的蛋糕满足14的顾客。</p>
+<p>显然，面试官随意给出的吃法，满足了6个顾客。</p>
+<p>其实一开始给蛋糕和顾客从小到大排序是没有问题的,不过这其中还有另外一个关键点。当顾客从小到大排序之后,无论蛋糕大小如何,最多能满足的顾客组合中定有一个组合是连续的。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54yJ2f9nFkfgiaDHMqqiaPsrLcibjjiaaYxvia4SLYXicM3qBHs2m9Piba6gH6A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>其实道理很简单，由于顾客的饭量是从小到大排序的，优先满足饭量小的顾客，才能尽量满足更多的人。</p>
+<p>因此，在记录顾客饭量的数组中，必定存在一段从最左侧开始的连续元素，符合当前蛋糕所能满足的最多顾客组合。</p>
+<p>这样一来，我们的题目就从<strong>寻找最大满足顾客数量</strong>，转化成了<strong>寻找顾客饭量有序数组中的最大满足临界点：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ACt1h8ryu5s0T5U6EB6X5KickRauD7KZOsXyyVgEhlzjdQq7nnSz5Eg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>切蛋糕的问题比普通的二分查找要复杂得多，因为我们要寻找的顾客饭量数组临界元素，并不是简单地判断元素是否相等，而是要验证给定的蛋糕能否满足临界元素之前的所有顾客。</p>
+<p>如何来实现呢？我们仍旧使用刚才的例子，演示一下详细过程：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ncFkeT3icOOoF9uHEoWiaWtAkdCp4DRRrxy39MKWTEUld1qo1AjqWEiaQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>第一步，寻找顾客数组的中间元素。</strong></p>
+<p>在这里，中间元素是9：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54z7qQHAuCnFcD07niajeYL1McibdTrPfQ4VaSpuVd9XazbL7VtTLic74mQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>第二步，验证饭量从2到9的顾客能否满足。</strong></p>
+<p>子步骤1，遍历蛋糕数组，寻找大于9的蛋糕，最终寻找到元素15。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54bzQmqkoo0baA7rULkz7ibD9NicHUjfeuhJYZOFSAcMp1FdmETiaiauAciag/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤2，饭量9的顾客吃掉15的蛋糕，还剩6大小。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54POqic6y1LDYqyMMqjB1omGUlmZVxyBDPzgNZrlRicN4o0xLbgJ28vuHQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤3，重新遍历蛋糕数组，寻找大于7的蛋糕，最终寻找到元素17。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54ficbibe7ibpHoCicshJiaxKh0wLib9TgJmv3vebmRx3xD0zMymBSWg2NkvnQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤4，饭量7的顾客吃掉17的蛋糕，还剩10大小。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54F9UPoWtbzsNxMKCLMaWnqnib369g8nXKXRIsLZtrlolrbbE2AsSPHJA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤5，重新遍历蛋糕数组，寻找大于5的蛋糕，最终寻找到元素5。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K541CERUkdeicTFaibdtu3nma3nuEUficno93p8h978yOfpFEpUicTLUsWibDg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤6，饭量5的顾客吃掉5的蛋糕，还剩0大小。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54r2sFic0mnvHheK0se1L6cwgciaXn85VL8I2GZzNlAMbIS43AulkF7ib0g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤7，重新遍历蛋糕数组，寻找大于2的蛋糕，最终寻找到元素3。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54EHcjADjXQ0vAKG29UvhlbfvksicBNDrqvLrUAJsjVevkMNFJwhaCOEQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>子步骤8，饭量2的顾客吃掉3的蛋糕，还剩1大小。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K546UfWtUh70Fj0lX11MRuLPicu0PfmRPrsBSeW4jmZymSFUQlgVkibsp4A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>到此为止，从2到9的所有顾客都被满足了，验证成功。</p>
+<p>接下来，我们需要引入更多顾客，从而试探出蛋糕满足的顾客上限。</p>
+<p><strong>第三步，重新寻找顾客数组的中间元素。</strong></p>
+<p>由于第二步验证成功，所以我们要在元素9右侧的区域，重新寻找中间元素。显然，这个中间元素是14：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54jVLpUF3X6icP4SxicOaAog3tXynkKYJ8icfapCYtYXgw4FicXOFeSXSjTQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>第四步，验证饭量从2到14的顾客能否满足。</strong></p>
+<p>这一步和第二步的思路是相同的，这里就不详细阐述了。最终的验证结果是，从2到14的顾客能够满足。</p>
+<p>接下来，我们还要引入更多顾客，试探出蛋糕满足的顾客上限。</p>
+<p>第五步，重新寻找顾客数组的中间元素。</p>
+<p>由于第四步验证成功，所以我们要在元素14右侧的区域，重新寻找中间元素。显然，这个中间元素也就是唯一的元素20：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/NtO5sialJZGqSrN4pjnGiay7FjnqMic3K54vw2cV6f1Em6Pghrpup9y5EQAVwC71ImeQZBzsZVnoFXAVgiaBl1y4Kw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>第六步，验证饭量从2到20的顾客能否满足。</strong></p>
+<p>这一步和第二步、第四步的思路是相同的，这里就不详细阐述了。最终的验证结果是，从2到20的顾客<strong>不能够</strong>满足。</p>
+<p>经过以上步骤，我们找到了最大满足顾客的临界点14，从2到14共有6个顾客，所以<strong>给定蛋糕最大能满足的顾客数量是6</strong>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/15/数据库大作业笔记（十）/" rel="prev" title="数据库大作业笔记（十）">
+      <i class="fa fa-chevron-left"></i> 数据库大作业笔记（十）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/16/算法大作业笔记（五）/" rel="next" title="算法大作业笔记（五）">
+      算法大作业笔记（五） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#举个例子"><span class="nav-number">1.0.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#思路一"><span class="nav-number">1.0.2.</span> <span class="nav-text">思路一</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#这种算法不是最优："><span class="nav-number">1.1.</span> <span class="nav-text">这种算法不是最优：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

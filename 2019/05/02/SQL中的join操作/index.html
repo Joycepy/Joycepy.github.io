@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https://www.cnblogs.com/logon/p/3748020.html A inner join B on …产生A和B的交集 A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null mysql的常用engine是Inno">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="join、check-engine、存储过程、变量">
+<meta property="og:url" content="http://yoursite.com/2019/05/02/SQL中的join操作/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="https://www.cnblogs.com/logon/p/3748020.html A inner join B on …产生A和B的交集 A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null mysql的常用engine是Inno">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-02T14:17:32.021Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="join、check-engine、存储过程、变量">
+<meta name="twitter:description" content="https://www.cnblogs.com/logon/p/3748020.html A inner join B on …产生A和B的交集 A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null mysql的常用engine是Inno">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/02/SQL中的join操作/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>join、check-engine、存储过程、变量 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/SQL中的join操作/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          join、check-engine、存储过程、变量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-02 11:38:38 / 修改时间：22:17:32" itemprop="dateCreated datePublished" datetime="2019-05-02T11:38:38+08:00">2019-05-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://www.cnblogs.com/logon/p/3748020.html" target="_blank" rel="noopener">https://www.cnblogs.com/logon/p/3748020.html</a></p>
+<p>A inner join B on …产生A和B的交集</p>
+<p>A full outer join B on …产生A和B的并集，对于没有匹配的记录，记为null</p>
+<p>A left (outer) join B on …产生表A的完全集，而表B中匹配的的则有值，没有匹配的为null</p>
+<p>mysql的常用engine是InnoDB，在该引擎下使用check约束是无效的。但是可以通过使用触发器来做到检查约束的效果，通过使用触发器使mysql具有检查约束的功能。</p>
+<p>存储过程十一组SQL语句集，可以实现复杂的逻辑功能。触发器也是一组SQL集，但存储过程是主动调用的，且功能更强大，触发器石某事件触发后自动调用。</p>
+<p>有输入输出参数，可以声明变量，有if/else, case,while等控制语句，通过编写存储过程，可以实现复杂的逻辑功能；函数的普遍特性：模块化，封装，代码复用；速度快，只有首次执行需经过编译和优化步骤，后续被调用可以直接执行，省去以上步骤；</p>
+<p>mysql存储过程中的if语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN </span><br><span class="line">   statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>如果上述表达式(<code>expression</code>)计算结果为<code>TRUE</code>，那么将执行<code>statements</code>语句，否则控制流将传递到<code>END IF</code>之后的下一个语句.</p>
+<p><code>IF ELSE</code>语句的语法结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>如果要基于多个表达式有条件地执行语句，则使用<code>IF ELSEIF ELSE</code>语句，它的语法结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IF expression THEN</span><br><span class="line">   statements;</span><br><span class="line">ELSEIF elseif-expression THEN</span><br><span class="line">   elseif-statements;</span><br><span class="line">...</span><br><span class="line">ELSE</span><br><span class="line">   else-statements;</span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>mysql declare和set定义变量，除了一个不加@和一个加@这个区别之外，还有以下区别：</p>
+<p>declare用来定义局部变量</p>
+<p>@用来定义会话变量</p>
+<p>declare变量的作用范围同编程里面类似，在这里一般是在对应的begin和end之间。在end之后这个变量就没有作用了，不能使用了。这个同编程一样。</p>
+<p>另外有种变量叫做会话变量(session variable)，也叫做用户定义的变量(user defined variable)。这种变量要在变量名称前面加上“@”符号，叫做会话变量，代表整个会话过程他都是有作用的，这个有点类似于全局变量一样。这种变量用途比较广，因为只要在一个会话内(就是某个应用的一个连接过程中)，这个变量可以在被调用的存储过程或者代码之间共享数据。</p>
+<p><strong>sql server中变量要先申明后赋值：</strong></p>
+<p>局部变量用一个@标识，全局变量用两个@（常用的全局变量一般都是已经定义好的）；</p>
+<p>申明局部变量语法：declare @变量名 数据类型；例如：declare @num int；</p>
+<p>赋值：有两种方法式（@num为变量名，value为值）</p>
+<p>set @num=value;   或   select @num=value;</p>
+<p>如果想获取查询语句中的一个字段值可以用select给变量赋值,如下：</p>
+<p>select @num=字段名 from 表名 where ……</p>
+<p><strong>mysql中变量不用事前申明，在用的时候直接用“@变量名”使用就可以了。</strong></p>
+<p>第一种用法：set @num=1; 或set @num:=1; //这里要使用变量来保存数据，直接使用@num变量</p>
+<p>第二种用法：select @num:=1; 或 select @num:=字段名 from 表名 where ……</p>
+<p>注意上面两种赋值符号，使用set时可以用“=”或“：=”，但是<strong>使用select时必须用“：=赋值”</strong></p>
+<p>MySQL触发器不能执行SELECT返回结果</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/25/Machine-Learning-Note6/" rel="prev" title="Machine-Learning-Note6">
+      <i class="fa fa-chevron-left"></i> Machine-Learning-Note6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/05/2018-06CET6_1/" rel="next" title="2018-06CET6_1_Trans&Compt">
+      2018-06CET6_1_Trans&Compt <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

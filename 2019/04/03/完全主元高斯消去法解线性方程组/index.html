@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="计算方法，老师很好，思路清晰，娓娓道来，然而，忘得比学的快，实在无奈…嗯还是完成今天课上说的用完全主元高斯消去法解线性方程组吧。先记一下自己踩过的几个坑：  记录完全主元时，不小心定义成了int类型，导致进行取舍后系数为0，返回无解的提示。应定义为double； 上课没理解老师说的“换回去”是什么意思，结果跑出来才大彻大悟——调整完全主元的位置时，行交换不会影响解的顺序，但是第i.j列进行交换">
+<meta name="keywords" content="C++,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="完全主元高斯消去法解线性方程组">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/完全主元高斯消去法解线性方程组/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="计算方法，老师很好，思路清晰，娓娓道来，然而，忘得比学的快，实在无奈…嗯还是完成今天课上说的用完全主元高斯消去法解线性方程组吧。先记一下自己踩过的几个坑：  记录完全主元时，不小心定义成了int类型，导致进行取舍后系数为0，返回无解的提示。应定义为double； 上课没理解老师说的“换回去”是什么意思，结果跑出来才大彻大悟——调整完全主元的位置时，行交换不会影响解的顺序，但是第i.j列进行交换">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-09T03:46:53.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="完全主元高斯消去法解线性方程组">
+<meta name="twitter:description" content="计算方法，老师很好，思路清晰，娓娓道来，然而，忘得比学的快，实在无奈…嗯还是完成今天课上说的用完全主元高斯消去法解线性方程组吧。先记一下自己踩过的几个坑：  记录完全主元时，不小心定义成了int类型，导致进行取舍后系数为0，返回无解的提示。应定义为double； 上课没理解老师说的“换回去”是什么意思，结果跑出来才大彻大悟——调整完全主元的位置时，行交换不会影响解的顺序，但是第i.j列进行交换">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/03/完全主元高斯消去法解线性方程组/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>完全主元高斯消去法解线性方程组 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/完全主元高斯消去法解线性方程组/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          完全主元高斯消去法解线性方程组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-09 11:46:53" itemprop="dateModified" datetime="2020-07-09T11:46:53+08:00">2020-07-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>  计算方法，老师很好，思路清晰，娓娓道来，然而，忘得比学的快，实在无奈…嗯还是完成今天课上说的用完全主元高斯消去法解线性方程组吧。先记一下自己踩过的几个坑：</p>
+<ul>
+<li>记录完全主元时，不小心定义成了int类型，导致进行取舍后系数为0，返回无解的提示。应定义为double；</li>
+<li>上课没理解老师说的“换回去”是什么意思，结果跑出来才大彻大悟——调整完全主元的位置时，行交换不会影响解的顺序，但是第i.j列进行交换时，xi,xj的值也会被交换。最后在修改代码时增加了数组order，用于记录xi的位置变化；</li>
+<li>最麻烦的可能还是三层循环里的i.j.k的初始条件吧，调整了好几次……</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">-----完全主元高斯消去法解线性方程组-----</span></span><br><span class="line"><span class="comment">输入：未知数的个数N，N*N的系数矩阵A，N*1的向量Y</span></span><br><span class="line"><span class="comment">输出：N*1的向量X</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">数据结构：矩阵、线性方程组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"LinearEqu.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> a[] = &#123;<span class="comment">//方程系数矩阵</span></span><br><span class="line">		<span class="number">0.2368</span>, <span class="number">0.2471</span>, <span class="number">0.2568</span>, <span class="number">1.2671</span>,</span><br><span class="line">		<span class="number">0.1968</span>, <span class="number">0.2071</span>, <span class="number">1.2168</span>, <span class="number">0.2271</span>,</span><br><span class="line">		<span class="number">0.1581</span>, <span class="number">1.1675</span>, <span class="number">0.1768</span>, <span class="number">0.1871</span>,</span><br><span class="line">		<span class="number">1.1161</span>, <span class="number">0.1254</span>, <span class="number">0.1397</span>, <span class="number">0.1490</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">double</span> b[] = &#123; <span class="number">1.8471</span>, <span class="number">1.7471</span>, <span class="number">1.6471</span>, <span class="number">1.5471</span> &#125;;<span class="comment">//方程右端项</span></span><br><span class="line">	<span class="function">LinearEqu <span class="title">equ</span><span class="params">(<span class="number">4</span>)</span></span>;<span class="comment">//定义一个四元方程组对象</span></span><br><span class="line">	equ.setLinearEqu(a, b);<span class="comment">//设置方程组</span></span><br><span class="line">	<span class="keyword">if</span> (!equ.solve())</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Fail"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">double</span>* elements;</span><br><span class="line">	Matrix(<span class="keyword">int</span> size = <span class="number">2</span>);</span><br><span class="line">	~Matrix();</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setMatrix</span><span class="params">(<span class="keyword">double</span>* values)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">element</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;<span class="keyword">return</span> elements[i*size + j];&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printMatrix</span><span class="params">(<span class="keyword">double</span>* p,<span class="keyword">int</span> s)</span></span>;</span><br><span class="line">	<span class="keyword">int</span> size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Matrix.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearEqu</span> :</span> <span class="keyword">public</span> Matrix</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	LinearEqu(<span class="keyword">int</span> size = <span class="number">2</span>);</span><br><span class="line">	~LinearEqu();</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setLinearEqu</span><span class="params">(<span class="keyword">double</span>* a, <span class="keyword">double</span>* b)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">solve</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printLinearEqu</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printSolution</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="keyword">double</span>* sums;</span><br><span class="line">	<span class="keyword">double</span>* solution;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"Matrix.h"</span></span></span><br><span class="line">Matrix::Matrix(<span class="keyword">int</span> size):size(size) &#123;</span><br><span class="line">	elements = <span class="keyword">new</span> <span class="keyword">double</span>[size*size];</span><br><span class="line">&#125;</span><br><span class="line">Matrix::~Matrix() &#123; <span class="keyword">delete</span>[] elements; &#125;</span><br><span class="line"><span class="keyword">void</span> Matrix::setMatrix(<span class="keyword">double</span>* values)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size*size; i++)</span><br><span class="line">		elements[i] = values[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> Matrix::printMatrix(<span class="keyword">double</span>* p, <span class="keyword">int</span> s)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The Matrix is:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;size; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; s; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;setw(<span class="number">12</span>)&lt;&lt;p[i*s + j] ;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"LinearEqu.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">double</span> &amp;a, <span class="keyword">double</span> &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> tmp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = tmp;</span><br><span class="line">&#125;</span><br><span class="line">LinearEqu::LinearEqu(<span class="keyword">int</span> size):Matrix(size) &#123;</span><br><span class="line">	sums = <span class="keyword">new</span> <span class="keyword">double</span>[size];</span><br><span class="line">	solution = <span class="keyword">new</span> <span class="keyword">double</span>[size];</span><br><span class="line">&#125;</span><br><span class="line">LinearEqu::~LinearEqu() &#123;</span><br><span class="line">	<span class="keyword">delete</span>[]sums;</span><br><span class="line">	<span class="keyword">delete</span>[] solution;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> LinearEqu::setLinearEqu(<span class="keyword">double</span>* a, <span class="keyword">double</span>* b) &#123;</span><br><span class="line">	setMatrix(a);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">		sums[i] = b[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> LinearEqu::solve() &#123;</span><br><span class="line">	printMatrix(elements, size);</span><br><span class="line">	<span class="keyword">int</span>* order = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">		order[i] = i + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> im =i,jm = i;<span class="comment">//最大元所在的行号列号</span></span><br><span class="line">		<span class="keyword">double</span> max = elements[i*size + i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; size; j++)</span><br><span class="line">		&#123;			</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = j; k &lt; size; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (max &lt; elements[j*size + k])</span><br><span class="line">				&#123;</span><br><span class="line">					max = elements[j*size + k];</span><br><span class="line">					jm = k;</span><br><span class="line">					</span><br><span class="line">					im = j;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (max == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (im != i)<span class="comment">//行交换</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt; size; k++)</span><br><span class="line">				&#123;</span><br><span class="line">					swap(elements[im*size + k], elements[i*size + k]);</span><br><span class="line">					swap(sums[im], sums[i]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (jm != i)<span class="comment">//列交换</span></span><br><span class="line">			&#123;</span><br><span class="line">				swap(order[jm], order[i]);</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; size; k++)</span><br><span class="line">				&#123;</span><br><span class="line">					swap(elements[k*size + i], elements[k*size + jm]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//消去</span></span><br><span class="line">		<span class="keyword">double</span> m = elements[i*size + i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; size; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">double</span> n = elements[j*size + i] / m;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = i ; k &lt; size; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				elements[j*size + k] = elements[j*size + k]- elements[i*size + k] * n;</span><br><span class="line">			&#125;</span><br><span class="line">			sums[j] = sums[j] - sums[i] * n;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//判断剩下的一个元素是否等于0（等于0则矩阵的秩不等于矩阵的行数，则无解）</span></span><br><span class="line">		<span class="comment">//这里没有想好，待补充</span></span><br><span class="line"></span><br><span class="line">		printMatrix(elements, size);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="comment">//回代</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">double</span> m = elements[i*size + i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">double</span> n = elements[j*size + i] / m;</span><br><span class="line">			elements[j*size + i] = <span class="number">0</span>;</span><br><span class="line">			sums[j] = sums[j] - sums[i] * n;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"x["</span> &lt;&lt; order[i] &lt;&lt; <span class="string">"] = "</span> &lt;&lt; (solution[i] = sums[i] / elements[i*size + i]) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> LinearEqu::printLinearEqu() &#123;</span><br><span class="line">	printMatrix(elements,size);</span><br><span class="line">	printMatrix(sums, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> LinearEqu::printSolution() &#123;</span><br><span class="line">	printMatrix(solution, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/01/Longest Substring Without Repeating Characters/" rel="prev" title="Longest Substring Without Repeating Characters">
+      <i class="fa fa-chevron-left"></i> Longest Substring Without Repeating Characters
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/08/Dijkstra算法找单源最短路径/" rel="next" title="Dijkstra算法找单源最短路径">
+      Dijkstra算法找单源最短路径 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

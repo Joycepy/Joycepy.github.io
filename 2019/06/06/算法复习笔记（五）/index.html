@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="网络流最大流问题容量、源点、汇点、流；流f满足容量条件和守恒定理 在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。  剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}. 令P是$G_f$中一条简单的s-t路径（增广路径）。bottle">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法复习笔记（五）">
+<meta property="og:url" content="http://yoursite.com/2019/06/06/算法复习笔记（五）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="网络流最大流问题容量、源点、汇点、流；流f满足容量条件和守恒定理 在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。  剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}. 令P是$G_f$中一条简单的s-t路径（增广路径）。bottle">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/06/算法复习笔记（五）/Users/asus/AppData/Roaming/Typora/typora-user-images/1559907526582.png">
+<meta property="og:updated_time" content="2019-06-07T11:42:32.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法复习笔记（五）">
+<meta name="twitter:description" content="网络流最大流问题容量、源点、汇点、流；流f满足容量条件和守恒定理 在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。  剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}. 令P是$G_f$中一条简单的s-t路径（增广路径）。bottle">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/06/算法复习笔记（五）/Users/asus/AppData/Roaming/Typora/typora-user-images/1559907526582.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/06/算法复习笔记（五）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法复习笔记（五） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/算法复习笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法复习笔记（五）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-06 23:07:14" itemprop="dateCreated datePublished" datetime="2019-06-06T23:07:14+08:00">2019-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 19:42:32" itemprop="dateModified" datetime="2019-06-07T19:42:32+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h3><p>容量、源点、汇点、流；流f满足容量条件和守恒定理</p>
+<p>在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。 </p>
+<p>剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}.</p>
+<p>令P是$G_f$中一条简单的s-t路径（增广路径）。bottleneck(P,f)是P上任何边关于流f的最小剩余容量。算法augment(f,P)在G中产生一 个新的流f’.不断调整Gf来获取更大的流量.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Augment(f, P) &#123; </span><br><span class="line">    b ←bottleneck(P) </span><br><span class="line">    foreach e ∈P &#123; <span class="comment">//宽度优先或者广度优先搜索，代价为 O(m+n)=O(m); </span></span><br><span class="line">        <span class="keyword">if</span>(e ∈E) f(e) ←f(e) + b </span><br><span class="line">        <span class="keyword">else</span> f(eR) ←f(e) -b &#125; </span><br><span class="line">    <span class="keyword">return</span> f &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ford-Fulkerson(G,s,t,c)&#123;</span><br><span class="line">    foreach e ∈E f(e)←0</span><br><span class="line">    Gf ← residual graph</span><br><span class="line">    <span class="keyword">while</span>(there exists augmenting path P)&#123;</span><br><span class="line">        f ← Augment(f,c,P)</span><br><span class="line">        update Gf</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ford-Fulkerson算法可以在 O(mC)时间内实现</p>
+<h4 id="最大流与最小割"><a href="#最大流与最小割" class="headerlink" title="最大流与最小割"></a>最大流与最小割</h4><p>v(f)≤c(A,B)，每个流的值是以每个割的容量为上界的。证明：流f的值=A的出度-A的入度≤A的出度=割(A,B)的容量</p>
+<p>最大流的值等于最小割</p>
+<h4 id="选择好的增广路径"><a href="#选择好的增广路径" class="headerlink" title="选择好的增广路径"></a>选择好的增广路径</h4><p>选择了一条瓶颈容量很小的增广路径， 导致收敛很慢！— 选择具有大的瓶颈容量的路径，进展会更大些</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Scaling-Max-Flow(G, s, t, c) &#123; </span><br><span class="line">    foreach e ∈E  f(e) ←0 </span><br><span class="line">    ∆←largest power of <span class="number">2</span> &lt;= Max of Ce out of s </span><br><span class="line">    Gf←residual graph</span><br><span class="line">	<span class="keyword">while</span>(∆≥<span class="number">1</span>) &#123; <span class="comment">// 外层While循环的迭代次数至多是 1 + ⎡log2 C⎤ </span></span><br><span class="line">        Gf(∆)←∆-residual graph </span><br><span class="line">        <span class="keyword">while</span>(there exists augmenting path P in Gf(∆)) &#123; </span><br><span class="line">            <span class="comment">//在∆缩放阶段，每次增广增加的流值至少是∆.</span></span><br><span class="line">            <span class="comment">//在一个缩放阶段增广次数至多是2m</span></span><br><span class="line">            f ←augment(f, c, P) <span class="comment">//一次增广用O(m)时间(包括建立图，找到合适路径)</span></span><br><span class="line">            update Gf(∆) </span><br><span class="line">        &#125; </span><br><span class="line">        ∆←∆/ <span class="number">2</span> </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二分匹配问题"><a href="#二分匹配问题" class="headerlink" title="二分匹配问题"></a>二分匹配问题</h3><h4 id="构造最大流"><a href="#构造最大流" class="headerlink" title="构造最大流"></a>构造最大流</h4><p>构造图G’ = (L ∪R∪{s, t},  E’ ). 连接原图L到R的每条边, 每条边赋予单位容 量；增加一个源点s, 从s到L中的每个结点连接一 条边，每条边赋予单位容量；增加一个终点t, 从R中的每个结点到t连接一 条边，每条边赋予单位容量。</p>
+<p> G中最大匹配的数目与所定义的G‘中最大流值相同. </p>
+<p>令n=|L|=|R|,m是G的边数，一般假定初始问题中每个结点至少存在一条关联边， 因此m&gt;=n/2. </p>
+<p>时间复杂度：C=|L|=n,根据以前O(mC)的界——Ford-Fulkerson算法在 O(mn)时间内找到二部图中的一个最大匹配</p>
+<h2 id="NP与计算的难解性"><a href="#NP与计算的难解性" class="headerlink" title="NP与计算的难解性"></a>NP与计算的难解性</h2><table>
+<thead>
+<tr>
+<th>贪心算法</th>
+<th>区间调度</th>
+<th>O(nlogn)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分治策略</td>
+<td>FFT</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>动态规划</td>
+<td>编辑距离</td>
+<td>O(n^2)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="多项式时间规约"><a href="#多项式时间规约" class="headerlink" title="多项式时间规约"></a>多项式时间规约</h3><p>如果对于问题Y：能用多项式个标准的计算步骤，加上多项式次调用解问题X的黑盒子来解问题Y，则：Y多项式时间可归约到X，或X至少想Y一样难（相对于多项式时间）</p>
+<p>$Y≤_pX$ （有传递性）</p>
+<p>如果X能在多项式时间内求解，则Y也能在多项式时间内求解；如果Y能在多项式时间内求解，则X也能在多项式时间内求解。</p>
+<h4 id="独立集问题"><a href="#独立集问题" class="headerlink" title="独立集问题"></a>独立集问题</h4><p>G=(V,E)，G包含大小至少为k的独立集吗？G包含大小至多为k的顶点覆盖吗？</p>
+<p>S是一个独立集当且仅当它的补图V-S是一个顶点覆盖。</p>
+<p><strong>集合覆盖</strong>：比顶点覆盖更具一般性，顶点覆盖$≤_p$集合覆盖</p>
+<p><strong>使用零件归约</strong></p>
+<p>合取范式，可满足性问题SAT，3-SAT：三元可满足性</p>
+<p>3-SAT$≤_p$独立集</p>
+<p>构造：连接一个三角形的三个顶点（需要同时考虑三个三角形，从三个三角形中各取一个点），并把每个项与它的否定项连接起来。</p>
+<p>3-SAT$≤_p$独立集$≤_p$顶点覆盖$≤_p$集合覆盖</p>
+<p>寻找问题$≤_p$判别问题</p>
+<h3 id="有效证书和NP的定义"><a href="#有效证书和NP的定义" class="headerlink" title="有效证书和NP的定义"></a>有效证书和NP的定义</h3><p>对于判定问题： A解问题X</p>
+<p>存在多项式时间解法的问题的集合P</p>
+<p>判断素性：用2到根号N来判断N是否能被这些数整除，算法的时间复杂度是指数级别的；AKS算法为多项式级别。</p>
+<p>证书串t包含s是X的“yes”实例的证据。</p>
+<p>存在t使得：|t|≤p(|s|)且B(s,t)=yes，则B是问题X的有效验证程序，t是证书。</p>
+<p>NP是所有存在有效验证程序的问题的集合</p>
+<h4 id="例"><a href="#例" class="headerlink" title="例"></a><strong>例</strong></h4><p>独立集问题：</p>
+<p>证书：至少有k个顶点的集合；验证程序B：核实这些顶点中的任何两两之间没有边连接。</p>
+<h4 id="NP完全问题"><a href="#NP完全问题" class="headerlink" title="NP完全问题"></a>NP完全问题</h4><p>电路可满足性</p>
+<p>NP问题要么是P，要么是NP完全问题</p>
+<p>难问题的部分分类：</p>
+<ol>
+<li>包装问题：独立集、集合包装</li>
+<li>覆盖问题：顶点覆盖、集合覆盖</li>
+<li>划分问题：三维匹配、图着色</li>
+<li>排序问题：哈密顿图、哈密顿回路、巡回售货员问题</li>
+<li>数值问题：子集和，带开放时间和截止时间的调度问题</li>
+<li>约束满足问题：SAT，3SAT</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/06/算法复习笔记（五）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559907526582.png" alt="1559907526582"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/06/数据库复习笔记（三）/" rel="prev" title="数据库复习笔记（三）">
+      <i class="fa fa-chevron-left"></i> 数据库复习笔记（三）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/07/201812CET6_3Comp/" rel="next" title="201812CET6_3Comp">
+      201812CET6_3Comp <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络流"><span class="nav-number">1.</span> <span class="nav-text">网络流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大流问题"><span class="nav-number">1.1.</span> <span class="nav-text">最大流问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最大流与最小割"><span class="nav-number">1.1.1.</span> <span class="nav-text">最大流与最小割</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择好的增广路径"><span class="nav-number">1.1.2.</span> <span class="nav-text">选择好的增广路径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二分匹配问题"><span class="nav-number">1.2.</span> <span class="nav-text">二分匹配问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造最大流"><span class="nav-number">1.2.1.</span> <span class="nav-text">构造最大流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NP与计算的难解性"><span class="nav-number">2.</span> <span class="nav-text">NP与计算的难解性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多项式时间规约"><span class="nav-number">2.1.</span> <span class="nav-text">多项式时间规约</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#独立集问题"><span class="nav-number">2.1.1.</span> <span class="nav-text">独立集问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有效证书和NP的定义"><span class="nav-number">2.2.</span> <span class="nav-text">有效证书和NP的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例"><span class="nav-number">2.2.1.</span> <span class="nav-text">例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NP完全问题"><span class="nav-number">2.2.2.</span> <span class="nav-text">NP完全问题</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

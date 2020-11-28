@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="###Octave的使用 更改提示符 12octave:11&amp;gt; PS1(&amp;apos;&amp;gt;&amp;gt;&amp;apos;)&amp;gt;&amp;gt; 添加分号抑制输出 查看帮助： 1&amp;gt;&amp;gt; help eye 构造10000个随机数并绘制高斯分布： 12&amp;gt;&amp;gt; w=randn(1,10000);&amp;gt;&amp;gt; hist(w,50) 圆周率：pi ，常数：e 格式化输出  矩阵 横向量： 1">
+<meta name="keywords" content="Machine-Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine-Learning-Note3">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Machine-Learning-Note3/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="###Octave的使用 更改提示符 12octave:11&amp;gt; PS1(&amp;apos;&amp;gt;&amp;gt;&amp;apos;)&amp;gt;&amp;gt; 添加分号抑制输出 查看帮助： 1&amp;gt;&amp;gt; help eye 构造10000个随机数并绘制高斯分布： 12&amp;gt;&amp;gt; w=randn(1,10000);&amp;gt;&amp;gt; hist(w,50) 圆周率：pi ，常数：e 格式化输出  矩阵 横向量： 1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/03/29/Machine-Learning-Note3/blog/.deploy_git/images/octave_output.PNG">
+<meta property="og:updated_time" content="2019-03-30T11:58:02.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine-Learning-Note3">
+<meta name="twitter:description" content="###Octave的使用 更改提示符 12octave:11&amp;gt; PS1(&amp;apos;&amp;gt;&amp;gt;&amp;apos;)&amp;gt;&amp;gt; 添加分号抑制输出 查看帮助： 1&amp;gt;&amp;gt; help eye 构造10000个随机数并绘制高斯分布： 12&amp;gt;&amp;gt; w=randn(1,10000);&amp;gt;&amp;gt; hist(w,50) 圆周率：pi ，常数：e 格式化输出  矩阵 横向量： 1">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/29/Machine-Learning-Note3/blog/.deploy_git/images/octave_output.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/29/Machine-Learning-Note3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Machine-Learning-Note3 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Machine-Learning-Note3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Machine-Learning-Note3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">2019-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-03-30 19:58:02" itemprop="dateModified" datetime="2019-03-30T19:58:02+08:00">2019-03-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>###Octave的使用</p>
+<p>更改提示符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:11&gt; PS1(&apos;&gt;&gt;&apos;)</span><br><span class="line">&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>添加分号抑制输出</p>
+<p>查看帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; help eye</span><br></pre></td></tr></table></figure>
+<p>构造10000个随机数并绘制高斯分布：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; w=randn(1,10000);</span><br><span class="line">&gt;&gt; hist(w,50)</span><br></pre></td></tr></table></figure>
+<p>圆周率：pi ，常数：e</p>
+<p>格式化输出</p>
+<p><img src="//yoursite.com/2019/03/29/Machine-Learning-Note3/blog\.deploy_git\images\octave_output.PNG" width="50%" height="50%"></p>
+<p><strong>矩阵</strong></p>
+<p>横向量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1,2,3]</span><br></pre></td></tr></table></figure>
+<p>列向量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1;2;3]</span><br></pre></td></tr></table></figure>
+<p>2*3，所有元素均为1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ones(2,3)</span><br></pre></td></tr></table></figure>
+<p>1*3，所有元素均为0：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w=zeros(1,3)</span><br></pre></td></tr></table></figure>
+<p>5*5单位矩阵：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I=eye(5)</span><br></pre></td></tr></table></figure>
+<p>3*3高斯随机数矩阵：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rand(3,3)</span><br></pre></td></tr></table></figure>
+<p>矩阵数乘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C=2*ones(2,3)</span><br></pre></td></tr></table></figure>
+<p>读取A[3,2]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(3,2)</span><br></pre></td></tr></table></figure>
+<p>读取矩阵A第2列所有元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)</span><br></pre></td></tr></table></figure>
+<p>读取矩阵A第1行和第3行所有元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A([1 3],:)</span><br></pre></td></tr></table></figure>
+<p>将A第二列替换为[10;11;12]：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)=[10;11;12]</span><br></pre></td></tr></table></figure>
+<p>在A的最后加上一列:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[A,[100,101,102]]</span><br></pre></td></tr></table></figure>
+<p>将A所有的元素合并成一个列向量:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:)</span><br></pre></td></tr></table></figure>
+<p>两个矩阵列合并：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; C=[A B]</span><br></pre></td></tr></table></figure>
+<p>两个矩阵行合并</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; D=[A;B]</span><br></pre></td></tr></table></figure>
+<h4 id="移动数据"><a href="#移动数据" class="headerlink" title="移动数据"></a>移动数据</h4><p>所用到的数据: <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/featuresX.dat" target="_blank" rel="noopener">featuresX.dat</a>, <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/priceY.dat" target="_blank" rel="noopener">priceY.dat</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; cd E:\桌面 %Octave中不能输入中文，在左上窗口双击打开</span><br><span class="line">&gt;&gt; load featuresX.dat</span><br><span class="line">&gt;&gt; load(&apos;priceY.dat&apos;)</span><br><span class="line">&gt;&gt; who %使用who命令显示当前所有变量,使用whos查看变量更详细的信息</span><br><span class="line">&gt;&gt; featuresX %展示数据</span><br><span class="line">featuresX =</span><br><span class="line"></span><br><span class="line">   2104      3</span><br><span class="line">   1600      3</span><br><span class="line">   2400      3</span><br><span class="line">   1416      2</span><br><span class="line">   3000      4</span><br><span class="line"> ......</span><br><span class="line">&gt;&gt; size(featuresX)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   27    2</span><br><span class="line">&gt;&gt; v=featuresX(1:5)</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">   2104   1600   2400   1416   3000</span><br><span class="line"></span><br><span class="line">&gt;&gt; save hello.mat v %二进制方式存储数据</span><br><span class="line">&gt;&gt; save hello.txt v -ascii %存储数据</span><br><span class="line">&gt;&gt;clear %清空所有变量</span><br></pre></td></tr></table></figure>
+<h5 id="数据的计算"><a href="#数据的计算" class="headerlink" title="数据的计算"></a>数据的计算</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%各种矩阵的运算</span><br><span class="line">&gt;&gt; A*B</span><br><span class="line">&gt;&gt; A.*b</span><br><span class="line">&gt;&gt; A.^2</span><br><span class="line">&gt;&gt; 1 ./A</span><br><span class="line">&gt;&gt; log(A)</span><br><span class="line">&gt;&gt; exp(A)</span><br><span class="line">&gt;&gt; -A</span><br></pre></td></tr></table></figure>
+<p>A中每个元素加1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A+ones(size(A))</span><br><span class="line">%或者：</span><br><span class="line">&gt;&gt; A+1</span><br></pre></td></tr></table></figure>
+<p>矩阵转置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A&apos;</span><br></pre></td></tr></table></figure>
+<p>最值，比较大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 0.5 100]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">     1.00000     3.00000     0.50000   100.00000</span><br><span class="line"></span><br><span class="line">&gt;&gt; [val ind]=max(A)</span><br><span class="line">val =  100</span><br><span class="line">ind =  4</span><br><span class="line">&gt;&gt; [val]=min(A)</span><br><span class="line">val =  0.50000</span><br><span class="line">&gt;&gt; A&gt;2</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  0  1  0  1</span><br></pre></td></tr></table></figure>
+<p>查找特定元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 5;6 8 9]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   3   5</span><br><span class="line">   6   8   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; find(a&gt;3)</span><br><span class="line">error: &apos;a&apos; undefined near line 1 column 6</span><br><span class="line">&gt;&gt; find(A&gt;3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   5</span><br><span class="line">   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; [r c]=find(A&gt;=2)</span><br><span class="line">r =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">c =</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   2</span><br><span class="line">   3</span><br><span class="line">   3</span><br></pre></td></tr></table></figure>
+<p>生成任意行、列、对角线和相等的矩阵：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; magic(3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   8   1   6</span><br><span class="line">   3   5   7</span><br><span class="line">   4   9   2</span><br></pre></td></tr></table></figure>
+<p>列向量求和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; sum(A)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">    7   11   14</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; floor(a)%向下取整</span><br><span class="line">&gt;&gt; ceil(a)%向上取整</span><br></pre></td></tr></table></figure>
+<p>最值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 2;3 4;5 6]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; A=[1 2;3 4;5 6],</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; B=[3 1;4 6;2 9]</span><br><span class="line">B =</span><br><span class="line"></span><br><span class="line">   3   1</span><br><span class="line">   4   6</span><br><span class="line">   2   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,B)</span><br><span class="line">%构造一个由A,B两个矩阵中对应位置较大的数组成的矩阵</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   3   2</span><br><span class="line">   4   6</span><br><span class="line">   5   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],1)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],2)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   6</span><br><span class="line">%获取矩阵中最大元素两种方式</span><br><span class="line">&gt;&gt; max(max(A))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; max(A(:))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; flipud(A)%矩阵上下翻转</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line">   3   4</span><br><span class="line">   1   2</span><br><span class="line">&gt;&gt; pinv(A)%矩阵的逆</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  -1.33333  -0.33333   0.66667</span><br><span class="line">   1.08333   0.33333  -0.41667</span><br></pre></td></tr></table></figure>
+<h5 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h5><p>（将函数画在同一图中、添加坐标轴说明、图示、存储图像、同一窗口不同位置显示两个图像、坐标轴刻度）</p>
+<p>将矩阵可视化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; imagesc(magic(15))</span><br></pre></td></tr></table></figure>
+<h5 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h5><p>循环语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; for i=1:10,</span><br><span class="line">v(i)=i^2;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">     1     4     9    16    25    36    49    64    81   100</span><br><span class="line"></span><br><span class="line">&gt;&gt; i=1;</span><br><span class="line">&gt;&gt; while i&lt;=10,</span><br><span class="line">v(i)=sqrt(v(i));</span><br><span class="line">i=i+1;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">    1    2    3    4    5    6    7    8    9   10</span><br></pre></td></tr></table></figure>
+<p>定义函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; [y1,y2]=squareAndcube(5)</span><br><span class="line">y1 =  25</span><br><span class="line">y2 =  125</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine-Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/17/Machine-Learning-Note2/" rel="prev" title="Machine-Learning-Note2">
+      <i class="fa fa-chevron-left"></i> Machine-Learning-Note2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/29/BFS & binaryTest/" rel="next" title="BFS & 二分性测试">
+      BFS & 二分性测试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#移动数据"><span class="nav-number">1.</span> <span class="nav-text">移动数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据的计算"><span class="nav-number">1.1.</span> <span class="nav-text">数据的计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绘图"><span class="nav-number">1.2.</span> <span class="nav-text">绘图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#控制语句"><span class="nav-number">1.3.</span> <span class="nav-text">控制语句</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

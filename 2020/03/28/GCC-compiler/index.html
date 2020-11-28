@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="（其实是一锅乱炖） gcc命令的一般格式为：gcc[选项]要编译的文件[选项][目标文件]。 反汇编objdump -t obj 输出目标文件的符号表()objdump -h obj 输出目标文件的所有段概括()objdump -j .text/.data -S obj 输出指定段的信息，大概就是反汇编源代码把objdump -S obj C语言与汇编语言同时显示 记一些vimtutor里的小结">
+<meta name="keywords" content="tip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCC程序编译&amp;vimtutor">
+<meta property="og:url" content="http://yoursite.com/2020/03/28/GCC-compiler/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="（其实是一锅乱炖） gcc命令的一般格式为：gcc[选项]要编译的文件[选项][目标文件]。 反汇编objdump -t obj 输出目标文件的符号表()objdump -h obj 输出目标文件的所有段概括()objdump -j .text/.data -S obj 输出指定段的信息，大概就是反汇编源代码把objdump -S obj C语言与汇编语言同时显示 记一些vimtutor里的小结">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-08T14:53:57.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GCC程序编译&amp;vimtutor">
+<meta name="twitter:description" content="（其实是一锅乱炖） gcc命令的一般格式为：gcc[选项]要编译的文件[选项][目标文件]。 反汇编objdump -t obj 输出目标文件的符号表()objdump -h obj 输出目标文件的所有段概括()objdump -j .text/.data -S obj 输出指定段的信息，大概就是反汇编源代码把objdump -S obj C语言与汇编语言同时显示 记一些vimtutor里的小结">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/28/GCC-compiler/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GCC程序编译&vimtutor | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/28/GCC-compiler/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GCC程序编译&vimtutor
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-28 21:34:42" itemprop="dateCreated datePublished" datetime="2020-03-28T21:34:42+08:00">2020-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-08 22:53:57" itemprop="dateModified" datetime="2020-04-08T22:53:57+08:00">2020-04-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>（其实是一锅乱炖）</p>
+<p>gcc命令的一般格式为：gcc[选项]要编译的文件[选项][目标文件]。</p>
+<h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>objdump -t obj 输出目标文件的符号表()<br>objdump -h obj 输出目标文件的所有段概括()<br>objdump -j .text/.data -S obj 输出指定段的信息，大概就是反汇编源代码把<br>objdump -S obj C语言与汇编语言同时显示</p>
+<h3 id="记一些vimtutor里的小结"><a href="#记一些vimtutor里的小结" class="headerlink" title="记一些vimtutor里的小结"></a>记一些vimtutor里的小结</h3><ol>
+<li><p>光标在屏幕文本中的移动既可以用箭头键，也可以使用 hjkl 字母键。</p>
+<pre><code>h (左移)       j (下行)       k (上行)     l (右移)
+</code></pre></li>
+<li><p>欲进入 Vim 编辑器(从命令行提示符)，请输入：vim 文件名 &lt;回车&gt;</p>
+</li>
+<li><p>欲退出 Vim 编辑器，请输入 <esc>   :q!   &lt;回车&gt; 放弃所有改动。</esc></p>
+<pre><code>或者输入 &lt;ESC&gt;   :wq   &lt;回车&gt; 保存改动。
+</code></pre></li>
+<li><p>在正常模式下删除光标所在位置的字符，请按： x</p>
+</li>
+<li><p>欲插入或添加文本，请输入：</p>
+<pre><code>i   输入欲插入文本   \&lt;ESC&gt;             在光标前插入文本
+A   输入欲添加文本   \&lt;ESC&gt;             在一行后添加文本
+</code></pre></li>
+</ol>
+<pre><code>1. 欲从当前光标删除至下一个单词，请输入：dw
+2. 欲从当前光标删除至当前行末尾，请输入：d$
+3. 欲删除整行，请输入：dd
+
+4. 欲重复一个动作，请在它前面加上一个数字：2w
+5. 在正常模式下修改命令的格式是：
+         operator   [number]   motion
+ 其中：
+   operator - 操作符，代表要做的事情，比如 d 代表删除
+   [number] - 可以附加的数字，代表动作重复的次数
+   motion   - 动作，代表在所操作的文本上的移动，例如 w 代表单词(word)，
+              $ 代表行末等等。
+
+6. 欲移动光标到行首，请按数字0键：0
+
+7. 欲撤消以前的操作，请输入：u (小写的u)
+ 欲撤消在一行中所做的改动，请输入：U (大写的U)
+ 欲撤消以前的撤消命令，恢复以前的操作结果，请输入：CTRL-R
+</code></pre><ol>
+<li><p>要重新置入已经删除的文本内容，请按小写字母 p 键。该操作可以将已删除<br>的文本内容置于光标之后。如果最后一次删除的是一个整行，那么该行将置<br>于当前光标所在行的下一行。</p>
+</li>
+<li><p>要替换光标所在位置的字符，请输入小写的 r 和要替换掉原位置字符的新字<br>符即可。</p>
+</li>
+<li><p>更改类命令允许您改变从当前光标所在位置直到动作指示的位置中间的文本。<br>比如输入 ce 可以替换当前光标到单词的末尾的内容；输入 c$ 可以替换当<br>前光标到行末的内容。</p>
+</li>
+<li><p>更改类命令的格式是：</p>
+<pre><code>c   [number]   motion
+</code></pre></li>
+</ol>
+<pre><code>1. CTRL-G 用于显示当前光标所在位置和文件状态信息。
+ G 用于将光标跳转至文件最后一行。
+ 先敲入一个行号然后输入大写 G 则是将光标移动至该行号代表的行。
+ gg 用于将光标跳转至文件第一行。
+
+2. 输入 / 然后紧随一个字符串是在当前所编辑的文档中正向查找该字符串。
+ 输入 ? 然后紧随一个字符串则是在当前所编辑的文档中反向查找该字符串。
+ 完成一次查找之后按 n 键是重复上一次的命令，可在同一方向上查
+ 找下一个匹配字符串所在；或者按大写 N 向相反方向查找下一匹配字符串所在。
+ CTRL-O 带您跳转回较旧的位置，CTRL-I 则带您到较新的位置。
+
+3. 如果光标当前位置是括号(、)、[、]、{、}，按 % 会将光标移动到配对的括号上。
+
+4. 在一行内替换头一个字符串 old 为新的字符串 new，请输入  :s/old/new
+ 在一行内替换所有的字符串 old 为新的字符串 new，请输入  :s/old/new/g
+ 在两行内替换所有的字符串 old 为新的字符串 new，请输入  :#,#s/old/new/g
+ 在文件内替换所有的字符串 old 为新的字符串 new，请输入  :%s/old/new/g
+ 进行全文替换时询问用户确认每个替换需添加 c 标志        :%s/old/new/gc
+</code></pre><ol>
+<li><p>:!command 用于执行一个外部命令 command。</p>
+<p>请看一些实际例子：<br>​    (MS-DOS)         (Unix)<br>​     :!dir            :!ls            -  用于显示当前目录的内容。<br>​     :!del FILENAME   :!rm FILENAME   -  用于删除名为 FILENAME 的文件。</p>
+</li>
+<li><p>:w FILENAME  可将当前 VIM 中正在编辑的文件保存到名为 FILENAME 的文<br>件中。</p>
+</li>
+<li><p>v motion :w FILENAME 可将当前编辑文件中可视模式下选中的内容保存到文件<br>FILENAME 中。</p>
+</li>
+<li><p>:r FILENAME 可提取磁盘文件 FILENAME 并将其插入到当前文件的光标位置<br>后面。</p>
+</li>
+<li><p>:r !dir 可以读取 dir 命令的输出并将其放置到当前文件的光标位置后面。</p>
+</li>
+</ol>
+<pre><code>1. 输入小写的 o 可以在光标下方打开新的一行并进入插入模式。
+ 输入大写的 O 可以在光标上方打开新的一行。
+
+2. 输入小写的 a 可以在光标所在位置之后插入文本。
+ 输入大写的 A 可以在光标所在行的行末之后插入文本。
+
+3. e 命令可以使光标移动到单词末尾。
+
+4. 操作符 y 复制文本，p 粘贴先前复制的文本。
+
+5. 输入大写的 R 将进入替换模式，直至按\&lt;ESC\&gt; 键回到正常模式。
+
+6. 输入 :set xxx 可以设置 xxx 选项。一些有用的选项如下：
+    &apos;ic&apos; &apos;ignorecase&apos;       查找时忽略字母大小写
+    &apos;is&apos; &apos;incsearch&apos;        查找短语时显示部分匹配
+    &apos;hls&apos; &apos;hlsearch&apos;        高亮显示所有的匹配短语
+ 选项名可以用完整版本，也可以用缩略版本。
+
+7. 在选项前加上 no 可以关闭选项：  :set noic
+
+1. 输入 :help 或者按 \&lt;F1\&gt; 键或\&lt;Help\&gt; 键可以打开帮助窗口。
+
+2. 输入 :help cmd 可以找到关于 cmd 命令的帮助。
+
+3. 输入 CTRL-W CTRL-W  可以使您在窗口之间跳转。
+
+4. 输入 :q 以关闭帮助窗口
+
+5. 您可以创建一个 vimrc 启动脚本文件用来保存您偏好的设置。
+
+6. 当输入 : 命令时，按 CTRL-D 可以查看可能的补全结果。
+ 按\&lt;TAB\&gt; 可以使用一个补全。
+</code></pre><h3 id="linux-下cat命令的用法"><a href="#linux-下cat命令的用法" class="headerlink" title="linux 下cat命令的用法"></a>linux 下cat命令的用法</h3><p>1.一次显示整个文件。$ cat filename</p>
+<p>2.从键盘创建一个文件。$ cat &gt; filename  </p>
+<p>   只能创建新文件,不能编辑已有文件.</p>
+<p>3.将几个文件合并为一个文件： $cat file1 file2 &gt; file</p>
+<p>参数：</p>
+<p>-n 或 –number 由 1 开始对所有输出的行数编号</p>
+<p>-b 或 –number-nonblank 和 -n 相似，只不过对于空白行不编号</p>
+<p>-s 或 –squeeze-blank 当遇到有连续两行以上的空白行，就代换为一行的空白行</p>
+<p>-v 或 –show-nonprinting</p>
+<h3 id="小端存储"><a href="#小端存储" class="headerlink" title="小端存储"></a>小端存储</h3><p>在SIB字节后面读出一个32位的displacement, 发现是00 e0 ff ff, 在小端存储方式下, 它被解释成-0x2000：</p>
+<p>补码：1111 1111 1111 1111 1110 0000 0000 0000</p>
+<p>原码：1000 0000 0000 0000 0010 0000 0000 0000</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tip/" rel="tag"># tip</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/22/binary-tree-zigzag-level-order-traversal/" rel="prev" title="binary-tree-zigzag-level-order-traversal">
+      <i class="fa fa-chevron-left"></i> binary-tree-zigzag-level-order-traversal
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/30/construct-binary-tree-from-preorder-and-inorder-traversal/" rel="next" title="construct-binary-tree-from-preorder-and-inorder-traversal">
+      construct-binary-tree-from-preorder-and-inorder-traversal <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#反汇编"><span class="nav-number">1.</span> <span class="nav-text">反汇编</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记一些vimtutor里的小结"><span class="nav-number">2.</span> <span class="nav-text">记一些vimtutor里的小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-下cat命令的用法"><span class="nav-number">3.</span> <span class="nav-text">linux 下cat命令的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小端存储"><span class="nav-number">4.</span> <span class="nav-text">小端存储</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="==搭建系统用于标注新冠患者轨迹== DBspring boot: https://github.com/ityouknow/spring-boot-examples vue-admin: https://github.com/PanJiaChen/vue-element-admin IDEA-Maven的Dependencies中出现红色波浪线：https://blog.csdn.net/u01">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trace-marking-note">
+<meta property="og:url" content="http://yoursite.com/2020/07/10/Trace-marking-d1/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="==搭建系统用于标注新冠患者轨迹== DBspring boot: https://github.com/ityouknow/spring-boot-examples vue-admin: https://github.com/PanJiaChen/vue-element-admin IDEA-Maven的Dependencies中出现红色波浪线：https://blog.csdn.net/u01">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-11-27T04:06:58.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trace-marking-note">
+<meta name="twitter:description" content="==搭建系统用于标注新冠患者轨迹== DBspring boot: https://github.com/ityouknow/spring-boot-examples vue-admin: https://github.com/PanJiaChen/vue-element-admin IDEA-Maven的Dependencies中出现红色波浪线：https://blog.csdn.net/u01">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/10/Trace-marking-d1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Trace-marking-note | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/Trace-marking-d1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Trace-marking-note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-10 08:49:29" itemprop="dateCreated datePublished" datetime="2020-07-10T08:49:29+08:00">2020-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-27 12:06:58" itemprop="dateModified" datetime="2020-11-27T12:06:58+08:00">2020-11-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>==搭建系统用于标注新冠患者轨迹==</strong></p>
+<h4 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h4><p>spring boot: <a href="https://github.com/ityouknow/spring-boot-examples" target="_blank" rel="noopener">https://github.com/ityouknow/spring-boot-examples</a></p>
+<p>vue-admin: <a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">https://github.com/PanJiaChen/vue-element-admin</a></p>
+<p>IDEA-Maven的Dependencies中出现红色波浪线：<a href="https://blog.csdn.net/u014672466/article/details/80211340" target="_blank" rel="noopener">https://blog.csdn.net/u014672466/article/details/80211340</a></p>
+<p>npm ERR! missing script: build</p>
+<p><a href="https://www.jianshu.com/p/6048426282fa" target="_blank" rel="noopener">https://www.jianshu.com/p/6048426282fa</a></p>
+<p>Failed to start component [Connector[HTTP/1.1-8081]]        端口占用</p>
+<p>Error: Cannot find module ‘@vue/cli-plugin-e2e-cypress’</p>
+<ul>
+<li>npm i -g @vue/cli-plugin-e2e-cypress</li>
+<li>npm update</li>
+</ul>
+<h4 id="nginx关闭与启动"><a href="#nginx关闭与启动" class="headerlink" title="nginx关闭与启动"></a>nginx关闭与启动</h4><p>TASKKILL /F /IM nginx.exe</p>
+<p> .\nginx.exe</p>
+<p>npm run serve</p>
+<p>Vue前端开发调试方法<a href="https://blog.csdn.net/Jesse_Mx/article/details/88621950" target="_blank" rel="noopener">https://blog.csdn.net/Jesse_Mx/article/details/88621950</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implements Serializable</span><br></pre></td></tr></table></figure>
+<p>不要用url去找数据库的内容了，前段解析会出错嘤 404</p>
+<p>父子组件  函数注册</p>
+<p>entity，ServiceImpl，Service，Controller，Dto</p>
+<p>Null value was assigned to a property [class com.bdis.exploit.entity.PersonTrace.dest_latitude] of primitive type setter of com.bdis.exploit.entity.PersonTrace.dest_latitude</p>
+<p>vue中多选table中的数据，将选中的多个数组中的key值提交给后端，提交完成后清除勾选框</p>
+<p><a href="https://blog.csdn.net/qq_34825875/article/details/79757770" target="_blank" rel="noopener">https://blog.csdn.net/qq_34825875/article/details/79757770</a></p>
+<p>问题：<br>VUE自定义指令v-permisson 修改了元素是否隐藏，和v-if一起用时，<br>多个按钮元素同时使用v-permisson和v-if控制展示，后面的v-if=false的按钮元素被消除，其v-permisson的控制效果修改了上一个v-if=true的按钮元素。元素属性修改错位</p>
+<p>猜测原因：<br>v-if=false DOM元素未创建，v-permisson的el参数实际修改操作时定位到了错误的元素上</p>
+<p>解决：<br>1.合并v-v-if的参数到v-permisson参数里<br>2.v-permisson 支持对象传参，可以控制元素的属性 也可以 用el.remove()删除当前元素。<br>3.利用vue的双向绑定重新渲染DOM元素，重新刷新元素属性（未生成的元素，刷新后也可以重新生成），<br>具体写法元素绑定值附空值 如 this.orderList = [] ，随后在赋值实际的数据。<br>原文链接：<a href="https://blog.csdn.net/qq2397248986/article/details/84579493" target="_blank" rel="noopener">https://blog.csdn.net/qq2397248986/article/details/84579493</a></p>
+<p>把本地已经存在的库上传到另一个git地址。</p>
+<p>步骤如下：先设置好SSH的秘钥</p>
+<blockquote>
+<ol>
+<li>cd 已经存在的本地库目录</li>
+<li>$ git remote rename origin old-origin    // 更改原先的远程库名称为old-origin</li>
+<li>$ git remote add origin <a href="mailto:git@gitlab.xxxx.git" target="_blank" rel="noopener">git@gitlab.xxxx.git</a></li>
+<li>$ git push -u origin –all    //第一次会看到一个授权RSA的提示，选择yes，之后看到提示信息Branch ‘master’ set up to track remote branch ‘master’ from ‘origin’.</li>
+<li>$ git push -u origin –tags    //看到提示信息Everything up-to-date</li>
+</ol>
+</blockquote>
+<p>如果vue项目没有打包放在 springboot 项目下的话，需要开启跨域支持</p>
+<p>在 vue 项目里 config 目录下的 index.js 文件</p>
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><h5 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h5><p>服务器：application-dev.properties</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.hikari.write.jdbc-url=jdbc:mysql:<span class="comment">//172.17.0.1:3306/exploit?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC</span></span><br><span class="line">spring.datasource.hikari.write.username=xxxxxxxx</span><br><span class="line">spring.datasource.hikari.write.password=xxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>本地：application-test.properties</p>
+<h5 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h5><p>exploit-develop\CommonConfig\config.ts</p>
+<p>服务器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isDev = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>本地：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isDev = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>exploit-develop\admin\vue.config.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy: <span class="string">'localhost:8081'</span></span><br><span class="line"><span class="comment">// proxy: 'http://39.106.204.28:8084/api'</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//package.json "scripts":</span><br><span class="line">"serve": "concurrently \"npm:mock\" \"vue-cli-service serve\"",</span><br><span class="line">"mock": "cd mock &amp;&amp; ts-node-dev mock-server.ts",</span><br></pre></td></tr></table></figure>
+<h4 id="Property-‘xxx’-does-not-exist-on-type"><a href="#Property-‘xxx’-does-not-exist-on-type" class="headerlink" title="Property ‘xxx’ does not exist on type"></a>Property ‘xxx’ does not exist on type</h4><p>vue + typescript使用this.xxx过程中，vscode报错Property ‘xxx’ does not exist on type ，但是实际上运行效果完全没问题，主要原因是 vscode会根据声明文件自动进行类型推断的，这里没法知道该变量类型。解决方法：(this as any).xxx </p>
+<h4 id="杀掉运行中的jar程序"><a href="#杀掉运行中的jar程序" class="headerlink" title="杀掉运行中的jar程序"></a>杀掉运行中的jar程序</h4><p>查看进程命令为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep getCimiss-surf.jar</span><br></pre></td></tr></table></figure>
+<p>将会看到此jar的进程信息</p>
+<p>data 5796 0.0 0.0 112656 996 pts/1 S+ 09:11 0:00 grep –color=auto getCimiss-surf.jar data 30768 6.3 0.4 35468508 576800 ? Sl 09:09 0:08 java -jar getCimiss-surf.jar</p>
+<p>其中30768则为此jar的pid，杀掉命令为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 30768</span><br></pre></td></tr></table></figure>
+<h4 id="开端口"><a href="#开端口" class="headerlink" title="开端口"></a>开端口</h4><ul>
+<li>阿里云服务器安全组</li>
+<li>本地防火墙</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=80/tcp(永久生效再加上 --permanent)</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h4 id="mysql中的整数数据类型"><a href="#mysql中的整数数据类型" class="headerlink" title="mysql中的整数数据类型"></a>mysql中的整数数据类型</h4><p><a href="https://learnku.com/articles/36479" target="_blank" rel="noopener">https://learnku.com/articles/36479</a></p>
+<h4 id="查看redis"><a href="#查看redis" class="headerlink" title="查看redis"></a>查看redis</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep redis</span><br></pre></td></tr></table></figure>
+<h4 id="在日志倒数几行中找“ERROR”"><a href="#在日志倒数几行中找“ERROR”" class="headerlink" title="在日志倒数几行中找“ERROR”"></a>在日志倒数几行中找“ERROR”</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail <span class="string">"log.sys"</span> -n <span class="number">500</span> | grep <span class="string">"ERROR"</span></span><br></pre></td></tr></table></figure>
+<h4 id="TypeScript-error"><a href="#TypeScript-error" class="headerlink" title="TypeScript error"></a>TypeScript error</h4><p>“TS2354: This syntax requires an imported helper but module ‘tslib’ cannot be found”</p>
+<p>参考：<a href="https://github.com/microsoft/TypeScript/issues/37991" target="_blank" rel="noopener">https://github.com/microsoft/TypeScript/issues/37991</a></p>
+<p>尝试“Add to paths in tsconfig.json.” 无效</p>
+<p><code>npm i tslib@latest</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/09/database-note/" rel="prev" title="database-note">
+      <i class="fa fa-chevron-left"></i> database-note
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/02/find-minimum-in-rotated-sorted-array/" rel="next" title="find-minimum-in-rotated-sorted-array">
+      find-minimum-in-rotated-sorted-array <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DB"><span class="nav-number">1.</span> <span class="nav-text">DB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx关闭与启动"><span class="nav-number">2.</span> <span class="nav-text">nginx关闭与启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署"><span class="nav-number">3.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#后端"><span class="nav-number">3.1.</span> <span class="nav-text">后端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前端"><span class="nav-number">3.2.</span> <span class="nav-text">前端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Property-‘xxx’-does-not-exist-on-type"><span class="nav-number">4.</span> <span class="nav-text">Property ‘xxx’ does not exist on type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#杀掉运行中的jar程序"><span class="nav-number">5.</span> <span class="nav-text">杀掉运行中的jar程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开端口"><span class="nav-number">6.</span> <span class="nav-text">开端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql中的整数数据类型"><span class="nav-number">7.</span> <span class="nav-text">mysql中的整数数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看redis"><span class="nav-number">8.</span> <span class="nav-text">查看redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在日志倒数几行中找“ERROR”"><span class="nav-number">9.</span> <span class="nav-text">在日志倒数几行中找“ERROR”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TypeScript-error"><span class="nav-number">10.</span> <span class="nav-text">TypeScript error</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

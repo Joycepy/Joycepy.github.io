@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="学习链接 案例：中国旅游网，有道翻译 快捷键【Ctrl+U】打开源码页面 合法性：如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。 准备工作：在 PyCharm 中安装 requests 库 基本原理：网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。 开始爬虫所有在源码中的数据请求">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫">
+<meta property="og:url" content="http://yoursite.com/2019/06/29/爬虫/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="学习链接 案例：中国旅游网，有道翻译 快捷键【Ctrl+U】打开源码页面 合法性：如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。 准备工作：在 PyCharm 中安装 requests 库 基本原理：网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。 开始爬虫所有在源码中的数据请求">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-30T03:35:50.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫">
+<meta name="twitter:description" content="学习链接 案例：中国旅游网，有道翻译 快捷键【Ctrl+U】打开源码页面 合法性：如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。 准备工作：在 PyCharm 中安装 requests 库 基本原理：网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。 开始爬虫所有在源码中的数据请求">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/29/爬虫/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>爬虫 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/爬虫/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          爬虫
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-29 12:09:11" itemprop="dateCreated datePublished" datetime="2019-06-29T12:09:11+08:00">2019-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-30 11:35:50" itemprop="dateModified" datetime="2019-06-30T11:35:50+08:00">2019-06-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://c.biancheng.net/view/2011.html" target="_blank" rel="noopener">学习链接</a></p>
+<p>案例：<a href="http://www.cntour.cn/" target="_blank" rel="noopener">中国旅游网</a>，<a href="http://fanyi.youdao.com/" target="_blank" rel="noopener">有道翻译</a></p>
+<p>快捷键【Ctrl+U】打开源码页面</p>
+<p><strong>合法性：</strong>如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。</p>
+<p><strong>准备工作：</strong>在 PyCharm 中安装 requests 库</p>
+<p><strong>基本原理：</strong>网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。</p>
+<h4 id="开始爬虫"><a href="#开始爬虫" class="headerlink" title="开始爬虫"></a>开始爬虫</h4><p>所有在源码中的数据请求方式都是GET</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line">url = <span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml = requests.get(url)        <span class="comment">#Get方式获取网页数据</span></span><br><span class="line">print(strhtml.text)</span><br></pre></td></tr></table></figure>
+<p>用 GET 方式获取数据需要调用 requests 库中的 get 方法：requests.get(url)，这个方法获得一个url对象，代表整个网页，如果只需网页中的源码，使用.text</p>
+<p>在开发者模式中，依次单击“Network”按钮和“XHR”按钮，找到翻译数据，将 Headers 中的 URL 复制出来，并赋值给 url。POST 请求数据必须构建请求头。复制From Data中的请求参数并构建一个新字典。使用 requests.post 方法请求表单数据。将字符串格式的数据转换成 JSON 格式数据，并根据数据结构，提取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_translate_date</span><span class="params">(word=None)</span>:</span></span><br><span class="line">    url = <span class="string">'http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule'</span></span><br><span class="line">    From_data=&#123;<span class="string">'i'</span>:word,<span class="string">'from'</span>:<span class="string">'zh-CHS'</span>,<span class="string">'to'</span>:<span class="string">'en'</span>,<span class="string">'smartresult'</span>:<span class="string">'dict'</span>,<span class="string">'client'</span>:<span class="string">'fanyideskweb'</span>,<span class="string">'salt'</span>:<span class="string">'15477056211258'</span>,<span class="string">'sign'</span>:<span class="string">'b3589f32c38bc9e3876a570b8a992604'</span>,<span class="string">'ts'</span>:<span class="string">'1547705621125'</span>,<span class="string">'bv'</span>:<span class="string">'b33a2f3f9d09bde064c9275bcb33d94e'</span>,<span class="string">'doctype'</span>:<span class="string">'json'</span>,<span class="string">'version'</span>:<span class="string">'2.1'</span>,<span class="string">'keyfrom'</span>:<span class="string">'fanyi.web'</span>,<span class="string">'action'</span>:<span class="string">'FY_BY_REALTIME'</span>,<span class="string">'typoResult'</span>:<span class="string">'false'</span>&#125;</span><br><span class="line">    <span class="comment">#请求表单数据</span></span><br><span class="line">    response = requests.post(url,data=From_data)</span><br><span class="line">    <span class="comment">#将Json格式字符串转字典</span></span><br><span class="line">    content = json.loads(response.text)</span><br><span class="line">    print(content)</span><br><span class="line">    <span class="comment">#打印翻译后的数据</span></span><br><span class="line">    <span class="comment">#print(content['translateResult'][0][0]['tgt'])</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    get_translate_date(<span class="string">'我爱中国'</span>)</span><br></pre></td></tr></table></figure>
+<p>POST请求有道翻译{“errorcode<em>“</em>:50}——把URL中把<code>_o</code>去掉</p>
+<p>json模块主要有四个比较重要的函数，分别是：</p>
+<ul>
+<li><code>dump</code> - 将Python对象按照JSON格式序列化到文件中</li>
+<li><code>dumps</code> - 将Python对象处理成JSON格式的字符串</li>
+<li><code>load</code> - 将文件中的JSON数据反序列化成对象</li>
+<li><code>loads</code> - 将字符串的内容反序列化成Python对象</li>
+</ul>
+<h4 id="Beautiful-Soup-解析网页"><a href="#Beautiful-Soup-解析网页" class="headerlink" title="Beautiful Soup 解析网页"></a>Beautiful Soup 解析网页</h4><p>安装 bs4 库，安装 lxml 库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span>    BeautifulSoup</span><br><span class="line">url=<span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml=requests.get(url)</span><br><span class="line">soup=BeautifulSoup(strhtml.text,<span class="string">'lxml'</span>)</span><br><span class="line">data = soup.select(<span class="string">'#main&gt;div&gt;div.mtop.firstMod.clearfix&gt;div.centerBox&gt;ul.newsList&gt;li&gt;a'</span>)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>首先，HTML 文档将被转换成 Unicode 编码格式，然后 Beautiful Soup 选择最合适的解析器来解析这段文档，此处指定 lxml 解析器进行解析。解析后便将复杂的 HTML 文档转换成树形结构，并且每个节点都是 Python 对象。将解析后的文档存储到新建的变量 soup 中。用 select（选择器）定位数据，方法：开发者模式，将鼠标光标停留在对应的数据位置并右击，“Copy”➔“Copy Selector”，使用 soup.select 引用这个路径。</p>
+<h4 id="清洗和组织数据"><a href="#清洗和组织数据" class="headerlink" title="清洗和组织数据"></a>清洗和组织数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">'title'</span>:item.get_text(),</span><br><span class="line">        <span class="string">'link'</span>:item.get(<span class="string">'href'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>标题在＜a＞标签中，提取标签的正文用 get_text() 方法。链接在＜a＞标签的 href 属性中，提取标签中的 href 属性用 get() 方法，在括号中指定要提取的属性数据，即 get(＇href＇)，用正则表达式提取 ID (re库中)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">"title"</span>:item.get_text(),</span><br><span class="line">        <span class="string">"link"</span>:item.get(<span class="string">'href'</span>),</span><br><span class="line">        <span class="string">'ID'</span>:re.findall(<span class="string">'\d+'</span>,item.get(<span class="string">'href'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>\d匹配数字，+匹配前一个字符1次或多次。 re 库的 findall 方法，第一个参数表示正则表达式，第二个参数表示要提取的文本</p>
+<p>re.compile(r’^/question’)是正则表达式 匹配  ‘/question’开头</p>
+<h4 id="应对反爬虫"><a href="#应对反爬虫" class="headerlink" title="应对反爬虫"></a>应对反爬虫</h4><p>在 Request headers 中构造浏览器的请求头，封装自己。服务器识别浏览器访问的方法就是判断 keyword 是否为 Request headers 下的 User-Agent</p>
+<p>………………</p>
+<hr>
+<p>关于json编码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">obj = &#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br><span class="line">json.dumps(obj)</span><br><span class="line">print(json.dumps(obj))</span><br><span class="line">print(json.dumps(obj, ensure_ascii=<span class="keyword">False</span>))</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"\u6d4b\u8bd5"</span>&#125;</span><br><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/27/神经网络学习/" rel="prev" title="神经网络学习">
+      <i class="fa fa-chevron-left"></i> 神经网络学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/01/Palindrome-Number/" rel="next" title="Palindrome Number">
+      Palindrome Number <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开始爬虫"><span class="nav-number">1.</span> <span class="nav-text">开始爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Beautiful-Soup-解析网页"><span class="nav-number">2.</span> <span class="nav-text">Beautiful Soup 解析网页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清洗和组织数据"><span class="nav-number">3.</span> <span class="nav-text">清洗和组织数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应对反爬虫"><span class="nav-number">4.</span> <span class="nav-text">应对反爬虫</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

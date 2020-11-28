@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Yii2 girdView文本溢出显示…[​    ‘attribute’=&amp;gt;’content’,​    ‘label’=&amp;gt;’内容’,​    ‘format’=&amp;gt;’raw’,​    ‘value’=&amp;gt;function($model){​         return ““.$model-&amp;gt;content.”“;​                    //​">
+<meta name="keywords" content="Yii2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="互联网数据库大作业Note2">
+<meta property="og:url" content="http://yoursite.com/2019/07/11/互联网数据库大作业Note2/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="Yii2 girdView文本溢出显示…[​    ‘attribute’=&amp;gt;’content’,​    ‘label’=&amp;gt;’内容’,​    ‘format’=&amp;gt;’raw’,​    ‘value’=&amp;gt;function($model){​         return ““.$model-&amp;gt;content.”“;​                    //​">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-23T15:09:46.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="互联网数据库大作业Note2">
+<meta name="twitter:description" content="Yii2 girdView文本溢出显示…[​    ‘attribute’=&amp;gt;’content’,​    ‘label’=&amp;gt;’内容’,​    ‘format’=&amp;gt;’raw’,​    ‘value’=&amp;gt;function($model){​         return ““.$model-&amp;gt;content.”“;​                    //​">
+
+<link rel="canonical" href="http://yoursite.com/2019/07/11/互联网数据库大作业Note2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>互联网数据库大作业Note2 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/互联网数据库大作业Note2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          互联网数据库大作业Note2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-11 19:00:42" itemprop="dateCreated datePublished" datetime="2019-07-11T19:00:42+08:00">2019-07-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-23 23:09:46" itemprop="dateModified" datetime="2019-07-23T23:09:46+08:00">2019-07-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="Yii2-girdView文本溢出显示…"><a href="#Yii2-girdView文本溢出显示…" class="headerlink" title="Yii2 girdView文本溢出显示…"></a>Yii2 girdView文本溢出显示…</h4><p>[<br>​    ‘attribute’=&gt;’content’,<br>​    ‘label’=&gt;’内容’,<br>​    ‘format’=&gt;’raw’,<br>​    ‘value’=&gt;function($model){<br>​         return “<div style="\" width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\""="">“.$model-&gt;content.”</div>“;<br>​                    //<br>​    },</p>
+<p>],</p>
+<h4 id="只查看数据，消除删除和编辑图标"><a href="#只查看数据，消除删除和编辑图标" class="headerlink" title="只查看数据，消除删除和编辑图标"></a>只查看数据，消除删除和编辑图标</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line"><span class="string">'class'</span>=&gt;<span class="string">'yii\grid\ActionColumn'</span>，</span><br><span class="line"><span class="string">'template'</span>=&gt;<span class="string">'&#123;view&#125;'</span></span><br><span class="line">]，</span><br></pre></td></tr></table></figure>
+<h4 id="控制器向视图传递参数"><a href="#控制器向视图传递参数" class="headerlink" title="控制器向视图传递参数"></a>控制器向视图传递参数</h4><p>控制器：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionIndex</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $view = Yii::$app-&gt;view;</span><br><span class="line">        $date=(<span class="keyword">new</span> Query())-&gt;from(<span class="string">'visit_count'</span>)-&gt;select(<span class="string">'date'</span>)-&gt;orderBy(<span class="string">'date'</span>)-&gt;all();</span><br><span class="line">        <span class="keyword">foreach</span>($date <span class="keyword">as</span> $eachdate)</span><br><span class="line">        &#123;</span><br><span class="line">            $result1[] = $eachdate[<span class="string">'date'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        $view-&gt;params[<span class="string">'data1'</span>] = $result1;</span><br><span class="line">        $count=(<span class="keyword">new</span> Query())-&gt;from(<span class="string">'visit_count'</span>)-&gt;select(<span class="string">'nums'</span>)-&gt;orderBy(<span class="string">'date'</span>)-&gt;all();</span><br><span class="line">        <span class="keyword">foreach</span>($count <span class="keyword">as</span> $eachcount)</span><br><span class="line">        &#123;</span><br><span class="line">            $result2[] = $eachcount[<span class="string">'nums'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        $view-&gt;params[<span class="string">'data2'</span>] = $result2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'index'</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>视图：(使用echarts)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hisune</span>\<span class="title">EchartsPHP</span>\<span class="title">ECharts</span>;</span><br><span class="line"><span class="keyword">$this</span>-&gt;title = <span class="string">'访问量统计'</span>;</span><br><span class="line">$chart = <span class="keyword">new</span> ECharts();</span><br><span class="line">$chart-&gt;tooltip-&gt;show = <span class="keyword">true</span>;</span><br><span class="line">$chart-&gt;legend-&gt;data[] = <span class="string">'访问量'</span>;</span><br><span class="line">$t =  <span class="keyword">$this</span>-&gt;params[<span class="string">'data1'</span>];</span><br><span class="line">$chart-&gt;xAxis[] = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'type'</span> =&gt; <span class="string">'category'</span>,</span><br><span class="line">    <span class="string">'data'</span> =&gt; $t</span><br><span class="line">);</span><br><span class="line">$chart-&gt;yAxis[] = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'type'</span> =&gt; <span class="string">'value'</span></span><br><span class="line">);</span><br><span class="line">$k = <span class="keyword">$this</span>-&gt;params[<span class="string">'data2'</span>];</span><br><span class="line">$chart-&gt;series[] = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'name'</span> =&gt; <span class="string">'访问量'</span>,</span><br><span class="line">    <span class="string">'type'</span> =&gt; <span class="string">'line'</span>,</span><br><span class="line">    <span class="string">'data'</span> =&gt; $k</span><br><span class="line">);</span><br><span class="line"><span class="keyword">echo</span> $chart-&gt;render(<span class="string">'simple-custom-id'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="管理员修改密码的功能"><a href="#管理员修改密码的功能" class="headerlink" title="管理员修改密码的功能"></a>管理员修改密码的功能</h4><p><strong>弹出消息框：</strong></p>
+<p>在view文件中加：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::$app-&gt;session-&gt;getFlash(<span class="string">'error'</span>);</span><br></pre></td></tr></table></figure>
+<p>在model文件中加：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::$app-&gt;getSession()-&gt;setFlash(<span class="string">'error'</span>,<span class="string">'旧密码错误'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>修改密码：</strong></p>
+<p>model文件：PasswordForm.php，主要用到validatePassword()函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">backend</span>\<span class="title">models</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Yii</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">common</span>\<span class="title">models</span>\<span class="title">Adminuser</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Password form</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PasswordForm</span> <span class="keyword">extends</span> <span class="title">Adminuser</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $oldpwd;</span><br><span class="line">    <span class="keyword">public</span> $newpwd;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@inheritdoc</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">rules</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">			<span class="comment">//验证规则</span></span><br><span class="line">        ];        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">changePassword</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;validate()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        $id = YII::$app-&gt;user-&gt;id;</span><br><span class="line">        $admin=  Adminuser::findIdentity($id);</span><br><span class="line">        $password = $admin-&gt;password_hash;</span><br><span class="line">        <span class="keyword">if</span>(Yii::$app-&gt;getSecurity()-&gt;validatePassword(<span class="keyword">$this</span>-&gt;oldpwd, $password))&#123;           </span><br><span class="line">                $newpwd = Yii::$app-&gt;getSecurity()-&gt;generatePasswordHash(<span class="keyword">$this</span>-&gt;newpwd);</span><br><span class="line">                $admin-&gt;password_hash = $newpwd;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>($admin-&gt;save())&#123;</span><br><span class="line">                    Yii::$app-&gt;getSession()-&gt;setFlash(<span class="string">'success'</span>, <span class="string">'修改成功'</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;       </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            Yii::$app-&gt;session-&gt;setFlash(<span class="string">'error'</span>,<span class="string">'旧密码错误'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>view文件：password.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">helpers</span>\<span class="title">Html</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">bootstrap</span>\<span class="title">ActiveForm</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* <span class="doctag">@var</span> $this yii\web\View */</span></span><br><span class="line"><span class="comment">/* <span class="doctag">@var</span> $model backend\models\User */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">$this</span>-&gt;title = <span class="string">'修改密码'</span>;</span><br><span class="line"><span class="keyword">$this</span>-&gt;params[<span class="string">'breadcrumbs'</span>][] = [<span class="string">'label'</span> =&gt; <span class="string">'Adminusers'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'index'</span>]];</span><br><span class="line"><span class="keyword">$this</span>-&gt;params[<span class="string">'breadcrumbs'</span>][] = <span class="keyword">$this</span>-&gt;title;</span><br><span class="line">Yii::$app-&gt;session-&gt;getFlash(<span class="string">'error'</span>);</span><br><span class="line">Yii::$app-&gt;session-&gt;getFlash(<span class="string">'success'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;div class="user-updatepwd"&gt;</span><br><span class="line">    &lt;div class="row" &gt;</span><br><span class="line">       &lt;div class="col-md-4 col-md-offset-4"&gt;</span><br><span class="line">            &lt;div class="panel-heading"&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;div class="panel-body"&gt;</span><br><span class="line">            &lt;!-- &lt;div class="col-lg-5"&gt; --&gt;</span><br><span class="line">            <span class="meta">&lt;?php</span> $form = ActiveForm::begin([<span class="string">'id'</span> =&gt; <span class="string">'form-signup'</span>]); <span class="meta">?&gt;</span></span><br><span class="line">                <span class="meta">&lt;?</span>= $form-&gt;field($model, <span class="string">'oldpwd'</span>)-&gt;label(<span class="string">'原密码：'</span>,[<span class="string">'style'</span>=&gt;[<span class="string">'float'</span>=&gt;<span class="string">'left'</span>,<span class="string">'margin-top'</span>=&gt;<span class="string">'10px'</span>]])-&gt;passwordInput([<span class="string">'placeholder'</span>=&gt;<span class="string">'请输入原密码'</span>]) <span class="meta">?&gt;</span></span><br><span class="line">                <span class="meta">&lt;?</span>= $form-&gt;field($model, <span class="string">'newpwd'</span>)-&gt;label(<span class="string">'新密码：'</span>,[<span class="string">'style'</span>=&gt;[<span class="string">'float'</span>=&gt;<span class="string">'left'</span>,<span class="string">'margin-top'</span>=&gt;<span class="string">'10px'</span>]])-&gt;passwordInput([<span class="string">'placeholder'</span>=&gt;<span class="string">'请输入6~18位英文字母、数字'</span>]) <span class="meta">?&gt;</span></span><br><span class="line">                &lt;div class="form-group"&gt;</span><br><span class="line">                    <span class="meta">&lt;?</span>= Html::submitButton(<span class="string">'确认'</span>, [<span class="string">'class'</span> =&gt; <span class="string">'btn btn-primary'</span>, <span class="string">'name'</span> =&gt; <span class="string">'signup-button'</span>]) <span class="meta">?&gt;</span></span><br><span class="line">                &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">            <span class="meta">&lt;?php</span> ActiveForm::end(); <span class="meta">?&gt;</span></span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>controller文件中添加函数actionPassword()</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionPassword</span><span class="params">()</span></span>&#123;</span><br><span class="line">        $model=<span class="keyword">new</span> PasswordForm();</span><br><span class="line">        $request = YII::$app-&gt;request;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($request-&gt;isPost &amp;&amp; $model-&gt;load(Yii::$app-&gt;request-&gt;post()) &amp;&amp; $model-&gt;changePassword())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect(<span class="string">'index'</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'password'</span>,[<span class="string">'model'</span>=&gt;$model]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="显示PDF"><a href="#显示PDF" class="headerlink" title="显示PDF"></a>显示PDF</h4><p>将pdf或含该pdf的文件夹（personal/作业1(1711436_皮春莹).pdf）放到web目录下，在视图文件中加按钮，url为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'url'</span> =&gt; [<span class="string">'/personal/作业1(1711436_皮春莹).pdf'</span>]</span><br></pre></td></tr></table></figure>
+<p>点进去之后就跳到pdf，然后点回退按钮可以回到原来的界面</p>
+<h4 id="下载压缩包"><a href="#下载压缩包" class="headerlink" title="下载压缩包"></a>下载压缩包</h4><p>同上，url为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'url'</span> =&gt; [<span class="string">'/personal/作业2(1711436_皮春莹).rar'</span>]</span><br></pre></td></tr></table></figure>
+<p>点击后直接开始下载</p>
+<h4 id="PHP中显示日期的date-函数"><a href="#PHP中显示日期的date-函数" class="headerlink" title="PHP中显示日期的date()函数"></a>PHP中显示日期的date()函数</h4><p>显示年月日：date(‘Y-m-d’)；</p>
+<p>年月日时分秒：date(‘Y-m-d H:i:s’)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Yii2/" rel="tag"># Yii2</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/07/python学习阶段总结/" rel="prev" title="python学习阶段总结">
+      <i class="fa fa-chevron-left"></i> python学习阶段总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/17/git-note/" rel="next" title="git操作">
+      git操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Yii2-girdView文本溢出显示…"><span class="nav-number">1.</span> <span class="nav-text">Yii2 girdView文本溢出显示…</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#只查看数据，消除删除和编辑图标"><span class="nav-number">2.</span> <span class="nav-text">只查看数据，消除删除和编辑图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制器向视图传递参数"><span class="nav-number">3.</span> <span class="nav-text">控制器向视图传递参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管理员修改密码的功能"><span class="nav-number">4.</span> <span class="nav-text">管理员修改密码的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示PDF"><span class="nav-number">5.</span> <span class="nav-text">显示PDF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载压缩包"><span class="nav-number">6.</span> <span class="nav-text">下载压缩包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP中显示日期的date-函数"><span class="nav-number">7.</span> <span class="nav-text">PHP中显示日期的date()函数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

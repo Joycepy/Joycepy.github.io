@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？有一个坏消息：  目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。 数独问题的图搜索策略深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。 具体步骤 把起始节点S放到一">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法大作业笔记（二）">
+<meta property="og:url" content="http://yoursite.com/2019/05/14/算法大作业笔记（二）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？有一个坏消息：  目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。 数独问题的图搜索策略深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。 具体步骤 把起始节点S放到一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/05/14/算法大作业笔记（二）/桌面/时光以南/算法导论/作业/图片/6.png">
+<meta property="og:updated_time" content="2019-05-17T00:30:11.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法大作业笔记（二）">
+<meta name="twitter:description" content="这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？有一个坏消息：  目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。 数独问题的图搜索策略深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。 具体步骤 把起始节点S放到一">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/14/算法大作业笔记（二）/桌面/时光以南/算法导论/作业/图片/6.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/14/算法大作业笔记（二）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法大作业笔记（二） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/算法大作业笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法大作业笔记（二）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-14 23:19:21" itemprop="dateCreated datePublished" datetime="2019-05-14T23:19:21+08:00">2019-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-17 08:30:11" itemprop="dateModified" datetime="2019-05-17T08:30:11+08:00">2019-05-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color="red">这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？</font>有一个坏消息：</p>
+<p><img src="//yoursite.com/2019/05/14/算法大作业笔记（二）/桌面\时光以南\算法导论\作业\图片\6.png" width="70%"></p>
+<p>目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。</p>
+<h4 id="数独问题的图搜索策略"><a href="#数独问题的图搜索策略" class="headerlink" title="数独问题的图搜索策略"></a>数独问题的图搜索策略</h4><p>深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。</p>
+<h5 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h5><ol>
+<li>把起始节点S放到一个叫做OPEN的未扩展节点表中(简称OPEN表).如果此节点为一目标节点,则得到一个解</li>
+<li>建立一个叫做 CLOSED的已扩展节点表简称 CLOSED表)其初始为空表</li>
+<li>如果OPEN为一空表,则失败退出.</li>
+<li>把第一个节点(节点n)从OPEN表移到CLOSED表</li>
+<li>如果节点n的深度等于最大深度,则转向(3).</li>
+<li>扩展节点n产生其全部后裔,并把它们放入OPEN表的前头.如果没有后裔,则转向(3)</li>
+<li>如果后继节点中有任一个为目标节点,则求得一个解.成功退出;否则,转向(3).</li>
+</ol>
+<h5 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h5><p>search(c)：参数c为单元格地址,给定一个c对该单元格所在行、列,所在小九宮格已有数字进行判断,返回还允许填入的数字,用有效数字序列的字符串格式表示,比如返回“1356”,表示该单元格还可以填入1、3、5、6中任一数字,返回“”,表示该单元格无数可填,此时检查OPEN表,若空,则失败退出,在递归程序中返回上一级。</p>
+<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>图着色可以应用到多面体的面着色</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/14/数据库大作业笔记（八）/" rel="prev" title="数据库大作业笔记（八）">
+      <i class="fa fa-chevron-left"></i> 数据库大作业笔记（八）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/15/数据库大作业笔记（九）/" rel="next" title="数据库大作业笔记（九）">
+      数据库大作业笔记（九） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数独问题的图搜索策略"><span class="nav-number">1.</span> <span class="nav-text">数独问题的图搜索策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#具体步骤"><span class="nav-number">1.1.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主要函数"><span class="nav-number">1.2.</span> <span class="nav-text">主要函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea"><span class="nav-number"></span> <span class="nav-text">idea</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="处理器ALU used for  Load/Store: F = add Branch: F = subtract R-type: F depends on funct field   流水线提高吞吐率，并未减少单一指令的执行时间（延迟latency） 吞吐率 TP：单位时间内流水线所完成的任务数量或输出结果的数量 $TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完">
+<meta name="keywords" content="计组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组复习笔记（三）">
+<meta property="og:url" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="处理器ALU used for  Load/Store: F = add Branch: F = subtract R-type: F depends on funct field   流水线提高吞吐率，并未减少单一指令的执行时间（延迟latency） 吞吐率 TP：单位时间内流水线所完成的任务数量或输出结果的数量 $TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/11.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/12.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/13.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/14.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/15.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/16.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/17.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/18.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/19.PNG">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/20.PNG">
+<meta property="og:updated_time" content="2019-06-17T03:18:50.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计组复习笔记（三）">
+<meta name="twitter:description" content="处理器ALU used for  Load/Store: F = add Branch: F = subtract R-type: F depends on funct field   流水线提高吞吐率，并未减少单一指令的执行时间（延迟latency） 吞吐率 TP：单位时间内流水线所完成的任务数量或输出结果的数量 $TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/10/计组复习笔记（三）/blog/source/_posts/sql/11.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/10/计组复习笔记（三）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计组复习笔记（三） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计组复习笔记（三）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-10 20:12:51" itemprop="dateCreated datePublished" datetime="2019-06-10T20:12:51+08:00">2019-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-17 11:18:50" itemprop="dateModified" datetime="2019-06-17T11:18:50+08:00">2019-06-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h1><p><strong>ALU used for</strong></p>
+<ol>
+<li>Load/Store: F = add</li>
+<li>Branch: F = subtract</li>
+<li>R-type: F depends on funct field</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\11.PNG" alt="11"></p>
+<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>提高吞吐率，并未减少单一指令的执行时间（延迟latency）</p>
+<p><strong>吞吐率</strong> TP：单位时间内流水线所完成的任务数量或输出结果的数量</p>
+<p>$TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完n个任务所用的时间</p>
+<p><strong>加速比</strong> S：完成同样一批任务，顺序执行所用的时间与使用流水线所用的时间之比</p>
+<p>$S=T_0/T_k$</p>
+<p><strong>效率</strong> E：流水线上的设备利用率，即时空图上，N个任务占用的时空区与K个流水段占用的总时空区之比。由于流水线有建立时间和排空时间，各段并不总是满负荷工作的。</p>
+<p>E=n个任务占用的时空区/k个流水段占用的时空区=n/(n-k+1)</p>
+<p>在时空图上体现为执行所有指令需要的时间和实际用的时间，多余的时间由建立时间和排空时间造成</p>
+<p>5个处理步骤：IF，ID，EX，MEM，WB</p>
+<h3 id="冒险"><a href="#冒险" class="headerlink" title="冒险"></a>冒险</h3><h4 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h4><p>硬件占用：内存读写—IM，DM分开</p>
+<h4 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h4><p>拿错数据</p>
+<ol>
+<li>前推/旁路</li>
+<li>重新安排代码避免阻塞</li>
+</ol>
+<p>C code for A = B + E; C = B + F</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<p>重新安排代码:</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h4><p>取错指令</p>
+<ol>
+<li>阻塞</li>
+<li>分支预测</li>
+</ol>
+<p>静态预测</p>
+<p>动态预测</p>
+<p>当预测错误时，流水线控制必须确保被错误预测的分支后面的指令执行不会生效，并且在正确的分支地址处重新开始启动流水线。</p>
+<h3 id="流水线数据通路"><a href="#流水线数据通路" class="headerlink" title="流水线数据通路"></a>流水线数据通路</h3><h4 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h4><p>IF/ID，ID/EX，EX/MEM，MEM/WB</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\12.PNG" alt="12"></p>
+<h4 id="最终的数据通路与控制"><a href="#最终的数据通路与控制" class="headerlink" title="最终的数据通路与控制"></a>最终的数据通路与控制</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\13.PNG" alt="13"></p>
+<h3 id="数据冒险：旁路与阻塞"><a href="#数据冒险：旁路与阻塞" class="headerlink" title="数据冒险：旁路与阻塞"></a>数据冒险：旁路与阻塞</h3><h4 id="冒险条件"><a href="#冒险条件" class="headerlink" title="冒险条件"></a>冒险条件</h4><p>前提：写操作(EX/MEM.RegWrite, MEM/WB.RegWrite有效)，写目的寄存器不能是$zero</p>
+<p>1a. EX/MEM.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 10</p>
+<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 10</p>
+<p>2a. MEM/WB.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 01</p>
+<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 01</p>
+<p>1—Fwd from EX/MEM pipeline reg</p>
+<p>2—Fwd from MEM/WB pipeline reg</p>
+<p>ForwardA=0：第一个ALU操作数来自寄存器，ForwardB同理</p>
+<h4 id="旁路单元"><a href="#旁路单元" class="headerlink" title="旁路单元"></a>旁路单元</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\14.PNG" alt="14"></p>
+<p>01选通MEM/WB；10选通EX/MEM</p>
+<p>==为什么有两个Rt啊？还有下面加的红色语句我也没有理解目的所在==</p>
+<p>更复杂的潜在数据冒险：比如一个寄存器对多个数字进行求和运算，一系列连续的指令将会读写到同一寄存器：</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>第二条指令的EX/MEM数据才是最新的。因此，改变MEM冒险的控制策略：</p>
+<p><strong>MEM hazard</strong></p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​     <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                   <font color="red">and (EX/MEM.RegisterRd = ID/EX.RegisterRs))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRs))<br>   ForwardA = 01</p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​      <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                  <font color="red"> and (EX/MEM.RegisterRd = ID/EX.RegisterRt))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRt))<br>   ForwardB = 01</p>
+<h4 id="Load-Use冒险检测单元"><a href="#Load-Use冒险检测单元" class="headerlink" title="Load-Use冒险检测单元"></a>Load-Use冒险检测单元</h4><p>工作在ID级，从而可以在装载指令与紧随其后需要它的结果的指令间插入阻塞</p>
+<p>阻塞条件：ID/EX.MemRead and   ((ID/EX.RegisterRt = IF/ID.RegisterRs) or    (ID/EX.RegisterRt = IF/ID.RegisterRt))</p>
+<p>插入空指令：把ID/EX流水线寄存器的EX、MEM、WB级的控制信号都置为0.仍向前传递，但控制信号为0不会进行Reg和MEM的写操作。（事实上只需将RegWrite和MenWrite置为0）</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\15.PNG" alt="15"></p>
+<p><strong>通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\16.PNG" alt="16"></p>
+<p>冒险检测控制单元控制PC和IF/ID流水线寄存器的写入，以及在实际控制信号与全0中进行选择的多选器。若冒险条件为真，阻塞并清除所有控制字段。</p>
+<h3 id="控制冒险-1"><a href="#控制冒险-1" class="headerlink" title="控制冒险"></a>控制冒险</h3><p>增加寄存器比较电路，如果参与比较的两个寄存器，是两步之前的ALU结果，可以通过旁路解决冒险。如果参与比较的两个寄存器其中有一个，是前一步的ALU结果或是两步之前load的结果，需要一个阻塞。如果参与比较的两个寄存器其中有一个，是前一步的load的结果，需要两个阻塞。</p>
+<h4 id="动态分支预测"><a href="#动态分支预测" class="headerlink" title="动态分支预测"></a>动态分支预测</h4><p>分支预测缓存Branch prediction buffer (aka branch history table)：一小块按照分支指令的低位地址索引的存储器区，其中包括一位或多位数据用以说明最近是否发生过分支。</p>
+<p>2位预测位</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\17.PNG" alt="17"></p>
+<p>依然需要花费一个时钟周期的开销，去计算分支目标地址。使用延迟分支或分支目标地址缓存</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>（另一种形式的控制冒险，机制相同，不同的是由异常重置控制信号）</p>
+<p>异常程序计数器EPC：保存出错指令的地址+4</p>
+<p>协处理器CP0</p>
+<p>Jump to handler at 8000 00180</p>
+<p>记录引起异常的原因的两种方法</p>
+<ol>
+<li>Cause寄存器：有一个字段记录引起异常的原因</li>
+<li>向量中断，控制权转移到由异常原因决定的地址处</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\18.PNG" alt="18"></p>
+<font color="red">从MEM/WB寄存器WB部分出来的向上向左的那个信号，有点小错误，应该只向Registers，是一个写寄存器的控制信号。</font>
+
+<p>多重中断，硬件对异常进行排序从而使得最先发生异常的指令被中断。优先级最高的异常处理完后，继续处理后面的异常。</p>
+<p>非精确中断/非精确异常：在流水线中，将每一个异常与导致该异常的指令对应起来难度很大，EPC中放入相近的值，由操作系统确定精确位置。精确异常是为了支持虚拟存储器。</p>
+<h3 id="指令级并行"><a href="#指令级并行" class="headerlink" title="指令级并行"></a>指令级并行</h3><p>增加流水线的指令级并行程度：</p>
+<ol>
+<li>增加流水线的深度—-更多的重叠</li>
+<li>复制计算机内部部件的数量—每个流水既可以启动多条指令—-多发射multiple issue</li>
+</ol>
+<h4 id="多发射"><a href="#多发射" class="headerlink" title="多发射"></a>多发射</h4><p>CPI可能小于1，可使用IPC</p>
+<p>静态多发射（在编译时）</p>
+<p>动态多发射（在执行时）</p>
+<p>发射槽 issue slot</p>
+<p>Speculation 推测：编译器或处理器推测指令结果以消除其他指令对该结果的依赖。</p>
+<p>推测错误时需要回卷。    指令重排、缓存结果</p>
+<h4 id="静态多发射处理器"><a href="#静态多发射处理器" class="headerlink" title="静态多发射处理器"></a>静态多发射处理器</h4><p>使用编译器封装指令并处理冒险，若无可同时发射的，用nop代替</p>
+<p>发射包 issue packet：在一个时空周期内发射的多条指令的集合。可有编译器静态生成或处理器动态生成。对一个周期内能发射的多条指令有所限制。</p>
+<p>超长指令字VLIW</p>
+<p>例：Two-issue packets</p>
+<p>One ALU/branch instruction</p>
+<p>One load/store instruction</p>
+<p> <strong>数据通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\19.PNG" alt="19"></p>
+<p>数据冒险：</p>
+<p>EX数据：同一个包中，can’t use ALU result in load/store</p>
+<p>load-use：会增加延迟</p>
+<p><strong>调度</strong></p>
+<p>Loop: lw   \$t0,0(\$s1)      # \$t0=array element<br>​      addu \$t0, \$t0,\$s2    # add scalar in \$s2<br>​      sw   \$t0,0(\$s1)      # store result<br>​      addi \$s1,\$s1,–4      # decrement pointer<br>​      bne  \$s1,\$zero, Loop # branch $s1!=0</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>nop</td>
+<td>lw   t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>addi   s1,   $s1,–4</td>
+<td>nop</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   $t0, $s2</td>
+<td>nop</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t0,   4($s1)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p> 循环展开（循环体复制4份）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>addi   s1,   $s1,–16</td>
+<td>lw   \$t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>lw   t1, 12($s1)</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   t0, $s2</td>
+<td>lw   \$t2, 8($s1)</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t1,   t1, $s2</td>
+<td>lw   \$t3, 4($s1)</td>
+<td>4</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t2,   t2, $s2</td>
+<td>sw   \$t0,   <font color="red">16</font>($s1)</td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t3,   t4, $s2</td>
+<td>sw   \$t1,   12($s1)</td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>sw   t2,   8($s1)</td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t3,   4($s1)</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>寄存器重命名——引入临时寄存器，消除虚假的数据依赖（反相关）</p>
+<font color="red">标红处是16而不是0，是因为第一行\$t0取的是\$s1未减去16处的值，从第二行开始，通过旁路技术，$s1已减去16</font>
+
+<h4 id="动态多发射处理器"><a href="#动态多发射处理器" class="headerlink" title="动态多发射处理器"></a>动态多发射处理器</h4><p>也叫超标量处理器</p>
+<p>指令顺序发射，乱序执行，顺序提交。处理器决定每个周期几条指令，硬件保证正确性。</p>
+<p>流水线被划分为：取指与发射单元、多个功能单元、一个提交单元（含重排序缓冲区）。每个功能单元有自己的缓冲区（保留站）用于保存操作数和操作。</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\20.PNG" alt="20"></p>
+<p><strong>寄存器重命名</strong></p>
+<p>保留站和重排序缓冲区提供寄存器重命名机制。发射指令时，它先被复制到合适的功能单元的保留站。如果操作数在寄存器堆中或重排序缓冲区中可用，那么立即数被复制到保留站中。否则该指令一直缓存在保留站中。若指令已发射，那么操作数对应的寄存器的值可以被覆盖。如果操作数不在寄存器堆中或重排序缓冲区中，那么他应该是某个功能单元的结果，硬件帮助定位该功能单元，计算出结果时直接从功能单元复制到保留站，跳过寄存器堆。</p>
+<h5 id="推测"><a href="#推测" class="headerlink" title="推测"></a>推测</h5><p><strong>Predict branch and continue issuing</strong></p>
+<p>Don’t commit until branch outcome determined</p>
+<p><strong>Load speculation</strong></p>
+<p>Avoid load and cache miss delay</p>
+<ol>
+<li>Predict the effective address</li>
+<li>Predict loaded value</li>
+<li>Load before completing outstanding stores</li>
+<li>Bypass stored values to load unit</li>
+</ol>
+<p>Don’t commit load until speculation cleared</p>
+<p><strong>为什么需要动态调度？</strong></p>
+<ol>
+<li>并不是所有的阻塞都可以预知。动态调度在一些指令阻塞时调度其他指令，以掩盖阻塞。</li>
+<li>对于分支指令，若采用动态推测而不是用动态调度，会极大限制指令级并行度。</li>
+<li>流水线延迟和发射宽度根据处理器的具体实现的不同有很大差别。</li>
+</ol>
+<p>多发射的阻碍：窗口期有限、内存访问延迟、带宽受限</p>
+<p>动态调度和推测消耗能源</p>
+<p>指令集、数据通路和控制的设计之间相互影响</p>
+<hr>
+<font color="green"><a href="http://landcareweb.com/questions/43313/tui-ce-he-yu-ce-zhi-jian-de-chai-yi" target="_blank" rel="noopener">预测和推测之间有什么区别？</a></font>
+
+<p>分支预测由处理器完成，以试图确定在条件跳转之后执行将继续的位置，以便它可以从存储器读取下一条指令。</p>
+<p>推测执行更进一步，并确定执行下一条指令的结果。如果分支预测是正确的，则使用结果，否则将其丢弃。即使代码中没有实际的条件分支，也可以应用推测执行。处理器可以从通常将连续执行的若干指令确定结果，但是可以例如通过算术溢出中断来停止执行。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/计组/" rel="tag"># 计组</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/10/计组复习笔记（二）/" rel="prev" title="计组复习笔记（二）">
+      <i class="fa fa-chevron-left"></i> 计组复习笔记（二）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/12/算法复习笔记（六）/" rel="next" title="算法复习笔记（六）">
+      算法复习笔记（六） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#处理器"><span class="nav-number">1.</span> <span class="nav-text">处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线"><span class="nav-number">1.0.1.</span> <span class="nav-text">流水线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冒险"><span class="nav-number">1.0.2.</span> <span class="nav-text">冒险</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构冒险"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">结构冒险</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据冒险"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">数据冒险</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制冒险"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">控制冒险</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线数据通路"><span class="nav-number">1.0.3.</span> <span class="nav-text">流水线数据通路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流水线寄存器"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">流水线寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终的数据通路与控制"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">最终的数据通路与控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据冒险：旁路与阻塞"><span class="nav-number">1.0.4.</span> <span class="nav-text">数据冒险：旁路与阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#冒险条件"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">冒险条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旁路单元"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">旁路单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Load-Use冒险检测单元"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">Load-Use冒险检测单元</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制冒险-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">控制冒险</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态分支预测"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">动态分支预测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常"><span class="nav-number">1.0.6.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令级并行"><span class="nav-number">1.0.7.</span> <span class="nav-text">指令级并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多发射"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">多发射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态多发射处理器"><span class="nav-number">1.0.7.2.</span> <span class="nav-text">静态多发射处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态多发射处理器"><span class="nav-number">1.0.7.3.</span> <span class="nav-text">动态多发射处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#推测"><span class="nav-number">1.0.7.3.1.</span> <span class="nav-text">推测</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

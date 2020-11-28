@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Logistic Regression对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1. #####假设函数 假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Funct">
+<meta name="keywords" content="Machine-Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine-Learning-Note5">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/Machine-Learning-Note5/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="Logistic Regression对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1. #####假设函数 假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Funct">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-25T11:34:28.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine-Learning-Note5">
+<meta name="twitter:description" content="Logistic Regression对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1. #####假设函数 假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Funct">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Machine-Learning-Note5 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Machine-Learning-Note5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-10T00:00:00+08:00">2019-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-25 19:34:28" itemprop="dateModified" datetime="2019-04-25T19:34:28+08:00">2019-04-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1.</p>
+<p>#####假设函数</p>
+<p>假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Function或者Logistic Function.对数几率函数是Sigmoid函数的一种, 它将z值转化为一个接近0或1的y值, 并且其输出值在z=0z=0附近变化很陡. Sigmoid函数即形似S的函数, 对率函数是Sigmoid函数最重要的代表.<br>$$<br>{h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}}<br>$$</p>
+<p>#####决策边界</p>
+<p>“0“与”1“的分界线</p>
+<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>线性回归中用到的代价函数（凸函数）：<br>$$<br>{J(\theta)=\frac{1}{m}\sum_{i=1}^m\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2}<br>$$</p>
+<p>$$<br>Cost\left(h_\theta(x^{(i)}),y^{(i)}\right)=\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2<br>$$</p>
+<p>Sigmiod函数会使代价函数变成非凸函数。若想使用梯度下降法收敛到全局最小值，需要另外定义对率回归的代价函数，得到凸函数。</p>
+<p>对率回归中代价函数：<br>$$<br>{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^my^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))\right]}<br>$$</p>
+<p>$$<br>{Cost\left(h_\theta(x),y\right)=-ylog(h_\theta(x))-(1-y)log(1-h_\theta(x))}<br>$$</p>
+<p>y的值只有0,1两种情况</p>
+<h5 id="梯度下降法求对率回归的代价函数参数"><a href="#梯度下降法求对率回归的代价函数参数" class="headerlink" title="梯度下降法求对率回归的代价函数参数"></a>梯度下降法求对率回归的代价函数参数</h5><p>虽然与线性回归的更新规则看起来相同，但假设函数h(x)发生了变化，所以是两个完全不同的东西。可使用特征缩放使梯度下降得更快。</p>
+<h4 id="高级优化算法"><a href="#高级优化算法" class="headerlink" title="高级优化算法"></a>高级优化算法</h4><p>计算$J(\theta)$和导数项，使用更高级的算法来最小化代价函数。</p>
+<p>#####Conjugate gradient</p>
+<h5 id="共轭梯度法BFGS"><a href="#共轭梯度法BFGS" class="headerlink" title="共轭梯度法BFGS"></a>共轭梯度法BFGS</h5><h5 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h5><p>######优点：</p>
+<p>不需要手动选择学习率$\alpha$，含有智能内循环（线搜索算法）自动尝试并选择好的$\alpha$；</p>
+<p>收敛得远远快于梯度下降；</p>
+<p><strong>例</strong>：</p>
+<p>代价函数：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[jVal,gradient]</span>=<span class="title">costFunction</span><span class="params">(theta)</span></span></span><br><span class="line">jVal = (theta(<span class="number">1</span>)<span class="number">-5</span>)^<span class="number">2</span>+(theta(<span class="number">2</span>)<span class="number">-5</span>)^<span class="number">2</span>;</span><br><span class="line">gradient = <span class="built_in">zeros</span>(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">gradient(<span class="number">1</span>)=<span class="number">2</span>*(theta(<span class="number">1</span>)<span class="number">-5</span>);</span><br><span class="line">gradient(<span class="number">2</span>)=<span class="number">2</span>*(theta(<span class="number">2</span>)<span class="number">-5</span>);</span><br></pre></td></tr></table></figure>
+<p>在Octave中执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; options=optimset(&apos;GradObj&apos;,&apos;on&apos;,&apos;MaxIter&apos;,&apos;100&apos;);</span><br><span class="line">&gt;&gt; initialTheta=zeros(2,1)</span><br><span class="line">initialTheta =</span><br><span class="line"></span><br><span class="line">   0</span><br><span class="line">   0</span><br><span class="line"></span><br><span class="line">&gt;&gt; [optTheta,functionVal,exitFlag]=fminunc(@costFunction2,initialTheta,options) %无约束最小化函数</span><br><span class="line"></span><br><span class="line">optTheta =</span><br><span class="line"></span><br><span class="line">   5.0000</span><br><span class="line">   5.0000</span><br><span class="line"></span><br><span class="line">functionVal =    1.5777e-30</span><br><span class="line">exitFlag =  1 %exitFlag判断是否已经收敛</span><br></pre></td></tr></table></figure>
+<h4 id="“一对多”分类算法（1-n）"><a href="#“一对多”分类算法（1-n）" class="headerlink" title="“一对多”分类算法（1-n）"></a>“一对多”分类算法（1-n）</h4><p>变成n个独立的二元分类问题，计算$h_\theta^{(1)}(x)$、$h_\theta^{(2)}(x)$…$h_\theta^{(n)}(x)$，得出最大值，选择n个分类器中可信度最高的</p>
+<p><a href="https://study.163.com/course/courseLearn.htm?courseId=1004570029#/learn/text?lessonId=1051049702&amp;courseId=1004570029" target="_blank" rel="noopener">课件链接</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine-Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/09/拓扑排序/" rel="prev" title="拓扑排序">
+      <i class="fa fa-chevron-left"></i> 拓扑排序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/11/median-of-two-sorted-arrays/" rel="next" title="median-of-two-sorted-arrays">
+      median-of-two-sorted-arrays <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">1.</span> <span class="nav-text">Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代价函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">代价函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梯度下降法求对率回归的代价函数参数"><span class="nav-number">1.0.2.</span> <span class="nav-text">梯度下降法求对率回归的代价函数参数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高级优化算法"><span class="nav-number">1.1.</span> <span class="nav-text">高级优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共轭梯度法BFGS"><span class="nav-number">1.1.1.</span> <span class="nav-text">共轭梯度法BFGS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#L-BFGS"><span class="nav-number">1.1.2.</span> <span class="nav-text">L-BFGS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“一对多”分类算法（1-n）"><span class="nav-number">1.2.</span> <span class="nav-text">“一对多”分类算法（1-n）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

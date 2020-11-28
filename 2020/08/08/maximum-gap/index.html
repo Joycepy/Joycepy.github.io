@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题目描述给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。 如果数组元素个数小于 2，则返回 0。 说明:  你可以假设数组中所有元素都是非负整数，且数值在 32 位有符号整数范围内。 请尝试在线性时间复杂度和空间复杂度的条件下解决此问题。  题解太难了嘤，看了题解都还是不会写。总的来说就是用了桶排序和鸽笼原理吧。用桶将元素分类，不用比较每两个元素，而只需要比较这些桶即可。  鸽笼原">
+<meta name="keywords" content="LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maximum-gap">
+<meta property="og:url" content="http://yoursite.com/2020/08/08/maximum-gap/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="题目描述给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。 如果数组元素个数小于 2，则返回 0。 说明:  你可以假设数组中所有元素都是非负整数，且数值在 32 位有符号整数范围内。 请尝试在线性时间复杂度和空间复杂度的条件下解决此问题。  题解太难了嘤，看了题解都还是不会写。总的来说就是用了桶排序和鸽笼原理吧。用桶将元素分类，不用比较每两个元素，而只需要比较这些桶即可。  鸽笼原">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-09T10:05:55.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="maximum-gap">
+<meta name="twitter:description" content="题目描述给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。 如果数组元素个数小于 2，则返回 0。 说明:  你可以假设数组中所有元素都是非负整数，且数值在 32 位有符号整数范围内。 请尝试在线性时间复杂度和空间复杂度的条件下解决此问题。  题解太难了嘤，看了题解都还是不会写。总的来说就是用了桶排序和鸽笼原理吧。用桶将元素分类，不用比较每两个元素，而只需要比较这些桶即可。  鸽笼原">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/08/maximum-gap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>maximum-gap | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/08/maximum-gap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          maximum-gap
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-08 09:03:24" itemprop="dateCreated datePublished" datetime="2020-08-08T09:03:24+08:00">2020-08-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 18:05:55" itemprop="dateModified" datetime="2020-08-09T18:05:55+08:00">2020-08-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。</p>
+<p>如果数组元素个数小于 2，则返回 0。</p>
+<p><strong>说明:</strong></p>
+<ul>
+<li>你可以假设数组中所有元素都是非负整数，且数值在 32 位有符号整数范围内。</li>
+<li>请尝试在线性时间复杂度和空间复杂度的条件下解决此问题。</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>太难了嘤，看了题解都还是不会写。总的来说就是用了桶排序和鸽笼原理吧。用桶将元素分类，不用比较每两个元素，而只需要比较这些桶即可。</p>
+<ul>
+<li>鸽笼原理：n 个物品放入 m 个容器中，如果 n &gt; m 那么一定有一个容器装有至少两个物品。</li>
+</ul>
+<p>若有 n 个元素，最大值为 max，最小值为 min，那么间距 t 最小为：( max - min ) / ( n - 1 )。</p>
+<p>最关键的在于桶的大小。桶的大小是可以容纳的最大区间的范围，桶内实际区间范围大小等于桶内最大值减最小值，桶的大小 b 应该小于最小间距 t 且不小于 1 。比较相邻桶的时候，只需要比较前一个痛的最大值和后一个桶的最小值。桶的个数 k 为$⌈(max−min)/b⌉$。第 i 个桶保存的值区间为： $[min+i∗b, min+(i+1)∗b)$，由$\lfloor (num - min)/b$ 可以算出 num 属于哪个桶。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bucket</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">bool</span> used=<span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> min=INT_MAX;</span><br><span class="line">    <span class="keyword">int</span> max=INT_MIN;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximumGap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size=nums.size();</span><br><span class="line">        <span class="keyword">if</span>(size&lt;<span class="number">2</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxElem=*max_element(nums.begin(),nums.end());</span><br><span class="line">        <span class="keyword">int</span> minElem=*min_element(nums.begin(),nums.end());</span><br><span class="line">        <span class="keyword">int</span> bucketSize=max(<span class="number">1</span>,(maxElem-minElem)/(size<span class="number">-1</span>));</span><br><span class="line">        <span class="keyword">int</span> bucketNum=(maxElem-minElem)/bucketSize+<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;Bucket&gt; buckets(bucketNum);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> k=nums[i];</span><br><span class="line">            <span class="keyword">int</span> index=(k-minElem)/bucketSize;</span><br><span class="line">            buckets[index].used=<span class="literal">true</span>;</span><br><span class="line">            buckets[index].min=min(k,buckets[index].min);</span><br><span class="line">            buckets[index].max=max(k,buckets[index].max);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maxGap=buckets[<span class="number">0</span>].max-buckets[<span class="number">0</span>].min;</span><br><span class="line">        <span class="keyword">int</span> lastMax=buckets[<span class="number">0</span>].max;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;bucketNum;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(buckets[i].used)</span><br><span class="line">            &#123;</span><br><span class="line">                maxGap=max(buckets[i].min-lastMax,maxGap);</span><br><span class="line">                lastMax=buckets[i].max;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxGap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>执行用时：16 ms, 在所有 C++ 提交中击败了54.55%的用户</p>
+<p>内存消耗：8.9 MB, 在所有 C++ 提交中击败了54.67%的用户</p>
+<p>时间复杂度：$O(n + b) \approx O(n))$。</p>
+<p>线性遍历一遍数组中的元素，复杂度为 $O(n)$。找到桶之间的最大间距需要线性遍历一遍所有的桶，复杂度为$O(b)$。所以总复杂度是线性的。</p>
+<p>空间复杂度：$O(2 \cdot b) \approx O(n)$的额外空间。</p>
+<p>每个桶只需要存储最大和最小元素，因此额外空间和桶个数线性相关。</p>
+<p>链接：<a href="https://leetcode-cn.com/problems/maximum-gap/solution/zui-da-jian-ju-by-leetcode/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/maximum-gap/solution/zui-da-jian-ju-by-leetcode/</a></p>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;limits.h&gt;//INT_MAX与INT_MIN的头文件</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">minNote</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> imax = <span class="number">0x7fffffff</span>;</span><br><span class="line">	<span class="keyword">int</span> imin = <span class="number">0x80000000</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; imax &lt;&lt; <span class="built_in">endl</span> &lt;&lt; imin &lt;&lt; <span class="built_in">endl</span> &lt;&lt; INT_MAX &lt;&lt; <span class="built_in">endl</span> &lt;&lt; INT_MIN &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> maxLimit = numeric_limits&lt;<span class="keyword">int</span>&gt;::max();</span><br><span class="line">	<span class="keyword">int</span> minLimit = numeric_limits&lt;<span class="keyword">int</span>&gt;::min();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; maxLimit &lt;&lt; <span class="built_in">endl</span> &lt;&lt; minLimit &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="number">0x7fffffff</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="number">0x80000000</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出：</span></span><br><span class="line"><span class="number">2147483647</span></span><br><span class="line"><span class="number">-2147483648</span></span><br><span class="line"><span class="number">2147483647</span></span><br><span class="line"><span class="number">-2147483648</span></span><br><span class="line"><span class="number">2147483647</span></span><br><span class="line"><span class="number">-2147483648</span></span><br><span class="line"><span class="number">2147483647</span></span><br><span class="line"><span class="number">2147483648</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;// std::min_element, std::max_element</span></span></span><br><span class="line">max_element()与min_element()返回区间 [first,last)中第一个最大值和第一个最小值对应的迭代器。</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>(size_type Count);	创建一个大小为Count的向量vect</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/06/find-peak-element/" rel="prev" title="find-peak-element">
+      <i class="fa fa-chevron-left"></i> find-peak-element
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/10/compare-version-numbers/" rel="next" title="compare-version-numbers">
+      compare-version-numbers <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

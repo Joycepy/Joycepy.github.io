@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用git下面的命令时 1git checkout master 报错： 1pathspec &amp;apos;master&amp;apos; did not match any file(s) known to git. 解决过程：  查看分支情况（git branch -a） 没有看到master的分支，则需要先获取所有分支（git fetch） 切换到远程master分支（git checkout or">
+<meta name="keywords" content="Yii2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="互联网数据库大作业Note1">
+<meta property="og:url" content="http://yoursite.com/2019/07/04/互联网数据库大作业Note1/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="使用git下面的命令时 1git checkout master 报错： 1pathspec &amp;apos;master&amp;apos; did not match any file(s) known to git. 解决过程：  查看分支情况（git branch -a） 没有看到master的分支，则需要先获取所有分支（git fetch） 切换到远程master分支（git checkout or">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-11T10:57:52.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="互联网数据库大作业Note1">
+<meta name="twitter:description" content="使用git下面的命令时 1git checkout master 报错： 1pathspec &amp;apos;master&amp;apos; did not match any file(s) known to git. 解决过程：  查看分支情况（git branch -a） 没有看到master的分支，则需要先获取所有分支（git fetch） 切换到远程master分支（git checkout or">
+
+<link rel="canonical" href="http://yoursite.com/2019/07/04/互联网数据库大作业Note1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>互联网数据库大作业Note1 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/互联网数据库大作业Note1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          互联网数据库大作业Note1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-04 22:25:55" itemprop="dateCreated datePublished" datetime="2019-07-04T22:25:55+08:00">2019-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-11 18:57:52" itemprop="dateModified" datetime="2019-07-11T18:57:52+08:00">2019-07-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用git下面的命令时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+<p>报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pathspec &apos;master&apos; did not match any file(s) known to git.</span><br></pre></td></tr></table></figure>
+<p>解决过程：</p>
+<ol>
+<li>查看分支情况（git branch -a）</li>
+<li>没有看到master的分支，则需要先获取所有分支（git fetch）</li>
+<li>切换到远程master分支（git checkout origin/master）</li>
+<li>从当前的detached分支切换并新建分支（git checkout -b master）</li>
+<li>建立本地分支和远程分支的追踪关系（git branch -u origin/master master）</li>
+<li>git pull得到反馈：Already up-to-date.</li>
+</ol>
+<hr>
+<p>yii2初始化： init，开发环境：0，yes</p>
+<p>Yii2 初始化的主要工作是产生一些配置文件和脚本文件,使用 <code>GitHub</code> 作为代码版本库，这些配置和脚本文件默认是被忽略提交的</p>
+<blockquote>
+<p>根目录下的 <code>/vendor</code> 是第三方代码库（包括Yii2源码等），默认情况下是忽略提交的，由 <code>Composer</code> 维护。</p>
+</blockquote>
+<blockquote>
+<p>但由于 <code>Composer</code> 在中国被墙速度慢，所以此推荐将 <code>/vendor</code> 也加入版本库，具体操作：注释掉根目录下 <code>/.gitignore</code> 文件里的 <em>/vendor</em> 内容。</p>
+</blockquote>
+<p><a href="https://v.youku.com/v_show/id_XMTY2MDMyMDAyOA==.html" target="_blank" rel="noopener">使用gii</a></p>
+<hr>
+<p><strong>yii2安装后台adminlet模板报错： ‘dmstr\web\AdminLteAsset’不存在</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">到项目的advenced目录下，在安装后台模板框架执行命令: composer require dmstr/yii2-adminlte-asset &quot;2.*&quot;</span><br></pre></td></tr></table></figure>
+<p>后台主题安装成功后，将主题配置到yii中去：copy项目vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app下的layouts和site拷贝到backend/views下面，将默认的layouts和site替换覆盖即可.</p>
+<p>Seems you have downgraded Yii Framework from version 2.0.16.1 to 2.0.11.</p>
+<hr>
+<p><strong>Fatal error</strong>: Cannot use ‘Object’ as class name as it is reserved in <strong>E:\Xampp\htdocs\yii2\Centenary\vendor\yiisoft\yii2\base\Object.php</strong> on line <strong>77</strong></p>
+<p>.\vendor\yiisoft\yii2\base\Object.php：</p>
+<p> * Object is the base class that implements the <em>property</em> feature. It has been replaced by [[BaseObject]] in version 2.0.13 because <code>object</code> has become a reserved word which can not be used as class name in PHP 7.2.</p>
+<hr>
+<p>不能登录进入index时：</p>
+<p>SiteController.php中behaviors()：access的action中role由@改为？</p>
+<p>@表示已登录用户，？表示游客</p>
+<hr>
+<p>backend\config\main.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'user'</span> =&gt; [</span><br><span class="line">           <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\Adminuser'</span>,</span><br><span class="line">    ...</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+<hr>
+<p>Uncaught Error: Using $this when not in object context in ……</p>
+<p>解决：在backend\views\layouts\left.php中：[‘label’ =&gt; ‘留言管理’, ‘icon’ =&gt; ‘ fa-database’, ‘url’ =&gt; [<font color="red">‘/message/index’</font>]],</p>
+<hr>
+<p>模板放进yii2框架</p>
+<p>asset文件夹</p>
+<p>yii框架改三个地方：/assets/AppAsset.php资源目录文件（header照抄css，script中照抄js），/web/资源目录（），/views/layout页面布局文件（嵌入模板\&lt;？= \$content&gt;呈现子页面）</p>
+<p>HTML代码改成PHP代码后可引入文件</p>
+<p>actionIndex中指出使用哪个页面：$this-&gt;layout=” “</p>
+<p>controller/access：页面是否可达</p>
+<p>json数据交换格式</p>
+<p>composer.update自动升级，解决由依赖导致的冲突</p>
+<p>插件<a href="https://packagist.org/?query=select2" target="_blank" rel="noopener">https://packagist.org/?query=select2</a></p>
+<p>maven在java中组件管理</p>
+<p>修改基类：添加BaseController，使之继承Controller，作为一个中间类，不要修改源码</p>
+<hr>
+<p>命名规范：</p>
+<p>view:全为小写，不同的单词用横线分隔</p>
+<p>model与controller:开头字母小写，不同单词首字母大写</p>
+<hr>
+<p>占位符，内置机理，防止sql注入</p>
+<p>csrf：f12 “Form Data”中_csrf防止csrf攻击，模仿站点</p>
+<p>客户端（浏览器）————服务器（yii框架PHP…）</p>
+<ol>
+<li>请求资源（服务器生成csrf并传递给客户端） 2. 服务器返回资源（返回登录页，加密的csrf,cookie） 3. 客户端提交信息 4. 服务器返回信息的结果（服务器比较csrf是否一样）</li>
+</ol>
+<p>f12  application  storage</p>
+<p>xss：蠕虫攻击</p>
+<hr>
+<p>在yii2中使用echarts：1. 以插件引入 2. 以js引入（<a href="https://echarts.baidu.com/echarts2/doc/start.html）" target="_blank" rel="noopener">https://echarts.baidu.com/echarts2/doc/start.html）</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Yii2/" rel="tag"># Yii2</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/03/Yii2中使用ECharts/" rel="prev" title="Yii2中使用ECharts">
+      <i class="fa fa-chevron-left"></i> Yii2中使用ECharts
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/07/python学习阶段总结/" rel="next" title="python学习阶段总结">
+      python学习阶段总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

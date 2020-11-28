@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="查询过程parse - convert（Parse Tree -&amp;gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute 选择和投影尽量早做 后面整个么懂——反正">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库复习笔记（四）">
+<meta property="og:url" content="http://yoursite.com/2019/06/08/数据库复习笔记（四）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="查询过程parse - convert（Parse Tree -&amp;gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute 选择和投影尽量早做 后面整个么懂——反正">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-14T01:41:17.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库复习笔记（四）">
+<meta name="twitter:description" content="查询过程parse - convert（Parse Tree -&amp;gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute 选择和投影尽量早做 后面整个么懂——反正">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/08/数据库复习笔记（四）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据库复习笔记（四） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/数据库复习笔记（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库复习笔记（四）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-08 15:23:44" itemprop="dateCreated datePublished" datetime="2019-06-08T15:23:44+08:00">2019-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-14 09:41:17" itemprop="dateModified" datetime="2019-06-14T09:41:17+08:00">2019-06-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h2><p>parse - convert（Parse Tree -&gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute</p>
+<p>选择和投影尽量早做</p>
+<font color="red">后面整个么懂——反正考试不做要求</font>
+
+<p>Parameters for Estimation</p>
+<p>M: # of available main memory buffers (estimate) </p>
+<p>Kept as statistics for each relation R:</p>
+<p>–T(R) : # of tuples in R</p>
+<p>–B(R): # of blocks to hold all tuples of R</p>
+<p>–V(R, A): # of distinct values for attribute R.A</p>
+<p>  = SELECT COUNT (DISTINCT A) FROM R  </p>
+<p>•Physical operators </p>
+<p>–to implement physical query plans</p>
+<p>–selections, joins</p>
+<p>–one-pass, two-pass, (multi-pass)</p>
+<p>–based on scanning, sorting, hashing, existing indexes</p>
+<h2 id="Crash-Recovery"><a href="#Crash-Recovery" class="headerlink" title="Crash Recovery"></a>Crash Recovery</h2><h3 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h3><p>从后向前恢复</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure undo logging. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">;&lt;T1,A,5&gt;;\<start t2="">, &lt;T1,B,1&gt;; \<commit t1="">;&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">; \<start t3="">;&lt;T3,A,10&gt;;\<start t4="">; &lt;T4,A,11&gt;, &lt;T3,C,7&gt;;&lt;T4,B,22&gt;</start></start></commit></commit></start></start></p>
+<p>The last four actions in the schedule were incrementing each object by 1(e.g.&lt;T4,A,11&gt; was updating A to 12). How many different combinations of values of values for A,B,and C could possibly exist on disk at the time of the system crash?</p>
+<font color="red">A: 10,11,12；B: 22,23；C: 7,8。共12种可能</font>
+
+<font color="green"> &lt;T4,A,11&gt;的只能体现，此时内存中的A被T3改成了11，但是磁盘上有没有被T3改过呢？不知道。内存中写了&lt;Ti, X, v&gt;，才可以改内存中的数据，所有&lt;Ti, X, v&gt;flush之后，才可以改磁盘数据。</font>
+
+<h3 id="Redo日志"><a href="#Redo日志" class="headerlink" title="Redo日志"></a>Redo日志</h3><p>从前向后恢复</p>
+<p>恢复速度极慢 -&gt; 静态检查点</p>
+<h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure redo logging. The initial database state was A=0,B=1,C=2. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">,&lt;T1,A,5&gt;,\<start t2="">, &lt;T1,B,1&gt;, \<commit t1="">,&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">, \<ckpt>,\<start t3="">,&lt;T3,A,10&gt;,\<start t4="">, &lt;T4,A,11&gt;, &lt;T3,C,7&gt;, &lt;T4,B,22&gt;</start></start></ckpt></commit></commit></start></start></p>
+<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
+<p>A: 5；B: 11；C: 8。有一种可能</p>
+<h3 id="Undo-redo日志"><a href="#Undo-redo日志" class="headerlink" title="Undo/redo日志"></a>Undo/redo日志</h3><p>&lt;Ti, X, Old-X-value, New-X-value&gt;</p>
+<p>恢复时，从前向后redo完成(有commit)的，从后向前undo未完成的</p>
+<h4 id="动态检查点"><a href="#动态检查点" class="headerlink" title="动态检查点"></a>动态检查点</h4><start ckpt="" ti,t2,…(未完成的事务undo)="">
+
+<h4 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses undo-redo logging. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">&lt;T1,A,5,0&gt;\<start t2="">&lt;T1,B,1,2&gt;\<commit t1="">&lt;T2,B,2,3&gt;</commit></start></start></p>
+<p><start ckpt(t2)="">&lt;T2,C,8,9&gt;\<commit t2="">\<end ckpt=""></end></commit></start></p>
+<p>\<start t3="">&lt;T3,A,0,10&gt;\<start t4="">&lt;T4,A,10,11&gt;&lt;T3,C,9,7&gt;&lt;T4,B,3,22&gt;</start></start></p>
+<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
+<p>A: 0,10,11；B: 3,22；C: 8,9,7</p>
+<p>共18种可能</p>
+<p>undo: T3,T4；redo: T2</p>
+<p>结果：0,3,9</p>
+<h2 id="Concurrency-Control"><a href="#Concurrency-Control" class="headerlink" title="Concurrency Control"></a>Concurrency Control</h2><p>优先图</p>
+<h3 id="可串行调度"><a href="#可串行调度" class="headerlink" title="可串行调度"></a>可串行调度</h3><h4 id="乐观方法"><a href="#乐观方法" class="headerlink" title="乐观方法"></a>乐观方法</h4><h4 id="悲观方法"><a href="#悲观方法" class="headerlink" title="悲观方法"></a>悲观方法</h4><p>两段锁协议</p>
+<p>共享锁：</p>
+<p>写读后写的元素，可以直接上写锁，或者先上读锁，写的时候再升级为写锁；提倡第二种。</p>
+<p>更新锁：解决两个事务对同一元素上了读锁，形成死锁的问题。If Ti wants to read A and knows it</p>
+<p>may later want to write A, it requests an update lock (not shared)</p>
+<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>一次封锁法：对所有要用的数据都加锁</p>
+<h4 id="顺序封锁法"><a href="#顺序封锁法" class="headerlink" title="顺序封锁法"></a>顺序封锁法</h4><p>调度器1负责按照rule1，rule3给事务加锁；调度器2负责按照rule2形成调度。</p>
+<h4 id="意向锁-IX，IS"><a href="#意向锁-IX，IS" class="headerlink" title="意向锁 IX，IS"></a>意向锁 IX，IS</h4><p>插入时需锁父表，上Lx；删除时上Lx</p>
+<h4 id="锁表"><a href="#锁表" class="headerlink" title="锁表"></a>锁表</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>IS</th>
+<th>IX</th>
+<th>S</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS</td>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>S</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr>
+<td>X</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>S</th>
+<th>X</th>
+<th>U</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+</tr>
+<tr>
+<td>X</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>U</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Parent  Child locked in</th>
+<th>Child can be locked in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS</td>
+<td>IS,S</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>IS,S,IX,X</td>
+</tr>
+<tr>
+<td>S</td>
+<td>[S,IS; not necessary]</td>
+</tr>
+<tr>
+<td>X</td>
+<td>NONE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="事务的特性（ACID"><a href="#事务的特性（ACID" class="headerlink" title="事务的特性（ACID)"></a>事务的特性（ACID)</h4><p>•原子性（Atomicity）</p>
+<p>•一致性（Consistency）</p>
+<p>•隔离性（Isolation）</p>
+<p>•持续性（Durability）</p>
+</start>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/07/201812CET6_3Comp/" rel="prev" title="201812CET6_3Comp">
+      <i class="fa fa-chevron-left"></i> 201812CET6_3Comp
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/10/计组复习笔记（二）/" rel="next" title="计组复习笔记（二）">
+      计组复习笔记（二） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查询过程"><span class="nav-number">1.</span> <span class="nav-text">查询过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Crash-Recovery"><span class="nav-number">2.</span> <span class="nav-text">Crash Recovery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo日志"><span class="nav-number">2.1.</span> <span class="nav-text">Undo日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题"><span class="nav-number">2.1.1.</span> <span class="nav-text">例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redo日志"><span class="nav-number">2.2.</span> <span class="nav-text">Redo日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo-redo日志"><span class="nav-number">2.3.</span> <span class="nav-text">Undo/redo日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态检查点"><span class="nav-number">2.3.1.</span> <span class="nav-text">动态检查点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concurrency-Control"><span class="nav-number">3.</span> <span class="nav-text">Concurrency Control</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可串行调度"><span class="nav-number">3.1.</span> <span class="nav-text">可串行调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观方法"><span class="nav-number">3.1.1.</span> <span class="nav-text">乐观方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#悲观方法"><span class="nav-number">3.1.2.</span> <span class="nav-text">悲观方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决死锁"><span class="nav-number">3.2.</span> <span class="nav-text">解决死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序封锁法"><span class="nav-number">3.2.1.</span> <span class="nav-text">顺序封锁法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#意向锁-IX，IS"><span class="nav-number">3.2.2.</span> <span class="nav-text">意向锁 IX，IS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁表"><span class="nav-number">3.2.3.</span> <span class="nav-text">锁表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的特性（ACID"><span class="nav-number">3.2.4.</span> <span class="nav-text">事务的特性（ACID)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

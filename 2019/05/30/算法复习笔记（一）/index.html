@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）一个匹配S是稳定的，如果匹配S是完美的且不存在相对于S的不稳定因素。 算法初始，每个人都是自由的。一个自由的男人m选择他的优先表上排名高的女人w,发起邀请，那么(m,w)进入中间状态： 约会 。 如果又有另一个男人m’发起邀请，那么女人w决定,选择m,还是m’. 如果m优先， 那么约会状态不变。否则(m’,w)变成约会状态，m变成">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法复习笔记（一）">
+<meta property="og:url" content="http://yoursite.com/2019/05/30/算法复习笔记（一）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）一个匹配S是稳定的，如果匹配S是完美的且不存在相对于S的不稳定因素。 算法初始，每个人都是自由的。一个自由的男人m选择他的优先表上排名高的女人w,发起邀请，那么(m,w)进入中间状态： 约会 。 如果又有另一个男人m’发起邀请，那么女人w决定,选择m,还是m’. 如果m优先， 那么约会状态不变。否则(m’,w)变成约会状态，m变成">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-30T11:08:04.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法复习笔记（一）">
+<meta name="twitter:description" content="稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）一个匹配S是稳定的，如果匹配S是完美的且不存在相对于S的不稳定因素。 算法初始，每个人都是自由的。一个自由的男人m选择他的优先表上排名高的女人w,发起邀请，那么(m,w)进入中间状态： 约会 。 如果又有另一个男人m’发起邀请，那么女人w决定,选择m,还是m’. 如果m优先， 那么约会状态不变。否则(m’,w)变成约会状态，m变成">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/30/算法复习笔记（一）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法复习笔记（一） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/算法复习笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法复习笔记（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-30 11:37:37 / 修改时间：19:08:04" itemprop="dateCreated datePublished" datetime="2019-05-30T11:37:37+08:00">2019-05-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="稳定匹配（邀请-拒绝算法-Gale-Shapley-1962-）"><a href="#稳定匹配（邀请-拒绝算法-Gale-Shapley-1962-）" class="headerlink" title="稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）"></a>稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）</h3><p>一个匹配S是稳定的，如果匹配S是完美的且不存在相对于S的不稳定因素。</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>初始，每个人都是自由的。一个自由的男人m选择他的优先表上排名高的女人w,发起邀请，那么(m,w)进入中间状态： 约会 。</p>
+<p>如果又有另一个男人m’发起邀请，那么女人w决定,选择m,还是m’. 如果m优先， 那么约会状态不变。否则(m’,w)变成约会状态，m变成自由状态。</p>
+<p>循环往复；当没有人处于自由状态，那么所有的约会被定为后的结果， 返回终的完美匹配</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initialize each person to be <span class="built_in">free</span>. </span><br><span class="line"><span class="keyword">while</span>(some man is <span class="built_in">free</span> <span class="keyword">and</span> hasn't proposed to every woman) &#123; 		Choose such a man m </span><br><span class="line">    w = <span class="number">1</span>st woman on m's <span class="built_in">list</span> to whom m has <span class="keyword">not</span> yet proposed </span><br><span class="line">    <span class="keyword">if</span> (w is <span class="built_in">free</span>) </span><br><span class="line">          assign m <span class="keyword">and</span> w to be engaged </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (w prefers m to m') </span><br><span class="line">             assign m <span class="keyword">and</span> w to be engaged, <span class="keyword">and</span> m' to be <span class="built_in">free</span> 		<span class="keyword">else</span> </span><br><span class="line">             w rejects m </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至多n^2次While循环的迭代后终止。G-S算法的每次执行都得到男士对应的最佳有效伴侣集合。每个女士与她最差的有效伴侣配对。</p>
+<font color="green">trick：女士对自己的优先表做反向变换； </font>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> to n </span><br><span class="line">	inverse[pref[i]] = i</span><br></pre></td></tr></table></figure>
+<h4 id="五类典型问题"><a href="#五类典型问题" class="headerlink" title="五类典型问题"></a>五类典型问题</h4><p>Interval scheduling:  n log n greedy algorithm. </p>
+<p>Weighted interval scheduling:  n log n dynamic programming algorithm.</p>
+<p>Bipartite matching:  nkmax-flow based algorithm. </p>
+<p>Independent set:  NP-complete. </p>
+<p>Competitive facility location:  PSPACEcomplete.</p>
+<hr>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>亚线性时间(O(logn))-线性时间O(n)-O(nlogn)阶时间-平方时间-立方时间-O(n^k)时间-指数时间(Exponential time)-n!时间 </p>
+<font color="gray">我对不起葡萄</font>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/29/201712CET6_01Trans/" rel="prev" title="201712CET6_01Trans">
+      <i class="fa fa-chevron-left"></i> 201712CET6_01Trans
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/30/算法复习笔记（二）/" rel="next" title="算法复习笔记（二）">
+      算法复习笔记（二） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定匹配（邀请-拒绝算法-Gale-Shapley-1962-）"><span class="nav-number">1.</span> <span class="nav-text">稳定匹配（邀请-拒绝算法 [Gale-Shapley 1962] ）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">1.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五类典型问题"><span class="nav-number">1.2.</span> <span class="nav-text">五类典型问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析"><span class="nav-number">2.</span> <span class="nav-text">算法分析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

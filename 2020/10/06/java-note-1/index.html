@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SSM/SSH框架SSH是指 Struts2 Spring Hibernate三个框架。SSM是指SpringMVC Spring MyBatis。对于MVC框架，SSH是Structs2做controller，hibernate负责持久化层；SSM是SpringMVC做controller，MyBatis负责持久化层。Structs2是Action级别，SpringMVC是方法级别，更容易实现R">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-note-1">
+<meta property="og:url" content="http://yoursite.com/2020/10/06/java-note-1/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="SSM/SSH框架SSH是指 Struts2 Spring Hibernate三个框架。SSM是指SpringMVC Spring MyBatis。对于MVC框架，SSH是Structs2做controller，hibernate负责持久化层；SSM是SpringMVC做controller，MyBatis负责持久化层。Structs2是Action级别，SpringMVC是方法级别，更容易实现R">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-39a95afda496c248a56a5103e76837ec_r.jpg?source=1940ef5c">
+<meta property="og:updated_time" content="2020-10-06T07:47:48.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java-note-1">
+<meta name="twitter:description" content="SSM/SSH框架SSH是指 Struts2 Spring Hibernate三个框架。SSM是指SpringMVC Spring MyBatis。对于MVC框架，SSH是Structs2做controller，hibernate负责持久化层；SSM是SpringMVC做controller，MyBatis负责持久化层。Structs2是Action级别，SpringMVC是方法级别，更容易实现R">
+<meta name="twitter:image" content="https://pic2.zhimg.com/v2-39a95afda496c248a56a5103e76837ec_r.jpg?source=1940ef5c">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/06/java-note-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java-note-1 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/06/java-note-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java-note-1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-06 15:47:47 / 修改时间：15:47:48" itemprop="dateCreated datePublished" datetime="2020-10-06T15:47:47+08:00">2020-10-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="SSM-SSH框架"><a href="#SSM-SSH框架" class="headerlink" title="SSM/SSH框架"></a>SSM/SSH框架</h4><p>SSH是指 Struts2 Spring Hibernate三个框架。SSM是指SpringMVC Spring MyBatis。对于MVC框架，SSH是Structs2做controller，hibernate负责持久化层；SSM是SpringMVC做controller，MyBatis负责持久化层。Structs2是Action级别，SpringMVC是方法级别，更容易实现RESTful风格。</p>
+<p>SSM和SSH的共同点：由Spring以来至如DI管理各层组件；使用面向切面编程AOP管理事务、日志、权限等。</p>
+<h4 id="后端编程"><a href="#后端编程" class="headerlink" title="后端编程"></a>后端编程</h4><p>框架、负载均衡、灾难恢复、缓存、消息、分布式、搜索等。</p>
+<h2 id="Java动态代理"><a href="#Java动态代理" class="headerlink" title="Java动态代理"></a>Java动态代理</h2><ol>
+<li>静态代理</li>
+<li>JDK动态代理</li>
+<li>CGLib动态代理</li>
+</ol>
+<p>动态代理是JDK运行期间动态创建class字节码并加载的过程。</p>
+<h4 id="为什么要用Java动态代理？"><a href="#为什么要用Java动态代理？" class="headerlink" title="为什么要用Java动态代理？"></a>为什么要用Java动态代理？</h4><p>类方法数量越来越多时，静态代理的代码量会十分庞大。</p>
+<p><img src="https://pic2.zhimg.com/v2-39a95afda496c248a56a5103e76837ec_r.jpg?source=1940ef5c" alt="preview"></p>
+<p>Java动态代理只能对interface进行操作，不能对class操作：</p>
+<p>class（非abstract）可以被实例化，interface不能被实例化，所有的interface变量都是通过向上转型并指向某个实例的。Java动态代理机制可以在运行期动态创建interface实例。</p>
+<p>在运行期间动态创建一个interface实例：</p>
+<ol>
+<li>定义InvocationHandler实例用于实现接口的方法调用；</li>
+<li>通过Proxy.newProxyInstance()创建interface实例，需要三个参数：<ol>
+<li>接口类的ClassLoader；</li>
+<li>需要实现的接口数组；</li>
+<li>InvocationHandler实例</li>
+</ol>
+</li>
+<li>将返回的Object转为接口类型。</li>
+</ol>
+<h4 id="动态字节码的生成"><a href="#动态字节码的生成" class="headerlink" title="动态字节码的生成"></a>动态字节码的生成</h4><h5 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h5><p>字节码通常指的是已经经过编译，但与特定机器代码无关，需要解释器转译后才能成为机器代码的中间代码。字节码通常不像源码一样可以让人阅读，而是编码后的数值常量、引用、指令等构成的序列。 字节码主要为了实现特定软件运行和软件环境、与硬件环境无关。字节码的实现方式是通过编译器和虚拟机。 <a href="https://zh.wikipedia.org/zh-cn/字节码" target="_blank" rel="noopener">维基百科</a></p>
+<h5 id="ASM、CGLib"><a href="#ASM、CGLib" class="headerlink" title="ASM、CGLib"></a>ASM、CGLib</h5><p>ASM 框架可以直接操作字节码，动态修改类和方法，CGLib (Code Generation Library，代码生成库) 底层也是由ASM实现。ASM将对代码的操作包装成一个访问者，在解析JVM加载到的字节码时调用。ClassReader 是 ASM 代码的入口，通过它解析二进制字节码，实例化时它时，我们需要传入一个 ClassVisitor，在这个 Visitor 里，我们可以实现 visitMethod() / visitAnnotation() 等方法，用以定义对类结构（如方法、字段、注解）的访问方法。而 ClassWriter 接口继承了 ClassVisitor 接口，我们在实例化类访问器时，将 ClassWriter “注入” 到里面，以实现对类写入的声明。（<a href="https://zhenbianshu.github.io/2018/11/control_jvm_byte_code.html）" target="_blank" rel="noopener">https://zhenbianshu.github.io/2018/11/control_jvm_byte_code.html）</a></p>
+<p>CGLib 常应用于 AOP 框架，提供方法的拦截，加入相应的业务逻辑代码。</p>
+<p>Java是静态语言，放到JVM中运行之前需要先进行编译。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/04/factorial-trailing-zeroes/" rel="prev" title="factorial-trailing-zeroes">
+      <i class="fa fa-chevron-left"></i> factorial-trailing-zeroes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/06/dungeon-game/" rel="next" title="dungeon-game">
+      dungeon-game <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSM-SSH框架"><span class="nav-number">1.</span> <span class="nav-text">SSM/SSH框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后端编程"><span class="nav-number">2.</span> <span class="nav-text">后端编程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java动态代理"><span class="nav-number"></span> <span class="nav-text">Java动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用Java动态代理？"><span class="nav-number">1.</span> <span class="nav-text">为什么要用Java动态代理？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态字节码的生成"><span class="nav-number">2.</span> <span class="nav-text">动态字节码的生成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字节码"><span class="nav-number">2.1.</span> <span class="nav-text">字节码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ASM、CGLib"><span class="nav-number">2.2.</span> <span class="nav-text">ASM、CGLib</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

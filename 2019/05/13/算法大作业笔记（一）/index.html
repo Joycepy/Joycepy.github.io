@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前期准备参考网上代码，自己和自己之间为0，不算相连，需要修改—&amp;gt;主要原因是有这一句：if (edges[i][j] &amp;amp;&amp;amp; vertexes[j].color == nowcol)  结构体：关于边的信息，保存在bool型的二维数组里；只定义顶点结构。顶点的信息有：行、列、颜色；行和列换成序号吧，更普遍一些。自己到自己，算相连吗……先，算上，不行再改。 目前connectSud">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法大作业笔记（一）">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="前期准备参考网上代码，自己和自己之间为0，不算相连，需要修改—&amp;gt;主要原因是有这一句：if (edges[i][j] &amp;amp;&amp;amp; vertexes[j].color == nowcol)  结构体：关于边的信息，保存在bool型的二维数组里；只定义顶点结构。顶点的信息有：行、列、颜色；行和列换成序号吧，更普遍一些。自己到自己，算相连吗……先，算上，不行再改。 目前connectSud">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/5.png">
+<meta property="og:updated_time" content="2019-05-14T15:00:27.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法大作业笔记（一）">
+<meta name="twitter:description" content="前期准备参考网上代码，自己和自己之间为0，不算相连，需要修改—&amp;gt;主要原因是有这一句：if (edges[i][j] &amp;amp;&amp;amp; vertexes[j].color == nowcol)  结构体：关于边的信息，保存在bool型的二维数组里；只定义顶点结构。顶点的信息有：行、列、颜色；行和列换成序号吧，更普遍一些。自己到自己，算相连吗……先，算上，不行再改。 目前connectSud">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/13/算法大作业笔记（一）/桌面/时光以南/算法导论/作业/图片/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/13/算法大作业笔记（一）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法大作业笔记（一） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/算法大作业笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法大作业笔记（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 14:34:04" itemprop="dateCreated datePublished" datetime="2019-05-13T14:34:04+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-14 23:00:27" itemprop="dateModified" datetime="2019-05-14T23:00:27+08:00">2019-05-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><font color="red">参考网上代码，自己和自己之间为0，不算相连，需要修改—&gt;主要原因是有这一句：if (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)</font>
+
+<p>结构体：关于边的信息，保存在bool型的二维数组里；只定义顶点结构。顶点的信息有：行、列、颜色；行和列换成序号吧，更普遍一些。自己到自己，算相连吗……先，算上，不行再改。</p>
+<p>目前connectSudo()已经能正确地返回Sudo的顶点连接信息了。接下来，开始读取顶点的信息吧。嗯，现在getVertex(int n, int m)可以读取需要预着色的点了，无颜色的点色号为-1，返回顶点的数组。getEdges(int n,int x)读取边的信息，有n个顶点x条边，注意输入的是x条边，但矩阵应是对称矩阵，有2x个位置要改变。返回bool型二维数组。接下来，需要准备一些图形的数据了。输入顶点数n，预着色点数m，边数x，颜色总数colornum，两个文件存放数据：</p>
+<ol>
+<li>顶点的信息：m行，每行有两个整数，分别是顶点编号和颜色</li>
+<li>边的信息：x行，每一行分别是两个点的序号，表示这两点相连</li>
+</ol>
+<h4 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h4><h5 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h5><p>贪心原则：把一个颜色用到不再能用了为止。</p>
+<p>扫描所有未着色的顶点集，对其中的每个顶点，确定是否与已着新颜色的任何顶点都不相邻。若不相邻，则着色。</p>
+<font color="red">WelchPowell文件里的代码为什么在着色之前要将顶点按照度数递减的次序排序呢？</font>
+
+<p>目前代码对graph1中的数据进行了测试，无误。graph1中存的是17条边的信息。主要代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printVertex</span><span class="params">(vertex* ver,<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; ver[i].index &lt;&lt; <span class="string">" "</span> &lt;&lt; ver[i].color &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造顶点信息,预着色</span></span><br><span class="line"><span class="function">vertex* <span class="title">getVertexes</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vertex* vertexes = <span class="keyword">new</span> vertex[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;<span class="comment">//n为顶点个数，m为已着色的顶点数</span></span><br><span class="line">		vertexes[i].index = i;</span><br><span class="line">		vertexes[i].color = <span class="number">-1</span>;<span class="comment">//-1表示未着色</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">-1</span>;<span class="comment">//需要着色的顶点序号和色号</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		vertexes[tmp1].color = tmp2;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vertexes;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造边的信息</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">getEdges</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ifstream read;</span><br><span class="line">	read.open(<span class="string">"graph1.txt"</span>);</span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		edges[tmp1][tmp2] = <span class="number">1</span>;</span><br><span class="line">		edges[tmp2][tmp1] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	read.close();</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用贪心算法为图着色</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">colorGraph</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="keyword">int</span> x,<span class="keyword">int</span> colornum)</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//n为顶点个数，m为预着色的点的个数,x为边的条数，colornum为颜色数</span></span><br><span class="line">	vertex* vertexes = getVertexes(n,m);</span><br><span class="line">	<span class="keyword">bool</span>** edges = getEdges(n, x);</span><br><span class="line">	<span class="keyword">int</span> notcolor = n - m;<span class="comment">//未着色的点的个数</span></span><br><span class="line">	<span class="keyword">int</span> nowcol = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (notcolor)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span> (vertexes[i].color == <span class="number">-1</span>)&#123;<span class="comment">// 当前顶点未着色</span></span><br><span class="line">				<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">					<span class="keyword">if</span> (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)&#123;</span><br><span class="line">						flag = <span class="number">0</span>;</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (flag) &#123; vertexes[i].color = nowcol; --notcolor; &#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++nowcol;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; nowcol &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	printVertex(vertexes, n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//connectSudo();</span></span><br><span class="line">	printSudoVertex(getVertexes(<span class="number">81</span>,<span class="number">9</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	colorGraph(<span class="number">8</span>,<span class="number">0</span>,<span class="number">17</span>,<span class="number">4</span>);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h4><h5 id="无预着色："><a href="#无预着色：" class="headerlink" title="无预着色："></a>无预着色：</h5><p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\1.png" width="25%"><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\2.png" width="25%"></p>
+<p>graph1.txt(8个点，0个预着色点，17条边，4个颜色)</p>
+<p>graph2.txt(7个点，0个预着色，12条边，4个颜色)</p>
+<p>graph3.txt(4个点，0个预着色，5条边，4个颜色)</p>
+<p>graph4.txt(6个点，0个预着色，7条边，2个颜色)</p>
+<font color="green">（以上数据测试无误，撒花~~~）</font>
+
+<h5 id="预着色："><a href="#预着色：" class="headerlink" title="预着色："></a>预着色：</h5><p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\3.png" width="15%"><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\4.png" width="25%"></p>
+<p>graph5.txt(6个点，3个预着色，6条边，2个颜色)</p>
+<p>color5.txt</p>
+<p>graph6.txt(7个点，2个预着色，12条边，7个颜色)</p>
+<p>color6.txt</p>
+<p>哦豁，graph6出问题了，去debug吧 .-_-.   </p>
+<p>嗯，还好，输入数据的问题，不是程序的问题，数据已修正。</p>
+<font color="green">（以上数据测试无误，撒花~~~）</font>
+
+<h4 id="Sudo"><a href="#Sudo" class="headerlink" title="Sudo"></a>Sudo</h4><p>需要先对connectSudo()做一些修改，edge[i][i]应该为false。</p>
+<p>然后，现在，先去准备一些Sudo<font color="blue">(注意顶点下标和色号都是从0开始的噢！)</font></p>
+<p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\5.png" width="75%"></p>
+<p>这里的测试大概会出问题了，因为贪心算法目光短浅<font color="red">（贪心算法不足以解决所有的数独问题，因为我们没有考虑到每一个位置可能填上的所有数字，而只是贪心地填上当前满足条件的数字，所以之后的其他空格就不一定有数可填了）</font>，准备好……</p>
+<p>好了，果然，用了11种颜色。纪念一下我失败的代码，下一篇里该做修改了~_~</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vertex</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> index,color;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printSudoEdges</span><span class="params">(<span class="keyword">bool</span>** edges, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ofstream write;</span><br><span class="line">	write.open(<span class="string">"sudoConnection.txt"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			write &lt;&lt; edges[i][j] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		write &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	write.close();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printSudoVertex</span><span class="params">(vertex* ver)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;setw(<span class="number">4</span>)&lt;&lt; ver[<span class="number">9</span> * i + j].color &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造数独的边</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">connectSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">81</span>;<span class="comment">//数独有81个顶点</span></span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[<span class="number">81</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[<span class="number">81</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">81</span>; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//同行同列相连</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cur_index = i * <span class="number">9</span> + j;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = j+<span class="number">1</span>; k &lt; <span class="number">9</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				edges[cur_index][i * <span class="number">9</span> + k] = <span class="number">1</span>;<span class="comment">//行相连</span></span><br><span class="line">				edges[i * <span class="number">9</span> + k][cur_index] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = i+<span class="number">1</span>; k &lt; <span class="number">9</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				edges[cur_index][j + k * <span class="number">9</span>] = <span class="number">1</span>;<span class="comment">//列相连</span></span><br><span class="line">				edges[j + k * <span class="number">9</span>][cur_index] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//同宫相连</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">3</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> cur_index = <span class="number">9</span> * i + <span class="number">3</span> * j + k;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> p = j+<span class="number">1</span>; p &lt; <span class="number">3</span>; p++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//同宫同列</span></span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * p + k] = <span class="number">1</span>;</span><br><span class="line">					edges[<span class="number">9</span> * i + <span class="number">3</span> * p + k][cur_index] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> q = k+<span class="number">1</span>; q &lt; <span class="number">3</span>; q++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//同宫同行</span></span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * j + q] = <span class="number">1</span>;</span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * j + q] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	printSudoEdges(edges, <span class="number">81</span>);</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printVertex</span><span class="params">(vertex* ver,<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; ver[i].index &lt;&lt; <span class="string">" "</span> &lt;&lt; ver[i].color &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造顶点信息,预着色</span></span><br><span class="line"><span class="function">vertex* <span class="title">getVertexes</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	vertex* vertexes = <span class="keyword">new</span> vertex[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;<span class="comment">//n为顶点个数，m为已着色的顶点数</span></span><br><span class="line">		vertexes[i].index = i;</span><br><span class="line">		vertexes[i].color = <span class="number">-1</span>;<span class="comment">//-1表示未着色</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">-1</span>;<span class="comment">//需要着色的顶点序号和色号</span></span><br><span class="line">	<span class="keyword">if</span> (m &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ifstream read;</span><br><span class="line">		read.open(filename);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">			vertexes[tmp1].color = tmp2;</span><br><span class="line">		&#125;</span><br><span class="line">		read.close();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vertexes;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造边的信息</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">getEdges</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> x,<span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ifstream read;</span><br><span class="line">	read.open(filename);</span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		edges[tmp1][tmp2] = <span class="number">1</span>;</span><br><span class="line">		edges[tmp2][tmp1] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	read.close();</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用贪心算法为图着色</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">colorGraph</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="keyword">int</span> colornum, vertex* vertexes, <span class="keyword">bool</span>** edges)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> notcolor = n - m;<span class="comment">//未着色的点的个数</span></span><br><span class="line">	<span class="keyword">int</span> nowcol = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (notcolor)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span> (vertexes[i].color == <span class="number">-1</span>)&#123;<span class="comment">// 当前顶点未着色</span></span><br><span class="line">				<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">					<span class="keyword">if</span> (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)&#123;</span><br><span class="line">						flag = <span class="number">0</span>;</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (flag) &#123; vertexes[i].color = nowcol; --notcolor; &#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++nowcol;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (colornum &lt; nowcol)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed"</span> &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; nowcol &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	printVertex(vertexes, n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//connectSudo();</span></span><br><span class="line">	<span class="comment">//printSudoVertex(getVertexes(81,30,"sudoColor1.txt"));</span></span><br><span class="line">	colorGraph(<span class="number">81</span>, <span class="number">30</span>, <span class="number">9</span>, getVertexes(<span class="number">81</span>, <span class="number">30</span>, <span class="string">"sudoColor1.txt"</span>), connectSudo());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testGraph</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> x, <span class="keyword">int</span> colornum, <span class="keyword">const</span> <span class="keyword">char</span>* colorfile, <span class="keyword">const</span> <span class="keyword">char</span>* graphfile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//n为顶点个数，m为预着色的点的个数,x为边的条数，colornum为颜色数</span></span><br><span class="line">	vertex* vertexes = getVertexes(n, m, colorfile);</span><br><span class="line">	<span class="keyword">bool</span>** edges = getEdges(n, x, graphfile);</span><br><span class="line">	colorGraph(n,m,colornum,vertexes, edges);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//testGraph(7,2,12,7,"graph6.txt","color6.txt");</span></span><br><span class="line">	testSudo();</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/12/数据库大作业笔记（六）/" rel="prev" title="数据库大作业笔记（六）">
+      <i class="fa fa-chevron-left"></i> 数据库大作业笔记（六）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/13/数据库大作业笔记（七）/" rel="next" title="数据库大作业笔记（七）">
+      数据库大作业笔记（七） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前期准备"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法设计"><span class="nav-number">2.</span> <span class="nav-text">算法设计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#贪心算法"><span class="nav-number">2.1.</span> <span class="nav-text">贪心算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试数据"><span class="nav-number">3.</span> <span class="nav-text">测试数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#无预着色："><span class="nav-number">3.1.</span> <span class="nav-text">无预着色：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#预着色："><span class="nav-number">3.2.</span> <span class="nav-text">预着色：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sudo"><span class="nav-number">4.</span> <span class="nav-text">Sudo</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

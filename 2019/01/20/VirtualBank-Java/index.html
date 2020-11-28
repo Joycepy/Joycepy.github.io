@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Virtual Bank模拟银行的多线程程序,实现如下要求： 银行于某时刻开始营业，运行若干时间后下班，窗口最上方会显示营业或下班的信息。到了下班时间，不再产生新的客户，只将等待的客户处理完，然后银行关门。 营业期间有多名顾客随机地来银行存钱、取钱，顾客的原有存款金额是随机生成的，此次交易需要的时间以及交易金额也是随机生成的。不允许透支，若取钱时余额不足，则退出本次操作。在窗口显示当前客户的序号、">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java虚拟银行">
+<meta property="og:url" content="http://yoursite.com/2019/01/20/VirtualBank-Java/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="Virtual Bank模拟银行的多线程程序,实现如下要求： 银行于某时刻开始营业，运行若干时间后下班，窗口最上方会显示营业或下班的信息。到了下班时间，不再产生新的客户，只将等待的客户处理完，然后银行关门。 营业期间有多名顾客随机地来银行存钱、取钱，顾客的原有存款金额是随机生成的，此次交易需要的时间以及交易金额也是随机生成的。不允许透支，若取钱时余额不足，则退出本次操作。在窗口显示当前客户的序号、">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/VirtualBank-Java/pic/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/VirtualBank-Java/pic/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/VirtualBank-Java/pic/3.png">
+<meta property="og:updated_time" content="2019-03-18T12:16:36.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java虚拟银行">
+<meta name="twitter:description" content="Virtual Bank模拟银行的多线程程序,实现如下要求： 银行于某时刻开始营业，运行若干时间后下班，窗口最上方会显示营业或下班的信息。到了下班时间，不再产生新的客户，只将等待的客户处理完，然后银行关门。 营业期间有多名顾客随机地来银行存钱、取钱，顾客的原有存款金额是随机生成的，此次交易需要的时间以及交易金额也是随机生成的。不允许透支，若取钱时余额不足，则退出本次操作。在窗口显示当前客户的序号、">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/20/VirtualBank-Java/pic/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/01/20/VirtualBank-Java/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java虚拟银行 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/VirtualBank-Java/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java虚拟银行
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-20T00:00:00+08:00">2019-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-03-18 20:16:36" itemprop="dateModified" datetime="2019-03-18T20:16:36+08:00">2019-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Virtual-Bank"><a href="#Virtual-Bank" class="headerlink" title="Virtual Bank"></a>Virtual Bank</h1><h4 id="模拟银行的多线程程序-实现如下要求："><a href="#模拟银行的多线程程序-实现如下要求：" class="headerlink" title="模拟银行的多线程程序,实现如下要求："></a>模拟银行的多线程程序,实现如下要求：</h4><ol>
+<li>银行于某时刻开始营业，运行若干时间后下班，窗口最上方会显示营业或下班的信息。到了下班时间，不再产生新的客户，只将等待的客户处理完，然后银行关门。</li>
+<li>营业期间有多名顾客随机地来银行存钱、取钱，顾客的原有存款金额是随机生成的，此次交易需要的时间以及交易金额也是随机生成的。不允许透支，若取钱时余额不足，则退出本次操作。在窗口显示当前客户的序号、交易时长、操作金额和余额；</li>
+<li>只有一名工作人员提供服务，若顾客数为0，则进行等待；</li>
+<li>每次存取钱，在窗口显示当前有多少顾客在等待，以及银行目前的金额；</li>
+<li>银行处理完所有的交易，关门时再报告今日受理客户总数以及银行余额；</li>
+<li>程序运行的过程中在控制台打印出今日所有的交易记录。<h4 id="自定义类型："><a href="#自定义类型：" class="headerlink" title="自定义类型："></a>自定义类型：</h4></li>
+</ol>
+<ul>
+<li><p>Customer：客户类;</p>
+</li>
+<li><p>CustomerLine：客户队列;</p>
+</li>
+<li><p>CustomerGen：客户生成器；</p>
+</li>
+<li><p>Teller：工作人员</p>
+</li>
+<li><p>MyWindow：银行信息窗口</p>
+</li>
+<li><p>VirtualBank:模拟银行（主程序）</p>
+<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><ul>
+<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\1.png" alt="avatar"></li>
+<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\2.png" alt="avatar"></li>
+<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\3.png" alt="avatar"></li>
+</ul>
+</li>
+</ul>
+<h4 id="主类"><a href="#主类" class="headerlink" title="主类"></a>主类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VirtualBank</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//银行交易显示窗口</span></span><br><span class="line">		MyWindow myWindow=<span class="keyword">new</span> MyWindow();</span><br><span class="line">		myWindow.display();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//客户队列</span></span><br><span class="line">		CustomerLine line=<span class="keyword">new</span> CustomerLine(<span class="number">50</span>,myWindow);</span><br><span class="line">		CustomerGen gen=<span class="keyword">new</span> CustomerGen(line,myWindow);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//银行工作人员</span></span><br><span class="line">		Teller teller=<span class="keyword">new</span> Teller(line,myWindow);</span><br><span class="line">	</span><br><span class="line">		gen.start();</span><br><span class="line">		teller.start();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//下班时间到了，不再接待客户</span></span><br><span class="line">		TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">        gen.exit = <span class="keyword">true</span>;</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">4</span>);</span><br><span class="line">        teller.exit = <span class="keyword">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//处理完剩余业务，银行关门</span></span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        myWindow.textField_5.setText(<span class="string">"交易完毕"</span>);</span><br><span class="line">        System.out.println(<span class="string">"剩余的业务处理完毕               银行剩余钱数："</span>+teller.total+<span class="string">"     今日受理客户总数："</span>+teller.num);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户类"><a href="#客户类" class="headerlink" title="客户类"></a>客户类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> balance;<span class="comment">//客户余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> time;<span class="comment">//客户服务时长</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">boolean</span> deposit;<span class="comment">//客户操作类型，如果为true则为存款，false为取款</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> money;<span class="comment">//客户操作金额</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w1;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">(<span class="keyword">int</span> balance,<span class="keyword">int</span> time,<span class="keyword">int</span> depos,<span class="keyword">int</span> money,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.balance=balance;<span class="keyword">this</span>.time=time;<span class="keyword">this</span>.money=money;</span><br><span class="line">		w1=w;</span><br><span class="line">		<span class="keyword">if</span>(depos==<span class="number">0</span>)</span><br><span class="line">		&#123;<span class="comment">//存钱</span></span><br><span class="line">			deposit=<span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			deposit=<span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">withdrawal</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;<span class="comment">//取钱</span></span><br><span class="line">		w1.textField_9.setText(<span class="string">"时长："</span>+time);</span><br><span class="line">		<span class="keyword">if</span>(balance&lt;money)</span><br><span class="line">		&#123;<span class="comment">//余额不足</span></span><br><span class="line">			System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">			w1.textField_2.setText(<span class="string">"取款："</span>+money);</span><br><span class="line">			w1.textField_3.setText(<span class="string">"余额："</span>+balance+<span class="string">"(不足)"</span>);</span><br><span class="line">			System.out.println(<span class="string">"  取款："</span>+money+<span class="string">",余额："</span>+balance+<span class="string">"(不足)  操作失败"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;<span class="comment">//取钱失败</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">			balance=balance-money;</span><br><span class="line">			w1.textField_2.setText(<span class="string">"取款："</span>+money);</span><br><span class="line">			w1.textField_3.setText(<span class="string">"余额："</span>+balance);</span><br><span class="line">			System.out.println(<span class="string">"  取款:"</span>+money+<span class="string">",余额："</span>+balance+<span class="string">"  操作成功"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//取钱成功</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">deposit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;<span class="comment">//存钱</span></span><br><span class="line">		System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">		w1.textField_9.setText(<span class="string">"时长："</span>+time);</span><br><span class="line">		balance+=money;</span><br><span class="line">		w1.textField_2.setText(<span class="string">"存款："</span>+money);</span><br><span class="line">		w1.textField_3.setText(<span class="string">"余额："</span>+balance);</span><br><span class="line">		System.out.println(<span class="string">"  存款"</span>+money+<span class="string">",余额："</span>+balance);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户队列"><a href="#客户队列" class="headerlink" title="客户队列"></a>客户队列</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*ArrayBlockingQueue:</span></span><br><span class="line"><span class="comment">A bounded blocking queue backed by an array. This queue orders elements FIFO (first-in-first-out).</span></span><br><span class="line"><span class="comment">Once created, the capacity cannot be changed.</span></span><br><span class="line"><span class="comment">Attempts to put an element into a full queue will result in the operation blocking; </span></span><br><span class="line"><span class="comment">attempts to take an element from an empty queue will similarly block. </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomerLine</span> <span class="keyword">extends</span> <span class="title">ArrayBlockingQueue</span>&lt;<span class="title">Customer</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;<span class="comment">//客户队列</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w2;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CustomerLine</span><span class="params">(<span class="keyword">int</span> maxSize,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(maxSize);</span><br><span class="line">		w2=w;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="随机产生客户"><a href="#随机产生客户" class="headerlink" title="随机产生客户"></a>随机产生客户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//随机产生顾客</span><br><span class="line">class CustomerGen extends Thread</span><br><span class="line">&#123;</span><br><span class="line">	Random rand=new Random();</span><br><span class="line">	public boolean exit=false;//false表示银行仍在受理新来客户，可以继续产生客户</span><br><span class="line">	CustomerLine line;//客户队列</span><br><span class="line">	public MyWindow w3;//银行窗口显示信息</span><br><span class="line">	//得到顾客的队列</span><br><span class="line">	public CustomerGen(CustomerLine line,MyWindow w)</span><br><span class="line">	&#123;</span><br><span class="line">		this.line=line;</span><br><span class="line">		w3=w;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void run()</span><br><span class="line">	&#123;</span><br><span class="line">		try</span><br><span class="line">		&#123;//一直产生新的客户</span><br><span class="line">			while(!exit)</span><br><span class="line">			&#123;</span><br><span class="line">				//随机时间里面产生顾客，产生的顾客需求也是随机地,客户的初始余额也是随机的 </span><br><span class="line">	            TimeUnit.MILLISECONDS.sleep(rand.nextInt(1000));  </span><br><span class="line">	            //然后队列里面添加一个随机地顾客  </span><br><span class="line">	            line.put(new Customer(rand.nextInt(1000),rand.nextInt(1000),rand.nextInt(2),rand.nextInt(1000),w3));  //随机的顾客需求</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		catch(InterruptedException e)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(&quot;顾客线程出错！&quot;);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		w3.textField.setText(&quot;                        下班时间到了&quot;);</span><br><span class="line">		System.out.println(&quot;\n工作人员要下班啦！不再受理新来客户\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="工作人员"><a href="#工作人员" class="headerlink" title="工作人员"></a>工作人员</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//工作人员</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teller</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">boolean</span> exit=<span class="keyword">false</span>;<span class="comment">//false表示没有下班</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> num=<span class="number">0</span>;<span class="comment">//已服务的客户数</span></span><br><span class="line">	<span class="keyword">private</span> CustomerLine line;<span class="comment">//顾客队列</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> total=<span class="number">10000</span>;<span class="comment">//银行余额</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w4;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Teller</span><span class="params">(CustomerLine line,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.line=line;</span><br><span class="line">		w4=w;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">try</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(!exit)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(line.size()==<span class="number">0</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//若没有客户，则进行等待</span></span><br><span class="line">					w4.textField_8.setText(<span class="string">"0"</span>);</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">//Retrieves and removes the head of this queue, </span></span><br><span class="line">				<span class="comment">//waiting if necessary until an element becomes available.</span></span><br><span class="line">				<span class="comment">//队列里面排第一个的顾客脱离队伍，接受服务</span></span><br><span class="line">                Customer customer = line.take();	</span><br><span class="line">              <span class="comment">//这个要被服务的时间队列需要停顿，停顿时间有当前的customer决定 </span></span><br><span class="line">                TimeUnit.MILLISECONDS.sleep(customer.time); </span><br><span class="line">                </span><br><span class="line">                <span class="comment">//显示顾客信息</span></span><br><span class="line">                <span class="keyword">if</span>(customer.deposit)</span><br><span class="line">                &#123;<span class="comment">//存钱</span></span><br><span class="line">                	customer.deposit();</span><br><span class="line">                	total+=customer.money;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;<span class="comment">//取钱</span></span><br><span class="line">                	<span class="keyword">if</span>(customer.withdrawal())</span><br><span class="line">                		total-=customer.money;</span><br><span class="line">                &#125;</span><br><span class="line">            	w4.textField_6.setText(<span class="string">""</span>+total);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//服务客户数量加一 </span></span><br><span class="line">               <span class="comment">// synchronized(this)  </span></span><br><span class="line">                &#123;  </span><br><span class="line">                    num++;</span><br><span class="line">                    w4.textField_1.setText(<span class="string">"第"</span>+num+<span class="string">"位客户"</span>);</span><br><span class="line">                    w4.textField_8.setText(<span class="string">""</span>+line.size());</span><br><span class="line">                    w4.textField_6.setText(<span class="string">""</span>+total);</span><br><span class="line">                    System.out.println(<span class="string">"当前服务顾客数："</span>+num+<span class="string">"，当前等待人数："</span>+line.size()+<span class="string">"，银行余额："</span>+total);</span><br><span class="line">                    System.out.println();</span><br><span class="line">                &#125; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span>(InterruptedException e)</span><br><span class="line">		&#123;</span><br><span class="line">			w4.textField_1.setText(<span class="string">"银行服务线程出错！"</span>);</span><br><span class="line">			System.out.println(<span class="string">"银行服务线程出错！"</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="银行窗口"><a href="#银行窗口" class="headerlink" title="银行窗口"></a>银行窗口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//银行窗口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWindow</span> <span class="keyword">extends</span> <span class="title">JFrame</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JPanel contentPane;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField;<span class="comment">//显示“上班时间”或“下班时间”</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_1;<span class="comment">//第几位客户</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_2;<span class="comment">//交易金额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_3;<span class="comment">//客户余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_4;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_5;<span class="comment">//交易状态</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_6;<span class="comment">//银行余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_7;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_8;<span class="comment">//正在等待的人数</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_9;<span class="comment">//交易时长</span></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Launch the application.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//显示窗口</span></span><br><span class="line">		MyWindow frame = <span class="keyword">new</span> MyWindow();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create the frame.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyWindow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		setBounds(<span class="number">100</span>, <span class="number">100</span>, <span class="number">450</span>, <span class="number">300</span>);</span><br><span class="line">		contentPane = <span class="keyword">new</span> JPanel();</span><br><span class="line">		contentPane.setBorder(<span class="keyword">new</span> EmptyBorder(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>));</span><br><span class="line">		setContentPane(contentPane);</span><br><span class="line">		</span><br><span class="line">		textField = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField.setBackground(Color.PINK);</span><br><span class="line">		textField.setText(<span class="string">"                        正在营业       "</span>);</span><br><span class="line">		textField.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_1 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_1.setText(<span class="string">"第0位客户"</span>);</span><br><span class="line">		textField_1.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_2 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_2.setText(<span class="string">"交易：0"</span>);</span><br><span class="line">		textField_2.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_3 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_3.setText(<span class="string">"余额：0"</span>);</span><br><span class="line">		textField_3.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_4 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_4.setText(<span class="string">"银行余额"</span>);</span><br><span class="line">		textField_4.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_5 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_5.setBackground(Color.PINK);</span><br><span class="line">		textField_5.setText(<span class="string">"正在交易"</span>);</span><br><span class="line">		textField_5.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_6 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_6.setText(<span class="string">"0"</span>);</span><br><span class="line">		textField_6.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_7 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_7.setText(<span class="string">"等待人数"</span>);</span><br><span class="line">		textField_7.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_8 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_8.setText(<span class="string">"0"</span>);</span><br><span class="line">		textField_8.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_9 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_9.setText(<span class="string">"时长：0"</span>);</span><br><span class="line">		textField_9.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//布置文本框位置</span></span><br><span class="line">		GroupLayout gl_contentPane = <span class="keyword">new</span> GroupLayout(contentPane);</span><br><span class="line">		gl_contentPane.setHorizontalGroup(</span><br><span class="line">			gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addGap(<span class="number">84</span>)</span><br><span class="line">					.addComponent(textField, GroupLayout.PREFERRED_SIZE, <span class="number">222</span>, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addContainerGap(<span class="number">112</span>, Short.MAX_VALUE))</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, <span class="keyword">false</span>)</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGap(<span class="number">157</span>)</span><br><span class="line">							.addComponent(textField_3))</span><br><span class="line">						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">								.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">								.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">							.addGap(<span class="number">61</span>)</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, <span class="keyword">false</span>)</span><br><span class="line">								.addComponent(textField_2)</span><br><span class="line">								.addComponent(textField_1, <span class="number">0</span>, <span class="number">0</span>, Short.MAX_VALUE)</span><br><span class="line">								.addComponent(textField_5, GroupLayout.DEFAULT_SIZE, <span class="number">87</span>, Short.MAX_VALUE)</span><br><span class="line">								.addComponent(textField_9))))</span><br><span class="line">					.addPreferredGap(ComponentPlacement.RELATED, <span class="number">69</span>, Short.MAX_VALUE)</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, <span class="keyword">false</span>)</span><br><span class="line">						.addComponent(textField_6)</span><br><span class="line">						.addComponent(textField_4)))</span><br><span class="line">		);</span><br><span class="line">		gl_contentPane.setVerticalGroup(</span><br><span class="line">			gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addGap(<span class="number">15</span>)</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">								.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">									.addGap(<span class="number">18</span>)</span><br><span class="line">									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.UNRELATED)</span><br><span class="line">									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">									.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">								.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">									.addGap(<span class="number">38</span>)</span><br><span class="line">									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))</span><br><span class="line">							.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGap(<span class="number">35</span>)</span><br><span class="line">							.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">							.addGap(<span class="number">18</span>)</span><br><span class="line">							.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))</span><br><span class="line">					.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">					.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))</span><br><span class="line">		);</span><br><span class="line">		contentPane.setLayout(gl_contentPane);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/02/Java1.2/" rel="prev" title="Java1.2">
+      <i class="fa fa-chevron-left"></i> Java1.2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/22/two-sum/" rel="next" title="Two Sum">
+      Two Sum <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-Bank"><span class="nav-number">1.</span> <span class="nav-text">Virtual Bank</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模拟银行的多线程程序-实现如下要求："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">模拟银行的多线程程序,实现如下要求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义类型："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">自定义类型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行效果"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">运行效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主类"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">主类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户类"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">客户类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户队列"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">客户队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机产生客户"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">随机产生客户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作人员"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">工作人员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#银行窗口"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">银行窗口</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

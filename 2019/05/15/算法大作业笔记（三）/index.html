@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="贪心算法的尝试失败了，需要先学习一下常见算法的适用情形了，主要包括递归预分支、动态规划、贪心、回溯、分支界限法，参考博客。 递归与分治将一个规模为n难以解决的问题分解为k个规模较小的子问题，这些子问题相互独立且与原问题同样。递归地解这些子问题，然后将各子问题的解合并得到原问题的解。 典例：Fibonacci数列，阶乘，Hanoi塔；二分法搜索、快速排序、合并排序 动态规划法依据当前（阶段）状态，">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法大作业笔记（三）">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/算法大作业笔记（三）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="贪心算法的尝试失败了，需要先学习一下常见算法的适用情形了，主要包括递归预分支、动态规划、贪心、回溯、分支界限法，参考博客。 递归与分治将一个规模为n难以解决的问题分解为k个规模较小的子问题，这些子问题相互独立且与原问题同样。递归地解这些子问题，然后将各子问题的解合并得到原问题的解。 典例：Fibonacci数列，阶乘，Hanoi塔；二分法搜索、快速排序、合并排序 动态规划法依据当前（阶段）状态，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-15T03:35:15.965Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法大作业笔记（三）">
+<meta name="twitter:description" content="贪心算法的尝试失败了，需要先学习一下常见算法的适用情形了，主要包括递归预分支、动态规划、贪心、回溯、分支界限法，参考博客。 递归与分治将一个规模为n难以解决的问题分解为k个规模较小的子问题，这些子问题相互独立且与原问题同样。递归地解这些子问题，然后将各子问题的解合并得到原问题的解。 典例：Fibonacci数列，阶乘，Hanoi塔；二分法搜索、快速排序、合并排序 动态规划法依据当前（阶段）状态，">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/15/算法大作业笔记（三）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法大作业笔记（三） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/算法大作业笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法大作业笔记（三）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-15 09:50:22 / 修改时间：11:35:15" itemprop="dateCreated datePublished" datetime="2019-05-15T09:50:22+08:00">2019-05-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p> 贪心算法的尝试失败了，需要先学习一下常见算法的适用情形了，主要包括递归预分支、动态规划、贪心、回溯、分支界限法，参考<a href="https://www.cnblogs.com/bhlsheji/p/4007097.html" target="_blank" rel="noopener">博客</a>。</p>
+<h4 id="递归与分治"><a href="#递归与分治" class="headerlink" title="递归与分治"></a>递归与分治</h4><p>将一个规模为n难以解决的问题分解为k个规模较小的子问题，这些子问题相互独立且与原问题同样。递归地解这些子问题，然后将各子问题的解合并得到原问题的解。</p>
+<p><strong>典例：</strong>Fibonacci数列，阶乘，Hanoi塔；二分法搜索、快速排序、合并排序</p>
+<h4 id="动态规划法"><a href="#动态规划法" class="headerlink" title="动态规划法"></a>动态规划法</h4><p>依据当前（阶段）状态，采取对应的决策，引起状态的转移。因为动态规划解决的问题多数有重叠子问题这个特点，为降低反复计算，对每个子问题仅仅解一次，将其不同阶段的不同状态保存在一个二维数组中。</p>
+<p>与分治法最大的区别是：适合于用动态规划法求解的问题，经分解后得到的子问题往往不是互相独立的（即下一个子阶段的求解是建立在上一个子阶段的解的基础上，进行进一步的求解）。</p>
+<p><strong>典例：</strong>最长公共子序列； 最大连续子序列和（<a href="http://blog.csdn.net/acema/article/details/27368891" target="_blank" rel="noopener">最大m子段和</a>）。</p>
+<h4 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h4><p>贪心算法并不从整理最优上进行考虑，它所做出的选择仅仅是在某种意义上的局部最优选择。贪心算法不能保证找到的解是最优解(嗯，我就栽在这上面了…)，但在某些情况下能够是最优解的近似解，甚至是最优解。</p>
+<p><strong>典例：</strong>哈夫曼编码；单源最短路径（Dijkstra算法）；最小生成树（Prim和Kruskal算法）</p>
+<h4 id="回溯法（DFS搜索解空间）"><a href="#回溯法（DFS搜索解空间）" class="headerlink" title="回溯法（DFS搜索解空间）"></a>回溯法（DFS搜索解空间）</h4><p>回溯法是以深度优先方式搜索问题解的算法，它适用于组合数较大的问题，能系统地搜索到一个问题的全部解惑任一解。</p>
+<p><strong>回溯法解题通常包括3个步骤</strong>：①针对所给的问题，定义问题的解空间；  ②确定易于搜索的解空间的结构； ③ 以DFS搜索解空间，并在搜索过程中用<font color="red">剪枝函数（约束条件）避免无效搜索</font>。</p>
+<p><strong>解空间树</strong>：</p>
+<p><strong>①子集树</strong>：当所给问题是从n个元素的结合S中找出满足某种性质的子集时，对应的解空间树称为子集树。比如n个物品的0-1背包问题。这类子集树通常有2^n个叶节点，其节点总个数为为2^(n+1)-1。遍历子集树的不论什么算法均需O(2^n)的计算时间</p>
+<p><strong>②排列树</strong>：当所给问题是确定n个元素满足某种性质的排列时，对应的解空间树成为排列树。比如旅行售货员问题。排列树通常有n！个叶节点，因此遍历排列树须要O(n!)的计算时间。</p>
+<p><strong>搜索实现</strong>能够递归，也能够用树的非递归深度优先遍历算法来实现（用到<strong>栈Stack</strong>）。</p>
+<p><strong>典例：</strong>八皇后（找出全部的解）</p>
+<h4 id="分支界限法（BFS搜索解空间）"><a href="#分支界限法（BFS搜索解空间）" class="headerlink" title="分支界限法（BFS搜索解空间）"></a>分支界限法（BFS搜索解空间）</h4><p>分支界限法的求解目标是找出满足约束条件的一个解，或是在满足约束条件的解中找出使某一目标函数值达到极大或极小的解，即在某种意义下的最优解。<font color="green">（分支界限法与回溯法求解目标不同）</font></p>
+<p>分支界限法以广度优先或以最小耗费（最大收益）优先的方式搜索解空间。所谓“分支”就是在扩展节点处，先生成其全部儿子节点（分支），然后在从当前的活结点表中选择下一个扩展节点，继续搜索。过程中能够用约束条件，进行剪枝。</p>
+<p>常见的扩展节点的常见方式：<strong>先进先出FIFO队列</strong> 和 <strong>优先队列分支界限法</strong>。</p>
+<p><strong>典例：</strong>单源最短路径</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/15/2017_06CET6_01/" rel="prev" title="2017_06CET6_01">
+      <i class="fa fa-chevron-left"></i> 2017_06CET6_01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/15/数据库大作业笔记（十）/" rel="next" title="数据库大作业笔记（十）">
+      数据库大作业笔记（十） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归与分治"><span class="nav-number">1.</span> <span class="nav-text">递归与分治</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态规划法"><span class="nav-number">2.</span> <span class="nav-text">动态规划法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#贪心算法"><span class="nav-number">3.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回溯法（DFS搜索解空间）"><span class="nav-number">4.</span> <span class="nav-text">回溯法（DFS搜索解空间）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支界限法（BFS搜索解空间）"><span class="nav-number">5.</span> <span class="nav-text">分支界限法（BFS搜索解空间）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

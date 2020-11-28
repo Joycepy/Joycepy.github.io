@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="文件存在，但显示404，如图： http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex这是最后正确的路由，最开始试了audit_Equipment，auditEquipment，甚至还有audit-Equipment，文件就在那儿，咋就404呢？最后试出来，得用小写字母——">
+<meta name="keywords" content="Yii2,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yii框架的那些坑（一）">
+<meta property="og:url" content="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="文件存在，但显示404，如图： http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex这是最后正确的路由，最开始试了audit_Equipment，auditEquipment，甚至还有audit-Equipment，文件就在那儿，咋就404呢？最后试出来，得用小写字母——">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/blog/source/_posts/yii404.png">
+<meta property="og:updated_time" content="2020-02-10T13:19:09.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yii框架的那些坑（一）">
+<meta name="twitter:description" content="文件存在，但显示404，如图： http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex这是最后正确的路由，最开始试了audit_Equipment，auditEquipment，甚至还有audit-Equipment，文件就在那儿，咋就404呢？最后试出来，得用小写字母——">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/blog/source/_posts/yii404.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Yii框架的那些坑（一） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Yii框架的那些坑（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-07 21:18:28" itemprop="dateCreated datePublished" datetime="2019-05-07T21:18:28+08:00">2019-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-10 21:19:09" itemprop="dateModified" datetime="2020-02-10T21:19:09+08:00">2020-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="文件存在，但显示404，如图："><a href="#文件存在，但显示404，如图：" class="headerlink" title="文件存在，但显示404，如图："></a>文件存在，但显示404，如图：</h5><p><img src="//yoursite.com/2019/05/07/Yii框架的那些坑（一）/blog\source\_posts\yii404.png" alt="yii404"></p>
+<p><a href="http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex" target="_blank" rel="noopener">http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex</a>这是最后正确的路由，最开始试了audit_Equipment，auditEquipment，甚至还有audit-Equipment，文件就在那儿，咋就404呢？最后试出来，得用小写字母——“audit_equipment”，其实具体原理我也不懂。另外补充：Model的命名，只能是字母或写划线：“Only word characters and backslashes are allowed.”</p>
+<h5 id="显示数据库中的视图"><a href="#显示数据库中的视图" class="headerlink" title="显示数据库中的视图"></a>显示数据库中的视图</h5><p>在访问<a href="http://localhost:8081/yii2/sport_equipment/frontend/web/时，报错：" target="_blank" rel="noopener">http://localhost:8081/yii2/sport_equipment/frontend/web/时，报错：</a></p>
+<p>Invalid Configuration – yii\base\InvalidConfigException<br>The ‘label’ option is required.</p>
+<p>我想做成：当前用户为游客时，不显示vborrow，当前用户登录后，vborrow才显示出来，可以点击，尝试之后，代码如下：</p>
+<p>Path: frontend\views\layouts\main.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">   <span class="meta">&lt;?php</span></span><br><span class="line">   NavBar::begin([</span><br><span class="line">       <span class="string">'brandLabel'</span> =&gt; Yii::$app-&gt;name,</span><br><span class="line">       <span class="string">'brandUrl'</span> =&gt; Yii::$app-&gt;homeUrl,</span><br><span class="line">       <span class="string">'options'</span> =&gt; [</span><br><span class="line">           <span class="string">'class'</span> =&gt; <span class="string">'navbar-inverse navbar-fixed-top'</span>,</span><br><span class="line">       ],</span><br><span class="line">   ]);</span><br><span class="line">   <span class="comment">//这里显示的是游客和已登录用户都能看到的内容</span></span><br><span class="line">   $menuItems = [</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'Home'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/index'</span>]],</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'About'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/about'</span>]],</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'Contact'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/contact'</span>]],</span><br><span class="line">   ];</span><br><span class="line"><span class="comment">//只有游客才能看见的内容</span></span><br><span class="line">   <span class="keyword">if</span> (Yii::$app-&gt;user-&gt;isGuest) &#123;</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Signup'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/signup'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Login'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/login'</span>]];</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">//只有已登录用户才能看见的内容，这里如果格式不对，会出现“The 'label' option is required.”的错误</span></span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vborrow'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vborrow/index'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vstudent'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vstudent/index'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vteacher'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vteacher/index'</span>]];</span><br><span class="line">       $menuItems[] =<span class="string">'&lt;li&gt;'</span></span><br><span class="line">           . Html::beginForm([<span class="string">'/site/logout'</span>], <span class="string">'post'</span>)</span><br><span class="line">           . Html::submitButton(</span><br><span class="line">               <span class="string">'Logout ('</span> . Yii::$app-&gt;user-&gt;identity-&gt;username . <span class="string">')'</span>,</span><br><span class="line">               [<span class="string">'class'</span> =&gt; <span class="string">'btn btn-link logout'</span>]</span><br><span class="line">           )</span><br><span class="line">           . Html::endForm()</span><br><span class="line">           . <span class="string">'&lt;/li&gt;'</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">echo</span> Nav::widget([</span><br><span class="line">       <span class="string">'options'</span> =&gt; [<span class="string">'class'</span> =&gt; <span class="string">'navbar-nav navbar-right'</span>],</span><br><span class="line">       <span class="string">'items'</span> =&gt; $menuItems,</span><br><span class="line">   ]);</span><br><span class="line">   NavBar::end();</span><br><span class="line">   <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为视图没有主键，所以无法用gii生成CURD，所以复制了其他数据表的控制器和视图文件，在上边作了修改。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Yii2/" rel="tag"># Yii2</a>
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/07/数据库大作业笔记（一）/" rel="prev" title="数据库大作业笔记（一）">
+      <i class="fa fa-chevron-left"></i> 数据库大作业笔记（一）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/08/2018_06CET6_3/" rel="next" title="2018_06CET6_3">
+      2018_06CET6_3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存在，但显示404，如图："><span class="nav-number">1.</span> <span class="nav-text">文件存在，但显示404，如图：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示数据库中的视图"><span class="nav-number">2.</span> <span class="nav-text">显示数据库中的视图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

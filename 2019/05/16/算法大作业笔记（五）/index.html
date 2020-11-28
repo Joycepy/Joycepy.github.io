@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="算法初步实现//剩余蛋糕数量 static int leftCakes[]; //蛋糕总量（不是数量，而是大小之和） static int totalCake = 0; //浪费蛋糕量 static int lostCake = 0; static boolean canFeed(int[] mouths, int monthIndex, int sum) { if(monthIndex&amp;lt;=">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法大作业笔记（五）">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/算法大作业笔记（五）/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="算法初步实现//剩余蛋糕数量 static int leftCakes[]; //蛋糕总量（不是数量，而是大小之和） static int totalCake = 0; //浪费蛋糕量 static int lostCake = 0; static boolean canFeed(int[] mouths, int monthIndex, int sum) { if(monthIndex&amp;lt;=">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-16T14:57:31.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法大作业笔记（五）">
+<meta name="twitter:description" content="算法初步实现//剩余蛋糕数量 static int leftCakes[]; //蛋糕总量（不是数量，而是大小之和） static int totalCake = 0; //浪费蛋糕量 static int lostCake = 0; static boolean canFeed(int[] mouths, int monthIndex, int sum) { if(monthIndex&amp;lt;=">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/16/算法大作业笔记（五）/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法大作业笔记（五） | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/算法大作业笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法大作业笔记（五）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-16 22:57:31" itemprop="dateCreated datePublished" datetime="2019-05-16T22:57:31+08:00">2019-05-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="算法初步实现"><a href="#算法初步实现" class="headerlink" title="算法初步实现"></a>算法初步实现</h4><p><code>//剩余蛋糕数量</code></p>
+<p><code>static int leftCakes[];</code></p>
+<p><code>//蛋糕总量（不是数量，而是大小之和）</code></p>
+<p><code>static int totalCake = 0;</code></p>
+<p><code>//浪费蛋糕量</code></p>
+<p><code>static int lostCake = 0;</code></p>
+<p><code>static boolean canFeed(int[] mouths, int monthIndex, int sum)</code></p>
+<p><code>{</code></p>
+<p><code>if(monthIndex&lt;=0) {</code></p>
+<p><code>//递归边界</code></p>
+<p><code>return true;</code></p>
+<p><code>}</code></p>
+<p><code>//如果 蛋糕总量-浪费蛋糕量 小于当前的需求量，直接返回false，即无法满足</code></p>
+<p><code>if(totalCake - lostCake &lt; sum) {</code></p>
+<p><code>return false;</code></p>
+<p><code>}</code></p>
+<p><code>//从小到大遍历蛋糕</code></p>
+<p><code>for(int i=0;i&lt;leftCakes.length; i++) {</code></p>
+<p><code>if (leftCakes[i] &gt;= mouths[monthIndex]) {</code></p>
+<p><code>//找到并吃掉匹配的蛋糕</code></p>
+<p><code>leftCakes[i] -= mouths[monthIndex];</code></p>
+<p><code>//剩余蛋糕小于最小的需求，变为浪费蛋糕</code></p>
+<p><code>if (leftCakes[i] &lt; mouths[1]){</code></p>
+<p><code>lostCake += leftCakes[i];</code></p>
+<p><code>}</code></p>
+<p><code>//继续递归，试图满足mid下标之前的需求</code></p>
+<p><code>if (canFeed(mouths, monthIndex-1, sum)) {</code></p>
+<p><code>return true;</code></p>
+<p><code>}</code></p>
+<p><code>//无法满足需求，蛋糕状态回滚</code></p>
+<p><code>if (leftCakes[i] &lt; mouths[1]) {</code></p>
+<p><code>lostCake -= leftCakes[i];</code></p>
+<p><code>}</code></p>
+<p><code>leftCakes[i] += mouths[monthIndex];</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>return false;</code></p>
+<p><code>}</code></p>
+<p><code>public static int findMaxFeed(int[] cakes, int[] mouths){</code></p>
+<p><code>//蛋糕升序排列，并把0下标空出</code></p>
+<p><code>int[] cakesTemp = Arrays.copyOf(cakes, cakes.length+1);</code></p>
+<p><code>Arrays.sort(cakesTemp);</code></p>
+<p><code>for(int cake: cakesTemp){</code></p>
+<p><code>totalCake += cake;</code></p>
+<p><code>}</code></p>
+<p><code>//顾客胃口升序排列，并把0下标空出</code></p>
+<p><code>int[] mouthsTemp = Arrays.copyOf(mouths, mouths.length+1);</code></p>
+<p><code>Arrays.sort(mouthsTemp);</code></p>
+<p><code>leftCakes = new int[cakes.length+1];</code></p>
+<p><code>//需求之和（下标0的元素是0个人的需求之和，下标1的元素是第1个人的需求之和，下标2的元素是第1,2个人的需求之和.....）</code></p>
+<p><code>int[] sum = new int[mouths.length+1];</code></p>
+<p><code>for(int i=1;i&lt;=mouths.length;i++) {</code></p>
+<p><code>sum[i] = sum[i - 1] + mouthsTemp[i];</code></p>
+<p><code>}</code></p>
+<p><code>//left和right用于计算二分查找的“中点”</code></p>
+<p><code>int left=1,right=mouths.length;</code></p>
+<p><code>//如果胃口总量大于蛋糕总量，right指针左移</code></p>
+<p><code>while(sum[right]&gt; totalCake){</code></p>
+<p><code>right--;</code></p>
+<p><code>}</code></p>
+<p><code>//中位指针，用于做二分查找</code></p>
+<p><code>int mid=((left+right)&gt;&gt;1);</code></p>
+<p><code>while(left&lt;=right)</code></p>
+<p><code>{</code></p>
+<p><code>//重置剩余蛋糕数组</code></p>
+<p><code>leftCakes = Arrays.copyOf(cakesTemp, cakesTemp.length);</code></p>
+<p><code>//重置浪费蛋糕量</code></p>
+<p><code>lostCake =0;</code></p>
+<p><code>//递归寻找满足需求的临界点</code></p>
+<p><code>if(canFeed(mouthsTemp, mid, sum[mid])){</code></p>
+<p><code>left=mid+1;</code></p>
+<p><code>} else {</code></p>
+<p><code>right = mid - 1;</code></p>
+<p><code>}</code></p>
+<p><code>mid=((left+right)&gt;&gt;1);</code></p>
+<p><code>}</code></p>
+<p><code>//最终找到的是刚好满足的临界点</code></p>
+<p><code>return mid;</code></p>
+<p><code>}</code></p>
+<p><code>public static void main(String[] args) {</code></p>
+<p><code>int[] cakes = new int[]{3,5,15,17,25};</code></p>
+<p><code>int[] mouths = new int[]{2,5,7,9,12,14,20};</code></p>
+<p><code>int maxFeed = findMaxFeed(cakes, mouths);</code></p>
+<p><code>System.out.println(&quot;最大满足顾客数：&quot; + maxFeed);</code></p>
+<p><code>}</code></p>
+<p>需要说明几点：</p>
+<p>1.主流程方法<strong>findMaxFeed</strong>，执行各种初始化，控制二分查找流程。</p>
+<p>2.方法<strong>canFeed，</strong>用于检验某一位置之前的顾客是否能被给定蛋糕满足。</p>
+<p>3.数组<strong>leftCakes</strong>，用于临时存储剩余的蛋糕大小，每次重新设置中间下标时，这个数组需要被重置。</p>
+<p>在极端情况下，性能不高，有很多优化空间。比如,在 canfeed方法中,同样可以采用二分的方式,而不是一点点去遍历。再者,我们也可以尝试用动态规划的思想来解决问题。</p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>为什么不把蛋糕从大到小排序，而顾客从小到大排序，再从左至右匹配呢，这样被浪费的大蛋糕是最小的，自然满足了最多的顾客了，这样会不会更快呢？</p>
+<p>举个反例：有两个蛋糕，大小50和1，有两个顾客，胃口1和50，如果蛋糕从大到小，只能满足一个顾客，浪费了49</p>
+<p>第一反应，类似背包问题</p>
+<p>一开始小灰也觉得像背包问题，但背包的物品要么选择，要么不选，蛋糕却可以任意拆分，可能性非常多</p>
+<p>到第四步的时候，饭量2到9的顾客已经满足了，为什么还要检查2到14的顾客呢？应该是检查12到14的吧？到了第五步，14及之前的顾客已经满足，剩下的蛋糕还有个25的，为什么不能满足饭量为20的顾客呢？</p>
+<p>涉及12到14的顾客时，蛋糕需要重新分配，而不能仅仅用之前剩下的蛋糕分配。所以必须重新检查2到14</p>
+<p>假设蛋糕为1，3，14，28 食客为1，3，13，14，15 按照这个算法，13的食客会吃掉14的蛋糕，剩余1，最终得到的结果就会是4，而实际上，如果把28的分给13和15，由14的食客吃掉14的蛋糕，结果应该是5</p>
+<p>可以用小灰的代码自己测试下，我这边测了结果是5</p>
+<p>为什么不从吃蛋糕最多的人开始查找呢？～因为如果是最大的吃蛋糕的人不符合，那么就可以直接递减，如果算法吃的多的人满足～那么吃得少的也会依次计算～还是满足的～这样会不会更好？～</p>
+<p>“为什么不从吃蛋糕最多的人开始查找呢？”，你指的是哪一步？是二分查找之前还是二分查找内部？目前二分查找内部已经是从饭量最多的人开始查找了，而外部使用二分查找是更高效的方式。</p>
+<p>第一种从左到右的遍历，和第二种二分查找遍历，只是时间复杂度上的不同，为什么会有的结果？</p>
+<p>因为第二种思路在验证是否满足顾客时，带走回滚操作，极端情况下会枚举出所有可能性</p>
+<p>研究了下代码，代码没问题，讲解的有问题，例子也举的不够好。二分法直接用是图省事了，其实可以排序后计算蛋糕总和S，以此算出最大可能满足的人数n后直接验证人数n能减少资源占用及计算量</p>
+<p>漫画讲解的是最核心步骤，所以涉及回滚之类的细节就只体现在代码当中。你所说的计算最大可能满足人数n，并不一定是能通过验证，然后还得继续验证n-1，n-2….这样还不如采用二分法</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/16/算法大作业笔记（四）/" rel="prev" title="算法大作业笔记（四）">
+      <i class="fa fa-chevron-left"></i> 算法大作业笔记（四）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/17/数据库大作业笔记（十一）/" rel="next" title="数据库大作业笔记（十一）">
+      数据库大作业笔记（十一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法初步实现"><span class="nav-number">1.</span> <span class="nav-text">算法初步实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
