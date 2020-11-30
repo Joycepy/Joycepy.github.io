@@ -158,6 +158,69 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/multiply-strings/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/multiply-strings/" class="post-title-link" itemprop="url">multiply-strings</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-02 11:05:16 / 修改时间：17:01:10" itemprop="dateCreated datePublished" datetime="2020-02-02T11:05:16+08:00">2020-02-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定两个以字符串形式表示的非负整数 <code>num1</code> 和 <code>num2</code>，返回 <code>num1</code> 和 <code>num2</code> 的乘积，它们的乘积也表示为字符串形式。</p>
+<p>说明：</p>
+<p>num1 和 num2 的长度小于110。<br>num1 和 num2 只包含数字 0-9。<br>num1 和 num2 均不以零开头，除非是数字 0 本身。<br>不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>num1的第j位和num2的第i-j位相乘再求和(j从len1-1到0，i从len1+len2-2到0)，会得到ans的第i位及i-1位的进位。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">multiply</span><span class="params">(<span class="built_in">string</span> num1, <span class="built_in">string</span> num2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num1 == <span class="string">"0"</span> || num2 == <span class="string">"0"</span>)<span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">	<span class="keyword">int</span> len1 = num1.length();</span><br><span class="line">	<span class="keyword">int</span> len2 = num2.length();</span><br><span class="line">	<span class="keyword">int</span> i = len1 + len2 - <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> c = <span class="number">0</span>, x = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &gt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		x = c;<span class="comment">//c表示上一次的进位</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i &lt; len1 ? i : (len1 - <span class="number">1</span>); i - j &lt; len2 &amp;&amp; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">			x += ((num1[j] - <span class="string">'0'</span>)*(num2[i - j] - <span class="string">'0'</span>));</span><br><span class="line">		c = x / <span class="number">10</span>;</span><br><span class="line">		x = x % <span class="number">10</span>;</span><br><span class="line">		res = <span class="keyword">char</span>(<span class="string">'0'</span> + x) + res;</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(c)res = <span class="keyword">char</span>(<span class="string">'0'</span> + c) + res;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/trapping-rain-water/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -758,79 +821,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/24/substring-with-concatenation-of-all-words/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/24/substring-with-concatenation-of-all-words/" class="post-title-link" itemprop="url">substring-with-concatenation-of-all-words</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-24 13:24:24" itemprop="dateCreated datePublished" datetime="2020-01-24T13:24:24+08:00">2020-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-26 11:25:06" itemprop="dateModified" datetime="2020-01-26T11:25:06+08:00">2020-01-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>为什么强调长度相同呢？想到的两种比较暴力的方法：一种是找到s中各个单词的位置，组合起来选出符合要求的；一种是列出单词的全部组合，与s进行匹配。学习了别人的比较好的想法：</p>
-<p>假设words数组长度为L，word单词长度为WL,遍历字符串s, 下标记做i，需要比对的单词起始坐标则为 [i, i+WL, i+2WL … i+(L-1)<em>WL]如果i满足条件，各个单词的第k位之和一定相等<br>即：words[0][k] + words[1][k] + … + words[L-1][k] == s[i + k] + s[i+WL + k] + … + s[i+(L-1)</em>WL + k]<br>反之，若对于i，满足后者条件的i则可能为正确结果，这个时候直接校验即可。</p>
-<p>总结：先找出符合特征的下标，再对符合下标的结果进行校验，完全符合则输出。<br>链接：<a href="https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/jian-dan-you-xiao-lu-de-jie-fa-by-luqihang/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/jian-dan-you-xiao-lu-de-jie-fa-by-luqihang/</a></p>
-<p>上面可能都是废话。还是好好学学别人的吧</p>
-<p>先把存在的字符串，放到 hashmap ，可以快速比较，然后每一个位置都进行匹配<br>但这里会有很多的重复计算，就可以使用一个小技巧，先计算目标串的每个字母的 ASCII 和，<br>然后和当前要匹配的字符串的每个字母的 ASCII 进行比较，如果不相等就不用进行下面的匹配过程了<br>链接：<a href="https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/bao-li-suan-fa-jia-ru-qu-zhong-you-hua-10bei-ti-su/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/bao-li-suan-fa-jia-ru-qu-zhong-you-hua-10bei-ti-su/</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring1(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">	<span class="keyword">if</span> (words.size()&lt;<span class="number">1</span> || s.size()&lt;<span class="number">1</span> || s.size() &lt; words[<span class="number">0</span>].size()*words.size()) <span class="keyword">return</span> res;</span><br><span class="line">	<span class="keyword">int</span> wordLen = words[<span class="number">0</span>].size(), lens = wordLen * words.size(), target = <span class="number">0</span>, cur = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; allWord;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span>&amp; it : words) &#123;</span><br><span class="line">		allWord[it]++;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span>&amp; i : it) target += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;lens; i++) cur += s[i];</span><br><span class="line">	<span class="comment">// 先看当前字符串的 ASCII 码相加是否相等 方便去重</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j; i &lt;= s.size() - lens; cur -= s[i], cur += s[lens + i++]) &#123;</span><br><span class="line">		<span class="comment">// 快速去重</span></span><br><span class="line">		<span class="keyword">if</span> (cur != target) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="comment">// 确认一下，是否为真的匹配</span></span><br><span class="line">		<span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; tem(allWord);</span><br><span class="line">		<span class="keyword">for</span> (j = i; j&lt;i + lens; j += wordLen)</span><br><span class="line">			<span class="keyword">if</span> (tem[s.substr(j, wordLen)]-- == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span> (j == i + lens) res.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我是真的菜。不过新年快乐！</p>
-<p>s.<em>substr(</em>0,5); //获得字符串s中从第0位开始的长度为5的字符</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -901,7 +891,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -158,6 +158,85 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/26/minimum-window-substring/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/26/minimum-window-substring/" class="post-title-link" itemprop="url">minimum-window-substring</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-26 22:03:22" itemprop="dateCreated datePublished" datetime="2020-02-26T22:03:22+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-27 00:14:40" itemprop="dateModified" datetime="2020-02-27T00:14:40+08:00">2020-02-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。</p>
+<p><strong>说明：</strong></p>
+<ul>
+<li>如果 S 中不存这样的子串，则返回空字符串 <code>&quot;&quot;</code>。</li>
+<li>如果 S 中存在这样的子串，我们保证它是唯一的答案。</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>滑动窗口、unordered_map</strong></p>
+<p>比较棘手的问题：如何判断 window 即子串 s[left…right] 是否符合要求，是否包含 t 的所有字符呢？</p>
+<p>参考：<a href="https://leetcode-cn.com/problems/minimum-window-substring/solution/hua-dong-chuang-kou-suan-fa-tong-yong-si-xiang-by-/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/minimum-window-substring/solution/hua-dong-chuang-kou-suan-fa-tong-yong-si-xiang-by-/</a></p>
+<p>可以用两个哈希表当作计数器解决。用一个哈希表 needs 记录字符串 t 中包含的字符及出现次数，用另一个哈希表 window 记录当前「窗口」中包含的字符及出现的次数，如果 window 包含所有 needs 中的键，且这些键对应的值都大于等于 needs 中的值，那么就可以知道当前「窗口」符合要求了，可以开始移动 left 指针了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> start = <span class="number">0</span>, len = s.length()+<span class="number">1</span>;<span class="comment">//截取的开始位置与长度</span></span><br><span class="line">	<span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; window;<span class="comment">//由s获得的字符及次数</span></span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; needs;<span class="comment">//由t获得的字符及次数</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> c : t)needs[c]++;</span><br><span class="line">	<span class="keyword">int</span> match = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (right &lt; s.length())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">char</span> c = s[right];</span><br><span class="line">		<span class="keyword">if</span> (needs.count(c))</span><br><span class="line">		&#123;<span class="comment">//命中</span></span><br><span class="line">			window[c]++;</span><br><span class="line">			<span class="keyword">if</span> (window[c] == needs[c])</span><br><span class="line">				match++;</span><br><span class="line">		&#125;</span><br><span class="line">		right++;</span><br><span class="line">		<span class="keyword">while</span> (match == needs.size())</span><br><span class="line">		&#123;<span class="comment">//更新截取结果，当始终包含t的字符时，left右移</span></span><br><span class="line">			<span class="keyword">if</span> ((right - left) &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				start = left;</span><br><span class="line">				len = right - left;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">char</span> k = s[left];</span><br><span class="line">			<span class="keyword">if</span> (needs.count(k))</span><br><span class="line">			&#123;<span class="comment">//可能left移到了非关键字母上</span></span><br><span class="line">				window[k]--;</span><br><span class="line">				<span class="keyword">if</span>(window[k] &lt; needs[k])<span class="comment">//可能有重复积累的</span></span><br><span class="line">					match--;</span><br><span class="line">			&#125;</span><br><span class="line">			left++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (len &gt; s.length())<span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> s.substr(start, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">size_type <span class="title">count</span> <span class="params">( <span class="keyword">const</span> key_type&amp; key )</span> <span class="keyword">const</span></span></span><br></pre></td></tr></table></figure>
+<p>count函数用以统计key值在unordered_map中出现的次数。c++ unordered_map不允许有重复的key。因此，如果key存在，则count返回1，如果不存在，则count返回0.</p>
+<p><strong>Tomorrow：</strong></p>
+<p>PA1报告、项目总结书、心理学视频。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/sort-colors/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -839,84 +918,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/spiral-matrix-ii/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/09/spiral-matrix-ii/" class="post-title-link" itemprop="url">spiral-matrix-ii & permutation-sequence</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-09 09:31:35 / 修改时间：14:57:20" itemprop="dateCreated datePublished" datetime="2020-02-09T09:31:35+08:00">2020-02-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个正整数 <em>n</em>，生成一个包含 1 到 $n^2$ 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>与上次螺旋矩阵思路类似，还是按照顺时针的顺序，先把空填了，再按顺序读出来。看起来效率还不错。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; generateMatrix(<span class="keyword">int</span> n) &#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">	<span class="keyword">int</span> **tmp = <span class="keyword">new</span> <span class="keyword">int</span>*[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		tmp[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> base_i = <span class="number">0</span>, base_j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> value = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> m = n;</span><br><span class="line">	<span class="keyword">int</span> p = n;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (j &lt; p)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i][j] = value++;</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		j = p - <span class="number">1</span>;</span><br><span class="line">		base_i++;</span><br><span class="line">		<span class="keyword">if</span> (base_i == m)<span class="keyword">break</span>;</span><br><span class="line">		i = base_i;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; m)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i][j] = value++;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		i = m - <span class="number">1</span>;</span><br><span class="line">		p--;</span><br><span class="line">		<span class="keyword">if</span> (p == base_j)<span class="keyword">break</span>;</span><br><span class="line">		j = p - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (j &gt;= base_j)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i][j] = value++;</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		j = base_j;</span><br><span class="line">		m--;</span><br><span class="line">		<span class="keyword">if</span> (base_i == m)<span class="keyword">break</span>;</span><br><span class="line">		i = m - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (i &gt;= base_i)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i][j] = value++;</span><br><span class="line">			i--;</span><br><span class="line">		&#125;</span><br><span class="line">		i = base_i;</span><br><span class="line">		base_j++;</span><br><span class="line">		<span class="keyword">if</span> (base_j == p)<span class="keyword">break</span>;</span><br><span class="line">		j = base_j;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; k;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			k.push_back(tmp[i][j]);</span><br><span class="line">		res.push_back(k);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h4><p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
-<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
-<ol>
-<li><p>“123”</p>
-</li>
-<li><p>“132”</p>
-</li>
-<li>“213”</li>
-<li>“231”</li>
-<li>“312”</li>
-<li>“321”</li>
-</ol>
-<p>给定 n 和 k，返回第 k 个排列。</p>
-<p>说明：</p>
-<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。</p>
-<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>有一说一，我觉得我的思路不错。不用挨着找出每个排列，而是计算k与(n-1)! 的关系</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fac</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> n * fac(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getNext</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; number, <span class="keyword">int</span> n, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		res = res + number[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> f = fac(n - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">int</span> w = (k - <span class="number">1</span>) / f;</span><br><span class="line">	res = res + number[w];</span><br><span class="line">	number.erase(number.begin() + w);</span><br><span class="line">	getNext(number, n - <span class="number">1</span>, k-w*f);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; number;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		number.push_back(<span class="string">'0'</span>+i);</span><br><span class="line">	getNext(number, n, k);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -987,7 +988,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

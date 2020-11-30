@@ -158,6 +158,67 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/ValidParentheses/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/19/ValidParentheses/" class="post-title-link" itemprop="url">ValidParentheses</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-19 19:01:03 / 修改时间：22:43:32" itemprop="dateCreated datePublished" datetime="2020-01-19T19:01:03+08:00">2020-01-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>括号匹配</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>主要还是考“栈”这一数据数据结构。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; par;</span><br><span class="line">	<span class="keyword">char</span> tmp;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		tmp = s[i];</span><br><span class="line">		<span class="keyword">if</span>(tmp==<span class="string">'('</span>||tmp==<span class="string">'['</span>||tmp==<span class="string">'&#123;'</span>)</span><br><span class="line">			par.push(s[i]);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (par.empty())</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">char</span> top = par.top();</span><br><span class="line">			<span class="keyword">switch</span> (s[i])</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">')'</span>:</span><br><span class="line">				<span class="keyword">if</span> (top != <span class="string">'('</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">']'</span>:</span><br><span class="line">				<span class="keyword">if</span> (top != <span class="string">'['</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'&#125;'</span>:</span><br><span class="line">				<span class="keyword">if</span> (top != <span class="string">'&#123;'</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			par.pop();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (par.empty())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/语法分析器tips/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -773,86 +834,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/Python生成数据插入数据库/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/09/Python生成数据插入数据库/" class="post-title-link" itemprop="url">Python生成数据插入数据库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-09 16:39:30" itemprop="dateCreated datePublished" datetime="2019-09-09T16:39:30+08:00">2019-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-10 13:40:54" itemprop="dateModified" datetime="2019-09-10T13:40:54+08:00">2019-09-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>智能眼镜的网页端需要生成测试数据，先尝试一下生成随机数据，再试着尽量把数据做得合理一些。</p>
-<p>phpMyAdmin 是一种 MySQL数据库前台的基于PHP的工具。</p>
-<p>pymysql是用来连接python和mysql之间的通道，在使用python编程时，通过它来和mysql数据库进行交互。</p>
-<p>安装pymysql模块：在终端输入pip install pymysql</p>
-<p>此次只向data_series表中生成数据。data_series中的字段有user_id，date，distance，lux和angle。use_login表中，目前只有id为3,6,25三位用户，user_id要满足这一限制。</p>
-<p>np.random.randn(n)该函数返回一个样本，有n个数，具有标准正态分布。</p>
-<p>打算先以15min为间隔，生成一整天的数据，因此每次随机产生的应该有96个数据。从distance入手，想要的是在[5,200]之间正态分布的96个整数。</p>
-<p>为了生成正态分布，需要载入包为scipy统计包中的norm</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> norm</span><br></pre></td></tr></table></figure>
-<p>没有的话还是要先安装：pip install scipy</p>
-<p>调出来生成的数据还算正常的distance:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">distance = r.uniform((<span class="number">5</span><span class="number">-40</span>)/<span class="number">10</span>, (<span class="number">200</span><span class="number">-40</span>)/<span class="number">10</span>)</span><br><span class="line">distance = norm.rvs(distance, size=<span class="number">120</span>)</span><br><span class="line">distance = distance*<span class="number">10</span>+<span class="number">40</span></span><br></pre></td></tr></table></figure>
-<p>利用pandas生成等间隔时间：96个时间，间隔为900s</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dateTime = pd.date_range(<span class="string">'2019-9-10 00:00:00'</span>, periods=<span class="number">96</span>, freq=<span class="string">'900s'</span>)</span><br></pre></td></tr></table></figure>
-<p>连接数据库时，pycharm报错：”Lost connection to MySQL server during query“，是因为我把端口号写错了，MySQL使用的端口号为3306</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random <span class="keyword">as</span> r</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> norm</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">userId = (<span class="number">3</span>, <span class="number">6</span>, <span class="number">25</span>)</span><br><span class="line">dateTime = pd.date_range(<span class="string">'2019-9-10 00:00:00'</span>, periods=<span class="number">96</span>, freq=<span class="string">'900s'</span>)</span><br><span class="line"></span><br><span class="line">distance = r.uniform((<span class="number">5</span> - <span class="number">40</span>) / <span class="number">10</span>, (<span class="number">200</span> - <span class="number">40</span>) / <span class="number">10</span>)</span><br><span class="line">distance = norm.rvs(distance, size=<span class="number">120</span>)</span><br><span class="line">distance = distance * <span class="number">10</span> + <span class="number">40</span></span><br><span class="line"></span><br><span class="line">lux = r.uniform((<span class="number">30</span> - <span class="number">720</span>) / <span class="number">770</span>, (<span class="number">25000</span> - <span class="number">720</span>) / <span class="number">770</span>)</span><br><span class="line">lux = norm.rvs(lux, size=<span class="number">120</span>)</span><br><span class="line">lux = lux * <span class="number">770</span> + <span class="number">700</span></span><br><span class="line"></span><br><span class="line">angle = r.uniform(<span class="number">-45</span> / <span class="number">10</span>, <span class="number">45</span> / <span class="number">10</span>)</span><br><span class="line">angle = norm.rvs(angle, size=<span class="number">120</span>)</span><br><span class="line">angle = angle * <span class="number">10</span></span><br><span class="line"></span><br><span class="line">conn = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, port=<span class="number">3306</span>, db=<span class="string">'ahri'</span>, user=<span class="string">'root'</span>, password=<span class="string">''</span>, charset=<span class="string">'utf8'</span>)</span><br><span class="line">cur = conn.cursor()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">96</span>):  <span class="comment"># 插入数据</span></span><br><span class="line">    tmpId = r.choice(userId)  <span class="comment"># 在列表中随机取一个</span></span><br><span class="line">    print(tmpId, str(dateTime[i]), distance[i], lux[i], angle[i])</span><br><span class="line">    cur.execute(<span class="string">"insert into data_series(user_id,date,distance,lux,angle) values(%s,%s,%s,%s,%s)"</span>,</span><br><span class="line">                (tmpId, str(dateTime[i]), int(distance[i]), int(lux[i]), int(angle[i])))</span><br><span class="line">cur.execute(<span class="string">'select * from data_series'</span>)  <span class="comment"># 查询数据</span></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> cur.fetchall():</span><br><span class="line">    print(s)</span><br><span class="line">conn.commit()</span><br><span class="line"></span><br><span class="line">cur.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -923,7 +904,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

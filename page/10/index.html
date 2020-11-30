@@ -158,6 +158,73 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/symmetric-tree/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/symmetric-tree/" class="post-title-link" itemprop="url">symmetric-tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-21 22:14:02 / 修改时间：22:43:47" itemprop="dateCreated datePublished" datetime="2020-03-21T22:14:02+08:00">2020-03-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树，检查它是否是镜像对称的。运用递归和迭代两种方法解决这个问题。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>递归：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare</span><span class="params">(TreeNode* tree1, TreeNode* tree2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (tree1 == <span class="literal">NULL</span> &amp;&amp; tree2 == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (tree1 == <span class="literal">NULL</span> || tree2 == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> tree1-&gt;val == tree2-&gt;val &amp;&amp; compare(tree1-&gt;left, tree2-&gt;right) &amp;&amp; compare(tree1-&gt;right, tree2-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> compare(root-&gt;left, root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :4 ms, 在所有 C++ 提交中击败了92.79%的用户</p>
+<p>内存消耗 :14.3 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
+<p>既然递归这么省事，为什么还要写迭代。</p>
+<p>迭代：</p>
+<p>用到了队列的结构，注意一下左右子树压入的顺序就行了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSymmetric2</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	TreeNode* left = root-&gt;left;</span><br><span class="line">	TreeNode* right = root-&gt;right;</span><br><span class="line">	<span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">	q.push(left);</span><br><span class="line">	q.push(right);</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		left = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		right = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>)<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span> (left == <span class="literal">NULL</span> || right == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">if</span> (left-&gt;val != right-&gt;val)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		q.push(left-&gt;left);</span><br><span class="line">		q.push(right-&gt;right);</span><br><span class="line">		q.push(left-&gt;right);</span><br><span class="line">		q.push(right-&gt;left);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/recover-binary-search-tree/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -942,71 +1009,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/binary-tree-inorder-traversal/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/15/binary-tree-inorder-traversal/" class="post-title-link" itemprop="url">binary-tree-inorder-traversal</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-15 21:46:34 / 修改时间：22:40:55" itemprop="dateCreated datePublished" datetime="2020-03-15T21:46:34+08:00">2020-03-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树，返回它的<em>中序</em> 遍历。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	TreeNode *left;</span><br><span class="line">	TreeNode *right;</span><br><span class="line">	TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res2;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mid_travel</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root)</span><br><span class="line">	&#123;</span><br><span class="line">		mid_travel(root-&gt;left);</span><br><span class="line">		res2.push_back(root-&gt;val);</span><br><span class="line">		mid_travel(root-&gt;right);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</span><br><span class="line">	mid_travel(root);</span><br><span class="line">	<span class="keyword">return</span> res2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p>
-<p>你是想说<font color="red">莫里斯遍历</font>？巧了，我不会。写个基于栈的循环吧：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal2(TreeNode* root) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!root)<span class="keyword">return</span>&#123;&#125;;</span><br><span class="line">	<span class="built_in">stack</span>&lt;TreeNode*&gt; s;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">	s.push(root);</span><br><span class="line">	TreeNode* tmp = root-&gt;left;</span><br><span class="line">	<span class="keyword">while</span> (tmp)</span><br><span class="line">	&#123;</span><br><span class="line">		s.push(tmp);</span><br><span class="line">		tmp = tmp-&gt;left;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		ret.push_back(s.top()-&gt;val);</span><br><span class="line">		tmp = s.top()-&gt;right;</span><br><span class="line">		s.pop();</span><br><span class="line">		<span class="keyword">while</span> (tmp)</span><br><span class="line">		&#123;</span><br><span class="line">			s.push(tmp);</span><br><span class="line">			tmp = tmp-&gt;left;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两个时空比居然没太大差别？</p>
-<p>多亏了官方题解的动图，才能这么快地一遍过。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1077,7 +1079,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

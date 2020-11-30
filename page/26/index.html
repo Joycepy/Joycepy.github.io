@@ -158,6 +158,95 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/数据库大作业笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/10/数据库大作业笔记（五）/" class="post-title-link" itemprop="url">数据库大作业笔记（五）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-10 19:11:59" itemprop="dateCreated datePublished" datetime="2019-05-10T19:11:59+08:00">2019-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-11 15:41:02" itemprop="dateModified" datetime="2019-05-11T15:41:02+08:00">2019-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>想给自己鼓个掌嘻嘻嘻~~我好像终于开始学会看错误信息了，最起码，看到满眼的红色错误不是畏惧而是开始找原因了~</p>
+<h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>我在上一篇笔记中已经写好了mySql中的存储过程，并且现在在mySql中调用该存储过程也没有问题了，现在，我想要通过PHP调用该存储过程。主要是参数的设定不太好处理，需要从表单拿数据，在提交修改的表单之后，会得到：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$_GET = [</span><br><span class="line">    <span class="string">'r'</span> =&gt; <span class="string">'category/update'</span>,</span><br><span class="line">    <span class="string">'id'</span> =&gt; <span class="string">'c1'</span>,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">$_POST = [</span><br><span class="line">    <span class="string">'_csrf-backend'</span> =&gt; <span class="string">'9ueFt7KZe6r4VcicSw6wY4APsVfqiA8RtZwzfESZSQGFn7XExdozxr8ku9F6PeUk5HaCYKjMS3WB9lcjENIfUw=='</span>,</span><br><span class="line">    <span class="string">'Category'</span> =&gt; [</span><br><span class="line">        <span class="string">'catid'</span> =&gt; <span class="string">'c1'</span>,</span><br><span class="line">        <span class="string">'catname'</span> =&gt; <span class="string">'篮球'</span>,</span><br><span class="line">        <span class="string">'price'</span> =&gt; <span class="string">'99'</span>,</span><br><span class="line">    ],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">$_COOKIE = [</span><br><span class="line">    <span class="string">'advanced-backend'</span> =&gt; <span class="string">'pgnho9lendv91620mh8550ev5p'</span>,</span><br><span class="line">    <span class="string">'_identity-backend'</span> =&gt; <span class="string">'c8280c8419576224c687b72352e3857f7a00c329ecb950cd464196e40ab17045a:2:&#123;i:0;s:17:"_identity-backend";i:1;s:46:"[2,"duWP0ncSYE-Rp1HhKBb8ncPdZULCl7yd",2592000]";&#125;'</span>,</span><br><span class="line">    <span class="string">'_csrf-backend'</span> =&gt; <span class="string">'6e9b91d151f1e7590262068eb1f645cd9440d436961faaefed7c4e0996111199a:2:&#123;i:0;s:13:"_csrf-backend";i:1;s:32:"sx0swCHlGqsM13UGdy37BDDd4jd_TKVR";&#125;'</span>,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">$_SESSION = [</span><br><span class="line">    <span class="string">'__flash'</span> =&gt; [],</span><br><span class="line">    <span class="string">'__returnUrl'</span> =&gt; <span class="string">'/yii2/sport_equipment/backend/web/'</span>,</span><br><span class="line">    <span class="string">'__id'</span> =&gt; <span class="number">2</span>,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>然后PHP代码中经过判断，调用update()函数，在这里，想要获取catid和price，使用如下语句：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$Category  = $_POST[<span class="string">'Category'</span>];</span><br><span class="line">$tmpcatid=$Category[<span class="string">'catid'</span>];</span><br><span class="line">$price=$Category[<span class="string">'price'</span>];</span><br><span class="line">var_dump($catname,$price); <span class="comment">#查看结果</span></span><br><span class="line"><span class="keyword">exit</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>从得到的结果中看出，我们已经成功获取参数啦~</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string(2) "c1" string(3) "120"</span><br></pre></td></tr></table></figure>
+<p>然后就方便了：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$db = Yii::$app-&gt;db;</span><br><span class="line">$db-&gt;createCommand(<span class="string">"set @p0=$catid,@p0=$price"</span>)-&gt;execute();</span><br><span class="line">$db-&gt;createCommand(<span class="string">"call pro_update(@p0,@p1)"</span>)-&gt;execute();</span><br></pre></td></tr></table></figure>
+<p>好吧，问题又来了——catid现在的值是c1，但实际上我应该给@p0的是‘c1’，报错信息：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c1' in 'field list'</span><br><span class="line">The SQL being executed was: set @p0=c1,@p0=99</span><br><span class="line">Error Info: Array</span><br><span class="line">(</span><br><span class="line">    [0] =&gt; 42S22</span><br><span class="line">    [1] =&gt; 1054</span><br><span class="line">    [2] =&gt; Unknown column 'c1' in 'field list'</span><br><span class="line">)</span><br><span class="line">↵</span><br><span class="line">Caused by: PDOException</span><br><span class="line">SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c1' in 'field list'</span><br></pre></td></tr></table></figure>
+<p>所以大概是要用到php的字符串连接了</p>
+<p>语法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$s1=<span class="string">'i'</span>;</span><br><span class="line">$s2=<span class="string">' love '</span>;</span><br><span class="line">$s3=<span class="string">'u'</span>;</span><br><span class="line">$s4=$s1.$s2.$s3.$s4;</span><br><span class="line"></span><br><span class="line">$catid=<span class="string">"'"</span>.$tmpcatid.<span class="string">"'"</span>;</span><br></pre></td></tr></table></figure>
+<p>最后的问题在于，我发现这句话没有起作用哇…这可如何是好，留到明天解决吧…至少这个command在MySQL里的执行是没有问题的了，大概是要换一种PHP的写法哦（Path:common\models\Category.php）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$db-&gt;createCommand(<span class="string">"SET @p0=$catid; SET @p1=$price; CALL `proc_update`(@p0, @p1);"</span>)-&gt;execute();</span><br></pre></td></tr></table></figure>
+<hr>
+<p>试了另外一种方法，还是不行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$Category  = $_POST[<span class="string">'Category'</span>];</span><br><span class="line">$tmpcatid=$Category[<span class="string">'catid'</span>];</span><br><span class="line">$price=$Category[<span class="string">'price'</span>];</span><br><span class="line"></span><br><span class="line">$catid=<span class="string">"'"</span>.$tmpcatid.<span class="string">"'"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// $conn = mysqli_connect('localhost','root','') or die("MYSQL_connect:".mysql_errno());</span></span><br><span class="line"><span class="comment">// $query = "SET @p0=$catid; SET @p1=$price; CALL `proc_update`(@p0, @p1);";</span></span><br><span class="line"><span class="comment">// $query_e = explode(';','$query');</span></span><br><span class="line"><span class="comment">// foreach ($query_e as $k =&gt;$v)</span></span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">// mysqli_query($conn,$query_e[$k]);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// $db = Yii::$app-&gt;db;</span></span><br><span class="line"><span class="comment">// $db-&gt;createCommand("SET @p0=$catid; SET @p1=$price; CALL `proc_update`(@p0, @p1);")-&gt;execute();</span></span><br></pre></td></tr></table></figure>
+<p>未解….</p>
+<p>作为补偿，在这里记一下PHP中单引号和双引号的区别：</p>
+<p><a href="https://www.cnblogs.com/peteremperor/p/6375085.html" target="_blank" rel="noopener">PHP中单引号和双引号的区别</a></p>
+<p>在PHP中，字符串的定义可以使用英文单引号’ ‘，也可以使用英文双引号” “。一般情况下两者通用的。但双引号内部变量会解析,单引号则不解析。双引号中的变量($var)和特殊字符(\r\n之类)会被转义。单引号中的内容不会被转义，总被认为是普通字符，因此效率更高。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$str=<span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"str is $str"</span>; <span class="comment">//运行结果: str is hello</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'str is $str'</span>; <span class="comment">//运行结果: str is str</span></span><br></pre></td></tr></table></figure>
+<p>看颜色也就能看出区别吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/Yii框架的那些坑（二）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -840,74 +929,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/2018-06CET6_1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/05/2018-06CET6_1/" class="post-title-link" itemprop="url">2018-06CET6_1_Trans&Compt</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-05 19:58:27 / 修改时间：20:08:53" itemprop="dateCreated datePublished" datetime="2019-05-05T19:58:27+08:00">2019-05-05</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>过去，拥有一辆私家车对大部分中国人而言是件奢侈的事。如今，私家车在中国随处可见。<br>汽车成了人们生活中不可或缺的一部分，他们不仅开车上下班，还经常驾车出游。有些城市<br>的汽车增长速度过快，以至于交通拥堵和停车位不足的问题日益严峻，这些城市的市政府不<br>得不出台新规，限制上路汽车的数量。由于空气污染日益严重，现在越来越多的人选择购买 新能源汽车，中国政府也采取了一些措施，支持新能源汽车的发展。</p>
-<p>In the past. Owning a private car was a <strong>luxury</strong> thing for most Chinese. Nowadays, private cars can be seen everywhere in China. Cars have <strong>become an integral part of</strong> people’s life: they not only <strong>drive to and from work</strong>, but also travel around by car. <strong>Spikes in ownership</strong> have <strong>resulted in</strong> more <strong>prevalent traffic gridlock and inadequate parking space</strong> in some cities, which has <strong>prompted</strong> local governments to <strong>roll out new rules</strong> to <strong>rein in</strong> the number of cars on the road. As air pollution gets more <strong>serious</strong>, now more and<br>more people choose to buy <strong>new energy vehicles</strong>. The Chinese government has <strong>taken some measure</strong> to support the development of new energy vehicles.</p>
-<h5 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h5><p>Integral: forming a necessary part of something. Eg: Vegetables are an integral part of our diet.</p>
-<p>Gridlock[un.]: a situation in which streets in a city are so full of cars that they can’t move.</p>
-<p>Roll out : 铺开，滚出，推出（新产品、服务等），实行（新制度），开展</p>
-<p>You should learn to rein in your temper.</p>
-<h4 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h4><h5 id="Directions-For-this-part-you-are-allowed-30minutes-to-write-an-essay-on-the-importance-ofbuilding-trust-between-employers-and-employees-You-can-cite-examples-to-illustrate-yourviews-You-should-write-at-least-150-words-but-no-more-than-200-words"><a href="#Directions-For-this-part-you-are-allowed-30minutes-to-write-an-essay-on-the-importance-ofbuilding-trust-between-employers-and-employees-You-can-cite-examples-to-illustrate-yourviews-You-should-write-at-least-150-words-but-no-more-than-200-words" class="headerlink" title="Directions: For this part, you are allowed 30minutes to write an essay on the importance ofbuilding trust between employers and employees. You can cite examples to illustrate yourviews. You should write at least 150 words but no more than 200 words."></a>Directions: For this part, you are allowed 30minutes to write an essay on the importance ofbuilding trust between employers and employees. You can cite examples to illustrate yourviews. You should write at least 150 words but no more than 200 words.</h5><p>The Importance of Building Trust Between Employers and Employees</p>
-<p><strong>It is an undeniable fact that</strong> trust can <strong>lay a solid foundation</strong> for <strong>commercial activities</strong>. Therefore, building trust between employers and employees <strong>plays a crucial role</strong> in <strong>boosting an organization</strong>.</p>
-<p><strong>To begin with</strong>, as the saying goes, the best bosses understand the art of <strong>delegation</strong>. If a boss believes in his people and tries his best to delegate instead of <strong>micromanaging</strong>, this kind of belief can <strong>drive</strong> him to create an environment where employees would <strong>have passion for work</strong> and work efficiently. Next, with trust, employers and employees can <strong>achieve mutual consensus</strong>, <strong>build harmonious cooperation</strong> and have effective communication, which is beneficial to <strong>create a pleasant working atmosphere</strong>. In this way, <strong>not surprisingly</strong>, the two parties can directly prompt the rapid progress of the organization and indirectly <strong>spur  continuous development</strong> of the individuals.</p>
-<p><strong>Taking into account</strong> what we have discussed above, we may <strong>safely arrive at a conclusion</strong> that it is <strong>sensible</strong> for both employers and employees to <strong>keep in mind</strong> that mutual trust contributes to realizing <strong>a win-win situation.</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -978,7 +999,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

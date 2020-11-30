@@ -158,6 +158,75 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/git_tip2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/10/git_tip2/" class="post-title-link" itemprop="url">git_tip2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-10 21:49:35" itemprop="dateCreated datePublished" datetime="2019-08-10T21:49:35+08:00">2019-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-17 22:16:15" itemprop="dateModified" datetime="2020-01-17T22:16:15+08:00">2020-01-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用hexo时遇到的两个小问题：</p>
+<h4 id="YAMLException"><a href="#YAMLException" class="headerlink" title="YAMLException"></a>YAMLException</h4><p>原因：创建的md文件头部声明中没有加空格</p>
+<h4 id="Template-render-error"><a href="#Template-render-error" class="headerlink" title="Template render error"></a>Template render error</h4><p>原因：当文章中两个连续的大括号时，且这两个括号未被代码块包含，解析会出问题</p>
+<h4 id="版本管理SVN与GIT"><a href="#版本管理SVN与GIT" class="headerlink" title="版本管理SVN与GIT"></a>版本管理SVN与GIT</h4><p>SVN（Subversion）是集中式管理的版本控制器，而Git是分布式管理的版本控制器！这是两者之间最核心的区别。<br>SVN只有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。<br>Git每一个终端都是一个仓库，客户端并不只提取最新版本的文件快照，而是把原始的代码仓库完整地镜像下来。每一次的提取操作，实际上都是一次对代码仓库的完整备份。</p>
+<h3 id="ssh-Could-not-resolve-hostname-github-com-Name-or-service-not-known-fatal-The-remote-end-hung-up-unexpectedly"><a href="#ssh-Could-not-resolve-hostname-github-com-Name-or-service-not-known-fatal-The-remote-end-hung-up-unexpectedly" class="headerlink" title="ssh: Could not resolve hostname github.com: Name or service not known; fatal: The remote end hung up unexpectedly"></a>ssh: Could not resolve hostname github.com: Name or service not known; fatal: The remote end hung up unexpectedly</h3><h4 id="发布博客到Github："><a href="#发布博客到Github：" class="headerlink" title="发布博客到Github："></a>发布博客到Github：</h4><p>发表的文章在本地预览无误后，在 Git Bash 命令窗口执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/mini-pro-Note2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -963,139 +1032,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/互联网数据库大作业Note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/04/互联网数据库大作业Note1/" class="post-title-link" itemprop="url">互联网数据库大作业Note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-04 22:25:55" itemprop="dateCreated datePublished" datetime="2019-07-04T22:25:55+08:00">2019-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-07-11 18:57:52" itemprop="dateModified" datetime="2019-07-11T18:57:52+08:00">2019-07-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用git下面的命令时</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
-<p>报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pathspec &apos;master&apos; did not match any file(s) known to git.</span><br></pre></td></tr></table></figure>
-<p>解决过程：</p>
-<ol>
-<li>查看分支情况（git branch -a）</li>
-<li>没有看到master的分支，则需要先获取所有分支（git fetch）</li>
-<li>切换到远程master分支（git checkout origin/master）</li>
-<li>从当前的detached分支切换并新建分支（git checkout -b master）</li>
-<li>建立本地分支和远程分支的追踪关系（git branch -u origin/master master）</li>
-<li>git pull得到反馈：Already up-to-date.</li>
-</ol>
-<hr>
-<p>yii2初始化： init，开发环境：0，yes</p>
-<p>Yii2 初始化的主要工作是产生一些配置文件和脚本文件,使用 <code>GitHub</code> 作为代码版本库，这些配置和脚本文件默认是被忽略提交的</p>
-<blockquote>
-<p>根目录下的 <code>/vendor</code> 是第三方代码库（包括Yii2源码等），默认情况下是忽略提交的，由 <code>Composer</code> 维护。</p>
-</blockquote>
-<blockquote>
-<p>但由于 <code>Composer</code> 在中国被墙速度慢，所以此推荐将 <code>/vendor</code> 也加入版本库，具体操作：注释掉根目录下 <code>/.gitignore</code> 文件里的 <em>/vendor</em> 内容。</p>
-</blockquote>
-<p><a href="https://v.youku.com/v_show/id_XMTY2MDMyMDAyOA==.html" target="_blank" rel="noopener">使用gii</a></p>
-<hr>
-<p><strong>yii2安装后台adminlet模板报错： ‘dmstr\web\AdminLteAsset’不存在</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">到项目的advenced目录下，在安装后台模板框架执行命令: composer require dmstr/yii2-adminlte-asset &quot;2.*&quot;</span><br></pre></td></tr></table></figure>
-<p>后台主题安装成功后，将主题配置到yii中去：copy项目vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app下的layouts和site拷贝到backend/views下面，将默认的layouts和site替换覆盖即可.</p>
-<p>Seems you have downgraded Yii Framework from version 2.0.16.1 to 2.0.11.</p>
-<hr>
-<p><strong>Fatal error</strong>: Cannot use ‘Object’ as class name as it is reserved in <strong>E:\Xampp\htdocs\yii2\Centenary\vendor\yiisoft\yii2\base\Object.php</strong> on line <strong>77</strong></p>
-<p>.\vendor\yiisoft\yii2\base\Object.php：</p>
-<p> * Object is the base class that implements the <em>property</em> feature. It has been replaced by [[BaseObject]] in version 2.0.13 because <code>object</code> has become a reserved word which can not be used as class name in PHP 7.2.</p>
-<hr>
-<p>不能登录进入index时：</p>
-<p>SiteController.php中behaviors()：access的action中role由@改为？</p>
-<p>@表示已登录用户，？表示游客</p>
-<hr>
-<p>backend\config\main.php</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'user'</span> =&gt; [</span><br><span class="line">           <span class="string">'identityClass'</span> =&gt; <span class="string">'common\models\Adminuser'</span>,</span><br><span class="line">    ...</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
-<hr>
-<p>Uncaught Error: Using $this when not in object context in ……</p>
-<p>解决：在backend\views\layouts\left.php中：[‘label’ =&gt; ‘留言管理’, ‘icon’ =&gt; ‘ fa-database’, ‘url’ =&gt; [<font color="red">‘/message/index’</font>]],</p>
-<hr>
-<p>模板放进yii2框架</p>
-<p>asset文件夹</p>
-<p>yii框架改三个地方：/assets/AppAsset.php资源目录文件（header照抄css，script中照抄js），/web/资源目录（），/views/layout页面布局文件（嵌入模板\&lt;？= \$content&gt;呈现子页面）</p>
-<p>HTML代码改成PHP代码后可引入文件</p>
-<p>actionIndex中指出使用哪个页面：$this-&gt;layout=” “</p>
-<p>controller/access：页面是否可达</p>
-<p>json数据交换格式</p>
-<p>composer.update自动升级，解决由依赖导致的冲突</p>
-<p>插件<a href="https://packagist.org/?query=select2" target="_blank" rel="noopener">https://packagist.org/?query=select2</a></p>
-<p>maven在java中组件管理</p>
-<p>修改基类：添加BaseController，使之继承Controller，作为一个中间类，不要修改源码</p>
-<hr>
-<p>命名规范：</p>
-<p>view:全为小写，不同的单词用横线分隔</p>
-<p>model与controller:开头字母小写，不同单词首字母大写</p>
-<hr>
-<p>占位符，内置机理，防止sql注入</p>
-<p>csrf：f12 “Form Data”中_csrf防止csrf攻击，模仿站点</p>
-<p>客户端（浏览器）————服务器（yii框架PHP…）</p>
-<ol>
-<li>请求资源（服务器生成csrf并传递给客户端） 2. 服务器返回资源（返回登录页，加密的csrf,cookie） 3. 客户端提交信息 4. 服务器返回信息的结果（服务器比较csrf是否一样）</li>
-</ol>
-<p>f12  application  storage</p>
-<p>xss：蠕虫攻击</p>
-<hr>
-<p>在yii2中使用echarts：1. 以插件引入 2. 以js引入（<a href="https://echarts.baidu.com/echarts2/doc/start.html）" target="_blank" rel="noopener">https://echarts.baidu.com/echarts2/doc/start.html）</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1166,7 +1102,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
