@@ -158,6 +158,119 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/计组复习笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/15/计组复习笔记（五）/" class="post-title-link" itemprop="url">计组复习笔记（五）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-15 20:33:35" itemprop="dateCreated datePublished" datetime="2019-06-15T20:33:35+08:00">2019-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-16 22:38:15" itemprop="dateModified" datetime="2019-06-16T22:38:15+08:00">2019-06-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>冯诺依曼计算机工作方式的基本特点：按地址访问并顺序执行指令</p>
+<p>指令寄存器（Instruction Register，IR）用来保存当前正在执行的一条指令。程序计数器（Program Counter，PC）用来指出下一条指令在主存储器中的地址。</p>
+<p>[例题]一个四路组相联的cache共有64块,主存共有8192块,每块32字,则主存地址中字块标记,组地址,块内地址的位数分别是：<font color="red">9,4,5</font></p>
+<p>从题中可看出：<br>每块32字所以块内地址为5位,2的5次方等于32,.<br>64/4=16组,2的4次方等于16,所以组地址为4位,（如果是直接相连的话,那么就是2的6次方等于64,块地址就为6位了,但是这里是4路组相连,所以是组地址,而不是块地址）<br>然后主存一共有8192*32个字,取LOG,也就是18位,<br>所以字块标记为18-5-4=9位.<br>主存字块标记 组地址 块内地址<br>9位 4位 5位        <font color="red">不要总认为地址就是32位呀！！！</font></p>
+<p>浮点乘法判溢出的时刻是：阶码求和之后尾数相乘并规格化之后</p>
+<p>RISC有乘除指令和浮点运算指令。RISC的主要目的是减少指令数。</p>
+<p>在微程序处理器中，N种微操作，控制字段要设置的位数是$log_2N向上取整+1$    <font color="red">考虑N=1的情况</font></p>
+<p>在规格化数表示中，保持其他方面不变，将阶码部分的移码改为补码表示，则数的表示范围不变。</p>
+<p>认真读题——“每次取<font color="red">一个字节</font>PC自动加1”，“两个字节”</p>
+<p>寄存器间接寻址方式：寄存器内存放的是操作数的地址，而不是操作数本身，即操作数是通过寄存器间接得到的。操作数处于内存单元中。</p>
+<p>寄存器相对寻址方式：操作数在存储器中，其有效地址是一个基址寄存器(BX、BP)或变址寄存器(SI、DI)的内容和指令中的8位/16位偏移量之和。</p>
+<p>为提高存储器存取效率，通常将同一文件存放在不同面的同一磁道上。</p>
+<p>正数的<strong>反码</strong>等于其原<strong>码</strong>，而负数的<strong>反码</strong>则可以通过保留其<strong>符号位</strong>，将原<strong>码</strong>的数值<strong>位</strong>取<strong>反</strong>得到。</p>
+<p>硬件向量法， 就是通过向量地址来寻找设备的中断服务程序入口地址，而且向量地址是由硬件电路产生的。</p>
+<p><strong>题目3.47</strong> 下面C代码实现了一个4阶FIR滤波器，输入为数组 sig_in 。设所有数组元素为16位定点数。假设你要面向 一个具有SIMD指令集且有128位寄存器的处理器，用汇编语言优化该代码。在不知指令细节的情况下，简要介绍一 下如何实现该代码，最大限度用字并行操作，并使寄存器和存储器间数据传送量最少。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i=<span class="number">3</span>;i&lt;<span class="number">128</span>;i++)    sig_out[i] = sig_in[i<span class="number">-3</span>]*f[<span class="number">0</span>]+sig_in[i<span class="number">-2</span>]*f[<span class="number">1</span>]+sig_in[i<span class="number">-1</span>]*f[<span class="number">2</span>]+sig_in[i]*f[<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<p>伪代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">F=[f[<span class="number">3</span>],f[<span class="number">2</span>],f[<span class="number">1</span>],f[<span class="number">0</span>],f[<span class="number">3</span>],f[<span class="number">2</span>],f[<span class="number">1</span>],f[<span class="number">0</span>]]</span><br><span class="line">B=[sig_in[<span class="number">7</span>],sig_in[<span class="number">6</span>],...,sig_in[<span class="number">0</span>]]</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">    A=[sig_in[i*<span class="number">8</span>+<span class="number">7</span>],...,sig_in[i*<span class="number">8</span>+<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">if</span> i&gt;<span class="number">0</span></span><br><span class="line">        <span class="comment">// 为了保证i=0时不会数组下界溢出</span></span><br><span class="line">        B=[sig_in(i<span class="number">-1</span>)*<span class="number">8</span>+<span class="number">7</span>,...,sig_in[(i<span class="number">-1</span>)*<span class="number">8</span>+<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">        C=A*F</span><br><span class="line">    	sig_out[i*<span class="number">8</span>+j+<span class="number">4</span>],sig_out[i*<span class="number">8</span>+j]=C[<span class="number">127</span>:<span class="number">64</span>],C[<span class="number">63</span>:<span class="number">0</span>]</span><br><span class="line">        A=A&lt;&lt;<span class="number">16</span>*<span class="number">1b</span>it</span><br><span class="line">        E=B&gt;&gt;<span class="number">16</span>*<span class="number">7b</span>it</span><br><span class="line">        A=A OR E</span><br><span class="line">        B=B&lt;&lt;<span class="number">16</span>*<span class="number">1b</span>it<span class="comment">// 为A提供持续最右侧sig_in[]</span></span><br></pre></td></tr></table></figure>
+<p>==作业5.7.1==：j的初始值应为3，条件是≥0，–j；另外在i=0时要将B设为全0</p>
+<p><strong>吞吐率</strong>：单位时间内流水线所完成的任务数量或输出结果的数量</p>
+<p><strong>效率</strong></p>
+<p><strong>加速比</strong></p>
+<font color="red">Cache的字块内地址</font> VS <font color="blue">Cache的字块地址</font>
+
+<hr>
+<p>正数的补码反码和原码是一样的。原码和补码之间的互换方式都是除符号位之外，按位取反，末位加1</p>
+<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/blog\source\_posts\sql\28.PNG" alt="28"></p>
+<p>推断 跳转指令的转移地址 (PC+4)+(OFFSET)*4</p>
+<p>条件转移指令的相对位移量（16位，用补码表示）的范围为：$-2^{15}至 +(2^{15}-1)$（是相对于转移指令的下调指令而言）。及最多往前调到第32768条指令(131072个单元)，最多往后跳到第32767条指令(131068个单元)。</p>
+<p>无条件转移指令的目标地址范围为：0~$2^{26}-1$（相对于下条指令），即，最近就跳到下条指令，最远跳到后面的$2^{26}-1$条指令</p>
+<p>注意计算时int+short时的符号扩展</p>
+<p>对阶操作不会引起阶码的溢出，因为是小阶向大阶对齐；右规可能造成阶码上溢；左规可能造成阶码下溢；尾数舍入过程，阶码加 1 而可能上溢；尾数溢出时结果不一定溢出。</p>
+<p>某计算机的Cache共有32块，采用8路组相联映射方式。每个主存块大小为16字节，按字节编址。主存133号单元所在主存块应装入到的Cache组号是 <font color="red">0</font></p>
+<font color="red">汇编指令与流水线结合，如何修改给定的汇编代码，使得总指令周期最短？涉及到冒险的知识？</font>
+
+<font color="red">Cache和虚存，已知Cache和内存表，给出访问要求，列出命中情况</font>
+
+<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/blog\source\_posts\sql\29.PNG" alt="29"></p>
+<p><strong>(3)</strong></p>
+<p>在1000条指令过程中共访问存储器1500次，其中1410次仅访问一级Cache，54次访问至二级Cache，36次访问主存储器，要求它们的平均值：</p>
+<p>$(1410<em>1+54</em>10+36*100)/1500=3.7$</p>
+<p><strong>(4)</strong></p>
+<p>访存这一个动作，理论上只需要一个周期，一条指令有1.5次访存，也就是1.5个周期。而实际用了3.7个周期，多出来的2.2个时钟周期即为访问存储器导致的停顿。</p>
+<p><strong>(5)</strong></p>
+<p>每条指令访存1.5次，每次访存需要3.7个周期，只考虑访问存储器的话，CPI=1.5*3.7=5.55</p>
+<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/Users\asus\AppData\Roaming\Typora\typora-user-images\1560692574537.png" alt="1560692574537"></p>
+<hr>
+<font color="pink">今天是很美好的一天，因为和爸爸说了“父亲节快乐！”</font>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/计组复习笔记（四）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1451,75 +1564,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/鹰蛋/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/06/鹰蛋/" class="post-title-link" itemprop="url">鹰蛋</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-06 17:28:35" itemprop="dateCreated datePublished" datetime="2019-06-06T17:28:35+08:00">2019-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 17:21:16" itemprop="dateModified" datetime="2019-06-07T17:21:16+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>假设有m层楼，n个鹰蛋，最高从哪层楼扔下时蛋不会碎？f(m, n)为m层楼，n个鹰蛋所需次数。在第i层试探时：1、鹰蛋摔破，下一步只有n-1个鹰蛋，总楼层数缩减为i-1；2、鹰蛋没有摔破，那么鹰蛋总数不变，还是n个，楼层数则缩减为m-i层。递归在以下3个状态结束：1）如果鹰蛋只剩1个，对所有的楼层进行穷举；2）如果楼层是0，则需要试探0次； 3）如果楼层是1，则需要只需要试探1次。</p>
-<p>要<strong>保证</strong>能测出蛋<strong>恰好会碎</strong>的楼层, 并使此策略在<strong>最坏情况下所扔次数最少</strong></p>
-<p>动态规划的状态转移：F(m,n)= MIN{ MAX{ F(i-1, n-1) + 1, F(m-i, n)+1}} (0 &lt; i &lt; m)</p>
-<p>递归的过程中会重复的解，通过array[M][N]来保存子问题的结果</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> nfloor = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> negg = <span class="number">2</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a, b) (a) &gt; (b) ? (a) : (b)</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> arr[nfloor][negg];</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test_egg</span><span class="params">(<span class="keyword">int</span> nfloors, <span class="keyword">int</span> neggs)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">if</span>(neggs &lt;= <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> nfloors;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span>(nfloors == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span>(nfloors == <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> min = nfloor;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span>(arr[nfloors<span class="number">-1</span>][neggs<span class="number">-1</span>] != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> arr[nfloors<span class="number">-1</span>][neggs<span class="number">-1</span>];</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nfloors; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a = test_egg(i<span class="number">-1</span>, neggs<span class="number">-1</span>) + <span class="number">1</span>;	</span><br><span class="line">		<span class="keyword">int</span> b = test_egg(nfloors - i, neggs) + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> v = MAX(a, b); <span class="comment">//有两种情况，要求最坏情况下的所需次数</span></span><br><span class="line"> </span><br><span class="line">		<span class="keyword">if</span>(min &gt;  v)</span><br><span class="line">			min = v;<span class="comment">//记录所有扔法中次数最少的</span></span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	arr[nfloors<span class="number">-1</span>][neggs<span class="number">-1</span>] = min;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> min;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, _TCHAR* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">memset</span>(arr, <span class="number">0</span>, nfloor*negg*<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="keyword">int</span> a = test_egg(nfloor,negg);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1590,14 +1634,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

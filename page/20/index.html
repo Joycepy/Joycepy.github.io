@@ -158,6 +158,139 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/python学习阶段总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/07/python学习阶段总结/" class="post-title-link" itemprop="url">python学习阶段总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-07-07 09:26:39 / 修改时间：20:04:55" itemprop="dateCreated datePublished" datetime="2019-07-07T09:26:39+08:00">2019-07-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="python编程基础"><a href="#python编程基础" class="headerlink" title="python编程基础"></a>python编程基础</h3><ul>
+<li><h4 id="搭建编程环境"><a href="#搭建编程环境" class="headerlink" title="搭建编程环境"></a>搭建编程环境</h4></li>
+</ul>
+<ol>
+<li>下载python：下载网址：<a href="https://www.python.org/downloads/windows/，选择python3的版本，选择python的可执行文件安装包" target="_blank" rel="noopener">https://www.python.org/downloads/windows/，选择python3的版本，选择python的可执行文件安装包</a></li>
+<li>安装python：python3.6已经可以自动添加环境变量，python2需要手动配置环境变量</li>
+<li>pycharm的安装与配置：下载网址：<a href="http://www.jetbrains.com/pycharm/，下载社区版" target="_blank" rel="noopener">http://www.jetbrains.com/pycharm/，下载社区版</a></li>
+</ol>
+<ul>
+<li><h4 id="python基础知识"><a href="#python基础知识" class="headerlink" title="python基础知识"></a>python基础知识</h4></li>
+</ul>
+<ol>
+<li>变量和类型、变量命名、运算符</li>
+<li>If…elif…else</li>
+<li>for-in循环</li>
+<li>函数及参数 ：def 关键字 、参数默认值 、可变参数</li>
+<li>变量作⽤用域 ： 局部作⽤用域、嵌套作⽤用域 、全局作⽤用域</li>
+<li>字符串及常⽤用⽅方法 </li>
+<li>常⽤用数据结构：列表 list（可重复，数组 ） 、元组 tuple（值不能被修改 ） 、集合 set（值不重复 ） 、字典 dict（键值对，类似map）</li>
+<li>⾯向对象编程： 定义类、继承（子类继承父类的属性+方法）</li>
+<li>文件读取： 文件的打开⽅方式、捕获异常，增强健壮性</li>
+</ol>
+<h3 id="爬虫的基本技术"><a href="#爬虫的基本技术" class="headerlink" title="爬虫的基本技术"></a>爬虫的基本技术</h3><ul>
+<li>定义：是按照一定的规则自动浏览万维网并获取信息的机器人程序</li>
+<li>分类 ：通用网络爬虫（ 从一个种子URL扩充到整个—— 深度/广度优先策略 ）、聚焦网络爬虫、增量式网络爬虫 、Deep Web爬虫 </li>
+<li>工作流程：</li>
+</ul>
+<ol>
+<li>​    设定抓取目标（种子页面/起始页面）并获取网页。 </li>
+<li>​    当服务器无法访问时，按照指定的重试次数尝试重新下载页面。 </li>
+<li>​    在需要的时候设置用户代理或隐藏真实IP，否则可能无法访问页面。 </li>
+<li>​    对获取的页面进行必要的解码操作然后抓取出需要的信息。 </li>
+<li>​    在获取的页面中通过某种方式（如正则表达式）抽取出页面中的链接信息。 </li>
+<li>​    对链接进行进一步的处理（获取页面并重复上面的动作）。 </li>
+<li>​    将有用的信息进行持久化以备后续的处理</li>
+</ol>
+<ul>
+<li>工作原理：</li>
+</ul>
+<p>Robots.txt文件中说明user-agent以及可以访问或不能访问的内容</p>
+<ul>
+<li>爬虫设计：</li>
+</ul>
+<ol>
+<li>下载网页：urllib.requests</li>
+<li>解析网页：BeautifulSoup</li>
+<li>模拟交互，处理JS动态网页Selenium</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">'user-agent'</span>: <span class="string">'Baiduspider'</span>&#125;</span><br><span class="line">base_url = <span class="string">'https://www.zhihu.com/'</span></span><br><span class="line">seed_url = urljoin(base_url, <span class="string">'explore'</span>)</span><br><span class="line">l1 = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spider</span><span class="params">(url, c)</span>:</span></span><br><span class="line">    link_set = []</span><br><span class="line">    titles = []</span><br><span class="line">    link_set.append(url)</span><br><span class="line">    print(<span class="string">'Begin!'</span>)</span><br><span class="line">    dfs(url, <span class="number">1</span>, c, link_set, titles)</span><br><span class="line">    print(<span class="string">'End, 共爬取了%d个页面！'</span> % len(link_set))</span><br><span class="line">    <span class="keyword">return</span> titles, link_set</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(url, k, c, links, titles)</span>:</span></span><br><span class="line">    resp = requests.get(url, headers=headers)</span><br><span class="line">    soup = BeautifulSoup(resp.text, <span class="string">'lxml'</span>)</span><br><span class="line">    href_regex = re.compile(<span class="string">r'^/question'</span>)</span><br><span class="line">    titles.append(soup.title.string)</span><br><span class="line">    <span class="keyword">if</span> k == c:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> a_tag <span class="keyword">in</span> soup.find_all(<span class="string">'a'</span>, &#123;<span class="string">'href'</span>: href_regex&#125;):</span><br><span class="line">        href = a_tag.attrs[<span class="string">'href'</span>]</span><br><span class="line">        full_url = urljoin(base_url, href)</span><br><span class="line">        <span class="keyword">if</span> full_url <span class="keyword">in</span> links:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            links.append(full_url)</span><br><span class="line">            l1[k - <span class="number">1</span>] = l1[k - <span class="number">1</span>] + <span class="number">1</span></span><br><span class="line">            dfs(full_url, k + <span class="number">1</span>, c, links, titles)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">titles, links = spider(seed_url, <span class="number">4</span>)</span><br><span class="line">f = open(<span class="string">'test.txt'</span>, <span class="string">'w'</span>)  <span class="comment"># 若是'wb'就表示写二进制文件</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(titles)):</span><br><span class="line">    <span class="comment"># print(links[i], titles[i])</span></span><br><span class="line">    s = str(links[i]) + str(titles[i]) + <span class="string">'\n'</span></span><br><span class="line">    f.write(s)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> l1:</span><br><span class="line">    f.write(str(x) + <span class="string">'\n'</span>)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<h3 id="高级爬虫框架SCRAPY"><a href="#高级爬虫框架SCRAPY" class="headerlink" title="高级爬虫框架SCRAPY"></a>高级爬虫框架SCRAPY</h3><h4 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h4><ol>
+<li><p>name: 必须 </p>
+</li>
+<li><p>start_url、start_requests至少 一个存在 </p>
+</li>
+<li><p>运行：scrapy runspider quotes_spider.py -o quotes.json </p>
+</li>
+<li><p>parse: 默认回调函数 </p>
+</li>
+</ol>
+<p><strong>重要概念：</strong>css选择器、 yield关键字</p>
+<p><strong>response.follow</strong> </p>
+<ol>
+<li>支持相对URL，无需调用URLJOIN </li>
+<li>支持选择器 </li>
+<li>支持html标签</li>
+</ol>
+<h4 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h4><p><strong>查看帮助：</strong> </p>
+<p>scrapy -h </p>
+<p><strong>创建项目：</strong> </p>
+<p>scrapy startproject -h </p>
+<p>scrapy startproject tutorial</p>
+<p><strong>运行：</strong> </p>
+<p>scrapy crawl -h </p>
+<p>scrapy crawl quotes</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># class QuoteSpider(scrapy.Spider):</span></span><br><span class="line"><span class="comment">#     name = 'quotes'</span></span><br><span class="line"><span class="comment">#     start_urls = [</span></span><br><span class="line"><span class="comment">#         'http://quotes.toscrape.com/tag/humor/',</span></span><br><span class="line"><span class="comment">#     ]</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     def parse(self, response):</span></span><br><span class="line"><span class="comment">#         for quote in response.css('div.quote'):</span></span><br><span class="line"><span class="comment">#             yield &#123;</span></span><br><span class="line"><span class="comment">#                 'text': quote.css('span.text::text').get(),</span></span><br><span class="line"><span class="comment">#                 'author': quote.xpath('span/small/text()').get(),</span></span><br><span class="line"><span class="comment">#             &#125;</span></span><br><span class="line"><span class="comment">#             next_page = response.css('li.next a::attr("href")').get()</span></span><br><span class="line"><span class="comment">#             if next_page is not None:</span></span><br><span class="line"><span class="comment">#                 yield response.follow(next_page, self.parse)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QuoteSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">"quotes"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        urls = [</span><br><span class="line">            <span class="string">'http://quotes.toscrape.com/page/1/'</span>,</span><br><span class="line">            <span class="string">'http://quotes.toscrape.com/page/2/'</span>,</span><br><span class="line">        ]</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(url=url, callback=self.parse)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        page = response.url.split(<span class="string">"/"</span>)[<span class="number">-2</span>]</span><br><span class="line">        filename = <span class="string">'quotes-%s.html'</span> % page</span><br><span class="line">        <span class="keyword">with</span> open(filename, <span class="string">'wb'</span>)<span class="keyword">as</span> f:</span><br><span class="line">            f.write(response.body)</span><br><span class="line">        self.log(<span class="string">'Save file %s'</span> % filename)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/互联网数据库大作业Note1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -874,119 +1007,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/计组复习笔记（五）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/15/计组复习笔记（五）/" class="post-title-link" itemprop="url">计组复习笔记（五）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-15 20:33:35" itemprop="dateCreated datePublished" datetime="2019-06-15T20:33:35+08:00">2019-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-16 22:38:15" itemprop="dateModified" datetime="2019-06-16T22:38:15+08:00">2019-06-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>冯诺依曼计算机工作方式的基本特点：按地址访问并顺序执行指令</p>
-<p>指令寄存器（Instruction Register，IR）用来保存当前正在执行的一条指令。程序计数器（Program Counter，PC）用来指出下一条指令在主存储器中的地址。</p>
-<p>[例题]一个四路组相联的cache共有64块,主存共有8192块,每块32字,则主存地址中字块标记,组地址,块内地址的位数分别是：<font color="red">9,4,5</font></p>
-<p>从题中可看出：<br>每块32字所以块内地址为5位,2的5次方等于32,.<br>64/4=16组,2的4次方等于16,所以组地址为4位,（如果是直接相连的话,那么就是2的6次方等于64,块地址就为6位了,但是这里是4路组相连,所以是组地址,而不是块地址）<br>然后主存一共有8192*32个字,取LOG,也就是18位,<br>所以字块标记为18-5-4=9位.<br>主存字块标记 组地址 块内地址<br>9位 4位 5位        <font color="red">不要总认为地址就是32位呀！！！</font></p>
-<p>浮点乘法判溢出的时刻是：阶码求和之后尾数相乘并规格化之后</p>
-<p>RISC有乘除指令和浮点运算指令。RISC的主要目的是减少指令数。</p>
-<p>在微程序处理器中，N种微操作，控制字段要设置的位数是$log_2N向上取整+1$    <font color="red">考虑N=1的情况</font></p>
-<p>在规格化数表示中，保持其他方面不变，将阶码部分的移码改为补码表示，则数的表示范围不变。</p>
-<p>认真读题——“每次取<font color="red">一个字节</font>PC自动加1”，“两个字节”</p>
-<p>寄存器间接寻址方式：寄存器内存放的是操作数的地址，而不是操作数本身，即操作数是通过寄存器间接得到的。操作数处于内存单元中。</p>
-<p>寄存器相对寻址方式：操作数在存储器中，其有效地址是一个基址寄存器(BX、BP)或变址寄存器(SI、DI)的内容和指令中的8位/16位偏移量之和。</p>
-<p>为提高存储器存取效率，通常将同一文件存放在不同面的同一磁道上。</p>
-<p>正数的<strong>反码</strong>等于其原<strong>码</strong>，而负数的<strong>反码</strong>则可以通过保留其<strong>符号位</strong>，将原<strong>码</strong>的数值<strong>位</strong>取<strong>反</strong>得到。</p>
-<p>硬件向量法， 就是通过向量地址来寻找设备的中断服务程序入口地址，而且向量地址是由硬件电路产生的。</p>
-<p><strong>题目3.47</strong> 下面C代码实现了一个4阶FIR滤波器，输入为数组 sig_in 。设所有数组元素为16位定点数。假设你要面向 一个具有SIMD指令集且有128位寄存器的处理器，用汇编语言优化该代码。在不知指令细节的情况下，简要介绍一 下如何实现该代码，最大限度用字并行操作，并使寄存器和存储器间数据传送量最少。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i=<span class="number">3</span>;i&lt;<span class="number">128</span>;i++)    sig_out[i] = sig_in[i<span class="number">-3</span>]*f[<span class="number">0</span>]+sig_in[i<span class="number">-2</span>]*f[<span class="number">1</span>]+sig_in[i<span class="number">-1</span>]*f[<span class="number">2</span>]+sig_in[i]*f[<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-<p>伪代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">F=[f[<span class="number">3</span>],f[<span class="number">2</span>],f[<span class="number">1</span>],f[<span class="number">0</span>],f[<span class="number">3</span>],f[<span class="number">2</span>],f[<span class="number">1</span>],f[<span class="number">0</span>]]</span><br><span class="line">B=[sig_in[<span class="number">7</span>],sig_in[<span class="number">6</span>],...,sig_in[<span class="number">0</span>]]</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">    A=[sig_in[i*<span class="number">8</span>+<span class="number">7</span>],...,sig_in[i*<span class="number">8</span>+<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">if</span> i&gt;<span class="number">0</span></span><br><span class="line">        <span class="comment">// 为了保证i=0时不会数组下界溢出</span></span><br><span class="line">        B=[sig_in(i<span class="number">-1</span>)*<span class="number">8</span>+<span class="number">7</span>,...,sig_in[(i<span class="number">-1</span>)*<span class="number">8</span>+<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">        C=A*F</span><br><span class="line">    	sig_out[i*<span class="number">8</span>+j+<span class="number">4</span>],sig_out[i*<span class="number">8</span>+j]=C[<span class="number">127</span>:<span class="number">64</span>],C[<span class="number">63</span>:<span class="number">0</span>]</span><br><span class="line">        A=A&lt;&lt;<span class="number">16</span>*<span class="number">1b</span>it</span><br><span class="line">        E=B&gt;&gt;<span class="number">16</span>*<span class="number">7b</span>it</span><br><span class="line">        A=A OR E</span><br><span class="line">        B=B&lt;&lt;<span class="number">16</span>*<span class="number">1b</span>it<span class="comment">// 为A提供持续最右侧sig_in[]</span></span><br></pre></td></tr></table></figure>
-<p>==作业5.7.1==：j的初始值应为3，条件是≥0，–j；另外在i=0时要将B设为全0</p>
-<p><strong>吞吐率</strong>：单位时间内流水线所完成的任务数量或输出结果的数量</p>
-<p><strong>效率</strong></p>
-<p><strong>加速比</strong></p>
-<font color="red">Cache的字块内地址</font> VS <font color="blue">Cache的字块地址</font>
-
-<hr>
-<p>正数的补码反码和原码是一样的。原码和补码之间的互换方式都是除符号位之外，按位取反，末位加1</p>
-<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/blog\source\_posts\sql\28.PNG" alt="28"></p>
-<p>推断 跳转指令的转移地址 (PC+4)+(OFFSET)*4</p>
-<p>条件转移指令的相对位移量（16位，用补码表示）的范围为：$-2^{15}至 +(2^{15}-1)$（是相对于转移指令的下调指令而言）。及最多往前调到第32768条指令(131072个单元)，最多往后跳到第32767条指令(131068个单元)。</p>
-<p>无条件转移指令的目标地址范围为：0~$2^{26}-1$（相对于下条指令），即，最近就跳到下条指令，最远跳到后面的$2^{26}-1$条指令</p>
-<p>注意计算时int+short时的符号扩展</p>
-<p>对阶操作不会引起阶码的溢出，因为是小阶向大阶对齐；右规可能造成阶码上溢；左规可能造成阶码下溢；尾数舍入过程，阶码加 1 而可能上溢；尾数溢出时结果不一定溢出。</p>
-<p>某计算机的Cache共有32块，采用8路组相联映射方式。每个主存块大小为16字节，按字节编址。主存133号单元所在主存块应装入到的Cache组号是 <font color="red">0</font></p>
-<font color="red">汇编指令与流水线结合，如何修改给定的汇编代码，使得总指令周期最短？涉及到冒险的知识？</font>
-
-<font color="red">Cache和虚存，已知Cache和内存表，给出访问要求，列出命中情况</font>
-
-<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/blog\source\_posts\sql\29.PNG" alt="29"></p>
-<p><strong>(3)</strong></p>
-<p>在1000条指令过程中共访问存储器1500次，其中1410次仅访问一级Cache，54次访问至二级Cache，36次访问主存储器，要求它们的平均值：</p>
-<p>$(1410<em>1+54</em>10+36*100)/1500=3.7$</p>
-<p><strong>(4)</strong></p>
-<p>访存这一个动作，理论上只需要一个周期，一条指令有1.5次访存，也就是1.5个周期。而实际用了3.7个周期，多出来的2.2个时钟周期即为访问存储器导致的停顿。</p>
-<p><strong>(5)</strong></p>
-<p>每条指令访存1.5次，每次访存需要3.7个周期，只考虑访问存储器的话，CPI=1.5*3.7=5.55</p>
-<p><img src="//yoursite.com/2019/06/15/计组复习笔记（五）/Users\asus\AppData\Roaming\Typora\typora-user-images\1560692574537.png" alt="1560692574537"></p>
-<hr>
-<font color="pink">今天是很美好的一天，因为和爸爸说了“父亲节快乐！”</font>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1057,14 +1077,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

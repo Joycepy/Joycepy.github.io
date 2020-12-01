@@ -29,7 +29,7 @@
 <meta property="og:description" content="自我介绍项目介绍java多态多态是同一个行为具有多个不同表现形式或形态的能力。即同一个接口，使用不同的实例而执行不同操作。多态是设计模式中的策略模式的关键。 设计模式是软件开发人员在软件开发过程中遇到的一般问题的解决方案、经验总结。设计模式代表着最佳的实践。参考书中提到的有 23 种设计模式，比如工厂模式、单例模式、代理模式、策略模式、MVC 模式等。 策略模式指一个类的行为或其算法可以在运行时更">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1422237/201810/1422237-20181016104150713-1037928372.png">
-<meta property="og:updated_time" content="2020-11-29T04:08:16.342Z">
+<meta property="og:updated_time" content="2020-12-01T09:14:23.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BT-interview-note-ii">
 <meta name="twitter:description" content="自我介绍项目介绍java多态多态是同一个行为具有多个不同表现形式或形态的能力。即同一个接口，使用不同的实例而执行不同操作。多态是设计模式中的策略模式的关键。 设计模式是软件开发人员在软件开发过程中遇到的一般问题的解决方案、经验总结。设计模式代表着最佳的实践。参考书中提到的有 23 种设计模式，比如工厂模式、单例模式、代理模式、策略模式、MVC 模式等。 策略模式指一个类的行为或其算法可以在运行时更">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-29 12:08:16" itemprop="dateModified" datetime="2020-11-29T12:08:16+08:00">2020-11-29</time>
+                <time title="修改时间：2020-12-01 17:14:23" itemprop="dateModified" datetime="2020-12-01T17:14:23+08:00">2020-12-01</time>
               </span>
 
           
@@ -225,8 +225,14 @@
 <li>标记-整理算法：进行对象的标记，但后续不直接对可回收对象进行清理，而是将所有的<strong>存活对象</strong>往一端<strong>空闲空间</strong>移动，然后清理掉端边界以外的内存空间。解决了标记-清理算法存在的内存碎片问题。仍需要进行局部对象移动，一定程度上降低了效率。</li>
 </ol>
 <h5 id="Spring-IOC"><a href="#Spring-IOC" class="headerlink" title="Spring IOC"></a>Spring IOC</h5><p>开发者使用Spring框架主要是做两件事：①开发Bean；②配置Bean。对于Spring框架来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成”依赖注入”——这就是所谓IoC的本质。</p>
-<p>Bean</p>
-<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p>java map 的用法，hashmap的实现原理, rehash;</p>
+<blockquote>
+<p>IOC is Inversion Of Control. It means that the application won’t manage it’s lifecycle/flow of control itself. The framework (Spring) will. So you just tell the framework how you want (some) elements of your app to work together.</p>
+<p>DI is dependency injection. It’s a specific kind of IOC where the framework will manage the dependencies that an object uses (you can call dependency: a service).</p>
+<p>Bean is an object managed by the Framework.</p>
+</blockquote>
+<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><strong>map</strong>：存储键值对，</p>
+<p>hashmap的实现原理</p>
+<p>rehash</p>
 <h5 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h5><p>threadLocal的实现原理；线程池的实现原理，线程运行完run方法就被回收了吗，用什么数据结构存储任务，blockingQueue；并发锁的实现；</p>
 <h4 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h4><p>创建三个线程，按序输出1, 2, 3 （\lab\ref\backend\src\main\java\test\t1.java）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">t1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> state=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Worker a=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">0</span>);</span><br><span class="line">    Worker b=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">1</span>);</span><br><span class="line">    Worker c=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">    a.start();</span><br><span class="line">    b.start();</span><br><span class="line">    c.start();</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line"></span><br><span class="line">        Worker(<span class="keyword">int</span> mod,<span class="keyword">int</span> v)&#123;</span><br><span class="line">            <span class="keyword">this</span>.mod=mod;</span><br><span class="line">            <span class="keyword">this</span>.v=v;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">if</span>(state%mod==v)&#123;</span><br><span class="line">                    System.out.println(v+<span class="number">1</span>);</span><br><span class="line">                    state++;</span><br><span class="line">                &#125;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -331,14 +337,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

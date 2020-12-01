@@ -158,6 +158,103 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/Java12.26/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/26/Java12.26/" class="post-title-link" itemprop="url">Java12.23</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-26T00:00:00+08:00">2018-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-01-20 10:08:59" itemprop="dateModified" datetime="2019-01-20T10:08:59+08:00">2019-01-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>…implement Externalizable<br>实现readExternal(ObjectInput in)和writeExternal(ObjectOutput out)<br>函数中调用（out.writeObject()/in.readObject()）  </p>
+<p>readExternal()需要无参public构造方法    </p>
+<h2 id="StreamTokenizer-Reader-r"><a href="#StreamTokenizer-Reader-r" class="headerlink" title="StreamTokenizer(Reader r)"></a>StreamTokenizer(Reader r)</h2><p><em>Reader:以字符为单位的输入流</em>  </p>
+<ul>
+<li>对输入流进行解析，调用nextToken()  </li>
+<li>public int ttype,ttype的常数值：TT_WORD(字符串存入String nval),TT_NUMBER,TT_EOL  </li>
+</ul>
+<p>A TreeMap can keep keys in sorted order.<br>Counter()计数器、Set、Collection</p>
+<h3 id="StringTokenizer"><a href="#StringTokenizer" class="headerlink" title="StringTokenizer"></a>StringTokenizer</h3><h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>（java.util.regex）<br>Pattern p=Pattern.compile(“…”)<br>Matcher m=p.matcher(“……”)<br>m.find()</p>
+<h3 id="Scanner文本扫描器"><a href="#Scanner文本扫描器" class="headerlink" title="Scanner文本扫描器"></a>Scanner文本扫描器</h3><p>构造方法(File)(String)(InputStream)  </p>
+<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><ul>
+<li>使用URL</li>
+<li>TCP编程</li>
+<li>UDP编程<h4 id="URL类"><a href="#URL类" class="headerlink" title="URL类"></a>URL类</h4>统一资源定位符(Uniform Resource Locator)<br>构造方法<br>(“<a href="http://www.nankai.edu.cn&quot;" target="_blank" rel="noopener">http://www.nankai.edu.cn&quot;</a>)<br>(String Protocol(协议)，String host,int port(缺省80端口),String file)  </li>
+</ul>
+<p>获取信息：getProtocol(),getHost(),getRef(),getPort(),getFile()…  </p>
+<h5 id="利用URL获取网络资源"><a href="#利用URL获取网络资源" class="headerlink" title="利用URL获取网络资源"></a>利用URL获取网络资源</h5><ul>
+<li>创建URL对象</li>
+<li>使用URL对象的使用openStream(),返回InputStream</li>
+<li>从InputStream读入信息<h4 id="InetAddress类"><a href="#InetAddress类" class="headerlink" title="InetAddress类"></a>InetAddress类</h4>代表一个IP地址<br>创建方法：static InetAddress getByName(“…”)  <h6 id="获取本机地址："><a href="#获取本机地址：" class="headerlink" title="获取本机地址："></a>获取本机地址：</h6></li>
+<li>getLocalHost()</li>
+<li>getByName(null)</li>
+<li>getByName(“127.0.0.1”)</li>
+<li>getByName(“localhost”)</li>
+</ul>
+<h5 id="TCP：有连接的、可靠的数据流的传输有通信协议"><a href="#TCP：有连接的、可靠的数据流的传输有通信协议" class="headerlink" title="TCP：有连接的、可靠的数据流的传输有通信协议"></a>TCP：有连接的、可靠的数据流的传输有通信协议</h5><p>使用：<br>Socket类（进行通讯）、ServerSocket类（提供监听）<br>（客户端只使用Socket，服务器端两个都需要）  </p>
+<h6 id="Server端："><a href="#Server端：" class="headerlink" title="Server端："></a>Server端：</h6><p>一个服务器可服务多个客户端-&gt;多客户机制-&gt;多线程<br>ServerSocket(int port,int count)<br>ServerSocket.accept()，返回Socket.若未返回，则线程阻塞<br>OutputStream&lt;==&gt;InputStream<br>Socket.getInputStream()  </p>
+<h6 id="Client端："><a href="#Client端：" class="headerlink" title="Client端："></a>Client端：</h6><p>Socket(String addr,int port)</p>
+<h5 id="UDP：无连接的、数据报的方式"><a href="#UDP：无连接的、数据报的方式" class="headerlink" title="UDP：无连接的、数据报的方式"></a>UDP：无连接的、数据报的方式</h5><p>使用DatagramPacket类（报文）、DatagramSocket类（发送或接收）  </p>
+<h6 id="DatagramPacket构造："><a href="#DatagramPacket构造：" class="headerlink" title="DatagramPacket构造："></a>DatagramPacket构造：</h6><ul>
+<li>接收：(byte[] recvBuf,int readLength)</li>
+<li>发送：(byte[] sendBuf,int readLength,InetAddress,int port)<br>socket.send(packet)<br>socket.receive(packet)<h5 id="广播通信"><a href="#广播通信" class="headerlink" title="广播通信"></a>广播通信</h5>MulticastSocket</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Java12.19/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -863,80 +960,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/27/git_tip1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/27/git_tip1/" class="post-title-link" itemprop="url">git_tip1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2018-10-27 10:31:28 / 修改时间：11:14:32" itemprop="dateCreated datePublished" datetime="2018-10-27T10:31:28+08:00">2018-10-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-            <img src="/2018/10/27/git_tip1/eg.png" itemprop="contentUrl">
-        </div>
-          <p>###git</p>
-<p><code></code>git push -u origin master`</p>
-<p>报错：</p>
-<p><code>failed to push some refs to git</code></p>
-<h5 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h5><p>可能的原因是github中的README.md文件不在本地代码目录中</p>
-<p>#####解决方法：</p>
-<p>可以通过如下命令进行代码合并【注：pull=fetch+merge】</p>
-<p><code>git pull --rebase origin master</code></p>
-<p>执行上面代码后可以看到本地代码库中多了README.md文件</p>
-<p>此时再执行语句 <code>git push -u origin master</code></p>
-<p>即可完成代码上传到github</p>
-<p>![捕获](E:\桌面\捕获.PNG</p>
-<p><img src="//yoursite.com/2018/10/27/git_tip1/桌面\eg.PNG" alt="eg"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1007,14 +1030,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

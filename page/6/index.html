@@ -158,6 +158,74 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/17/linked-list-cycle-ii/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/17/linked-list-cycle-ii/" class="post-title-link" itemprop="url">linked-list-cycle-ii</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-17 23:18:37 / 修改时间：23:41:23" itemprop="dateCreated datePublished" datetime="2020-05-17T23:18:37+08:00">2020-05-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>说明：不允许修改给定的链表。<strong>进阶：</strong>你是否可以不用额外空间解决此题</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>仍然使用双指针的方法，关键点是：</p>
+<ol>
+<li>走a+nb步一定是在环入口</li>
+<li>第一次相遇时慢指针已经走了nb步</li>
+</ol>
+<p>第一次相遇，快慢指针必然都走过a步进入环中，在环中相遇。 f = 2s 且 f=s+nb，因此 s=nb , f=2nb，即第一次相遇时，<code>fast</code>和<code>slow</code> 指针分别走了 2n，n 个 <strong>环的周长</strong>。慢指针在环中已经走了nb，再让它走a步就到了入口节点了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!head || !head-&gt;next)<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	ListNode *t1 = head, *t2 = head;</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		t1 = t1-&gt;next;</span><br><span class="line">		t2 = t2-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (t2)</span><br><span class="line">			t2 = t2-&gt;next;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	&#125; <span class="keyword">while</span> (t1 &amp;&amp; t2&amp;&amp;t1 != t2);</span><br><span class="line">	<span class="keyword">if</span> (!t2)<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	ListNode* tmp = head;</span><br><span class="line">	<span class="keyword">while</span> (tmp != t1)</span><br><span class="line">	&#123;</span><br><span class="line">		tmp = tmp-&gt;next;</span><br><span class="line">		t1 = t1-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>真是失败啊。所以要学着改变了呢。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/16/word-break-ii/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -749,68 +817,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/longest-consecutive-sequence/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/06/longest-consecutive-sequence/" class="post-title-link" itemprop="url">longest-consecutive-sequence</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-06 20:21:14 / 修改时间：22:18:52" itemprop="dateCreated datePublished" datetime="2020-05-06T20:21:14+08:00">2020-05-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个未排序的整数数组，找出最长连续序列的长度。</p>
-<p>要求算法的时间复杂度为 <em>O(n)</em></p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>从最小的开始往后找。为了去重并把搜索降到O(1)，使用unordered_set。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	s.insert(<span class="built_in">std</span>::begin(nums), <span class="built_in">std</span>::end(nums));</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> num : s)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!s.count(num - <span class="number">1</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cur = num;</span><br><span class="line">			<span class="keyword">int</span> len = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span> (s.count(cur + <span class="number">1</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				cur++;</span><br><span class="line">				len++;</span><br><span class="line">			&#125;</span><br><span class="line">			res = len &gt; res ? len : res;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -881,14 +887,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

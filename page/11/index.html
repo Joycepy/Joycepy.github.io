@@ -158,6 +158,85 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/unique-binary-search-trees-ii/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/15/unique-binary-search-trees-ii/" class="post-title-link" itemprop="url">unique-binary-search-trees-i&ii</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-15 22:42:33" itemprop="dateCreated datePublished" datetime="2020-03-15T22:42:33+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-17 11:47:03" itemprop="dateModified" datetime="2020-03-17T11:47:03+08:00">2020-03-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个整数 <em>n</em>，生成所有由 1 … <em>n</em> 为节点所组成的<strong>二叉搜索树</strong>。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>居然连二叉搜索树是啥都不记得了 嘤</p>
+<p><code>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</code></p>
+<p>So, 递归吧。</p>
+<p>理解了思路，代码还是很好写的。不过，有点懵比的是，让我觉得效率很低的递归，居然：</p>
+<p>执行用时 :12 ms, 在所有 C++ 提交中击败了93.46%的用户</p>
+<p>内存消耗 :15.9 MB, 在所有 C++ 提交中击败了87.26%的用户</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	TreeNode *left;</span><br><span class="line">	TreeNode *right;</span><br><span class="line">	TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;TreeNode*&gt; makeTree(<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;TreeNode*&gt; res;</span><br><span class="line">	TreeNode *r;</span><br><span class="line">	<span class="keyword">if</span> (left &gt;= right)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (left &gt; right)<span class="keyword">return</span> &#123; <span class="literal">NULL</span> &#125;;</span><br><span class="line">		r= <span class="keyword">new</span> TreeNode(left);</span><br><span class="line">		<span class="keyword">return</span> &#123; r &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = left; i &lt;= right; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">vector</span>&lt;TreeNode*&gt; lefts = makeTree(left, i - <span class="number">1</span>);</span><br><span class="line">		<span class="built_in">vector</span>&lt;TreeNode*&gt; rights = makeTree(i + <span class="number">1</span>, right);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lefts.size(); j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; rights.size(); k++)</span><br><span class="line">			&#123;</span><br><span class="line">				r = <span class="keyword">new</span> TreeNode(i);</span><br><span class="line">				r-&gt;left = lefts[j];</span><br><span class="line">				r-&gt;right = rights[k];</span><br><span class="line">				res.push_back(r);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;TreeNode*&gt; generateTrees(<span class="keyword">int</span> n) &#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">1</span>)<span class="keyword">return</span>&#123;&#125;;</span><br><span class="line">	<span class="keyword">return</span> makeTree(<span class="number">1</span>, n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那，如果改成引用传参呢？</p>
+<p>不改了，没意思。下一个。</p>
+<h4 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个整数 <em>n</em>，求以 1 … <em>n</em> 为节点组成的二叉搜索树有多少种？</p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>像上面一样递归也可以，但是动态规划是不是更合适。嗯主要原因是n=19时，运行超出时间限制了……</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">2</span>)<span class="keyword">return</span> n;</span><br><span class="line">	<span class="keyword">int</span> *countTree = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">	<span class="comment">//count[i]表示有i个节点的二叉搜索树的总数</span></span><br><span class="line">	countTree[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	countTree[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">		countTree[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)</span><br><span class="line">		&#123;<span class="comment">//j表示左子树的结点个数</span></span><br><span class="line">			countTree[i] += countTree[j] * countTree[i - j - <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> countTree[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行用时 :4 ms, 在所有 C++ 提交中击败了61.10%的用户</p>
+<p>内存消耗 :7.4 MB, 在所有 C++ 提交中击败了100.00%的用户</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/binary-tree-inorder-traversal/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -856,71 +935,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/黑屏-&-蓝屏/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/黑屏-&-蓝屏/" class="post-title-link" itemprop="url">黑屏 & 蓝屏</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-08 15:24:22 / 修改时间：20:36:15" itemprop="dateCreated datePublished" datetime="2020-03-08T15:24:22+08:00">2020-03-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>电脑屏幕黑了的原因及处理方法是：</p>
-<ol>
-<li>显示器刷新率太高；</li>
-<li>显卡驱动程序失败，处理方法是进入安全模式，重新安装显卡驱动；</li>
-<li>电脑感染了病毒，处理方法是在安全模式下，使用杀毒软件进行杀毒操作。</li>
-</ol>
-<p>强制开关机两次，第三次开机，会自动进入winre，之后依次点击疑难解答-高级选项，启动设置，选择重启，之后选择启动安全模式（强制关机：开机载入的时候长按电源键强制关机）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -991,14 +1005,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

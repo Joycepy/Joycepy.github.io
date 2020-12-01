@@ -158,6 +158,74 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/merge-two-sorted-lists/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/19/merge-two-sorted-lists/" class="post-title-link" itemprop="url">merge-two-sorted-lists</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-19 22:48:36" itemprop="dateCreated datePublished" datetime="2020-01-19T22:48:36+08:00">2020-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-20 22:31:04" itemprop="dateModified" datetime="2020-01-20T22:31:04+08:00">2020-01-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目表述"><a href="#题目表述" class="headerlink" title="题目表述"></a>题目表述</h4><p>合并两个有序链表</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将两个有序链表合并为一个新的有序链表并返回</span></span><br><span class="line"><span class="comment">//新链表是通过拼接给定的两个链表的所有节点组成的</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4</span></span><br><span class="line"><span class="comment">输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l1 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> l2;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (l2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> l1;</span><br><span class="line">	ListNode *head, *tp, *t1, *t2;</span><br><span class="line">	<span class="keyword">int</span> m = l1-&gt;val, n = l2-&gt;val;</span><br><span class="line">	t1 = l1;</span><br><span class="line">	t2 = l2;</span><br><span class="line">	<span class="keyword">if</span> (m&lt;n)</span><br><span class="line">	&#123;</span><br><span class="line">		tp = <span class="keyword">new</span> ListNode(m);</span><br><span class="line">		t1 = l1-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		tp = <span class="keyword">new</span> ListNode(n);</span><br><span class="line">		t2 = l2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	head = tp;</span><br><span class="line">	<span class="keyword">while</span> (t1&amp;&amp;t2)</span><br><span class="line">	&#123;</span><br><span class="line">		m = t1-&gt;val, n = t2-&gt;val;</span><br><span class="line">		<span class="keyword">if</span> (m&lt; n)</span><br><span class="line">		&#123;</span><br><span class="line">			tp-&gt;next = <span class="keyword">new</span> ListNode(m);</span><br><span class="line">			tp = tp-&gt;next;</span><br><span class="line">			t1 = t1-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			tp-&gt;next = <span class="keyword">new</span> ListNode(n);</span><br><span class="line">			tp = tp-&gt;next;</span><br><span class="line">			t2 = t2-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (t1)</span><br><span class="line">		tp-&gt;next = t1;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t2)</span><br><span class="line">		tp-&gt;next = t2;</span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后进行了改进，不再创建新的节点，把现有的节点串起来，但会破坏传进来的原有链表。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l1 == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> l2;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (l2 == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> l1;</span><br><span class="line">    ListNode *t1, *t2, *tmp;</span><br><span class="line">    <span class="keyword">int</span> n = l1-&gt;val, m = l2-&gt;val;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; m)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp = l1;</span><br><span class="line">        l1 = l2;</span><br><span class="line">        l2 = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    t1 = l1;</span><br><span class="line">    t2 = l2;</span><br><span class="line">    <span class="keyword">while</span> (t1&amp;&amp;t2)</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode *tmp1, *tmp2;</span><br><span class="line">        n = t1-&gt;val, m = t2-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (n &gt; m)</span><br><span class="line">            <span class="keyword">while</span> (t2-&gt;next&amp;&amp;t2-&gt;next-&gt;val &lt;= n)</span><br><span class="line">                t2 = t2-&gt;next;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n&lt;m)</span><br><span class="line">            <span class="keyword">while</span> (t1-&gt;next&amp;&amp;t1-&gt;next-&gt;val &lt;= m)</span><br><span class="line">                t1 = t1-&gt;next;</span><br><span class="line">        tmp1 = t1-&gt;next;</span><br><span class="line">        t1-&gt;next = t2;</span><br><span class="line">        t1 = t2;</span><br><span class="line">        tmp2 = t2-&gt;next;</span><br><span class="line">        <span class="keyword">if</span> (t1 != <span class="literal">NULL</span>)</span><br><span class="line">            t2-&gt;next = tmp1;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        t2 = tmp2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (t2)</span><br><span class="line">        t1 = t2;</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/ValidParentheses/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -774,66 +842,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/3sum-closest/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/10/3sum-closest/" class="post-title-link" itemprop="url">3sum-closest</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-10 09:35:14" itemprop="dateCreated datePublished" datetime="2019-09-10T09:35:14+08:00">2019-09-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给一组数，和一个数字target，找出三个数字，使这三个数字的和最接近target。这个问题，其实和3Sum相同，也难怪这个题的通过率会是上一题的二倍了。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>要注意赋给res的初值。并且我认为不用去除重重复搜索的操作。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">	sort(nums.begin(),nums.end());</span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="keyword">int</span> res = nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size - <span class="number">2</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = i + <span class="number">1</span>; <span class="keyword">int</span> k = size - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (j &lt; k)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> sum = nums[i] + nums[j] + nums[k];</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">abs</span>(sum-target) &lt; <span class="built_in">abs</span>(res-target))</span><br><span class="line">				res = sum;</span><br><span class="line">			<span class="keyword">if</span> (sum &lt; target)</span><br><span class="line">				++j;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target)</span><br><span class="line">				--k;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> target;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -904,14 +912,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

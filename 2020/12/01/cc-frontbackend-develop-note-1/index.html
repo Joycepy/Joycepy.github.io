@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="==vue 和 PHP 对 Excel、word 导入导出的支持== ==安装前后端项目== ==本地数据库==  Windows 系统安装指定版本的composer：https://pkg.phpcomposer.com/#how-to-install-composer  找到并进入 PHP 的安装目录（和你在命令行中执行的 php 指令应该是同一套 PHP）。 将 composer.phar">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cc-front&#x2F;backend-develop-note-1">
+<meta property="og:url" content="http://yoursite.com/2020/12/01/cc-frontbackend-develop-note-1/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="==vue 和 PHP 对 Excel、word 导入导出的支持== ==安装前后端项目== ==本地数据库==  Windows 系统安装指定版本的composer：https://pkg.phpcomposer.com/#how-to-install-composer  找到并进入 PHP 的安装目录（和你在命令行中执行的 php 指令应该是同一套 PHP）。 将 composer.phar">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-schematic.png">
+<meta property="og:updated_time" content="2020-12-01T09:12:15.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cc-front&#x2F;backend-develop-note-1">
+<meta name="twitter:description" content="==vue 和 PHP 对 Excel、word 导入导出的支持== ==安装前后端项目== ==本地数据库==  Windows 系统安装指定版本的composer：https://pkg.phpcomposer.com/#how-to-install-composer  找到并进入 PHP 的安装目录（和你在命令行中执行的 php 指令应该是同一套 PHP）。 将 composer.phar">
+<meta name="twitter:image" content="https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-schematic.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/01/cc-frontbackend-develop-note-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cc-front/backend-develop-note-1 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/01/cc-frontbackend-develop-note-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cc-front/backend-develop-note-1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-01 17:12:14 / 修改时间：17:12:15" itemprop="dateCreated datePublished" datetime="2020-12-01T17:12:14+08:00">2020-12-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li>==vue 和 PHP 对 Excel、word 导入导出的支持==</li>
+<li>==安装前后端项目==</li>
+<li>==本地数据库==</li>
+</ol>
+<h5 id="Windows-系统安装指定版本的composer："><a href="#Windows-系统安装指定版本的composer：" class="headerlink" title="Windows 系统安装指定版本的composer："></a>Windows 系统安装指定版本的composer：</h5><p><a href="https://pkg.phpcomposer.com/#how-to-install-composer" target="_blank" rel="noopener">https://pkg.phpcomposer.com/#how-to-install-composer</a></p>
+<ol>
+<li>找到并进入 PHP 的安装目录（和你在命令行中执行的 <code>php</code> 指令应该是同一套 PHP）。</li>
+<li>将 <code>composer.phar</code> 复制到 PHP 的安装目录下面，也就是和 <code>php.exe</code> 在同一级目录。</li>
+<li>在 PHP 安装目录下新建一个 <code>composer.bat</code> 文件，并将下列代码保存到此文件中。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@php <span class="string">"%~dp0composer.phar"</span> %*</span><br></pre></td></tr></table></figure>
+<p>最后重新打开一个命令行窗口试一试执行 <code>composer --version</code> 看看是否正确输出版本号。</p>
+<p>yii2 项目初始化命令：<code>.\init</code></p>
+<h5 id="Windows-符号链接-mklink"><a href="#Windows-符号链接-mklink" class="headerlink" title="Windows 符号链接 mklink"></a>Windows 符号链接 mklink</h5><p>mklink 命令是将文件或目录建立双向连接, 该变任何一方都会发生变化, 其主要文件链接有三: 符号链接(软件接), 目录连接(软件接), 文本文件链接(硬连接), 可以这样理解, <strong>软连接, 是建立快捷方式, 硬连接, 是进行复制</strong></p>
+<p>在 cmd 里面输入: <strong>mklink /?</strong> 来查看 mklink 命令和参数的使用</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink /D cc C:\Users\pcy\Documents\DBISWork\cc-computer-backend</span><br></pre></td></tr></table></figure>
+<h5 id="使用表前缀"><a href="#使用表前缀" class="headerlink" title="使用表前缀"></a>使用表前缀</h5><p><a href="https://www.yiiframework.com/doc/guide/2.0/zh-cn/db-dao" target="_blank" rel="noopener">https://www.yiiframework.com/doc/guide/2.0/zh-cn/db-dao</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="string">'db'</span> =&gt; [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="string">'tablePrefix'</span> =&gt; <span class="string">'tbl_'</span>,</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>src\api\http.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果出现问题，就直接 hard code 写死域名</span></span><br><span class="line">Instance.defaults.baseURL = <span class="string">'http://localhost:8081/cc-computer-homepage/backend/web/index.php/api/v1'</span></span><br></pre></td></tr></table></figure>
+<p>当前：<em>PHP/5.6.40</em></p>
+<h3 id="Yii2-对-word、Excel-上传下载的支持——PHPOffice"><a href="#Yii2-对-word、Excel-上传下载的支持——PHPOffice" class="headerlink" title="Yii2 对 word、Excel 上传下载的支持——PHPOffice"></a>Yii2 对 word、Excel 上传下载的支持——PHPOffice</h3><p><strong>PHPExcel</strong> was officially deprecated in 2017 and permanently archived in 2019. The project has not be maintained for years and must not be used anymore. All users must migrate to its direct successor <a href="https://github.com/PHPOffice/PhpSpreadsheet" target="_blank" rel="noopener">PhpSpreadsheet</a>, or another alternative.</p>
+<h4 id="PhpSpreadsheet"><a href="#PhpSpreadsheet" class="headerlink" title="PhpSpreadsheet"></a>PhpSpreadsheet</h4><p>PHP 7.2+</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">'vendor/autoload.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpOffice</span>\<span class="title">PhpSpreadsheet</span>\<span class="title">Spreadsheet</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpOffice</span>\<span class="title">PhpSpreadsheet</span>\<span class="title">Writer</span>\<span class="title">Xlsx</span>;</span><br><span class="line"></span><br><span class="line">$spreadsheet = <span class="keyword">new</span> Spreadsheet();</span><br><span class="line">$sheet = $spreadsheet-&gt;getActiveSheet();</span><br><span class="line">$sheet-&gt;setCellValue(<span class="string">'A1'</span>, <span class="string">'Hello World !'</span>);</span><br><span class="line"></span><br><span class="line">$writer = <span class="keyword">new</span> Xlsx($spreadsheet);</span><br><span class="line">$writer-&gt;save(<span class="string">'hello world.xlsx'</span>);</span><br></pre></td></tr></table></figure>
+<h6 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h6><p><img src="https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-schematic.png" alt="01-schematic.png"></p>
+<h6 id="Creating-a-spreadsheet"><a href="#Creating-a-spreadsheet" class="headerlink" title="Creating a spreadsheet"></a>Creating a spreadsheet</h6><p>Loading a Workbook from a file:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$inputFileName = <span class="string">'./sampleData/example1.xls'</span>;</span><br><span class="line"><span class="comment">/** Load $inputFileName to a Spreadsheet object **/</span></span><br><span class="line">$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);</span><br></pre></td></tr></table></figure>
+<p>Creating a new workbook:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Create a new Spreadsheet Object **/</span></span><br><span class="line">$spreadsheet = <span class="keyword">new</span> \PhpOffice\PhpSpreadsheet\Spreadsheet();</span><br></pre></td></tr></table></figure>
+<h6 id="Accessing-cells"><a href="#Accessing-cells" class="headerlink" title="Accessing cells"></a>Accessing cells</h6><p>Setting a cell value by coordinate:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set cell A1 with a string value</span></span><br><span class="line">$spreadsheet-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">'A1'</span>, <span class="string">'PhpSpreadsheet'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set cell A2 with a numeric value</span></span><br><span class="line">$spreadsheet-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">'A2'</span>, <span class="number">12345.6789</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set cell A3 with a boolean value</span></span><br><span class="line">$spreadsheet-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">'A3'</span>, <span class="keyword">TRUE</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set cell A4 with a formula</span></span><br><span class="line">$spreadsheet-&gt;getActiveSheet()-&gt;setCellValue(</span><br><span class="line">    <span class="string">'A4'</span>,</span><br><span class="line">    <span class="string">'=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">$spreadsheet-&gt;getActiveSheet()</span><br><span class="line">    -&gt;getCell(<span class="string">'B8'</span>)</span><br><span class="line">    -&gt;setValue(<span class="string">'Some value'</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="https://phpoffice.github.io/PhpSpreadsheet/namespaces/phpoffice-phpspreadsheet.html" target="_blank" rel="noopener">Documentation</a></p>
+<h4 id="PHPWord"><a href="#PHPWord" class="headerlink" title="PHPWord"></a>PHPWord</h4><p>The current version of PHPWord supports Microsoft Office Open XML (OOXML or OpenXML), OASIS Open Document Format for Office Applications (OpenDocument or ODF), and Rich Text Format (RTF).</p>
+<p>PHPWord requires the following:</p>
+<ul>
+<li>PHP 5.3.3+</li>
+<li>XML Parser extension</li>
+<li>Zend\Escaper component</li>
+<li>Zend\Stdlib component</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> <span class="string">'bootstrap.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating the new document...</span></span><br><span class="line">$phpWord = <span class="keyword">new</span> \PhpOffice\PhpWord\PhpWord();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* <span class="doctag">Note:</span> any element you append to a document must reside inside of a Section. */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Adding an empty Section to the document...</span></span><br><span class="line">$section = $phpWord-&gt;addSection();</span><br><span class="line"><span class="comment">// Adding Text element to the Section having font styled by default...</span></span><br><span class="line">$section-&gt;addText(</span><br><span class="line">    <span class="string">'"Learn from yesterday, live for today, hope for tomorrow. '</span></span><br><span class="line">        . <span class="string">'The important thing is not to stop questioning." '</span></span><br><span class="line">        . <span class="string">'(Albert Einstein)'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Saving the document as OOXML file...</span></span><br><span class="line">$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, <span class="string">'Word2007'</span>);</span><br><span class="line">$objWriter-&gt;save(<span class="string">'helloWorld.docx'</span>);</span><br></pre></td></tr></table></figure>
+<p>前端发起ajax请求，后端生成excel并下载，同时需要在header头中，带上token验证信息，实现如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$filename = <span class="string">'demo.xlsx'</span>;</span><br><span class="line">$objWriter = \PHPExcel_IOFactory::createWriter($objectPHPExcel, <span class="string">'Excel2007'</span>);</span><br><span class="line">ob_start();</span><br><span class="line">$objWriter-&gt;save(<span class="string">"php://output"</span>);</span><br><span class="line">$xlsData = ob_get_contents();</span><br><span class="line">ob_end_clean();</span><br><span class="line"><span class="keyword">return</span> Api::success([<span class="string">'filename'</span> =&gt; $filename, <span class="string">'file'</span> =&gt; <span class="string">"data:application/vnd.ms-excel;base64,"</span> . base64_encode($xlsData)]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.download'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> url = <span class="string">"http://xxxx.com/group/bi/export"</span>;</span><br><span class="line"><span class="keyword">var</span> params = &#123;</span><br><span class="line">    from_date: <span class="string">'2017-09-01'</span>,</span><br><span class="line">    to_date: <span class="string">'2017-09-08'</span>,</span><br><span class="line">    group_id: <span class="number">1</span></span><br><span class="line">    &#125;;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type:<span class="string">'POST'</span>,</span><br><span class="line">        url: url,</span><br><span class="line">        data: params,</span><br><span class="line">        beforeSend: <span class="function"><span class="keyword">function</span>(<span class="params">request</span>) </span>&#123;</span><br><span class="line">            request.setRequestHeader(<span class="string">"Authorization"</span>, <span class="string">"token信息，验证身份"</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">redata</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 创建a标签，设置属性，并触发点击下载</span></span><br><span class="line">            <span class="keyword">var</span> $a = $(<span class="string">"&lt;a&gt;"</span>);</span><br><span class="line">            $a.attr(<span class="string">"href"</span>, redata.data.file);</span><br><span class="line">            $a.attr(<span class="string">"download"</span>, redata.data.filename);</span><br><span class="line">            $(<span class="string">"body"</span>).append($a);</span><br><span class="line">            $a[<span class="number">0</span>].click();</span><br><span class="line">            $a.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jb51.net/special/339.htm" target="_blank" rel="noopener">PHP 操作 office 文档</a></p>
+<h4 id="vue使用FormData上传excel文件，使用blob下载文件"><a href="#vue使用FormData上传excel文件，使用blob下载文件" class="headerlink" title="vue使用FormData上传excel文件，使用blob下载文件"></a>vue使用FormData上传excel文件，使用blob下载文件</h4><p> BLOB (binary large object) 二进制大对象</p>
+<h5 id="导入excel文件"><a href="#导入excel文件" class="headerlink" title="导入excel文件"></a>导入excel文件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">inputCustomProduct(e)&#123;</span><br><span class="line">                <span class="comment">//声明一个FormDate对象</span></span><br><span class="line">                <span class="keyword">let</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">                <span class="keyword">let</span> file = e.target.files[<span class="number">0</span>]</span><br><span class="line">                <span class="comment">//把文件信息放入对象中</span></span><br><span class="line">                formData.append( <span class="string">"excelFile"</span>, file);</span><br><span class="line">                <span class="comment">// let params = new URLSearchParams(formData)     //当请求没有转换成formData时使用</span></span><br><span class="line">                <span class="keyword">if</span>(file.type == <span class="string">"application/vnd.ms-excel"</span> || file.type == <span class="string">"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"</span>)&#123;</span><br><span class="line">                    <span class="keyword">this</span>.$ajax(&#123;</span><br><span class="line">                        method: <span class="string">"post"</span>,</span><br><span class="line">                        url: <span class="string">""</span>,</span><br><span class="line">                        data: formData,</span><br><span class="line">                        headers: &#123;</span><br><span class="line">                            <span class="string">'Content-Type'</span>: <span class="string">'multipart/form-data'</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;).then( <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span>(res.code === <span class="number">200</span>)&#123;</span><br><span class="line">                            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                                message: <span class="string">"导入成功"</span>,</span><br><span class="line">                                type: <span class="string">"success"</span></span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                                message: <span class="string">"导入失败"</span>,</span><br><span class="line">                                type: <span class="string">"error"</span></span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                        message: <span class="string">"请选择excel文件！"</span>,</span><br><span class="line">                        type: <span class="string">"error"</span></span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//此处必须将控制导入的input值进行置空，否则不会触发change事件，会导致同一个文件不能二次导入</span></span><br><span class="line">                <span class="built_in">document</span>.getElementById(<span class="string">'up'</span>).value = <span class="literal">null</span>;</span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="导出Excel"><a href="#导出Excel" class="headerlink" title="导出Excel"></a>导出Excel</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">outputCustomProduct() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$ajax(&#123;</span><br><span class="line">                    method: <span class="string">""</span>,</span><br><span class="line">                    url: <span class="string">""</span>,</span><br><span class="line">                    params: &#123;</span><br><span class="line">                       </span><br><span class="line">                    &#125;,</span><br><span class="line">                    responseType: <span class="string">'blob'</span></span><br><span class="line">                &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(res)</span><br><span class="line">                    <span class="comment">//调用成功，在html中创建一个a元素</span></span><br><span class="line">                    <span class="keyword">let</span> aTag = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">                    <span class="comment">//创建一个blob对象</span></span><br><span class="line">                    <span class="keyword">let</span> blob = <span class="keyword">new</span> Blob([res], &#123;</span><br><span class="line">                        <span class="comment">//Excel文件版本</span></span><br><span class="line">                        type: <span class="string">"multipart/form-data;charset=utf-8"</span>,   <span class="comment">//application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</span></span><br><span class="line">                    &#125;);<span class="comment">// 这个content是下载的文件内容，自己修改</span></span><br><span class="line">                    aTag.download = <span class="string">'订单导入模板.xls'</span>;<span class="comment">// 下载的文件名</span></span><br><span class="line">                    aTag.href = <span class="built_in">window</span>.URL.createObjectURL(blob);   <span class="comment">//创建一个URL对象</span></span><br><span class="line">                    aTag.click();</span><br><span class="line">                    <span class="built_in">document</span>.body.removeChild(aTag)</span><br><span class="line">                    <span class="built_in">window</span>.URL.revokeObjectURL(blob);          <span class="comment">//释放URL对象</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="Vue-Element-UI-实现文件excel的上传及下载2种方式（文件流及a标签）"><a href="#Vue-Element-UI-实现文件excel的上传及下载2种方式（文件流及a标签）" class="headerlink" title="Vue Element UI 实现文件excel的上传及下载2种方式（文件流及a标签）"></a>Vue Element UI 实现文件excel的上传及下载2种方式（文件流及a标签）</h4><p><strong>上传</strong>使用Element ui 里的 el-upload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form-item label=&quot;上传&quot;&gt;</span><br><span class="line">   &lt;el-upload</span><br><span class="line">     class=&quot;upload-demo&quot;</span><br><span class="line">     ref=&quot;upload&quot;</span><br><span class="line">     action=&quot;#&quot;</span><br><span class="line">     :limit=&quot;1&quot;</span><br><span class="line">     :http-request=&quot;uploadOk&quot;</span><br><span class="line">     :on-preview=&quot;handlePreview&quot;</span><br><span class="line">     :before-upload=&quot;beforeAvatarUpload&quot;</span><br><span class="line">     :on-remove=&quot;handleRemove&quot;</span><br><span class="line">     :file-list=&quot;fileList&quot;</span><br><span class="line">     :auto-upload=&quot;true&quot;&gt;</span><br><span class="line">     &lt;el-button slot=&quot;trigger&quot; size=&quot;small&quot; type=&quot;primary&quot;&gt;选取文件&lt;/el-button&gt;</span><br><span class="line">     &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传xls/xlsx文件&lt;/div&gt;</span><br><span class="line">   &lt;/el-upload&gt;</span><br><span class="line"> &lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>action 必选参数，上传的地址<br>:limit 最大允许上传个数<br>:http-request 覆盖默认的上传行为，自定义上传<br>:on-preview 文件上传时的钩子<br>:before-upload 上传文件之前的钩子<br>:on-remove 文件列表移除文件时的钩子<br>:file-list 上传的文件列表<br>:auto-upload 是否在选取文件后立即进行上传</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 上传前验证</span></span><br><span class="line">beforeAvatarUpload(file) &#123;</span><br><span class="line">  <span class="keyword">let</span> Xls = file.name.split(<span class="string">'.'</span>); </span><br><span class="line">  <span class="keyword">if</span>(Xls[<span class="number">1</span>] === <span class="string">'xls'</span>||Xls[<span class="number">1</span>] === <span class="string">'xlsx'</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> file</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.$message.error(<span class="string">'上传文件只能是 xls/xlsx 格式!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">handleRemove(file, fileList) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(file, fileList);</span><br><span class="line">&#125;,</span><br><span class="line">handlePreview(file) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(file);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// 上传成功</span></span><br><span class="line">uploadOk(val)&#123;</span><br><span class="line">  <span class="keyword">let</span> fd = <span class="keyword">new</span> FormData() <span class="comment">// 上传文件必须为FormData 所以这边New FormData() ，把上传文件的File填进去。</span></span><br><span class="line">  fd.append(<span class="string">'upload_file'</span>,val.file)</span><br><span class="line">  fd.append(<span class="string">'dir_name'</span>,<span class="string">'contract'</span>)</span><br><span class="line">  <span class="comment">// console.log(fd.upload_file)  错误</span></span><br><span class="line">  <span class="comment">// console.log(fd.get("upload_file")  正确</span></span><br><span class="line">  <span class="keyword">this</span>.$post(<span class="string">'/upload/uploadFile'</span>, fd).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (result.code == <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">        message: <span class="string">'上传成功'</span>,</span><br><span class="line">        type: <span class="string">'success'</span></span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="comment">// 接收excel文件地址</span></span><br><span class="line">      <span class="keyword">this</span>.addForm.addurl = result.data.file_url</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.message(result.msg)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p>a标签方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载源文件</span></span><br><span class="line">  handleDownload: <span class="function"><span class="keyword">function</span>(<span class="params">index, row</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(row.contract_file_url == <span class="string">''</span>)&#123;</span><br><span class="line">      <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">        message: <span class="string">'没有源文件'</span>,</span><br><span class="line">        type: <span class="string">'warning'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="comment">// 创建 a 标签 </span></span><br><span class="line">      <span class="keyword">let</span> link = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">      <span class="comment">// href 链接, row.contract_file_url 是从表格里拿到的下载文件地址</span></span><br><span class="line">      link.setAttribute(<span class="string">'href'</span>, row.contract_file_url)</span><br><span class="line">      <span class="comment">// 自执行点击事件</span></span><br><span class="line">      link.click()</span><br><span class="line">    &#125;   </span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/php/" rel="tag"># php</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/28/BT-interview-note-iii/" rel="prev" title="BT-interview-note-iii">
+      <i class="fa fa-chevron-left"></i> BT-interview-note-iii
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows-系统安装指定版本的composer："><span class="nav-number">1.</span> <span class="nav-text">Windows 系统安装指定版本的composer：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows-符号链接-mklink"><span class="nav-number">2.</span> <span class="nav-text">Windows 符号链接 mklink</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用表前缀"><span class="nav-number">3.</span> <span class="nav-text">使用表前缀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yii2-对-word、Excel-上传下载的支持——PHPOffice"><span class="nav-number"></span> <span class="nav-text">Yii2 对 word、Excel 上传下载的支持——PHPOffice</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PhpSpreadsheet"><span class="nav-number"></span> <span class="nav-text">PhpSpreadsheet</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Architecture"><span class="nav-number">0.1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Creating-a-spreadsheet"><span class="nav-number">0.2.</span> <span class="nav-text">Creating a spreadsheet</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Accessing-cells"><span class="nav-number">0.3.</span> <span class="nav-text">Accessing cells</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHPWord"><span class="nav-number"></span> <span class="nav-text">PHPWord</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue使用FormData上传excel文件，使用blob下载文件"><span class="nav-number"></span> <span class="nav-text">vue使用FormData上传excel文件，使用blob下载文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导入excel文件"><span class="nav-number">1.</span> <span class="nav-text">导入excel文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#导出Excel"><span class="nav-number">2.</span> <span class="nav-text">导出Excel</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-Element-UI-实现文件excel的上传及下载2种方式（文件流及a标签）"><span class="nav-number"></span> <span class="nav-text">Vue Element UI 实现文件excel的上传及下载2种方式（文件流及a标签）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
