@@ -158,6 +158,157 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/数据库复习笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/06/数据库复习笔记（三）/" class="post-title-link" itemprop="url">数据库复习笔记（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-06 21:20:53" itemprop="dateCreated datePublished" datetime="2019-06-06T21:20:53+08:00">2019-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-14 10:16:32" itemprop="dateModified" datetime="2019-06-14T10:16:32+08:00">2019-06-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="优化模式设计"><a href="#优化模式设计" class="headerlink" title="优化模式设计"></a>优化模式设计</h2><p>没有信息丢失、保持函数依赖、冗余量最小、（好的查询性能）</p>
+<h4 id="Closure-of-FD-sets（函数依赖集合的闭包）"><a href="#Closure-of-FD-sets（函数依赖集合的闭包）" class="headerlink" title="Closure of FD sets（函数依赖集合的闭包）"></a>Closure of FD sets（函数依赖集合的闭包）</h4><h4 id="Closure-of-a-Set-of-Attributes（传递闭包）"><a href="#Closure-of-a-Set-of-Attributes（传递闭包）" class="headerlink" title="Closure of a Set of Attributes（传递闭包）"></a>Closure of a Set of Attributes（传递闭包）</h4><h4 id="求码"><a href="#求码" class="headerlink" title="求码"></a>求码</h4><p>已知R(A,B,C,D,E,…)，R的码是这样一组属性集合S，S的闭包含有R的所有属性，S的子集不能包含R的所有属性。</p>
+<p>求码的启发式算法：不在任何函数依赖右边出现的属性必是码的一部分，从未在左边出现的不是码。</p>
+<p>E/R图(Conceptual Model)、Relational Schema Design (or Logical Design)Relational Model</p>
+<h4 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a>无损分解</h4><p>经常会出现做自然连接后得到的表，比原来的表大的情况——lossy join</p>
+<p>BCNF是无损分解</p>
+<p><strong>无损连接的chase检验</strong></p>
+<font color="red">画矩阵判断是否是无损分解！</font>
+
+<p>行数为分解后表的个数，列数为元素个数；对于每一行，已知元素填$a_i$，未知元素写$b_{ij}$，用函数依赖填表，如果出现一行全为a的元素，则为无损连接。</p>
+<h4 id="保持函数依赖"><a href="#保持函数依赖" class="headerlink" title="保持函数依赖"></a>保持函数依赖</h4><p>enforceable</p>
+<p>拆表时，X-&gt;Y的X,Y不在一张表中，可能不保持函数依赖</p>
+<h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3><p><strong>BCNF</strong></p>
+<p>所有函数依赖的左边都是superkey。除了平凡的函数依赖(AB-&gt;A)</p>
+<p>若一个表只有两个属性，一定满足BCNF</p>
+<p><strong>分解成BCNF：</strong></p>
+<ol>
+<li>找到违背BCNF的函数A-&gt;B</li>
+<li>求左边的闭包$A^+$，$A^+$拆成一张表，剩下的属性和A是一张表</li>
+<li>继续检查拆后的表</li>
+<li>将函数依赖的<font color="red">闭包</font>分配给拆分后的表</li>
+</ol>
+<p>这样可能会丢函数依赖，所以有了3NF。</p>
+<p><strong>3NF</strong></p>
+<p>对BCNF的修正</p>
+<p>左边X不是superkey，右边A不是prime，则X-&gt;A不是3NF</p>
+<p><strong>保持函数依赖和无损连接的3NF模式分解</strong></p>
+<p>–求最小函数依赖集合和关系模式的候选码；</p>
+<p>–按函数依赖左部相同原则进行分组，每个组的所有属性形成分解后的关系模式；</p>
+<p>–如果某个关系模式被另一个关系模式所包含，删除该关系模式；</p>
+<p>–判断候选码是否包含在某个关系模式中，如果包含则结束；如果不包含，将其中一个候选码作为关系模式加入到关系模式中。</p>
+<p><strong>多值依赖—&gt;第四范式</strong></p>
+<p>X -&gt;-&gt;Y</p>
+<p>多个多值依赖在一张表中，则违背4NF</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><p>Relation R(A，B，C) satisfies the multi-valued dependency A-&gt;-&gt;B, and has (possibly among others) the following tuples in its current instance: (0, 1, 2), (0, 3, 4), and (1, 5, 6). </p>
+<p>Which of the following tuples is not necessarily in the current instance of R?</p>
+<p>(a)(0; 1; 4) (b) (0; 3; 2) <font color="red">(c) (0; 5; 2)</font> (d) None of the above.</p>
+<p>The following three questions refer to a relation R(A, B, C, D, E) with functional dependencies A-&gt;B, BC-&gt;D, and E-&gt;C.</p>
+<p>Question 1: The number of keys of R is:</p>
+<p>​    <font color="red"> (a) 1 </font>(b) 2 (c) 8 (d) 11</p>
+<p>Question 2: Which of the following functional dependency does not necessarily hold in R?</p>
+<p>​    (a) AC -&gt; D (b) AE -&gt; C (c) BC -&gt; B<font color="red"> (d) CE -&gt; D</font></p>
+<p>Question 3: If we project R onto S(B, C, D, E), which of he following functional dependencies holds in S and also does not violate the BCNF condition for S?</p>
+<p>​    (a) BC -&gt; D<font color="red"> (b) BE -&gt; D</font> (c) B -&gt; E (d) E -&gt; C</p>
+<h3 id="判断无损连接的算法"><a href="#判断无损连接的算法" class="headerlink" title="判断无损连接的算法"></a>判断无损连接的算法</h3><p>•已知R&lt;U,F&gt;，U={A,B,C,D,E}</p>
+<p>•F={AB -&gt;C, C -&gt;D, D -&gt;E}</p>
+<p>•R的一个分解R1(A,B,C),R2(C,D),R3(D,E)</p>
+<p>•已知R&lt;U,F&gt;，U={A,B,C,D,E}</p>
+<p>•F={A-&gt;C,B-&gt;C, C -&gt;D, DE -&gt;C,CE -&gt;A}</p>
+<p>•R的一个分解R1(A,D),R2(A,B),R3(B,E),R4(C,D,E),R5(A,E)</p>
+<h4 id="最小函数依赖集"><a href="#最小函数依赖集" class="headerlink" title="最小函数依赖集"></a>最小函数依赖集</h4><p>最小函数依赖集F：</p>
+<p>F中的任意函数依赖右边只有一个属性，函数依赖缺一不可，左边的属性不能再少了</p>
+<p>F的最小依赖集不一定是唯一的。</p>
+<p>找的时候，去掉一个，看能不能由其它函数依赖推出它</p>
+<p><strong>2NF</strong>：码的一个子集决定了一个非主属性，则违背2NF</p>
+<h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p>•下列关系模式最高属于第几范式：</p>
+<p>–R(ABCD), F={B→D,AB→C} <font color="red">1NF</font></p>
+<p>–R(ABCDE),F={AB→CE,E→AB,C→D} <font color="red">2NF</font> 码：(AB),E</p>
+<p>–R(ABCD),F={B→D,D→B,AB→C} 3NF</p>
+<p>–R(ABC),F={A→B,B→A,A→C} BCNF</p>
+<p>–R(ABC),F={A→B,B→A,C→A} 2NF</p>
+<p>–R(ABCD),F={A→C,D→B} 1NF</p>
+<p>–R(ABCD),F={A→C,CD→B} 1NF</p>
+<p>例：首先关系模式R满足原子性，所以是满足第一范式的。并且有函数依赖可以得到所有的非主属性都完全依赖于码，所以是第二范式。但是由于第二个依赖中SD不是码并且M不是键属性，所以不满足3NF的定义。</p>
+<h2 id="关系查询语句"><a href="#关系查询语句" class="headerlink" title="关系查询语句"></a>关系查询语句</h2><p>$R:=R_1∩R_2，R:=R_1∪R_2，R:=R_1-R_2$</p>
+<p>$R_3:=R_1×R_2\ (from\ R_1,R_2)，R_1:=\sigma_C(R_2)\ (where\ condition)，R_1:=π_L(R_2)\ (select\ L)$</p>
+<p>投影操作(projection)会去掉重复的元组</p>
+<p>$\theta$-连接：先做笛卡尔积$R_1×R_2$，再做选择$\sigma_C$，出来的结果列数等于R1和R2列数之和</p>
+<p>自然连接：相同的列名合成一列</p>
+<p>重命名：$R_1 := ρ_{R_1(A_1,…,A_n)}(R_2) $，简单记为：$R_1(A1,…,An) :=R_2$</p>
+<p>对于set:S  ∪ S  = S  ；对于bag:S  ∪ S  != S  </p>
+<p>$R÷S$：用于“for all”的查询</p>
+<p><img src="//yoursite.com/2019/06/06/数据库复习笔记（三）/blog\source\_posts\sql\8.PNG" width="50%"></p>
+<h4 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h4><p><img src="//yoursite.com/2019/06/06/数据库复习笔记（三）/blog\source\_posts\sql\9.PNG" width="50%"></p>
+<p>\1. 查询数学系(MA)全体学生</p>
+<p>\2. 查询学生的姓名和所在的系</p>
+<p>\3. 查询年龄小于20岁的学生的学号和姓名</p>
+<p>\4. 查询选修了‘C1’课的学生学号和姓名</p>
+<p>\5. 查询至少选修了一门其直接先行课为’C1’课程的学生姓名</p>
+<p>\6. 查询选修了全部课程的学生号码和姓名</p>
+<p>\7. 将新开课&lt;‘C6’,’Pascal’,’-’&gt;插入到关系C中</p>
+<p>\8. 将S1学生的‘C1’课成绩改为‘B’</p>
+<p>思考题：</p>
+<p>查询不学‘C2’课的学生姓名和年龄</p>
+<p>•a) Consider relations R(A,B) and S(B,C) where T(R) = 5000, T(S) = 3000, and B is a primary key on S. The expected number of tuples in R   自然连接    S is less than or equal to 3000.FALSE</p>
+<p>•b) Consider two relations R(A, B, C) and S(A, D, E), sharing a common attribute A. It is known that R.A is a foreign key referencing S.A, and that S.A is the primary key of relation S. Then the estimated size of R   自然连接     S is T(R).TRUE</p>
+<p>theta连接(包括自然连接)运算满足交换律</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/鹰蛋/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -932,289 +1083,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/计组复习笔记（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/31/计组复习笔记（一）/" class="post-title-link" itemprop="url">计组复习笔记（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-31 22:18:47" itemprop="dateCreated datePublished" datetime="2019-05-31T22:18:47+08:00">2019-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-17 10:15:13" itemprop="dateModified" datetime="2019-06-17T10:15:13+08:00">2019-06-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <table>
-<thead>
-<tr>
-<th>名称</th>
-<th>控制对象</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>RegDst</td>
-<td>选择目的寄存器</td>
-</tr>
-<tr>
-<td>RegWr</td>
-<td>读或写寄存器</td>
-</tr>
-<tr>
-<td>ExtOp</td>
-<td>立即数扩展方式</td>
-</tr>
-<tr>
-<td>ALUSrc</td>
-<td>ALU单元的输入</td>
-</tr>
-<tr>
-<td>MemWr</td>
-<td>读或写存储器</td>
-</tr>
-<tr>
-<td>MemToReg</td>
-<td>选择要写回的寄存器数据</td>
-</tr>
-<tr>
-<td>ALUctr</td>
-<td>ALU单元的操作</td>
-</tr>
-<tr>
-<td>Branch</td>
-<td>是否分支指令</td>
-</tr>
-<tr>
-<td>Jump</td>
-<td>是否跳转指令</td>
-</tr>
-<tr>
-<td>Zero</td>
-<td>分支条件是否为真</td>
-</tr>
-</tbody>
-</table>
-<p>ori 逻辑与 指令，其中一个操作数为立即数。</p>
-<p>程序计数器PC：存放下一条将要执行的指令在内存中的地址。</p>
-<p>堆栈指针寄存器sp：指向堆栈中的栈顶。（返回地址保存在此，return返回指令将保存在栈顶地址弹到PC中）</p>
-<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h4><p>假定基准程序A在某计算机上的运行时间为100秒，其中90秒为CPU时间，其余为I/O时间。若CPU速度提高50%，I/O速度不变，则运行基准程序A所耗费的时间是<font color="red">70</font>秒。<font color="red">(注意提高50%，表示现在速度是原来的1.5倍)</font></p>
-<p>冯诺依曼计算机根据<font color="red">指令周期的不同阶段</font>区分从存储器中取出的是指令还是数据，在取指周期根据PC所指示的地址，取出的是指令；在执行周期根据指令中所指示的地址，取出的是数据。</p>
-<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>影响性能的因素：</p>
-<ol>
-<li>算法（语句条数）</li>
-<li>编程语言、编译器、体系结构（每条语句对应的指令条数）</li>
-<li>处理器、存储系统（指令执行速度）</li>
-<li>I/O系统（I/O执行速度）</li>
-</ol>
-<p>八个伟大思想：</p>
-<ol>
-<li>面向摩尔定律的设计：预测设计完成时的工艺水平</li>
-<li>使用抽象简化设计：高级语言、MIPS指令集</li>
-<li>加速大概率事件：寻址附近的指令</li>
-<li>通过并行提高性能</li>
-<li>通过流水线提高性能</li>
-<li>通过预测提高性能</li>
-<li>存储器层次</li>
-<li>通过冗余提高可靠性</li>
-</ol>
-<p>计算机部件：输入、输出、存储器、数据通路（运算器）、控制器。后两者合称处理器。</p>
-<p>性能：执行时间的倒数，提高性能的因素可从公式分析：</p>
-<p>CPU Time=CPU Clock Cycles * Clock Cycle Time=CPU Clock Cycles / Clock Rate</p>
-<p>Clock Cycles=Instruction Count * Cycles per Instruction</p>
-<p>CPU Time=Instruction Count <em> CPI </em> Clock Cycle Time=Instruction Count * CPI / Clock Rate</p>
-<p>MIPS=Instruction Count/(Execution time <em> 10^6)=Clock rate/(CPI </em> 10^6)</p>
-<p>功率墙——多核微处理器，通过并行提高性能</p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令设计的四个基本原则</p>
-<ol>
-<li>简单源于规整(算数运算的固定格式)</li>
-<li>越小越快(MIPS仅有32个寄存器)</li>
-<li>加速大概率事件(立即数、零号寄存器、PC相对寻址)</li>
-<li>折中(没有“小/大于则跳转”的指令，只有小于置位，和(不)等则跳转，因为硬件难度；在指令中提供更大的地址与常数并且保持所有的指令具有相同的长度)</li>
-</ol>
-<h4 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h4><h5 id="算术运算（两个源操作数一个地址）"><a href="#算术运算（两个源操作数一个地址）" class="headerlink" title="算术运算（两个源操作数一个地址）"></a>算术运算（两个源操作数一个地址）</h5><p> 0(\$zero)用于寄存器间数据移动 ）</p>
-<h5 id="存储器操作："><a href="#存储器操作：" class="headerlink" title="存储器操作："></a>存储器操作：</h5><p>主存按字节寻址，按字对齐，找地址时，数组的下标要*4。MIPS大端对齐，数据高位在地址低位。load和store指令将低16位作为偏移地址，rs为基址。</p>
-<h5 id="立即数操作："><a href="#立即数操作：" class="headerlink" title="立即数操作："></a>立即数操作：</h5><p>有符号数1000 0000 … 0000表示最小的负数$-2^{31}$，0000 0000 … 0000表示0；</p>
-<h5 id="逻辑操作："><a href="#逻辑操作：" class="headerlink" title="逻辑操作："></a>逻辑操作：</h5><p>rs未使用，被置为全0；与0异或，等同取反；</p>
-<h5 id="决策指令："><a href="#决策指令：" class="headerlink" title="决策指令："></a>决策指令：</h5><p>C代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (save[i]==k)i+=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>MIPS代码：</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">loop:</span> <span class="keyword">sll </span>$<span class="built_in">t1</span>,$<span class="built_in">s3</span>,<span class="number">2</span></span><br><span class="line">	  <span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">t1</span>,$<span class="built_in">s6</span></span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">t0</span>,<span class="number">0</span>($<span class="built_in">t1</span>)</span><br><span class="line">	  <span class="keyword">bne </span>$<span class="number">0</span>,$<span class="built_in">s5</span>,exit</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">s3</span>,$<span class="built_in">s3</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">j </span>loop</span><br><span class="line"><span class="symbol">exit:</span> ...</span><br></pre></td></tr></table></figure>
-<p>“基本块”</p>
-<h4 id="过程调用"><a href="#过程调用" class="headerlink" title="过程调用"></a>过程调用</h4><p>6个步骤</p>
-<h5 id="寄存器分配"><a href="#寄存器分配" class="headerlink" title="寄存器分配"></a>寄存器分配</h5><p>\$a0 – $a3: arguments (reg’s 4 – 7)</p>
-<p>\$zero: (0)用于寄存器间数据移动</p>
-<p>\$v0, $v1: result values (reg’s 2 and 3)</p>
-<p>\$t0 – $t9: temporaries(reg’s 8 – 15，reg’s24 –25)    Can be overwritten by callee</p>
-<p>\$s0 – $s7: saved (reg’s 16 and 23)    Must be saved/restored by callee</p>
-<p>\$gp: global pointer for static data (reg 28)</p>
-<p>\$sp: stack pointer (reg 29)</p>
-<p>\$fp: frame pointer (reg 30)</p>
-<p>\$ra: return address (reg 31)</p>
-<h5 id="例"><a href="#例" class="headerlink" title="例"></a>例</h5><p>叶程序：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">leaf</span><span class="params">(<span class="keyword">int</span> g,<span class="keyword">int</span> h,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f;</span><br><span class="line">    f=(g+h)-(i+j);</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Arguments g, …, j in \$a0, …, $a3</p>
-<p>f in \$s0 (hence, need to save $s0 on stack)</p>
-<p>Result in $v0</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">leaf:</span></span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">4</span></span><br><span class="line">	<span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t0</span>,$<span class="built_in">a0</span>,$<span class="built_in">a1</span></span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">a2</span>,$<span class="built_in">a3</span></span><br><span class="line">	<span class="keyword">sub </span>$<span class="built_in">s0</span>,$<span class="built_in">t0</span>,$<span class="built_in">t1</span></span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">v0</span>,$<span class="built_in">s0</span>,$<span class="built_in">zero</span></span><br><span class="line">	<span class="keyword">lw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">4</span></span><br><span class="line">	<span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
-<p>非叶程序：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fact</span> <span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> n * fact(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Argument n in $a0</p>
-<p>Result in $v0</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">fact:</span> <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">8</span></span><br><span class="line">	  <span class="keyword">sw </span>$<span class="built_in">ra</span>,<span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">sw </span>$<span class="built_in">a0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">slti </span>$<span class="built_in">t0</span>,$<span class="built_in">a0</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">beq </span>$<span class="built_in">t0</span>,$<span class="built_in">zero</span>,L1</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">v0</span>,$<span class="built_in">zero</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">8</span></span><br><span class="line">	  <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br><span class="line"><span class="symbol">L1:</span>   <span class="keyword">addi </span>$<span class="built_in">a0</span>,$<span class="built_in">a0</span>,-<span class="number">1</span></span><br><span class="line">	  <span class="keyword">jal </span>fact</span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">a0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">ra</span>,<span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">8</span></span><br><span class="line">	  <span class="keyword">mul </span>$<span class="built_in">v0</span>,$<span class="built_in">v0</span>,$<span class="built_in">a0</span></span><br><span class="line">	  <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
-<p>字符串复制</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">strcpy</span><span class="params">(<span class="keyword">char</span> x[],<span class="keyword">char</span> y[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((x[i]=y[i])!=<span class="string">'\0'</span>)</span><br><span class="line">        i+=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Addresses of x, y in \$a0, $a1</p>
-<p>i in $s0</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">strcpy:</span></span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">4</span></span><br><span class="line">	<span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">s0</span>,$<span class="built_in">zero</span>,$<span class="built_in">zero</span></span><br><span class="line"><span class="symbol">L1:</span> <span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">s0</span>,$<span class="built_in">a1</span></span><br><span class="line">	<span class="keyword">lbu </span>$<span class="built_in">t1</span>,<span class="number">0</span>($<span class="built_in">t1</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t3</span>,$<span class="built_in">s0</span>,$<span class="built_in">a0</span></span><br><span class="line">	<span class="keyword">sb </span>$<span class="built_in">t2</span>,<span class="number">0</span>(<span class="built_in">t3</span>)</span><br><span class="line">	<span class="keyword">beq </span>$<span class="built_in">t2</span>,$<span class="built_in">zero</span>,L2</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">s0</span>,$<span class="built_in">s0</span>,<span class="number">1</span></span><br><span class="line">	<span class="keyword">j </span>L1</span><br><span class="line"><span class="symbol">L2:</span> <span class="keyword">lw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">4</span></span><br><span class="line">	<span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
-<h4 id="分支和跳转中的寻址"><a href="#分支和跳转中的寻址" class="headerlink" title="分支和跳转中的寻址"></a>分支和跳转中的寻址</h4><p>PC相对寻址：因为MIPS指令都是4字节长，所以抛出相对寻址时所加的地址被设计为字地址而不是字节地址，跳转范围扩大4倍。</p>
-<p>直接跳转：PC高四位不变</p>
-<p>动态链接库(DLL)的晚过程链接：在随后的调用中，查找例程、重映射例程、链接例程被跳过</p>
-<p>即时编译器JIT：选择性的将一些方法编译成宿主机上的本地机器语言</p>
-<p>在字节寻址的机器中，连续的字地址相差4；</p>
-<table>
-<thead>
-<tr>
-<th>Instruction   class</th>
-<th>MIPS   examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Arithmetic</td>
-<td>add,   sub, addi</td>
-</tr>
-<tr>
-<td>Data   transfer</td>
-<td>lw,   sw, lb, lbu, lh, lhu, sb, lui</td>
-</tr>
-<tr>
-<td>Logical</td>
-<td>and,   or, nor, andi, ori, sll, srl</td>
-</tr>
-<tr>
-<td>Cond.   Branch</td>
-<td>beq,   bne, slt, slti, sltiu</td>
-</tr>
-<tr>
-<td>Jump</td>
-<td>j, jr, jal</td>
-</tr>
-</tbody>
-</table>
-<h2 id="计算机的算术运算"><a href="#计算机的算术运算" class="headerlink" title="计算机的算术运算"></a>计算机的算术运算</h2><h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h3><p>高位HI，低位LO</p>
-<p>Instructions</p>
-<p>mult rs, rt  /  multu rs, rt    64-bit product in HI/LO</p>
-<p>mfhi rd  / mflo rd    Move from HI/LO to rd，Can test HI value to see if product overflows 32 bits</p>
-<p>mul rd, rs, rt    Least-significant 32 bits of product –&gt; rd</p>
-<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h3><h3 id="浮点运算"><a href="#浮点运算" class="headerlink" title="浮点运算"></a>浮点运算</h3><h4 id="数值表示"><a href="#数值表示" class="headerlink" title="数值表示"></a>数值表示</h4><font color="red">尾数精度=尾数位数+1</font>
-
-<p>单精度规格化数：阶码取值范围在1~254之间；尾数可以取任何值。</p>
-<p>对于float型，特殊的值：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>阶码/指数</th>
-<th>尾数</th>
-<th>数值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+/-</td>
-<td>全0</td>
-<td>全0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全1(=255)</td>
-<td>全0</td>
-<td>+无穷/-无穷</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全0</td>
-<td>非0</td>
-<td>非规格化数</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全1(=255)</td>
-<td>非0</td>
-<td>非数NaN</td>
-</tr>
-</tbody>
-</table>
-<p>移码</p>
-<p>范围</p>
-<p>精度：float（$2^{-23}$）</p>
-<p><strong>例</strong></p>
-<p>表示-0.75：</p>
-<p>float: 1 01111110 100 … 00</p>
-<p>double: 1 01111111110 1000…00</p>
-<p>高级语言中可以定义多种数据类型，因此需要存取不同长度操作数的数据传输指令。</p>
-<h4 id="浮点数加法"><a href="#浮点数加法" class="headerlink" title="浮点数加法"></a>浮点数加法</h4><p><img src="//yoursite.com/2019/05/31/计组复习笔记（一）/blog\source\_posts\sql\10.PNG"></p>
-<p>对阶的时候，需要小阶向大阶看齐，因为大阶如果向小阶看齐，那么就要左移，不符号规格化的要求。</p>
-<h4 id="浮点数乘法"><a href="#浮点数乘法" class="headerlink" title="浮点数乘法"></a>浮点数乘法</h4><p>浮点数乘法运算结果规格化：不需要左移，最多需要一次右移；除法：不需要右移，最多需要一次左移。正常的运算过程下，若尾数为0，则结果的阶码也置为0.</p>
-<p>浮点加法不满足结合律</p>
-<h3 id="子字并行"><a href="#子字并行" class="headerlink" title="子字并行"></a>子字并行</h3><p><strong>Matrix Multiply</strong></p>
-<p>未优化：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dgemm</span> <span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span>* A, <span class="keyword">double</span>* B, <span class="keyword">double</span>* C)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">double</span> cij = C[i+j*n]; <span class="comment">/* cij = C[i][j] */</span></span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++ )</span><br><span class="line">      cij += A[i+k*n] * B[k+j*n]; <span class="comment">/* cij += A[i][k]*B[k][j] */</span></span><br><span class="line">      C[i+j*n] = cij; <span class="comment">/* C[i][j] = cij */</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>优化后：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;x86intrin.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dgemm</span> <span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span>* A, <span class="keyword">double</span>* B, <span class="keyword">double</span>* C)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i+=<span class="number">4</span> )</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++ ) &#123;</span><br><span class="line">    	__m256d c0 = _mm256_load_pd(C+i+j*n); <span class="comment">/* c0 = C[i][j] */</span></span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++ )</span><br><span class="line">    	c0 = _mm256_add_pd(c0, <span class="comment">/* c0 += A[i][k]*B[k][j] */</span></span><br><span class="line">              _mm256_mul_pd(_mm256_load_pd(A+i+k*n),</span><br><span class="line">             _mm256_broadcast_sd(B+k+j*n)));</span><br><span class="line">    	_mm256_store_pd(C+i+j*n, c0); <span class="comment">/* C[i][j] = c0 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1285,7 +1153,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

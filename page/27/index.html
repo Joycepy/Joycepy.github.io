@@ -158,6 +158,66 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/06/卷积&快速傅里叶变换/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/06/卷积&快速傅里叶变换/" class="post-title-link" itemprop="url">卷积&快速傅里叶变换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-06 21:00:28" itemprop="dateCreated datePublished" datetime="2019-05-06T21:00:28+08:00">2019-05-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> 多项式的系数表示和点值表示，在计算多项式的数乘、加法、乘法时各有优势，利用快速傅里叶变换（FFT），在O(nlogn)的时间复杂度内进行两中表示方法的转化，可以有效降低程序的复杂度。以卷积为例，如下图所示<img src="//yoursite.com/2019/05/06/卷积&快速傅里叶变换/Users\asus\AppData\Roaming\Typora\typora-user-images\1557145462556.png" alt="1557145462556"></p>
+<p>利用下面这篇博客：<a href="https://www.cnblogs.com/wangyh1008/p/9325715.html" target="_blank" rel="noopener">快速傅里叶变换（FFT）详解</a>，学习了FFT的写法，代码中把实系数都转化成复数，统一进行复数上的运算。IFFT(逆运算)和FFT可以放一起，用复数的虚部(+/- i)就可以区分两种不同的运算，至于原理，属于数学属于数学证明了（关键我不会）。rev数组的作用没有看懂，下次要来这里补上</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cn</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> x, y;</span><br><span class="line">	cn(<span class="keyword">double</span> x = <span class="number">0</span>, <span class="keyword">double</span> y = <span class="number">0</span>) :x(x), y(y) &#123;&#125;</span><br><span class="line">&#125;a[<span class="number">300005</span>], b[<span class="number">300005</span>], c[<span class="number">300005</span>];</span><br><span class="line">cn <span class="keyword">operator</span> + (<span class="keyword">const</span> cn &amp;a, <span class="keyword">const</span> cn &amp;b) &#123; <span class="keyword">return</span> cn(a.x + b.x, a.y + b.y); &#125;</span><br><span class="line">cn <span class="keyword">operator</span> - (<span class="keyword">const</span> cn &amp;a, <span class="keyword">const</span> cn &amp;b) &#123; <span class="keyword">return</span> cn(a.x - b.x, a.y - b.y); &#125;</span><br><span class="line">cn <span class="keyword">operator</span> * (<span class="keyword">const</span> cn &amp;a, <span class="keyword">const</span> cn &amp;b) &#123; <span class="keyword">return</span> cn(a.x*b.x - a.y*b.y, a.x*b.y + a.y*b.x); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fft</span><span class="params">(cn a[], <span class="keyword">int</span> n, <span class="keyword">int</span> l, <span class="keyword">int</span> f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* rev=<span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">5</span>];</span><br><span class="line">	rev[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;n; i++) &#123;</span><br><span class="line">		rev[i] = (rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">if</span> (i&lt;rev[i]) swap(a[i], a[rev[i]]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;n; i &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="function">cn <span class="title">wi</span><span class="params">(<span class="built_in">cos</span>(pi / i), f*<span class="built_in">sin</span>(pi / i))</span></span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;n; j += i * <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="function">cn <span class="title">w</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k&lt;i; k++) &#123;</span><br><span class="line">				cn x = a[j + k], y = w * a[j + k + i];</span><br><span class="line">				a[j + k] = x + y;</span><br><span class="line">				a[j + k + i] = x - y;</span><br><span class="line">				w = w * wi;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (f == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">			a[i].x /= n; a[i].y /= n;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, m;</span><br><span class="line">	scanf_s(<span class="string">"%d%d"</span>, &amp;n, &amp;m); n++; m++;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++) scanf_s(<span class="string">"%lf"</span>, &amp;a[i].x);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;m; i++) scanf_s(<span class="string">"%lf"</span>, &amp;b[i].x);</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">0</span>, N = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (N&lt;n + m - <span class="number">1</span>) N &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">	fft(a, N, l, <span class="number">1</span>);</span><br><span class="line">	fft(b, N, l, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;N; i++) c[i] = a[i] * b[i];</span><br><span class="line">	fft(c, N, l, <span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n + m - <span class="number">1</span>; i++) <span class="built_in">printf</span>(<span class="string">"%d "</span>, (<span class="keyword">int</span>)(c[i].x + <span class="number">0.5</span>));</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/06/2018_06CET6_2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -826,84 +886,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Ted-Note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/14/Ted-Note1/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-14 12:48:16" itemprop="dateCreated datePublished" datetime="2019-04-14T12:48:16+08:00">2019-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-31 08:32:08" itemprop="dateModified" datetime="2019-05-31T08:32:08+08:00">2019-05-31</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<p>title: Ted-Note1<br>tags: English—</p>
-<p>做项目做得有点自闭了，换个学习内容放松一下吧。</p>
-<p>推荐<a href="https://www.ted.com/talks/julia_galef_why_you_think_you_re_right_even_if_you_re_wrong" target="_blank" rel="noopener">这个TED</a>，内容对我很有启发。看待事物时，要学会跳出自我，又不是个小孩了，总是从自己出发看问题的话，算是狭隘还是自私呢？行事之情而忘其身，何暇至于悦生而恶死。其实，把人生当做一场场游戏来看的时候，反而能看得明白和坦然些，乘物以游心，托不得已以养中。下面是应有的正题了：</p>
-<h4 id="Key-Points"><a href="#Key-Points" class="headerlink" title="Key Points"></a>Key Points</h4><ul>
-<li>The scout’s job is not to attack or defend. The scout’s job is to understand. The scout is the one going out, mapping the terrain, identifying potential obstacles.侦查员的工作不是攻击或防守，侦查员的工作是认清形势。侦查员是那些走出营地、去测定地形、识别潜在障碍的人。</li>
-<li>Some information, some ideas, feel like our allies. We want them to win. We want to defend them. And other information or ideas are the enemy, and we want to shoot them down.有些信息和想法像是我们的盟友，我们希望他们能赢，我们想要保护他们。还有些信息和想法就像是敌人，我们想要打垮它们。</li>
-<li>Our judgment is strongly influenced, unconsciusly, by which side we want to win. And this is ubiquitous. This shapes how we think about our health, our relationships, how we decide how to vote, what we consider fair or ethical.我们的判断无意识的受到个人喜好的强烈影响。而且这种现象是普遍存在的。它影响着我们如何看待健康和人际关系，如何决定投谁的票，以及怎样看待公平或道德。（ubiquitous 普遍存在的、似乎无处不在的）</li>
-<li>Scouts are grounded, which means their self-worth as a person isn’t tied to how right or wrong they are about any particular topic.侦查兵是以事实为根据的，也就是说，他们的自我价值观不是跟他们在某件事上的对错绑在一起的。</li>
-<li>If you want to build a ship, don’t drum up your men to collect wood and give orders and distribute the work. Instead, teach them to yearn for the vast and endless sea.如果你想造一艘船，不要雇人去收集木材，不要发号施令，也不要分配任务，而是要去激发他们对无垠大海的渴望。（这是《小王子》中的一句话，很明智的一种策略，但是这样是不是就能提高成功的可能性呢？我不知道。难怪老师给我们描绘出了项目美好的前景，但是当实际情况不太妙的时候，这种落差感要怎么解决才好呢——走出自身利益看问题，这应该是关键了。同时也体会到周老师说的“自省”，是多么可贵的一种品质和思维）<img src="//yoursite.com/2019/04/14/Ted-Note1/blog\source\_posts\LittlePrince.png" alt=""></li>
-</ul>
-<p>所以问题归结于，我们更想要的是什么呢？是捍卫自己的信仰，还是尽可能清晰地看见这个世界？</p>
-<p>随想</p>
-<p>庄子所说的“散木”，不汲汲于为世所用，生命得以保存，是一种人生智慧，范蠡功成身退、刘邦和朱元璋杀功臣，正反例皆有。但不是我想要的人生——立德，立言，立功。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -974,7 +956,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

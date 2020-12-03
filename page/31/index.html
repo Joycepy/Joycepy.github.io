@@ -158,6 +158,74 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/31/Java10.31/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/31/Java10.31/" class="post-title-link" itemprop="url">Java10.31</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-31T00:00:00+08:00">2018-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:27:31" itemprop="dateModified" datetime="2018-12-06T21:27:31+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>创建内部类，需要用到外部类的引用<br>若为static inner class,则不能访问外部类非静态成员，<br>    在创建时不再需要外部类引用<br>用外部类继承内部类时，构造函数需要特殊参数x，<br>    x.super()调用内部内的构造方法，并非调用x的构造函数，<br>    而是将外部类的对象x作为参数</p>
+<p>Object的equals()，用==比较整个封装类（指针指向的位置）<br>Integer.equals()被改写，比较value的值，（先判断instanceof）</p>
+<p>native——调用本地底层操作<br>“+”调用toString()<br>clone按位浅层复制，snake为例,深层克隆需进行修改</p>
+<p>string 为不可变类对象，返回时创建了新的字符串<br>stringBuilder与stringBuffer为可变字符串</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/27/git_tip1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -568,7 +636,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -158,6 +158,83 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/dbis_starter_kit_developNote/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/27/dbis_starter_kit_developNote/" class="post-title-link" itemprop="url">dbis_starter_kit_developNote</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-27 16:43:33 / 修改时间：16:43:34" itemprop="dateCreated datePublished" datetime="2020-10-27T16:43:33+08:00">2020-10-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Win10远程桌面-出现-身份验证错误，要求的函数不受支持"><a href="#Win10远程桌面-出现-身份验证错误，要求的函数不受支持" class="headerlink" title="Win10远程桌面 出现 身份验证错误，要求的函数不受支持"></a><a href="https://www.cnblogs.com/raswin/p/9018388.html" target="_blank" rel="noopener">Win10远程桌面 出现 身份验证错误，要求的函数不受支持</a></h4><p>运行 gpedit.msc，本地组策略：计算机配置&gt;管理模板&gt;系统&gt;凭据分配&gt;加密Oracle修正</p>
+<p>选择启用并选择易受攻击。</p>
+<p>cmd 中输入：mstsc /admin /v:192.168.190.191</p>
+<p>mstsc (Microsoft terminal services client) 创建与<a href="https://baike.baidu.com/item/终端服务器/6984729" target="_blank" rel="noopener">终端服务器</a>或其他远程计算机的连接，编辑现有“<a href="https://baike.baidu.com/item/远程桌面连接/669361" target="_blank" rel="noopener">远程桌面连接</a>(.rdp)”配置文件，并将 Windows XP 连接,迁移到新的 .rdp 文件中。Microsoft Telnet Screen Control ，即“微软<a href="https://baike.baidu.com/item/远程桌面" target="_blank" rel="noopener">远程桌面</a>控制”。</p>
+<h4 id="创建考勤用户-用户ID设置下拉菜单"><a href="#创建考勤用户-用户ID设置下拉菜单" class="headerlink" title="创建考勤用户-用户ID设置下拉菜单"></a>创建考勤用户-用户ID设置下拉菜单</h4><p>数据库表与 model 对应。在创建考勤用户时，只显示未成为 atd_user 的 student 的 username.  在 dbis_user_student 表中取出所有 use_id，在 atd_user 表中取出所有的 uid, 求差集。得到 useId 的集合，到 user 表中查得 user 对象，将 userId 和 userName 存入数组，用 DropList 展示数据。</p>
+<p>backend\models\AtdUser.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getRemainUsers</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $atdUsers = <span class="keyword">self</span>::find()-&gt;select([<span class="string">"uid"</span>])-&gt;all();</span><br><span class="line">    $atdUserIds=<span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; count($atdUsers); $i++) &#123;</span><br><span class="line">        <span class="comment">// var_dump($atdUsers[$i]["uid"]);</span></span><br><span class="line">        $atdUserIds[] = $atdUsers[$i][<span class="string">"uid"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $userStudents = \common\models\UserStudent::find()-&gt;select([<span class="string">"userid"</span>])-&gt;all();</span><br><span class="line">    $userStudentIds=<span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; count($userStudents); $i++) &#123;</span><br><span class="line">        <span class="comment">// var_dump($atdUsers[$i]["uid"]);</span></span><br><span class="line">        $userStudentIds[] = $userStudents[$i][<span class="string">"userid"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $userIdList=array_diff($userStudentIds, $atdUserIds); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据userIdList从User表中取出姓名</span></span><br><span class="line">    $userList=User::findAll($userIdList);</span><br><span class="line">    <span class="comment">// var_dump($userList);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> ($userList <span class="keyword">as</span> $key =&gt; $user) &#123;</span><br><span class="line">        $userDropList[$user[<span class="string">'id'</span>]] = $user[<span class="string">'username'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// var_dump($userDropList);</span></span><br><span class="line">    <span class="comment">// die();</span></span><br><span class="line">    <span class="keyword">return</span> $userDropList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="PHP打印输出"><a href="#PHP打印输出" class="headerlink" title="PHP打印输出"></a>PHP打印输出</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump($userStudents[<span class="number">1</span>][<span class="string">'userid'</span>]);</span><br><span class="line"><span class="keyword">die</span>();</span><br></pre></td></tr></table></figure>
+<p>如果改了_form 的参数，其他用到该表格的地方的参数也需要修改。AtdUserController.php中，update 和 create 函数传递给 _form 的 userList 并不相同，create 可以直接调用 getRemainUsers()，update的 userList 应包含所有user，如果只是传入剩余的学生列表，下拉框中会默认显示数组的第一个值。</p>
+<p><a href="https://www.oschina.net/question/1182150_174242" target="_blank" rel="noopener">下拉列表默认选中不是在options参数里面决定的，而是$model-&gt;category的值决定的。</a></p>
+<h4 id="考勤页面-默认按照ccid排序"><a href="#考勤页面-默认按照ccid排序" class="headerlink" title="考勤页面 默认按照ccid排序"></a>考勤页面 默认按照ccid排序</h4><p>backend\views\attendance\atd-user\index.php 中使用了 GridView 组件来展示列表，在 backend\controllers\attendance\AtdUserController.php 的 actionIndex() 中创建 AtduserQuery 对象用于数据库查询，最后传入参数。</p>
+<p>修改 backend\models\search\AtdUserQuery.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$dataProvider = <span class="keyword">new</span> ActiveDataProvider([</span><br><span class="line">    <span class="string">'query'</span> =&gt; $query,</span><br><span class="line">    <span class="comment">// 新增配置项 默认 ccid 升序</span></span><br><span class="line">    <span class="string">'sort'</span> =&gt; [<span class="string">'defaultOrder'</span> =&gt; [<span class="string">'ccid'</span> =&gt; SORT_ASC]], </span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+<h4 id="创建用户时报错-500，但能成功创建"><a href="#创建用户时报错-500，但能成功创建" class="headerlink" title="创建用户时报错 500，但能成功创建"></a>创建用户时报错 500，但能成功创建</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">0 D:\xampp\htdocs\dbis_starter-kit\vendor\yiisoft\yii2\rbac\DbManager.php(835): yii\base\ErrorHandler-&gt;handleError(8, <span class="string">'Trying to get p...'</span>, <span class="string">'D:\\xampp\\htdocs...'</span>, 835, Array)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1 D:\xampp\htdocs\dbis_starter-kit\common\models\User.php(293): yii\rbac\DbManager-&gt;assign(NULL, 165)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2 D:\xampp\htdocs\dbis_starter-kit\backend\models\UserForm.php(126): common\models\User-&gt;afterSignup()</span></span><br><span class="line"><span class="meta">#</span><span class="bash">3 D:\xampp\htdocs\dbis_starter-kit\backend\controllers\UserController.php(69): backend\models\UserForm-&gt;save()</span></span><br><span class="line"><span class="meta">#</span><span class="bash">4 [internal <span class="keyword">function</span>]: backend\controllers\UserController-&gt;actionCreate()</span></span><br></pre></td></tr></table></figure>
+<p>是因为数据库中没有 user 这个角色，因此 getRole() 返回了 NULL 值：</p>
+<p>（afterSignup()函数）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Default role</span></span><br><span class="line">$auth = Yii::$app-&gt;authManager;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if $auth-&gt;getRole(User::ROLE_USER) = NULL ? </span></span><br><span class="line">$auth-&gt;assign($auth-&gt;getRole(User::ROLE_USER), <span class="keyword">$this</span>-&gt;getId());</span><br></pre></td></tr></table></figure>
+<p>直接注释掉这两行。</p>
+<p>另外，状态为 NOT Active 的用户无法登录。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/06/sql查询第n高的数据/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -810,79 +887,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/06/find-peak-element/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/find-peak-element/" class="post-title-link" itemprop="url">find-peak-element</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 18:22:52" itemprop="dateCreated datePublished" datetime="2020-08-06T18:22:52+08:00">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 08:45:26" itemprop="dateModified" datetime="2020-08-08T08:45:26+08:00">2020-08-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>值元素是指其值大于左右相邻值的元素。</p>
-<p>给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。</p>
-<p>数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。</p>
-<p>你可以假设 nums[-1] = nums[n] = -∞。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>线性扫描</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(index+<span class="number">1</span>&lt;nums.size()&amp;&amp;nums[index]&lt;nums[index+<span class="number">1</span>])index++;</span><br><span class="line">    <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>二分法</strong></p>
-<p>nums可视为交替的升序和降序序列。与右边相邻元素比较，可以知道当前是在上升坡度还是下降坡度。找到中间元素mid，若mid位于下降坡度，则峰值在左边；若mid位于上升坡度，则峰值在右边。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left=<span class="number">0</span>;<span class="keyword">int</span> right=nums.size()<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid]&lt;nums[mid+<span class="number">1</span>])</span><br><span class="line">            left=mid+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            right=mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -953,7 +957,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

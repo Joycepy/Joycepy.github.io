@@ -158,6 +158,82 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/10/minimum-path-sum/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/10/minimum-path-sum/" class="post-title-link" itemprop="url">minimum-path-sum & valid-number</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-10 11:43:57 / 修改时间：19:49:34" itemprop="dateCreated datePublished" datetime="2020-02-10T11:43:57+08:00">2020-02-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个包含非负整数的 <em>m</em> x <em>n</em> 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p>
+<p><strong>说明：</strong>每次只能向下或者向右移动一步。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>感觉，和62, 63题的思路没有区别。可不可以把二维数组缩减为一位数组呢？没想出来……下面这样其实也还不错。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = grid.size();<span class="comment">//行</span></span><br><span class="line">	<span class="keyword">int</span> n = grid[<span class="number">0</span>].size();<span class="comment">//列</span></span><br><span class="line">	<span class="keyword">int</span> **a = <span class="keyword">new</span> <span class="keyword">int</span>*[m];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">	a[m - <span class="number">1</span>][n - <span class="number">1</span>] = grid[m - <span class="number">1</span>][n - <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">		a[i][n - <span class="number">1</span>] = a[i + <span class="number">1</span>][n - <span class="number">1</span>] + grid[i][n - <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">		a[m - <span class="number">1</span>][i] = a[m - <span class="number">1</span>][i + <span class="number">1</span>] + grid[m - <span class="number">1</span>][i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">2</span>; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">		&#123;</span><br><span class="line">			a[i][j] = grid[i][j] + min(a[i + <span class="number">1</span>][j], a[i][j + <span class="number">1</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h4><p>验证给定的字符串是否可以解释为十进制数字。</p>
+<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
+<ul>
+<li><p>数字 0-9</p>
+</li>
+<li><p>指数 - “e”</p>
+</li>
+<li>正/负号 - “+”/“-“</li>
+<li>小数点 - “.”</li>
+</ul>
+<p>当然，在输入中，这些字符的上下文也很重要</p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>有种自动机的味道。</p>
+<p>剩下的就是各种面向特殊样例编程的过程了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_exp</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> &amp; i, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (s[i] == <span class="string">'-'</span> || s[i] == <span class="string">'+'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">if</span> (s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span> (i &lt; len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (i &lt; len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_frac</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> &amp; i, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">if</span> (i == len &amp;&amp; i - <span class="number">1</span> == start)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&lt;len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'e'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i - <span class="number">1</span> == start)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> get_exp(s, i, len);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isNumber</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.length();</span><br><span class="line">	<span class="keyword">if</span> (!len)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (s[i] == <span class="string">' '</span>) &#123; i++; &#125;</span><br><span class="line">	start = i;</span><br><span class="line">	<span class="keyword">while</span> (s[len - <span class="number">1</span>] == <span class="string">' '</span>)len--;</span><br><span class="line">	<span class="keyword">if</span> (i &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (s[i] == <span class="string">'-'</span> || s[i] == <span class="string">'+'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			i++;</span><br><span class="line">			<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">if</span> (s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span> (i &lt; len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					i++;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'.'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">return</span> get_frac(s, i, len);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'e'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">return</span> get_exp(s, i, len);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'.'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> get_frac(s, i, len);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span> (i &lt; len&amp;&amp;s[i] &gt;= <span class="string">'0'</span>&amp;&amp;s[i] &lt;= <span class="string">'9'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (i == len)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'.'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> get_frac(s, i, len);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'e'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> get_exp(s, i, len);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">'.'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> get_frac(s, i, len);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/rotate-list/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -829,74 +905,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/jump-game-ii/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/03/jump-game-ii/" class="post-title-link" itemprop="url">jump-game-ii</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-03 14:43:36 / 修改时间：22:12:27" itemprop="dateCreated datePublished" datetime="2020-02-03T14:43:36+08:00">2020-02-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
-<p>假设你总是可以到达数组的最后一个位置。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>贪心算法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//贪心算法</span></span><br><span class="line">	<span class="keyword">if</span> (nums.size() == <span class="number">1</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> reach = <span class="number">0</span>, nextreach = nums[<span class="number">0</span>], steps = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> t = nums[i] + i;</span><br><span class="line">		<span class="keyword">if</span> (t &gt; nextreach)nextreach = t;<span class="comment">//尽量走得远</span></span><br><span class="line">		<span class="keyword">if</span> (nextreach &gt;= nums.size() - <span class="number">1</span>) <span class="keyword">return</span> steps+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (i == reach)</span><br><span class="line">		&#123;</span><br><span class="line">			reach = nextreach;<span class="comment">//可跳</span></span><br><span class="line">			steps++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> steps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>图的广度优先遍历可以找到某节点到所有节点最少步数，图的深度优先遍历可以找到无环图的拓扑结构</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//bfs</span></span><br><span class="line">	<span class="keyword">int</span> steps = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> max;</span><br><span class="line">	<span class="keyword">while</span> (end &lt; nums.size() - <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		max = end;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt;= end; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> t = i + nums[i];</span><br><span class="line">			<span class="keyword">if</span> (max &lt; t) max = t;</span><br><span class="line">		&#125;</span><br><span class="line">		start = end + <span class="number">1</span>;<span class="comment">//往前走一步</span></span><br><span class="line">		end = max;</span><br><span class="line">		steps++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> steps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为什么大家的代码这么简洁。</p>
-<p>我是渣渣。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -967,7 +975,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

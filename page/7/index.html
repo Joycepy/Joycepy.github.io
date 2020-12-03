@@ -158,6 +158,74 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/08/palindrome-partitioning-ii/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/08/palindrome-partitioning-ii/" class="post-title-link" itemprop="url">palindrome-partitioning-ii</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-08 21:08:21 / 修改时间：22:28:55" itemprop="dateCreated datePublished" datetime="2020-05-08T21:08:21+08:00">2020-05-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个字符串 <em>s</em>，将 <em>s</em> 分割成一些子串，使每个子串都是回文串。</p>
+<p>返回符合要求的最少分割次数。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>使用动态规划的方法，可以利用上次的动态规划判断回文字符串的方法做优化。</p>
+<p>dp[i]：前缀子串 s[0:i] （包括索引 i 处的字符）符合要求的最少分割次数</p>
+<p>状态转移方程： dp[i] = min(dp[j] + 1 if s[j + 1: i] 是回文 for j in range(i))</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> slen = s.length();</span><br><span class="line">	<span class="keyword">bool</span> **isPali = <span class="keyword">new</span> <span class="keyword">bool</span>*[slen];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; slen; i++)</span><br><span class="line">		isPali[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[slen];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; slen; i++)</span><br><span class="line">		isPali[i][i] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; slen; i++)</span><br><span class="line">		isPali[i][i - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; slen; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; slen-i; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			isPali[j][i + j] = isPali[j + <span class="number">1</span>][i + j - <span class="number">1</span>] &amp;&amp; (s[j] == s[i + j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span>* dp = <span class="keyword">new</span> <span class="keyword">int</span>[slen];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; slen; i++)</span><br><span class="line">		dp[i] = i;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; slen; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (isPali[<span class="number">0</span>][i])</span><br><span class="line">		&#123;</span><br><span class="line">			dp[i] = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (isPali[j + <span class="number">1</span>][i])</span><br><span class="line">			&#123;</span><br><span class="line">				dp[i] = min(dp[j] + <span class="number">1</span>, dp[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[slen - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>最初是按照上次的想法稍微改动了一下，结果“超出时间限制”：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> **dp;</span><br><span class="line"><span class="keyword">int</span> slen = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfsHelper</span><span class="params">(<span class="built_in">string</span>&amp; s,<span class="keyword">int</span> ps,<span class="keyword">int</span>&amp; tmp,<span class="keyword">int</span>&amp; res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (tmp &gt; res)<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (ps &gt;= slen)</span><br><span class="line">	&#123;</span><br><span class="line">		res = tmp &lt; res ? tmp : res;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = ps; i &lt; slen; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (dp[ps][i])</span><br><span class="line">		&#123;</span><br><span class="line">			tmp++;</span><br><span class="line">			dfsHelper(s, i + <span class="number">1</span>, tmp, res);</span><br><span class="line">			tmp--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	slen = s.length();</span><br><span class="line">	dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[slen];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; slen; i++)</span><br><span class="line">		dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[slen];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; slen; i++)</span><br><span class="line">		dp[i][i] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; slen; i++)</span><br><span class="line">		dp[i][i - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; slen; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; slen-i; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			dp[j][i + j] = dp[j + <span class="number">1</span>][i + j - <span class="number">1</span>] &amp;&amp; (s[j] == s[i + j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> res = slen, tmp = <span class="number">0</span>;</span><br><span class="line">	dfsHelper(s,<span class="number">0</span>, tmp, res);</span><br><span class="line">	<span class="keyword">return</span> res<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还是很菜啊……所以更不能一直躺着啊……</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/longest-consecutive-sequence/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -789,75 +857,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/binary-tree-maximum-path-sum/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/20/binary-tree-maximum-path-sum/" class="post-title-link" itemprop="url">binary-tree-maximum-path-sum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-20 16:13:14" itemprop="dateCreated datePublished" datetime="2020-04-20T16:13:14+08:00">2020-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-21 22:41:04" itemprop="dateModified" datetime="2020-04-21T22:41:04+08:00">2020-04-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个<strong>非空</strong>二叉树，返回其最大路径和。</p>
-<p>本题中，路径被定义为一条从树中任意节点出发，达到任意节点的序列。该路径<strong>至少包含一个</strong>节点，且不一定经过根节点。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>自底向上？后序遍历？太卑微了，最终还是点开了答案。</p>
-<p>使用 val 来记录全局最大路径和。lmr表示路径：left-&gt;middle-&gt;right，return表示路径：由左/右子树经过当前节点向上走。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hmax</span><span class="params">(TreeNode* root, <span class="keyword">int</span> &amp;val)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">nullptr</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> left = max(hmax(root-&gt;left, val),<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">int</span> right = max(hmax(root-&gt;right, val),<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">int</span> lmr = root-&gt;val + left + right;</span><br><span class="line">	val = max(val,lmr);</span><br><span class="line">	<span class="keyword">return</span> root-&gt;val + max(left, right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> val = INT_MIN;</span><br><span class="line">	<span class="keyword">int</span> k= hmax(root, val);</span><br><span class="line">	<span class="keyword">return</span> max(k, val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -928,7 +927,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

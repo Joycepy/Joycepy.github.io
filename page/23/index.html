@@ -158,6 +158,289 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/计组复习笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/31/计组复习笔记（一）/" class="post-title-link" itemprop="url">计组复习笔记（一）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-31 22:18:47" itemprop="dateCreated datePublished" datetime="2019-05-31T22:18:47+08:00">2019-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-17 10:15:13" itemprop="dateModified" datetime="2019-06-17T10:15:13+08:00">2019-06-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <table>
+<thead>
+<tr>
+<th>名称</th>
+<th>控制对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RegDst</td>
+<td>选择目的寄存器</td>
+</tr>
+<tr>
+<td>RegWr</td>
+<td>读或写寄存器</td>
+</tr>
+<tr>
+<td>ExtOp</td>
+<td>立即数扩展方式</td>
+</tr>
+<tr>
+<td>ALUSrc</td>
+<td>ALU单元的输入</td>
+</tr>
+<tr>
+<td>MemWr</td>
+<td>读或写存储器</td>
+</tr>
+<tr>
+<td>MemToReg</td>
+<td>选择要写回的寄存器数据</td>
+</tr>
+<tr>
+<td>ALUctr</td>
+<td>ALU单元的操作</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>是否分支指令</td>
+</tr>
+<tr>
+<td>Jump</td>
+<td>是否跳转指令</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>分支条件是否为真</td>
+</tr>
+</tbody>
+</table>
+<p>ori 逻辑与 指令，其中一个操作数为立即数。</p>
+<p>程序计数器PC：存放下一条将要执行的指令在内存中的地址。</p>
+<p>堆栈指针寄存器sp：指向堆栈中的栈顶。（返回地址保存在此，return返回指令将保存在栈顶地址弹到PC中）</p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h4><p>假定基准程序A在某计算机上的运行时间为100秒，其中90秒为CPU时间，其余为I/O时间。若CPU速度提高50%，I/O速度不变，则运行基准程序A所耗费的时间是<font color="red">70</font>秒。<font color="red">(注意提高50%，表示现在速度是原来的1.5倍)</font></p>
+<p>冯诺依曼计算机根据<font color="red">指令周期的不同阶段</font>区分从存储器中取出的是指令还是数据，在取指周期根据PC所指示的地址，取出的是指令；在执行周期根据指令中所指示的地址，取出的是数据。</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>影响性能的因素：</p>
+<ol>
+<li>算法（语句条数）</li>
+<li>编程语言、编译器、体系结构（每条语句对应的指令条数）</li>
+<li>处理器、存储系统（指令执行速度）</li>
+<li>I/O系统（I/O执行速度）</li>
+</ol>
+<p>八个伟大思想：</p>
+<ol>
+<li>面向摩尔定律的设计：预测设计完成时的工艺水平</li>
+<li>使用抽象简化设计：高级语言、MIPS指令集</li>
+<li>加速大概率事件：寻址附近的指令</li>
+<li>通过并行提高性能</li>
+<li>通过流水线提高性能</li>
+<li>通过预测提高性能</li>
+<li>存储器层次</li>
+<li>通过冗余提高可靠性</li>
+</ol>
+<p>计算机部件：输入、输出、存储器、数据通路（运算器）、控制器。后两者合称处理器。</p>
+<p>性能：执行时间的倒数，提高性能的因素可从公式分析：</p>
+<p>CPU Time=CPU Clock Cycles * Clock Cycle Time=CPU Clock Cycles / Clock Rate</p>
+<p>Clock Cycles=Instruction Count * Cycles per Instruction</p>
+<p>CPU Time=Instruction Count <em> CPI </em> Clock Cycle Time=Instruction Count * CPI / Clock Rate</p>
+<p>MIPS=Instruction Count/(Execution time <em> 10^6)=Clock rate/(CPI </em> 10^6)</p>
+<p>功率墙——多核微处理器，通过并行提高性能</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令设计的四个基本原则</p>
+<ol>
+<li>简单源于规整(算数运算的固定格式)</li>
+<li>越小越快(MIPS仅有32个寄存器)</li>
+<li>加速大概率事件(立即数、零号寄存器、PC相对寻址)</li>
+<li>折中(没有“小/大于则跳转”的指令，只有小于置位，和(不)等则跳转，因为硬件难度；在指令中提供更大的地址与常数并且保持所有的指令具有相同的长度)</li>
+</ol>
+<h4 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h4><h5 id="算术运算（两个源操作数一个地址）"><a href="#算术运算（两个源操作数一个地址）" class="headerlink" title="算术运算（两个源操作数一个地址）"></a>算术运算（两个源操作数一个地址）</h5><p> 0(\$zero)用于寄存器间数据移动 ）</p>
+<h5 id="存储器操作："><a href="#存储器操作：" class="headerlink" title="存储器操作："></a>存储器操作：</h5><p>主存按字节寻址，按字对齐，找地址时，数组的下标要*4。MIPS大端对齐，数据高位在地址低位。load和store指令将低16位作为偏移地址，rs为基址。</p>
+<h5 id="立即数操作："><a href="#立即数操作：" class="headerlink" title="立即数操作："></a>立即数操作：</h5><p>有符号数1000 0000 … 0000表示最小的负数$-2^{31}$，0000 0000 … 0000表示0；</p>
+<h5 id="逻辑操作："><a href="#逻辑操作：" class="headerlink" title="逻辑操作："></a>逻辑操作：</h5><p>rs未使用，被置为全0；与0异或，等同取反；</p>
+<h5 id="决策指令："><a href="#决策指令：" class="headerlink" title="决策指令："></a>决策指令：</h5><p>C代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (save[i]==k)i+=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>MIPS代码：</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">loop:</span> <span class="keyword">sll </span>$<span class="built_in">t1</span>,$<span class="built_in">s3</span>,<span class="number">2</span></span><br><span class="line">	  <span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">t1</span>,$<span class="built_in">s6</span></span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">t0</span>,<span class="number">0</span>($<span class="built_in">t1</span>)</span><br><span class="line">	  <span class="keyword">bne </span>$<span class="number">0</span>,$<span class="built_in">s5</span>,exit</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">s3</span>,$<span class="built_in">s3</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">j </span>loop</span><br><span class="line"><span class="symbol">exit:</span> ...</span><br></pre></td></tr></table></figure>
+<p>“基本块”</p>
+<h4 id="过程调用"><a href="#过程调用" class="headerlink" title="过程调用"></a>过程调用</h4><p>6个步骤</p>
+<h5 id="寄存器分配"><a href="#寄存器分配" class="headerlink" title="寄存器分配"></a>寄存器分配</h5><p>\$a0 – $a3: arguments (reg’s 4 – 7)</p>
+<p>\$zero: (0)用于寄存器间数据移动</p>
+<p>\$v0, $v1: result values (reg’s 2 and 3)</p>
+<p>\$t0 – $t9: temporaries(reg’s 8 – 15，reg’s24 –25)    Can be overwritten by callee</p>
+<p>\$s0 – $s7: saved (reg’s 16 and 23)    Must be saved/restored by callee</p>
+<p>\$gp: global pointer for static data (reg 28)</p>
+<p>\$sp: stack pointer (reg 29)</p>
+<p>\$fp: frame pointer (reg 30)</p>
+<p>\$ra: return address (reg 31)</p>
+<h5 id="例"><a href="#例" class="headerlink" title="例"></a>例</h5><p>叶程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">leaf</span><span class="params">(<span class="keyword">int</span> g,<span class="keyword">int</span> h,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f;</span><br><span class="line">    f=(g+h)-(i+j);</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Arguments g, …, j in \$a0, …, $a3</p>
+<p>f in \$s0 (hence, need to save $s0 on stack)</p>
+<p>Result in $v0</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">leaf:</span></span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">4</span></span><br><span class="line">	<span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t0</span>,$<span class="built_in">a0</span>,$<span class="built_in">a1</span></span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">a2</span>,$<span class="built_in">a3</span></span><br><span class="line">	<span class="keyword">sub </span>$<span class="built_in">s0</span>,$<span class="built_in">t0</span>,$<span class="built_in">t1</span></span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">v0</span>,$<span class="built_in">s0</span>,$<span class="built_in">zero</span></span><br><span class="line">	<span class="keyword">lw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">4</span></span><br><span class="line">	<span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
+<p>非叶程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fact</span> <span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> n * fact(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Argument n in $a0</p>
+<p>Result in $v0</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">fact:</span> <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">8</span></span><br><span class="line">	  <span class="keyword">sw </span>$<span class="built_in">ra</span>,<span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">sw </span>$<span class="built_in">a0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">slti </span>$<span class="built_in">t0</span>,$<span class="built_in">a0</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">beq </span>$<span class="built_in">t0</span>,$<span class="built_in">zero</span>,L1</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">v0</span>,$<span class="built_in">zero</span>,<span class="number">1</span></span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">8</span></span><br><span class="line">	  <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br><span class="line"><span class="symbol">L1:</span>   <span class="keyword">addi </span>$<span class="built_in">a0</span>,$<span class="built_in">a0</span>,-<span class="number">1</span></span><br><span class="line">	  <span class="keyword">jal </span>fact</span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">a0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">lw </span>$<span class="built_in">ra</span>,<span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">	  <span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">8</span></span><br><span class="line">	  <span class="keyword">mul </span>$<span class="built_in">v0</span>,$<span class="built_in">v0</span>,$<span class="built_in">a0</span></span><br><span class="line">	  <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
+<p>字符串复制</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">strcpy</span><span class="params">(<span class="keyword">char</span> x[],<span class="keyword">char</span> y[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((x[i]=y[i])!=<span class="string">'\0'</span>)</span><br><span class="line">        i+=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Addresses of x, y in \$a0, $a1</p>
+<p>i in $s0</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">strcpy:</span></span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,-<span class="number">4</span></span><br><span class="line">	<span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">s0</span>,$<span class="built_in">zero</span>,$<span class="built_in">zero</span></span><br><span class="line"><span class="symbol">L1:</span> <span class="keyword">add </span>$<span class="built_in">t1</span>,$<span class="built_in">s0</span>,$<span class="built_in">a1</span></span><br><span class="line">	<span class="keyword">lbu </span>$<span class="built_in">t1</span>,<span class="number">0</span>($<span class="built_in">t1</span>)</span><br><span class="line">	<span class="keyword">add </span>$<span class="built_in">t3</span>,$<span class="built_in">s0</span>,$<span class="built_in">a0</span></span><br><span class="line">	<span class="keyword">sb </span>$<span class="built_in">t2</span>,<span class="number">0</span>(<span class="built_in">t3</span>)</span><br><span class="line">	<span class="keyword">beq </span>$<span class="built_in">t2</span>,$<span class="built_in">zero</span>,L2</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">s0</span>,$<span class="built_in">s0</span>,<span class="number">1</span></span><br><span class="line">	<span class="keyword">j </span>L1</span><br><span class="line"><span class="symbol">L2:</span> <span class="keyword">lw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">	<span class="keyword">addi </span>$<span class="built_in">sp</span>,$<span class="built_in">sp</span>,<span class="number">4</span></span><br><span class="line">	<span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
+<h4 id="分支和跳转中的寻址"><a href="#分支和跳转中的寻址" class="headerlink" title="分支和跳转中的寻址"></a>分支和跳转中的寻址</h4><p>PC相对寻址：因为MIPS指令都是4字节长，所以抛出相对寻址时所加的地址被设计为字地址而不是字节地址，跳转范围扩大4倍。</p>
+<p>直接跳转：PC高四位不变</p>
+<p>动态链接库(DLL)的晚过程链接：在随后的调用中，查找例程、重映射例程、链接例程被跳过</p>
+<p>即时编译器JIT：选择性的将一些方法编译成宿主机上的本地机器语言</p>
+<p>在字节寻址的机器中，连续的字地址相差4；</p>
+<table>
+<thead>
+<tr>
+<th>Instruction   class</th>
+<th>MIPS   examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arithmetic</td>
+<td>add,   sub, addi</td>
+</tr>
+<tr>
+<td>Data   transfer</td>
+<td>lw,   sw, lb, lbu, lh, lhu, sb, lui</td>
+</tr>
+<tr>
+<td>Logical</td>
+<td>and,   or, nor, andi, ori, sll, srl</td>
+</tr>
+<tr>
+<td>Cond.   Branch</td>
+<td>beq,   bne, slt, slti, sltiu</td>
+</tr>
+<tr>
+<td>Jump</td>
+<td>j, jr, jal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="计算机的算术运算"><a href="#计算机的算术运算" class="headerlink" title="计算机的算术运算"></a>计算机的算术运算</h2><h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h3><p>高位HI，低位LO</p>
+<p>Instructions</p>
+<p>mult rs, rt  /  multu rs, rt    64-bit product in HI/LO</p>
+<p>mfhi rd  / mflo rd    Move from HI/LO to rd，Can test HI value to see if product overflows 32 bits</p>
+<p>mul rd, rs, rt    Least-significant 32 bits of product –&gt; rd</p>
+<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h3><h3 id="浮点运算"><a href="#浮点运算" class="headerlink" title="浮点运算"></a>浮点运算</h3><h4 id="数值表示"><a href="#数值表示" class="headerlink" title="数值表示"></a>数值表示</h4><font color="red">尾数精度=尾数位数+1</font>
+
+<p>单精度规格化数：阶码取值范围在1~254之间；尾数可以取任何值。</p>
+<p>对于float型，特殊的值：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>阶码/指数</th>
+<th>尾数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+/-</td>
+<td>全0</td>
+<td>全0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全1(=255)</td>
+<td>全0</td>
+<td>+无穷/-无穷</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全0</td>
+<td>非0</td>
+<td>非规格化数</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全1(=255)</td>
+<td>非0</td>
+<td>非数NaN</td>
+</tr>
+</tbody>
+</table>
+<p>移码</p>
+<p>范围</p>
+<p>精度：float（$2^{-23}$）</p>
+<p><strong>例</strong></p>
+<p>表示-0.75：</p>
+<p>float: 1 01111110 100 … 00</p>
+<p>double: 1 01111111110 1000…00</p>
+<p>高级语言中可以定义多种数据类型，因此需要存取不同长度操作数的数据传输指令。</p>
+<h4 id="浮点数加法"><a href="#浮点数加法" class="headerlink" title="浮点数加法"></a>浮点数加法</h4><p><img src="//yoursite.com/2019/05/31/计组复习笔记（一）/blog\source\_posts\sql\10.PNG"></p>
+<p>对阶的时候，需要小阶向大阶看齐，因为大阶如果向小阶看齐，那么就要左移，不符号规格化的要求。</p>
+<h4 id="浮点数乘法"><a href="#浮点数乘法" class="headerlink" title="浮点数乘法"></a>浮点数乘法</h4><p>浮点数乘法运算结果规格化：不需要左移，最多需要一次右移；除法：不需要右移，最多需要一次左移。正常的运算过程下，若尾数为0，则结果的阶码也置为0.</p>
+<p>浮点加法不满足结合律</p>
+<h3 id="子字并行"><a href="#子字并行" class="headerlink" title="子字并行"></a>子字并行</h3><p><strong>Matrix Multiply</strong></p>
+<p>未优化：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dgemm</span> <span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span>* A, <span class="keyword">double</span>* B, <span class="keyword">double</span>* C)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">double</span> cij = C[i+j*n]; <span class="comment">/* cij = C[i][j] */</span></span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++ )</span><br><span class="line">      cij += A[i+k*n] * B[k+j*n]; <span class="comment">/* cij += A[i][k]*B[k][j] */</span></span><br><span class="line">      C[i+j*n] = cij; <span class="comment">/* C[i][j] = cij */</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优化后：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;x86intrin.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dgemm</span> <span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span>* A, <span class="keyword">double</span>* B, <span class="keyword">double</span>* C)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i+=<span class="number">4</span> )</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++ ) &#123;</span><br><span class="line">    	__m256d c0 = _mm256_load_pd(C+i+j*n); <span class="comment">/* c0 = C[i][j] */</span></span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++ )</span><br><span class="line">    	c0 = _mm256_add_pd(c0, <span class="comment">/* c0 += A[i][k]*B[k][j] */</span></span><br><span class="line">              _mm256_mul_pd(_mm256_load_pd(A+i+k*n),</span><br><span class="line">             _mm256_broadcast_sd(B+k+j*n)));</span><br><span class="line">    	_mm256_store_pd(C+i+j*n, c0); <span class="comment">/* C[i][j] = c0 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/数据库复习笔记（一）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1374,105 +1657,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/数据库上机笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/25/数据库上机笔记/" class="post-title-link" itemprop="url">数据库上机笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-25 12:25:08" itemprop="dateCreated datePublished" datetime="2019-05-25T12:25:08+08:00">2019-05-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-30 21:55:40" itemprop="dateModified" datetime="2019-05-30T21:55:40+08:00">2019-05-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>查询字段值是Null的记录</p>
-<p><strong>判断某个值是否为NULL时，应该用is NULL ，而不是is null</strong></p>
-</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tableA <span class="keyword">where</span> xxx <span class="keyword">is</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>分组统计，数据为空时显示0</li>
-</ul>
-<p>（有where条件时，被where条件过滤的数据不显示了）</p>
-<p>利用表的关联查询</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> k.catid,<span class="keyword">count</span>(t.catid) <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> catid <span class="keyword">from</span> <span class="keyword">Category</span>) k <span class="keyword">left</span> <span class="keyword">join</span> </span><br><span class="line">(<span class="keyword">select</span> catid <span class="keyword">from</span> <span class="keyword">Project</span> <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> Workson <span class="keyword">on</span> Project.proid=Workson.proid <span class="keyword">where</span> empid=<span class="string">'10102'</span>)t </span><br><span class="line"><span class="keyword">on</span> k.catid=t.catid <span class="keyword">group</span> <span class="keyword">by</span> k.catid</span><br></pre></td></tr></table></figure>
-<font color="green">从参考答案上学到另外一种方法：</font>
-
-<p>将 where 换成left outer join… on …. and，用and代替where，在连接的时候过滤，该项会被设为空值，不会在一开始过滤掉需要的空值。另外要注意left outer join 的两张表的顺序</p>
-<ul>
-<li>查找选修了全部课程的学生学号</li>
-</ul>
-<p>等价于找学生学号，对于这个学号，他所选的课程集合为B，不存在课程集合A，使得A不在B中—使用两个<font color="red">not exist</font> 。但是我又想到，也可以去数这个学生选的课程数，这个课程数等于总的课程数。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 学号 <span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span> </span><br><span class="line">   (<span class="keyword">select</span> * <span class="keyword">from</span> course</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span></span><br><span class="line">        (<span class="keyword">select</span> * <span class="keyword">from</span> takes</span><br><span class="line">        <span class="keyword">where</span>  takes.课号=course.课号</span><br><span class="line">                       <span class="keyword">and</span> takes.学号=student.学号))</span><br></pre></td></tr></table></figure>
-<p><strong>SQL SELECT语句完整的执行顺序：</strong></p>
-<font color="orange">1、FROM子句组装来自不同数据源的数据；</font>
-
-<font color="orange">2、WHERE子句基于指定的条件对记录进行筛选；</font>
-
-<font color="orange">3、GROUP BY子句将数据划分为多个分组；</font>
-
-<font color="orange">4、使用聚集函数进行计算；</font>
-
-<font color="orange">5、使用HAVING子句筛选分组；</font>
-
-<font color="orange">6、计算所有表达式；</font>
-
-<font color="orange">7、使用ORDER BY对结果进行排序。</font>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1543,7 +1727,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

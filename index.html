@@ -158,6 +158,221 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/03/cc-frontbackend-develop-note-2/" class="post-title-link" itemprop="url">cc-front/backend-develop-note-2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-03 19:48:12 / 修改时间：19:48:13" itemprop="dateCreated datePublished" datetime="2020-12-03T19:48:12+08:00">2020-12-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201112194147771.png" alt="image-20201112194147771"></p>
+<p>==管理员批量导入新生名单==</p>
+<p>==整理会议论文列表==</p>
+<p><em>不用添加老师；导入毕业生名单是另外的功能，只需要学号，把对应学号的学生的毕业状态置位即可</em></p>
+<p>新账户密码：NKcc+身份证后六位，没有身份证的话，用NKcc+学号。后台处理一下 或者 设置密码一列从excel里读取，让使用者自己录入密码。</p>
+<p>Excel需要的列：用户名、年级、层次（本、学硕、专硕、博）、身份证号、密码</p>
+<h2 id="会议论文列表"><a href="#会议论文列表" class="headerlink" title="会议论文列表"></a>会议论文列表</h2><p><a href="https://m.ais.cn/goodMeet" target="_blank" rel="noopener">https://m.ais.cn/goodMeet</a></p>
+<p>电子信息，计算机科学类，ei检索。偏系统，软件的。找下会议论文列表。有的是会议网站就有，没有的看看谷歌学术或者百度学术有没有搜索指定会议的。</p>
+<p>搜索论文：<a href="https://www.engineeringvillage.com/search/quick.url" target="_blank" rel="noopener">https://www.engineeringvillage.com/search/quick.url</a></p>
+<p>工程索引（The Engineering Index，简称EI）</p>
+<h2 id="git储藏"><a href="#git储藏" class="headerlink" title="git储藏"></a>git储藏</h2><p><code>git stash</code> 将当前未提交到本地（和服务器）的代码推入到Git的栈中，操作后的工作区间和上一次提交的内容是完全一样的。</p>
+<p><code>git checkout -b feat-import</code>创建分支并进行切换。git新功能用的前缀是 <code>feat</code></p>
+<p><code>git stash pop</code> 恢复之前缓存的工作目录。将缓存堆栈中的第一个stash删除，并将对应修改应用到当前的工作目录下。</p>
+<p><code>git stash apply</code>将以前的工作应用回来，但并不删除stash拷贝。</p>
+<font color="grey">Windows徽标键+ V，打开剪贴板历史记录面板</font>
+
+<h2 id="批量导入毕业生"><a href="#批量导入毕业生" class="headerlink" title="批量导入毕业生"></a>批量导入毕业生</h2><h3 id="下载Excel空表"><a href="#下载Excel空表" class="headerlink" title="下载Excel空表"></a>下载Excel空表</h3><p>使用 a 标签的 download 属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;src/assets/graduate.xlsx&quot;&gt;下载毕业生信息excel表格&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201114093539717.png" alt="image-20201114093539717"></p>
+<h5 id="路径中-和-的区别"><a href="#路径中-和-的区别" class="headerlink" title="路径中 @ 和 . 的区别"></a>路径中 @ 和 . 的区别</h5><p>import store from ‘. /vuex/store’是相对路径,代表当前路径同级下vuex下的store<br>import store from ‘ @/vuex/store’也是相对路径，和上面意思差不多,但是具体代表什么路径,要看webpack里面对于@是如何配置的，比如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">    <span class="string">'vue$'</span>: <span class="string">'vue/dist/vue. esm.js'</span>,</span><br><span class="line">    <span class="string">'@'</span>: resolve(<span class="string">'src'</span>),</span><br><span class="line">    Axios<span class="string">':'</span> axios</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="上传Excel"><a href="#上传Excel" class="headerlink" title="上传Excel"></a>上传Excel</h3><h4 id="el-upload组件"><a href="#el-upload组件" class="headerlink" title="el-upload组件"></a>el-upload组件</h4><p>action 必选参数，上传的地址</p>
+<p>手动提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$refs.upload.submit();</span><br></pre></td></tr></table></figure>
+<h4 id="显示跨域问题"><a href="#显示跨域问题" class="headerlink" title="显示跨域问题"></a>显示跨域问题</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to XMLHttpRequest at 'http://localhost:8081/cc-computer-homepage/backend/web/index.php/api/v1/students/batch' from origin 'http://localhost:8084' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后端没有提供API</li>
+</ul>
+<p>backend/config/main.php中配置方法路径和方法名。controller中补充 verbs。在controller中编写方法。</p>
+<p>控制器 ID <code>user</code> 以复数形式出现在 <code>users</code> 末端。要获取请求参数，调用 <code>request</code> 组件的 <a href="https://www.yiiframework.com/doc/api/2.0/yii-web-request#get(" target="_blank" rel="noopener">get()</a>-detail) 方法和 <a href="https://www.yiiframework.com/doc/api/2.0/yii-web-request#post(" target="_blank" rel="noopener">post()</a>-detail) 方法。 他们分别返回 <code>$_GET</code> 和 <code>$_POST</code> 的值。先发一个 OPTION 请求，成功之后再发 POST 请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 设置上传的请求头部</span><br><span class="line">headers: &#123; Authorization: &quot;Bearer &quot; + getCookie(&quot;access-token&quot;)&#125;,</span><br></pre></td></tr></table></figure>
+<ul>
+<li>路由管理，数据库中没有该权限</li>
+</ul>
+<h4 id="PHP调试"><a href="#PHP调试" class="headerlink" title="PHP调试"></a>PHP调试</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [<span class="string">"success"</span>=&gt; <span class="keyword">false</span>, <span class="string">"data"</span>=&gt;$UploadTime];</span><br></pre></td></tr></table></figure>
+<p>返回 json 格式的数据到输出流，在 Network  –&gt; Response 中可以查看</p>
+<h4 id="文件保存"><a href="#文件保存" class="headerlink" title="文件保存"></a>文件保存</h4><p>调用 common/components/fileUpload.php 的 uploadFile() 函数，将文件保存到设置的路径。拿到该路径存入日志。</p>
+<h5 id="获取当前用户-ID"><a href="#获取当前用户-ID" class="headerlink" title="获取当前用户 ID"></a>获取当前用户 ID</h5><p><del>localStorage 和 sessionStorage 属性允许在浏览器中存储 key/value 对的数据。localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。</del></p>
+<p><del>UserID: getCookie(“realid”)</del></p>
+<p>从前端获取是不安全的，直接从后端获取 UserID :</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$user_id = \Yii::$app-&gt;user-&gt;identity-&gt;getId();</span><br></pre></td></tr></table></figure>
+<p>Yii::$app-&gt;user-&gt;identity 返回当前登录用户或当前用户未通过身份验证（表示访客）的身份类的实例。</p>
+<h4 id="PHPExcel"><a href="#PHPExcel" class="headerlink" title="PHPExcel"></a>PHPExcel</h4><h5 id="composer-换源"><a href="#composer-换源" class="headerlink" title="composer 换源"></a>composer 换源</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/</span><br></pre></td></tr></table></figure>
+<h5 id="使用-phpExcel"><a href="#使用-phpExcel" class="headerlink" title="使用 phpExcel"></a>使用 phpExcel</h5><p>没找到PHPExcel的命名空间，暂时使用了简单粗暴的方式来引入第三方类库：</p>
+<p>在web目录中index.php中：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(<span class="keyword">__DIR__</span> . <span class="string">'/../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php'</span>);</span><br></pre></td></tr></table></figure>
+<p>在 controller 中使用的时候 <code>new \IOFactory</code> 需要加一个反斜杠：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$inputFileType = \PHPExcel_IOFactory::identify($path);<span class="comment">//自动识别Excel版本</span></span><br></pre></td></tr></table></figure>
+<h6 id="读取指定列的信息"><a href="#读取指定列的信息" class="headerlink" title="读取指定列的信息"></a>读取指定列的信息</h6><p>backend/modules/api/v1/models/student/StudentModel.php :</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解析Excel表格，返回毕业生学号数组</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">readGraduateFromExcel</span><span class="params">($path)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//自动识别Excel版本</span></span><br><span class="line">    $inputFileType = \PHPExcel_IOFactory::identify($path);</span><br><span class="line">    $objReader = \PHPExcel_IOFactory::createReader($inputFileType);</span><br><span class="line">    $objPHPExcel = $objReader-&gt;load($path);</span><br><span class="line">    $sheet = $objPHPExcel-&gt;getSheet(<span class="number">0</span>);<span class="comment">//读取第一个sheet</span></span><br><span class="line"></span><br><span class="line">    $highestRow = $sheet-&gt;getHighestRow();<span class="comment">//取得总行数</span></span><br><span class="line">    $result = [];</span><br><span class="line">    <span class="comment">//过滤第一行表头，内容从Excel的第二行开始读</span></span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">2</span>; $i &lt;= $highestRow; $i++) &#123;</span><br><span class="line">        <span class="comment">//列的索引是从0开始计数</span></span><br><span class="line">        $result[] = $sheet-&gt;getCellByColumnAndRow(<span class="number">0</span>, $i)-&gt;getValue();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<font color="red">没有考虑学号为空的情况，即：必须填写要添加的毕业生的学号</font>
+
+<h6 id="创建自己的packagist-安装包"><a href="#创建自己的packagist-安装包" class="headerlink" title="创建自己的packagist 安装包"></a><del>创建自己的packagist 安装包</del></h6><ol>
+<li><p>创建GitHub项目并clone到本地</p>
+</li>
+<li><p>在项目下打开cmd，输入命令<code>composer init</code>用来创建composer.json，接下来需要在控制台中设置项目名称、描述、作者等信息，方括号里面是默认的信息。其中，资源包的最低稳定版本，默认为 stable。 可选 -dev、-patch、-alpha、-beta 或 -RC；包类型默认选择 library ，License []: mit</p>
+</li>
+<li><p>在composer文件中添加以下代码，使安装自动加载</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"autoload": &#123;</span><br><span class="line">    "psr-4": &#123;</span><br><span class="line">        "joyce\\myExcel\\": ""</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>就可以使用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">joyce</span>\<span class="title">myExcel</span> <span class="title">xxx</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入 packagist 官网(<a href="https://packagist.org/" target="_blank" rel="noopener">https://packagist.org</a>)注册账户并在设置里面关联自己的GitHub账户，使用GitHub账户登录，点击submit 提交GitHub项目地址，点击check。</p>
+</li>
+<li><p>部署自动更新（ packgist 官网有教程）</p>
+</li>
+<li><p>发布版本 （改动之后需要发布版本  packagist 里面才会更新）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line">git tag -a <span class="string">'1.0.1'</span> xxxxxx</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遇到的问题：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[UnexpectedValueException]</span><br><span class="line">Error while installing pcy/my-php-excel-packgist, composer-plugin packages should have a class defined in their extra key to be usable.</span><br></pre></td></tr></table></figure>
+<p>是因为包类型选择了 composer-plugin </p>
+</li>
+</ol>
+<h3 id="添加批量导入操作的日志"><a href="#添加批量导入操作的日志" class="headerlink" title="添加批量导入操作的日志"></a>添加批量导入操作的日志</h3><p>对于毕业生，excel 表格中只需要有学号信息。在数据库表 cc_student 中根据学号 SID 修改记录，将 IsGraduated 和 StudyStatus 两个字段对应改为 1 和 已毕业。</p>
+<h5 id="数据库表-cc-log-batch"><a href="#数据库表-cc-log-batch" class="headerlink" title="数据库表 cc_log_batch"></a>数据库表 cc_log_batch</h5><p>用于记录在批量导入过程中，</p>
+<p>参考批量创建活动 <code>backend/modules/api/v1/models/activity/ActivityParticipationModel.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$transaction=Yii::$app-&gt;db-&gt;beginTransaction(<span class="string">'SERIALIZABLE'</span>);</span><br></pre></td></tr></table></figure>
+<p>MySQL数据库提供的四种隔离级别：</p>
+<p>① Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。</p>
+<p>② Repeatable read (可重复读)：可避免脏读、不可重复读的发生。</p>
+<p>③ Read committed (读已提交)：可避免脏读的发生。</p>
+<p>④ Read uncommitted (读未提交)：最低级别，任何情况都无法保证。</p>
+<h5 id="LogBatchModel-php"><a href="#LogBatchModel-php" class="headerlink" title="LogBatchModel.php"></a>LogBatchModel.php</h5><p>参照<code>backend/modules/api/v1/models/log/LogApiModel.php</code>编写 LogBatchModel .</p>
+<p>核心验证器 <code>safe</code>：该验证器并不进行数据验证。</p>
+<ul>
+<li>“message”:”Setting unknown property: backend\modules\api\v1\models\log\LogBatchModel::ResStatus”</li>
+</ul>
+<p>原因：afterBatch() 函数中 copy-paste 错误。</p>
+<p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201127215353617.png" alt="image-20201127215353617"></p>
+<h6 id="backend-modules-api-v1-models-student-StudentModel-php"><a href="#backend-modules-api-v1-models-student-StudentModel-php" class="headerlink" title="backend/modules/api/v1/models/student/StudentModel.php:"></a>backend/modules/api/v1/models/student/StudentModel.php:</h6><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//批量导入毕业生，记录日志，成功时返回毕业生SID集合</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">batchGraduateStudentUpload</span><span class="params">($data)</span></span>&#123;</span><br><span class="line">    date_default_timezone_set(<span class="string">'PRC'</span>);</span><br><span class="line">    $log = LogBatchModel::beforeBatch($data);</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>($log[<span class="string">'success'</span>]===<span class="keyword">false</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建批量导入的日志时出现错误</span></span><br><span class="line">        $res[<span class="string">'logBatch'</span>]=$log;</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    $LBID=$log[<span class="string">'data'</span>][<span class="string">'LBID'</span>];</span><br><span class="line">    $filePath=$data[<span class="string">'FilePath'</span>];</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//获得毕业生的SID集合</span></span><br><span class="line">        $SIDArray = <span class="keyword">self</span>::readGraduateFromExcel($filePath);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (<span class="keyword">Exception</span> $e)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//解析 Excel 出现错误</span></span><br><span class="line">        $res[<span class="string">'filePath'</span>]=$filePath;</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $transaction=Yii::$app-&gt;db-&gt;beginTransaction(<span class="string">'SERIALIZABLE'</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($SIDArray); $i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $SID = $SIDArray[$i];</span><br><span class="line">            $newStatus[<span class="string">'IsGraduated'</span>]=<span class="number">1</span>;</span><br><span class="line">            $newStatus[<span class="string">'StudyStatus'</span>]=<span class="string">'已毕业'</span>;</span><br><span class="line">            <span class="comment">//将 IsGraduated 和 StudyStatus 两个字段对应改为 1 和 已毕业</span></span><br><span class="line">            <span class="keyword">self</span>::updateStudent($SID,$newStatus);</span><br><span class="line">        &#125;</span><br><span class="line">        $transaction-&gt;commit();</span><br><span class="line">        $res[<span class="string">'data'</span>] = $SIDArray;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (\<span class="keyword">Exception</span> $exception)  &#123;</span><br><span class="line">        $transaction-&gt;rollBack();</span><br><span class="line">        LogBatchModel::afterBatch(<span class="keyword">false</span>,$LBID);</span><br><span class="line">        $res[<span class="string">'data'</span>] = $exception-&gt;getMessage();</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">true</span>;</span><br><span class="line">    LogBatchModel::afterBatch(<span class="keyword">true</span>,$LBID);</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试 batchGraduateStudentUpload() ，batch-graduate 接口 Network -&gt; Response：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"success":true,"data":[1713650,1713429,1713032]&#125;</span><br></pre></td></tr></table></figure>
+<p>==UpdateStudent() 接口或许有点问题==，在batchGraduateStudentUpload() 中重写了修改学生毕业状态的语句。</p>
+<p>在前端给出提示，显示已修改为毕业生的学号或给出错误提示：</p>
+<p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201129162233663.png" alt="image-20201129162233663"></p>
+<p>src\views\student\StudentInfoManage.vue:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件上传成功处理</span></span><br><span class="line">handleFileSuccess(response, file, fileList) &#123;</span><br><span class="line"><span class="keyword">this</span>.upload.open = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">this</span>.upload.isUploading = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">this</span>.$refs.upload.clearFiles();</span><br><span class="line"><span class="keyword">if</span>(response.success===<span class="literal">true</span>)&#123;</span><br><span class="line"><span class="keyword">this</span>.$alert(<span class="string">"以下学号的学生已修改为毕业生：\n"</span>+response.data, <span class="string">"导入结果"</span>, &#123; <span class="attr">dangerouslyUseHTMLString</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line"><span class="keyword">this</span>.$alert(<span class="string">"导入失败，请检查Excel数据格式"</span>, <span class="string">"导入结果"</span>, &#123; <span class="attr">dangerouslyUseHTMLString</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 重新获取列表</span></span><br><span class="line"><span class="keyword">this</span>.searchStudentInfoManage();</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="批量导入新生"><a href="#批量导入新生" class="headerlink" title="批量导入新生"></a>批量导入新生</h2><p>在批量导入毕业生的基础上，按照相同逻辑实现导入新生的功能。尽量整合两个模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入新生</span></span><br><span class="line">handleImportFreshman() &#123;</span><br><span class="line">    <span class="keyword">this</span>.upload.filePath=<span class="string">"src/assets/freshman.xlsx"</span>;</span><br><span class="line">    <span class="keyword">this</span>.upload.title = <span class="string">"导入新生"</span>;</span><br><span class="line">    <span class="keyword">this</span>.upload.url=<span class="keyword">this</span>.DownBaseUrL + <span class="string">"/students/batch-freshman"</span>;</span><br><span class="line">    <span class="keyword">this</span>.attachmentInfo.ModuleName=<span class="string">"batchFreshmanStudentUpload"</span>;</span><br><span class="line">    <span class="comment">// console.log("clicked 导入新生 button");</span></span><br><span class="line">    <span class="keyword">this</span>.upload.open = <span class="literal">true</span>;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="设计新生excel"><a href="#设计新生excel" class="headerlink" title="设计新生excel"></a>设计新生excel</h3><p>学号、姓名、年级、层次、专业、身份证号、密码、导师。</p>
+<p>层次和专业设置下拉菜单。将模板 freshman.xlsx 放入 cc-frontend\src\assets 文件夹下。</p>
+<ul>
+<li>修改Excel表格，修改可选项、必填项，增加导师列 (数据 –&gt; 数据验证)</li>
+</ul>
+<h3 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h3><p>需要进行插入的表：cc_major_enrollyear、cc_student、cc_user、cc_auth_assignment（如果是导入学生的话需要插两条：学生、游客）</p>
+<p><del>关于“层次”属性需要查表 cc_education_level ，考虑到条目不多，可以直接在后端做映射而不去数据库查表。</del>为了避免数据库有变更，还是查表吧。</p>
+<p>添加 user、student 参照 backend/modules/api/v1/controllers/UserController.php 的 actionSignup()。cc_student 的 EnrollDate 设置为上半年/下半年</p>
+<p>添加 assignment 参照 vendor/clement/yii-rest-rbac2.0/controllers/AssignmentController.php 的 actionAssign($id)</p>
+<p>backend/config/main.php：<code>&quot;class&quot; =&gt; &quot;clement\\rest\Module&quot;,</code></p>
+<p>可能会存储<strong>失败</strong>的情况：学号为空、找不到导师、找不到 MajorName &amp; EducationLevelID 对应的 MID（cc_major表）、找不到 年级 &amp; MajorID 对应的 MEYID（cc_major_enrollyear表）</p>
+<p>密码明文默认111111</p>
+<h4 id="password加密传输"><a href="#password加密传输" class="headerlink" title="password加密传输"></a>password加密传输</h4><p>常用的签名算法：MD5 和 HMAC-SHA256 </p>
+<ul>
+<li>验证 yii2 和 vue 对密码的 hash 算法结果是否一致，用户登录或新建单个用户时输入密码后由前端进行 HMAC-SHA256 加密存入数据库（src\components\admin\UserInfo.vue），但批量导入数据库时是由后端来加密密码存入数据库，需要保持加密结果一致。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;sha256&#125; <span class="keyword">from</span> <span class="string">'js-sha256'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(sha256.hmac(<span class="string">'111111'</span>, <span class="string">'cc-frontend-vue'</span>));</span><br></pre></td></tr></table></figure>
+<p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201130221713885.png" alt="image-20201130221713885"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(property) Hash.hmac: Hmac</span><br><span class="line">(secretKey: string, <span class="attr">message</span>: Message) =&gt; string</span><br></pre></td></tr></table></figure>
+<p>注意与 PHP 参数的顺序不同：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hash_hmac</span> <span class="params">($algo, $data, $key, $raw_output = false)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$hash = hash_hmac(<span class="string">'SHA256'</span>, <span class="string">'cc-frontend-vue'</span>,<span class="string">'111111'</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"result = "</span> .  $hash;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>xampp/htdocs/dashboard/phpinfo.php，访问<a href="http://localhost:8081/dashboard/phpinfo.php" target="_blank" rel="noopener">http://localhost:8081/dashboard/phpinfo.php</a></p>
+<h3 id="后端-batch-freshman-接口"><a href="#后端-batch-freshman-接口" class="headerlink" title="后端 batch-freshman 接口"></a>后端 batch-freshman 接口</h3><p>backend/config/main.php: (‘controller’ =&gt; ‘api/v1/student’)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'POST,OPTIONS batch-freshman'</span> =&gt; <span class="string">'batch-freshman-student-upload'</span>,</span><br></pre></td></tr></table></figure>
+<p>backend/modules/api/v1/controllers/StudentController.php: </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//批量导入新生</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionBatchFreshmanStudentUpload</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $request = \Yii::$app-&gt;request;</span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;getIsOptions()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;ResponseOptions(<span class="keyword">$this</span>-&gt;verbs()[<span class="string">'batch-freshman-student-upload'</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    $upload = <span class="keyword">new</span> fileUpload(<span class="keyword">false</span>, <span class="number">2</span>);</span><br><span class="line">    $res = $upload-&gt;uploadFile();</span><br><span class="line">    <span class="keyword">if</span> ($res-&gt;&#123;<span class="string">'success'</span>&#125; == <span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'success'</span> =&gt; <span class="keyword">false</span>, <span class="string">'data'</span> =&gt; $res-&gt;&#123;<span class="string">'error'</span>&#125;];</span><br><span class="line">    &#125;</span><br><span class="line">    $temp[<span class="string">'FilePath'</span>]=$res-&gt;&#123;<span class="string">'data'</span>&#125;[<span class="string">'Destination'</span>];</span><br><span class="line">    $temp[<span class="string">'UploadTime'</span>]=$request-&gt;post(<span class="string">'UploadTime'</span>);</span><br><span class="line">    $temp[<span class="string">'UserID'</span>] = \Yii::$app-&gt;user-&gt;identity-&gt;getId();</span><br><span class="line">    $temp[<span class="string">'ModuleName'</span>] = $request-&gt;post(<span class="string">'ModuleName'</span>);</span><br><span class="line">    $temp[<span class="string">'IsImported'</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> StudentModel::batchFreshmanStudentUpload($temp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解析新生Excel表格"><a href="#解析新生Excel表格" class="headerlink" title="解析新生Excel表格"></a>解析新生Excel表格</h4><p>backend/modules/api/v1/models/student/StudentModel.php ：</p>
+<ul>
+<li>如果某一格为空？</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">rangeToArray</span><span class="params">($pRange = <span class="string">'A1'</span>, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>由于在后面的列中编写了下拉列表，因此不能用函数来获取总行数总列数？</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$highestRow = $sheet-&gt;getHighestRow();<span class="comment">//取得总行数</span></span><br><span class="line">$highestCol = $sheet-&gt;getHighestColumn();<span class="comment">//取得总行数</span></span><br></pre></td></tr></table></figure>
+<p>解决：将下拉列表的选项放在新的 sheet 中</p>
+<blockquote>
+<p>{“success”:true,</p>
+<p>“data”:[[[2011430,”张一”,2020,”本科”,null,”123654166623564612”,111111,”温延龙”]],[[2011431,”张二”,2017,”博士”,”信息安全”,”369852232365894626”,111111,”宋春瑶”]],[[2011432,”张三”,2018,”硕士”,”软件工程”,null,111111,”王刚强”]],[[null,”张四”,2019,”专业硕士”,”运筹学与控制论”,null,null,”温延龙”]],[[2011434,”张五”,2020,”本科”,”计算机科学与技术”,null,111111,”袁晓洁”]]],</p>
+<p>“logBatch”:{“success”:true,”data”:{“FilePath”:”/storager/2020_year/12_month/02_day/1c7b9bac371e8038e26b3081fee650e3/1c7b9bac371e8038e26b3081fee650e3.xlsx”,”UploadTime”:”2020-12-02 10:56:00”,”UserID”:64041,”ModuleName”:”batchFreshmanStudentUpload”,”IsImported”:0,”LBID”:18}}}</p>
+</blockquote>
+<p>batchFreshmanStudentUpload($data) 得到 excel 解析内容后，先对异常数据进行预处理。</p>
+<h4 id="新生数组数据处理"><a href="#新生数组数据处理" class="headerlink" title="新生数组数据处理"></a>新生数组数据处理</h4><p>哪些不能为空？MajorEnrollYearID –&gt; 专业、年级、层次都不能为空；StudentName；SID。</p>
+<p>创建 user 时仿照 backend/modules/api/v1/controllers/UserController.php 的 actionSignup()</p>
+<p>测试 batchFreshmanStudentUpload($data) 报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"success":false,"data":"Undefined offset: 1"&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="//yoursite.com/2020/12/03/cc-frontbackend-develop-note-2/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201203120812297.png" alt="image-20201203120812297"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$debugOffset=<span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">if</span>($debugOffset===<span class="keyword">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($StudentArray); $i++)</span><br><span class="line">    &#123;</span><br><span class="line">        $row = $StudentArray[$i][<span class="number">0</span>];</span><br><span class="line">        $student=[];</span><br><span class="line">        <span class="keyword">for</span>($j=<span class="number">0</span>;$j&lt;count($key);$j++)</span><br><span class="line">        &#123;</span><br><span class="line">            $student[$key[$j]]=$row[$j];</span><br><span class="line">        &#125;</span><br><span class="line">        $res[<span class="string">'data'</span>][]=$student;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($StudentArray); $i++)</span><br><span class="line">        $res[<span class="string">'SID'</span>][] = $StudentArray[$i][<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$res[<span class="string">'StudentArray'</span>]=$StudentArray;</span><br><span class="line">$res[<span class="string">'Student'</span>]=$StudentArray[<span class="number">1</span>];</span><br><span class="line">$res[<span class="string">'SID'</span>]=$StudentArray[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">"success":false,</span><br><span class="line">"StudentArray":</span><br><span class="line">[[[2011430,"张一",2017,"本科","自动化","123654166623564612",111111,null]],[[2011431,"张二",2017,"本科","信息安全","369852232365894626",111111,null]],[[2011432,"张三",2018,"博士","软件工程",null,111111,"王刚（计）"]],[[2011431,"张四",2019,"硕士","计算机应用技术",null,123456,"温延龙"]],[[2011434,"张五",2017,"本科","计算机科学与技术",null,111111,null]]],</span><br><span class="line">"Student":[[2011431,"张二",2017,"本科","信息安全","369852232365894626",111111,null]],</span><br><span class="line">"SID":2011431</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>是因为每行多了一层数组。</p>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>前端不需要提交 package-lock.json、dev.env.js、http.js、util.js</p>
+<p>后端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"feat: 批量导入毕业生名单；批量导入新生名单"</span></span><br><span class="line">git push origin feat-import:feat-import</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/01/cc-frontbackend-develop-note-1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -366,7 +581,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-01 17:14:23" itemprop="dateModified" datetime="2020-12-01T17:14:23+08:00">2020-12-01</time>
+                <time title="修改时间：2020-12-01 17:26:59" itemprop="dateModified" datetime="2020-12-01T17:26:59+08:00">2020-12-01</time>
               </span>
 
           
@@ -403,7 +618,9 @@
 <p>DI is dependency injection. It’s a specific kind of IOC where the framework will manage the dependencies that an object uses (you can call dependency: a service).</p>
 <p>Bean is an object managed by the Framework.</p>
 </blockquote>
-<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><strong>map</strong>：存储键值对，</p>
+<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><strong>map 接口</strong>：存储键值对，能高效通过 key 快速查找 value。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br></pre></td></tr></table></figure>
+<p>map 常用的实现类：HashMap、Hashtable、TreeMap 等。</p>
 <p>hashmap的实现原理</p>
 <p>rehash</p>
 <h5 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h5><p>threadLocal的实现原理；线程池的实现原理，线程运行完run方法就被回收了吗，用什么数据结构存储任务，blockingQueue；并发锁的实现；</p>
@@ -916,83 +1133,6 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/dbis_starter_kit_developNote/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/27/dbis_starter_kit_developNote/" class="post-title-link" itemprop="url">dbis_starter_kit_developNote</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-27 16:43:33 / 修改时间：16:43:34" itemprop="dateCreated datePublished" datetime="2020-10-27T16:43:33+08:00">2020-10-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Win10远程桌面-出现-身份验证错误，要求的函数不受支持"><a href="#Win10远程桌面-出现-身份验证错误，要求的函数不受支持" class="headerlink" title="Win10远程桌面 出现 身份验证错误，要求的函数不受支持"></a><a href="https://www.cnblogs.com/raswin/p/9018388.html" target="_blank" rel="noopener">Win10远程桌面 出现 身份验证错误，要求的函数不受支持</a></h4><p>运行 gpedit.msc，本地组策略：计算机配置&gt;管理模板&gt;系统&gt;凭据分配&gt;加密Oracle修正</p>
-<p>选择启用并选择易受攻击。</p>
-<p>cmd 中输入：mstsc /admin /v:192.168.190.191</p>
-<p>mstsc (Microsoft terminal services client) 创建与<a href="https://baike.baidu.com/item/终端服务器/6984729" target="_blank" rel="noopener">终端服务器</a>或其他远程计算机的连接，编辑现有“<a href="https://baike.baidu.com/item/远程桌面连接/669361" target="_blank" rel="noopener">远程桌面连接</a>(.rdp)”配置文件，并将 Windows XP 连接,迁移到新的 .rdp 文件中。Microsoft Telnet Screen Control ，即“微软<a href="https://baike.baidu.com/item/远程桌面" target="_blank" rel="noopener">远程桌面</a>控制”。</p>
-<h4 id="创建考勤用户-用户ID设置下拉菜单"><a href="#创建考勤用户-用户ID设置下拉菜单" class="headerlink" title="创建考勤用户-用户ID设置下拉菜单"></a>创建考勤用户-用户ID设置下拉菜单</h4><p>数据库表与 model 对应。在创建考勤用户时，只显示未成为 atd_user 的 student 的 username.  在 dbis_user_student 表中取出所有 use_id，在 atd_user 表中取出所有的 uid, 求差集。得到 useId 的集合，到 user 表中查得 user 对象，将 userId 和 userName 存入数组，用 DropList 展示数据。</p>
-<p>backend\models\AtdUser.php：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getRemainUsers</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $atdUsers = <span class="keyword">self</span>::find()-&gt;select([<span class="string">"uid"</span>])-&gt;all();</span><br><span class="line">    $atdUserIds=<span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; count($atdUsers); $i++) &#123;</span><br><span class="line">        <span class="comment">// var_dump($atdUsers[$i]["uid"]);</span></span><br><span class="line">        $atdUserIds[] = $atdUsers[$i][<span class="string">"uid"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $userStudents = \common\models\UserStudent::find()-&gt;select([<span class="string">"userid"</span>])-&gt;all();</span><br><span class="line">    $userStudentIds=<span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; count($userStudents); $i++) &#123;</span><br><span class="line">        <span class="comment">// var_dump($atdUsers[$i]["uid"]);</span></span><br><span class="line">        $userStudentIds[] = $userStudents[$i][<span class="string">"userid"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $userIdList=array_diff($userStudentIds, $atdUserIds); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据userIdList从User表中取出姓名</span></span><br><span class="line">    $userList=User::findAll($userIdList);</span><br><span class="line">    <span class="comment">// var_dump($userList);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> ($userList <span class="keyword">as</span> $key =&gt; $user) &#123;</span><br><span class="line">        $userDropList[$user[<span class="string">'id'</span>]] = $user[<span class="string">'username'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// var_dump($userDropList);</span></span><br><span class="line">    <span class="comment">// die();</span></span><br><span class="line">    <span class="keyword">return</span> $userDropList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="PHP打印输出"><a href="#PHP打印输出" class="headerlink" title="PHP打印输出"></a>PHP打印输出</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump($userStudents[<span class="number">1</span>][<span class="string">'userid'</span>]);</span><br><span class="line"><span class="keyword">die</span>();</span><br></pre></td></tr></table></figure>
-<p>如果改了_form 的参数，其他用到该表格的地方的参数也需要修改。AtdUserController.php中，update 和 create 函数传递给 _form 的 userList 并不相同，create 可以直接调用 getRemainUsers()，update的 userList 应包含所有user，如果只是传入剩余的学生列表，下拉框中会默认显示数组的第一个值。</p>
-<p><a href="https://www.oschina.net/question/1182150_174242" target="_blank" rel="noopener">下拉列表默认选中不是在options参数里面决定的，而是$model-&gt;category的值决定的。</a></p>
-<h4 id="考勤页面-默认按照ccid排序"><a href="#考勤页面-默认按照ccid排序" class="headerlink" title="考勤页面 默认按照ccid排序"></a>考勤页面 默认按照ccid排序</h4><p>backend\views\attendance\atd-user\index.php 中使用了 GridView 组件来展示列表，在 backend\controllers\attendance\AtdUserController.php 的 actionIndex() 中创建 AtduserQuery 对象用于数据库查询，最后传入参数。</p>
-<p>修改 backend\models\search\AtdUserQuery.php：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$dataProvider = <span class="keyword">new</span> ActiveDataProvider([</span><br><span class="line">    <span class="string">'query'</span> =&gt; $query,</span><br><span class="line">    <span class="comment">// 新增配置项 默认 ccid 升序</span></span><br><span class="line">    <span class="string">'sort'</span> =&gt; [<span class="string">'defaultOrder'</span> =&gt; [<span class="string">'ccid'</span> =&gt; SORT_ASC]], </span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
-<h4 id="创建用户时报错-500，但能成功创建"><a href="#创建用户时报错-500，但能成功创建" class="headerlink" title="创建用户时报错 500，但能成功创建"></a>创建用户时报错 500，但能成功创建</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">0 D:\xampp\htdocs\dbis_starter-kit\vendor\yiisoft\yii2\rbac\DbManager.php(835): yii\base\ErrorHandler-&gt;handleError(8, <span class="string">'Trying to get p...'</span>, <span class="string">'D:\\xampp\\htdocs...'</span>, 835, Array)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1 D:\xampp\htdocs\dbis_starter-kit\common\models\User.php(293): yii\rbac\DbManager-&gt;assign(NULL, 165)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2 D:\xampp\htdocs\dbis_starter-kit\backend\models\UserForm.php(126): common\models\User-&gt;afterSignup()</span></span><br><span class="line"><span class="meta">#</span><span class="bash">3 D:\xampp\htdocs\dbis_starter-kit\backend\controllers\UserController.php(69): backend\models\UserForm-&gt;save()</span></span><br><span class="line"><span class="meta">#</span><span class="bash">4 [internal <span class="keyword">function</span>]: backend\controllers\UserController-&gt;actionCreate()</span></span><br></pre></td></tr></table></figure>
-<p>是因为数据库中没有 user 这个角色，因此 getRole() 返回了 NULL 值：</p>
-<p>（afterSignup()函数）</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Default role</span></span><br><span class="line">$auth = Yii::$app-&gt;authManager;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if $auth-&gt;getRole(User::ROLE_USER) = NULL ? </span></span><br><span class="line">$auth-&gt;assign($auth-&gt;getRole(User::ROLE_USER), <span class="keyword">$this</span>-&gt;getId());</span><br></pre></td></tr></table></figure>
-<p>直接注释掉这两行。</p>
-<p>另外，状态为 NOT Active 的用户无法登录。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1063,7 +1203,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
