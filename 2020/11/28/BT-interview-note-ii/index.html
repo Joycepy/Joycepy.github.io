@@ -31,7 +31,12 @@
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1422237/201810/1422237-20181016104150713-1037928372.png">
 <meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2020/07/WV9wXLl.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20170803204952538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG9naW5fc29uYXRh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2020-12-08T07:12:18.830Z">
+<meta property="og:image" content="https://pic002.cnblogs.com/images/2012/339704/2012071410212142.gif">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/7038163-b90ffcaf812c37a8.png?imageMogr2/auto-orient/strip|imageView2/2/w/459">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/7038163-0b35dfcfa8d30dca.png?imageMogr2/auto-orient/strip|imageView2/2/w/1022">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/13/1666d7a5a05a7ccb?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/13/1666d7a5a31f08fc?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:updated_time" content="2020-12-22T02:58:52.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BT-interview-note-ii">
 <meta name="twitter:description" content="自我介绍项目介绍java多态多态是同一个行为具有多个不同表现形式或形态的能力。即同一个接口，使用不同的实例而执行不同操作。多态是设计模式中的策略模式的关键。 设计模式是软件开发人员在软件开发过程中遇到的一般问题的解决方案、经验总结。设计模式代表着最佳的实践。参考书中提到的有 23 种设计模式，比如工厂模式、单例模式、代理模式、策略模式、MVC 模式等。 策略模式指一个类的行为或其算法可以在运行时更">
@@ -195,7 +200,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-08 15:12:18" itemprop="dateModified" datetime="2020-12-08T15:12:18+08:00">2020-12-08</time>
+                <time title="修改时间：2020-12-22 10:58:52" itemprop="dateModified" datetime="2020-12-22T10:58:52+08:00">2020-12-22</time>
               </span>
 
           
@@ -209,7 +214,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><h4 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h4><h4 id="java"><a href="#java" class="headerlink" title="java"></a>java</h4><h5 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h5><p><strong>多态</strong>是同一个行为具有多个不同表现形式或形态的能力。即同一个接口，使用不同的实例而执行不同操作。多态是设计模式中的策略模式的关键。</p>
+        <h2 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h2><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p><strong>多态</strong>是同一个行为具有多个不同表现形式或形态的能力。即同一个接口，使用不同的实例而执行不同操作。多态是设计模式中的策略模式的关键。</p>
 <p><strong>设计模式</strong>是软件开发人员在软件开发过程中遇到的一般问题的解决方案、经验总结。设计模式代表着最佳的实践。<a href="https://www.runoob.com/design-pattern/design-pattern-intro.html" target="_blank" rel="noopener">参考书</a>中提到的有 23 种设计模式，比如工厂模式、单例模式、代理模式、策略模式、MVC 模式等。</p>
 <p><strong>策略模式</strong>指一个类的行为或其算法可以在运行时更改。策略模式使用的是面向对象的继承和多态机制。<em>Context</em> 是一个使用了某种策略的类，策略模式的实现：</p>
 <ol>
@@ -219,20 +224,20 @@
 <li>使用 Context 来查看当它改变策略 Strategy 时的行为变化。</li>
 </ol>
 <p><img src="https://img2018.cnblogs.com/blog/1422237/201810/1422237-20181016104150713-1037928372.png" alt="img"></p>
-<h5 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h5><p><strong>分代</strong>是指 Java 虚拟机根据对象存活的周期不同，将堆内存划分为新生代（细分为伊甸区、幸存者区）和老年代。根据各个代的特点采用最适合的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成。而老年代中因为对象存活率高、没有额外空间对他进行分配担保，就必须使用“标记-清理”或者“标记-整理”算法来进行回收。</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p><strong>分代</strong>是指 Java 虚拟机根据对象存活的周期不同，将堆内存划分为新生代（细分为伊甸区、幸存者区）和老年代。根据各个代的特点采用最适合的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成。而老年代中因为对象存活率高、没有额外空间对他进行分配担保，就必须使用“标记-清理”或者“标记-整理”算法来进行回收。</p>
 <p><strong>垃圾回收算法：</strong></p>
 <ol>
 <li>复制算法：将内存区域划分成相同的两个<strong>内存块</strong>。每次仅使用一半的空间，<code>JVM</code>生成的新对象放在一半空间中。当一半空间用完时进行<code>GC</code>，把可到达对象复制到另一半空间，然后把使用过的内存空间一次清理掉。新生区的对象往往内存较小，可以使用复制算法，将对象复制到另一半内存上就可以清除，不会造成内存碎片。</li>
 <li>标记-清除算法：标记-清除算法对<strong>根集合</strong>进行扫描，对<strong>存活</strong>的对象进行标记。标记完成后，再对整个空间内<strong>未被标记</strong>的对象扫描，进行回收。不需要进行对象进行移动。标记、清除过程效率低，产生大量不连续的内存碎片，提高了垃圾回收的频率。</li>
 <li>标记-整理算法：进行对象的标记，但后续不直接对可回收对象进行清理，而是将所有的<strong>存活对象</strong>往一端<strong>空闲空间</strong>移动，然后清理掉端边界以外的内存空间。解决了标记-清理算法存在的内存碎片问题。仍需要进行局部对象移动，一定程度上降低了效率。</li>
 </ol>
-<h5 id="Spring-IOC"><a href="#Spring-IOC" class="headerlink" title="Spring IOC"></a>Spring IOC</h5><p>开发者使用Spring框架主要是做两件事：①开发Bean；②配置Bean。对于Spring框架来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成”依赖注入”——这就是所谓IoC的本质。</p>
+<h3 id="Spring-IOC"><a href="#Spring-IOC" class="headerlink" title="Spring IOC"></a>Spring IOC</h3><p>开发者使用Spring框架主要是做两件事：①开发Bean；②配置Bean。对于Spring框架来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成”依赖注入”——这就是所谓IoC的本质。</p>
 <blockquote>
 <p>IOC is Inversion Of Control. It means that the application won’t manage it’s lifecycle/flow of control itself. The framework (Spring) will. So you just tell the framework how you want (some) elements of your app to work together.</p>
 <p>DI is dependency injection. It’s a specific kind of IOC where the framework will manage the dependencies that an object uses (you can call dependency: a service).</p>
 <p>Bean is an object managed by the Framework.</p>
 </blockquote>
-<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><strong>map 接口</strong>：存储键值对，能高效通过 key 快速查找 value。</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p><strong>map 接口</strong>：存储键值对，能高效通过 key 快速查找 value。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line">	</span><br><span class="line">Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">map.put(<span class="string">"key1"</span>, <span class="string">"value1"</span>);</span><br><span class="line">map.get(<span class="string">"key1"</span>);</span><br><span class="line">map.remove(<span class="string">"key1"</span>);</span><br></pre></td></tr></table></figure>
 <p>map 常用的实现类：HashMap、Hashtable、TreeMap 等。</p>
 <p>Hashtable：与 HashMap类似,不同的是 key 和 value 的值均不允许为 null; 它支持线程的同步，即任一时刻只有一个线程能写Hashtable,因此也导致了Hashtale在写入时会比较慢。 </p>
@@ -244,11 +249,11 @@
 <p><img src="https://img-blog.csdn.net/20170803204952538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG9naW5fc29uYXRh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="存储结构"></p>
 <p>Node[] table的初始化长度length(默认值是16)，Load factor为负载因子(默认值是0.75)，threshold是HashMap所能容纳的最大数据量的Node(键值对)个数。threshold = length * Load factor，超过这个数目就重新resize(扩容)，扩容后的HashMap容量是之前容量的两倍。</p>
 <p>rehash</p>
-<h5 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h5><p>threadLocal的实现原理；线程池的实现原理，线程运行完run方法就被回收了吗；并发锁的实现；</p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>threadLocal的实现原理；线程池的实现原理，线程运行完run方法就被回收了吗；并发锁的实现；</p>
 <p><a href="https://www.cnblogs.com/xrq730/p/10963689.html" target="_blank" rel="noopener">http连接池</a></p>
 <p>对于线程来讲，如果不需要它返回结果则实现Runnable，而如果需要执行结果的话则可以实现Callable。在线程池同样execute提供一个不需要返回结果的任务执行，而对于需要结果返回的则可调用其submit方法。</p>
 <p><a href="https://blog.csdn.net/weixin_43138919/article/details/88948588" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43138919/article/details/88948588</a></p>
-<h6 id="线程池类ThreadPoolExecutor"><a href="#线程池类ThreadPoolExecutor" class="headerlink" title="线程池类ThreadPoolExecutor"></a>线程池类ThreadPoolExecutor</h6><ol>
+<h4 id="线程池类ThreadPoolExecutor"><a href="#线程池类ThreadPoolExecutor" class="headerlink" title="线程池类ThreadPoolExecutor"></a>线程池类ThreadPoolExecutor</h4><ol>
 <li>当线程池内线程数小于corePoolSize时，新提交的任务都会创建一个新的线程来执行。</li>
 <li>当线程池内线程数等于corePoolSize时，新提交的任务会放入workQueue中，等待线程池中任务调度。</li>
 <li>当workQueue已满，且maximumPoolSize&gt;corePoolSize时，新提交任务会创建新线程执行任务。</li>
@@ -258,7 +263,7 @@
 </ol>
 <p>ThreadPoolExecutor#runWorker，Worker在执行完任务后，还会循环获取任务队列里的任务执行（其中的getTask方法），也就是说Worker不仅仅是在执行完给它的任务就释放或者结束，它不会闲着，而是继续从任务队列中获取任务，直到任务队列中没有任务可执行时，它才退出循环完成任务。</p>
 <p>用BlockingQueue数据结构存储任务。</p>
-<h6 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h6><ol>
+<h4 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h4><ol>
 <li>使用takeLock和putLock进行并发控制，添加和删除可以同时进行，提高吞吐量。</li>
 <li>对每个锁都提供了一个Condition用来挂起和唤醒其它线程。</li>
 <li>put 和 take 方法 （空/满 –&gt; 阻塞、唤醒）</li>
@@ -295,11 +300,75 @@
 </tr>
 </tbody>
 </table>
-<h4 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h4><p>创建三个线程，按序输出1, 2, 3 （\lab\ref\backend\src\main\java\test\t1.java）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">t1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> state=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Worker a=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">0</span>);</span><br><span class="line">    Worker b=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">1</span>);</span><br><span class="line">    Worker c=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">    a.start();</span><br><span class="line">    b.start();</span><br><span class="line">    c.start();</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line"></span><br><span class="line">        Worker(<span class="keyword">int</span> mod,<span class="keyword">int</span> v)&#123;</span><br><span class="line">            <span class="keyword">this</span>.mod=mod;</span><br><span class="line">            <span class="keyword">this</span>.v=v;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">if</span>(state%mod==v)&#123;</span><br><span class="line">                    System.out.println(v+<span class="number">1</span>);</span><br><span class="line">                    state++;</span><br><span class="line">                &#125;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h3><p>创建三个线程，按序输出1, 2, 3 （\lab\ref\backend\src\main\java\test\t1.java）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">t1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> state=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mod;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line"></span><br><span class="line">        Worker(<span class="keyword">int</span> mod,<span class="keyword">int</span> v)&#123;</span><br><span class="line">            <span class="keyword">this</span>.mod=mod;</span><br><span class="line">            <span class="keyword">this</span>.v=v;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">if</span>(state%mod==v)&#123;</span><br><span class="line">                    System.out.println(v+<span class="number">1</span>);</span><br><span class="line">                    state++;</span><br><span class="line">                &#125;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Worker a=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">0</span>);</span><br><span class="line">        Worker b=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">1</span>);</span><br><span class="line">        Worker c=<span class="keyword">new</span> Worker(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">        a.start();</span><br><span class="line">        b.start();</span><br><span class="line">        c.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是这样的代码中有忙等待，性能很低，随着线程数数量增加的话，这样的程序是不适用的。</p>
-<h4 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h4><p>http报文的结构，contentType字段是什么意思；http和https的区别，https是如何交换密钥的，客户端如何知道服务器可信 如何验证ca证书可信，为什么使用对称加密结合非对称加密；</p>
-<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><p>非主键索引和主键索引的区别；回表；主键索引是必须的吗；主键索引一般是用什么数据结构，为什么使用b+树；乐观锁是什么，如何实现，IO次数；</p>
+<h4 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h4><h5 id="http报文结构"><a href="#http报文结构" class="headerlink" title="http报文结构"></a>http报文结构</h5><p>http请求报文由四个部分组成：请求行、请求头部、空行、请求数据</p>
+<ul>
+<li>请求行：方法 URL  版本，如：GET /data/info.html HTTP/1.1</li>
+<li>请求头部：用来准确描述正在获取的资源、服务器或者客户端的行为，定义了HTTP事务中的具体操作参数。如：Accept用于说明可接受的响应内容类型，Content-Type用于说明请求体的MIME类型 （用于POST和PUT请求中），Origin用于说明发起一个针对<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fitbilu.com%2Fjavascript%2Fjs%2FVkiXuUcC.html" target="_blank" rel="noopener">跨域资源共享</a>的请求（该请求要求服务器在响应中加入一个<code>Access-Control-Allow-Origin</code>的消息头，表示访问控制所允许的来源）。<a href="https://www.jianshu.com/p/b90be0c25f4d" target="_blank" rel="noopener">常用的HTTP请求头与响应头</a></li>
+<li>空行告诉服务器请求头部到此为止。</li>
+</ul>
+<p>HTTP响应报文也由四部分组成：响应行、响应头、空行、响应体。响应行：版本 状态码 描述，如：HTTP/1.1 200 OK</p>
+<h5 id="http和https的区别"><a href="#http和https的区别" class="headerlink" title="http和https的区别"></a>http和https的区别</h5><ol>
+<li>HTTPS协议需要到ca（数字证书认证机构）申请证书，可能需要一定的费用；</li>
+<li>http（超文本传输协议）是明文传输；HTTPS是ssl加密传输协议；</li>
+<li>http使用80端口，HTTPS使用443端口；</li>
+<li>http是无状态的简单连接；HTTPS是由SSL+HTTP构建的有加密传输、身份认证的网络协议，更加安全。</li>
+</ol>
+<p>HTTPS协议的主要作用：建立一个信息安全通道保证数据传输的安全；确认网站的真实性。</p>
+<p><img src="https://pic002.cnblogs.com/images/2012/339704/2012071410212142.gif" alt="img"></p>
+<h5 id="为什么使用对称加密结合非对称加密"><a href="#为什么使用对称加密结合非对称加密" class="headerlink" title="为什么使用对称加密结合非对称加密"></a>为什么使用对称加密结合非对称加密</h5><p>对称加密：加密和解密使用同一秘钥，秘钥通过网络传输。若对称秘钥被截获，仍有可能出现数据被中间人篡改或冒名顶替的问题。</p>
+<p>非对称加密：A生成公钥和私钥，私钥保留在本地不再在网络上进行传输，公钥是分发给其他人（一般是下发的证书中包含公钥然后返回给请求者），公钥私钥是一对，私钥加密的只有公钥才能够解密，若能成功解密则证明<strong>跟你交互的那个人是当初给你公钥的那个人</strong>。A给B发消息，用A的私钥加密，B收到之后用A的公钥解密。即A、B要使用非对称加密，需要各自保留对方的公钥。客户端和服务器交互，服务端一个私钥，而大量客户端用公钥跟他交互。</p>
+<p>非对称加密对秘钥的存储成本更低；对称加密（如AES）中的主要运算是位运算，非对称加密（如RSA）中用到了大数乘法、大数模等运算，因此对称加密的速度更快。</p>
+<p>两种加密方式结合 -&gt; 安全和效率的动态平衡，将对称加密的密钥使用非对称加密的公钥进行加密，然后发送出去，接收方使用私钥进行解密得到对称加密的密钥，然后双方可以使用对称加密来进行沟通。</p>
+<h5 id="客户端如何知道服务器可信-如何验证ca证书可信"><a href="#客户端如何知道服务器可信-如何验证ca证书可信" class="headerlink" title="客户端如何知道服务器可信 如何验证ca证书可信"></a>客户端如何知道服务器可信 如何验证ca证书可信</h5><p>等同于：如何保证发布公钥的人不是他人冒名顶替？</p>
+<p>找一个受信任的机构”证书中心”（certificate authority，简称CA）做认证，证书中心用自己的私钥给（A的公钥+申请者A的信息等）加密，生成数字证书。当下次A给B发消息的时候A会带上CA签发的数字证书，B收到后用CA的公钥解密证书，解密成功则证明这个的确是CA签发的有效证书，而不是不知名的野鸡机构，从而拿到了里面的A的公钥，证明了A就是CA机构认证过的A,这个的的确确就是A的公钥，错了就找CA机构买单。然后拿A的公钥，去解密数字签名得到摘要，在对原文进行摘要算法之后和这个摘要进行对比，一致则说明没有被篡改。</p>
+<p>浏览器认证中间证书的方法：<br>1.浏览器首先解析网站的数字证书，如果该证书的签发机构能够在可信任签发机构中找到，则为可信任证书，否则进行2<br>2.从授权信息访问信息段中获得该签发机构的数字证书，并判断该授权机构的数字证书的签发机构是否能够在可信任签发机构中找到，若果找到则该授权机构是可信的，并从授权机构的数字证书中获得授权机构的公钥公钥，如果不在则重复2步骤。如果最终都没有找到可信机构，则为不可信证书。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>###主键索引和非主键索引的区别</p>
+<p>以下面这个例子，ID是主键，并且还有一个字段K</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/7038163-b90ffcaf812c37a8.png?imageMogr2/auto-orient/strip|imageView2/2/w/459" alt="img"></p>
+<p>那么ID和k的索引如下两图所示</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/7038163-0b35dfcfa8d30dca.png?imageMogr2/auto-orient/strip|imageView2/2/w/1022" alt="img"></p>
+<p>索引的结构同样都是B+树，区别在于叶子节点。主键的叶子节点中存储的是整行的值，而非主键中存储的是主键的值。非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
+<p>###回表查询</p>
+<p>查询非主键索引时</p>
+<p>（1）先通过普通索引定位到主键值</p>
+<p>（2）在通过聚集索引定位到行记录；</p>
+<p>回表查询需要查询两次，效率比较低。避免的方法是联合索引，然后不查没有被联合索引的字段。</p>
+<p>###主键索引(聚簇索引)是必须的吗？</p>
+<p>InnoDB<strong>聚集索引</strong>的叶子节点存储行记录，因此， InnoDB必须要有，且只有一个聚集索引：</p>
+<p>（1）如果表定义了PK，则PK就是聚集索引；</p>
+<p>（2）如果表没有定义PK，则第一个not NULL unique列是聚集索引；</p>
+<p>（3）否则，InnoDB会创建一个隐藏的row-id作为聚集索引；</p>
+<p><em>画外音：所以PK查询非常快，直接定位行记录。</em></p>
+<h3 id="索引为什么用B-树"><a href="#索引为什么用B-树" class="headerlink" title="索引为什么用B+树"></a>索引为什么用B+树</h3><h4 id="首先为什么要用树"><a href="#首先为什么要用树" class="headerlink" title="首先为什么要用树"></a>首先为什么要用树</h4><p>哈希表查询很快，但是无法进行范围查询，因此哈希表不合适作为数据库的索引</p>
+<h4 id="演化过程"><a href="#演化过程" class="headerlink" title="演化过程"></a>演化过程</h4><h5 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h5><p>子树的高度不平衡导致最坏情况下的查询可能会到达O(n)</p>
+<p>#####平衡二叉搜索树(AVL)</p>
+<p>平衡的树高避免了最坏的情况，可以保证查询的时间复杂度是O(log(n))。但是数据库不只有查询操作，还有增删改。AVL需要频繁的维护树的结构，这会带来很大的开销</p>
+<h5 id="多路平衡搜索树-B树"><a href="#多路平衡搜索树-B树" class="headerlink" title="多路平衡搜索树 B树"></a>多路平衡搜索树 B树</h5><p>B树改进了AVL树，减少了平衡树的操作，即降低了维护树结构的开销。</p>
+<h5 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h5><p>那么B树和B+树的区别在哪呢？</p>
+<ol>
+<li>B+跟B树不同B+树的非叶子节点不保存键值对应的数据，这样使得B+树每个节点所能保存的键值大大增加；</li>
+<li>B+树叶子节点保存了父节点的所有键值和键值对应的数据，每个叶子节点的键值从小到大链接；</li>
+<li>B+树的根节点键值数量和其子节点个数相等;</li>
+<li>B+的非叶子节点只进行数据索引，不会存实际的键值对应的数据，所有数据必须要到叶子节点才能获取到，所以每次数据查询的次数都一样；</li>
+</ol>
+<p>放个图理解的更清楚一点，B树</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/10/13/1666d7a5a05a7ccb?imageView2/0/w/1280/h/960/ignore-error/1" alt="img"></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/10/13/1666d7a5a31f08fc?imageView2/0/w/1280/h/960/ignore-error/1" alt="img"></p>
+<p>在B+树的基础上每个节点存储的关键字数更多，树的层级更少所以查询数据更快，所有关键字数据都存在叶子节点，所以每次查找的次数都相同，查询速度比B树更稳定。除此之外，B+树的叶子节点是跟后序节点相连接的，这对范围查找是非常有用的。</p>
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁底层使用原子指令CAS实现(Compare and Swap)。由于是用硬件支持的原子指令，效率非常高，很少有额外的开销。而悲观锁底层用Mutex实现，涉及到一系列的系统调用，额外的开销会比较大。在具体场景上，乐观锁在进行更改时，需要对比之前的的版本号，如果版本号一致即认为数据没有被修改过，可以进行更新；而悲观锁则保证修改数据时线程之间的互斥，在critical section中只有一个线程允许进入。</p>
+<h4 id="1、功能限制"><a href="#1、功能限制" class="headerlink" title="1、功能限制"></a>1、功能限制</h4><p>与悲观锁相比，乐观锁适用的场景受到了更多的限制，无论是CAS还是版本号机制。</p>
+<p>例如，CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的，而synchronized则可以通过对整个代码块加锁来处理。再比如版本号机制，如果query的时候是针对表1，而update的时候是针对表2，也很难通过简单的版本号来实现乐观锁。</p>
+<h4 id="2、竞争激烈程度"><a href="#2、竞争激烈程度" class="headerlink" title="2、竞争激烈程度"></a>2、竞争激烈程度</h4><p>如果悲观锁和乐观锁都可以使用，那么选择就要考虑竞争的激烈程度：</p>
+<ul>
+<li>当竞争不激烈 (出现并发冲突的概率小)时，乐观锁更有优势，因为悲观锁会锁住代码块或数据，其他线程无法同时访问，影响并发，而且加锁和释放锁都需要消耗额外的资源。</li>
+<li>当竞争激烈(出现并发冲突的概率大)时，悲观锁更有优势，因为乐观锁在执行更新时频繁失败，需要不断重试，浪费CPU资源。</li>
+</ul>
+<p>####IO次数</p>
+<p>如果比较成功进行更新的话就是三次IO，如果比较失败不更新的话应该是两次IO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 假设需要更新的值为A</span><br><span class="line">oldval = load(A)</span><br><span class="line">// 进行一系列的计算</span><br><span class="line">newval = ......</span><br><span class="line">......</span><br><span class="line">val = load(A)</span><br><span class="line">//如果 val == oldval 将 A更新为newval</span><br><span class="line">A.CAS(oldval, val, newval)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -383,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#自我介绍"><span class="nav-number">1.</span> <span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目介绍"><span class="nav-number">2.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java"><span class="nav-number">3.</span> <span class="nav-text">java</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#多态"><span class="nav-number">3.1.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#垃圾回收"><span class="nav-number">3.2.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring-IOC"><span class="nav-number">3.3.</span> <span class="nav-text">Spring IOC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">3.4.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多线程"><span class="nav-number">3.5.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#线程池类ThreadPoolExecutor"><span class="nav-number">3.5.1.</span> <span class="nav-text">线程池类ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#LinkedBlockingQueue"><span class="nav-number">3.5.2.</span> <span class="nav-text">LinkedBlockingQueue</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编程"><span class="nav-number">4.</span> <span class="nav-text">编程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机网络"><span class="nav-number">5.</span> <span class="nav-text">计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库"><span class="nav-number">6.</span> <span class="nav-text">数据库</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自我介绍"><span class="nav-number">1.</span> <span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">2.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java"><span class="nav-number">3.</span> <span class="nav-text">java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">3.1.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">3.2.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-IOC"><span class="nav-number">3.3.</span> <span class="nav-text">Spring IOC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">3.4.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程"><span class="nav-number">3.5.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池类ThreadPoolExecutor"><span class="nav-number">3.5.1.</span> <span class="nav-text">线程池类ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedBlockingQueue"><span class="nav-number">3.5.2.</span> <span class="nav-text">LinkedBlockingQueue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程"><span class="nav-number">3.6.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机网络"><span class="nav-number">3.6.1.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#http报文结构"><span class="nav-number">3.6.1.1.</span> <span class="nav-text">http报文结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http和https的区别"><span class="nav-number">3.6.1.2.</span> <span class="nav-text">http和https的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么使用对称加密结合非对称加密"><span class="nav-number">3.6.1.3.</span> <span class="nav-text">为什么使用对称加密结合非对称加密</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端如何知道服务器可信-如何验证ca证书可信"><span class="nav-number">3.6.1.4.</span> <span class="nav-text">客户端如何知道服务器可信 如何验证ca证书可信</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#索引为什么用B-树"><span class="nav-number">4.1.</span> <span class="nav-text">索引为什么用B+树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先为什么要用树"><span class="nav-number">4.1.1.</span> <span class="nav-text">首先为什么要用树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#演化过程"><span class="nav-number">4.1.2.</span> <span class="nav-text">演化过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉搜索树"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">二叉搜索树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多路平衡搜索树-B树"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">多路平衡搜索树 B树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-树"><span class="nav-number">4.1.2.3.</span> <span class="nav-text">B+树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁"><span class="nav-number">4.2.</span> <span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、功能限制"><span class="nav-number">4.2.1.</span> <span class="nav-text">1、功能限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、竞争激烈程度"><span class="nav-number">4.2.2.</span> <span class="nav-text">2、竞争激烈程度</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
