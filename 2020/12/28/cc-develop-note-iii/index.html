@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="导入新生，user存储成功，student、assignment存储失败 1234if (!$stu-&amp;gt;save()) &amp;#123;    $res[&apos;errors&apos;] = $stu-&amp;gt;errors;    throw new \Exception(implode($stu-&amp;gt;errors));&amp;#125; 1errors: &amp;#123;SID: [&quot;Sid must be a">
+<meta name="keywords" content="yii2,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cc-front&#x2F;backend-develop-note-3">
+<meta property="og:url" content="http://yoursite.com/2020/12/28/cc-develop-note-iii/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="导入新生，user存储成功，student、assignment存储失败 1234if (!$stu-&amp;gt;save()) &amp;#123;    $res[&apos;errors&apos;] = $stu-&amp;gt;errors;    throw new \Exception(implode($stu-&amp;gt;errors));&amp;#125; 1errors: &amp;#123;SID: [&quot;Sid must be a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-28T12:30:57.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cc-front&#x2F;backend-develop-note-3">
+<meta name="twitter:description" content="导入新生，user存储成功，student、assignment存储失败 1234if (!$stu-&amp;gt;save()) &amp;#123;    $res[&apos;errors&apos;] = $stu-&amp;gt;errors;    throw new \Exception(implode($stu-&amp;gt;errors));&amp;#125; 1errors: &amp;#123;SID: [&quot;Sid must be a">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/28/cc-develop-note-iii/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cc-front/backend-develop-note-3 | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/28/cc-develop-note-iii/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cc-front/backend-develop-note-3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-28 20:30:57" itemprop="dateCreated datePublished" datetime="2020-12-28T20:30:57+08:00">2020-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>导入新生，user存储成功，student、assignment存储失败</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!$stu-&gt;save()) &#123;</span><br><span class="line">    $res[<span class="string">'errors'</span>] = $stu-&gt;errors;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(implode($stu-&gt;errors));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">errors: &#123;SID: ["Sid must be a string."]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"success":false,"errors":&#123;"TutorID":["Tutor ID must be an integer."]&#125;,"data":"student 保存失败！"&#125;</span><br></pre></td></tr></table></figure>
+<p>==注意属性类型！==</p>
+<p>PHP 转换函数: intval()、floatval()、strval() </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//批量导入新生，记录日志，成功时返回新生SID集合</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">batchFreshmanStudentUpload</span><span class="params">($data)</span></span>&#123;</span><br><span class="line">    date_default_timezone_set(<span class="string">'PRC'</span>);</span><br><span class="line">    $log = LogBatchModel::beforeBatch($data);</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>($log[<span class="string">'success'</span>]===<span class="keyword">false</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建批量导入的日志时出现错误</span></span><br><span class="line">        $res[<span class="string">'logBatch'</span>]=$log;</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    $LBID=$log[<span class="string">'data'</span>][<span class="string">'LBID'</span>];</span><br><span class="line">    $filePath=$data[<span class="string">'FilePath'</span>];</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//获得新生集合</span></span><br><span class="line">        $StudentArray = <span class="keyword">self</span>::readFreshmanFromExcel($filePath);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (<span class="keyword">Exception</span> $e)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//解析 Excel 出现错误</span></span><br><span class="line">        $res[<span class="string">'filePath'</span>]=$filePath;</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 存入数据库</span></span><br><span class="line">    $key=[<span class="string">'SID'</span>,<span class="string">'StudentName'</span>,<span class="string">'Grade'</span>,<span class="string">'Education'</span>,<span class="string">'Major'</span>,<span class="string">'IDCard'</span>,<span class="string">'Passwd'</span>,<span class="string">'Tutor'</span>];<span class="comment">// 与模型的属性名相对应</span></span><br><span class="line"></span><br><span class="line">    $transaction=Yii::$app-&gt;db-&gt;beginTransaction(<span class="string">'SERIALIZABLE'</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($StudentArray); $i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $row = $StudentArray[$i][<span class="number">0</span>];</span><br><span class="line">            $student=[];</span><br><span class="line">            <span class="keyword">for</span>($j=<span class="number">0</span>;$j&lt;count($key);$j++)</span><br><span class="line">            &#123;</span><br><span class="line">                $student[$key[$j]]=$row[$j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>($student[<span class="string">'SID'</span>]===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'学号不能为空！'</span>);</span><br><span class="line">            <span class="comment">// Sid must be a string.</span></span><br><span class="line">            $student[<span class="string">'SID'</span>]=strval($student[<span class="string">'SID'</span>]);</span><br><span class="line">            <span class="keyword">if</span>($student[<span class="string">'StudentName'</span>]===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'姓名不能为空！'</span>);</span><br><span class="line">            <span class="comment">// 查询 EducationLevelID</span></span><br><span class="line">            $EducationLevel=EducationLevelModel::findOne([<span class="string">'LevelName'</span> =&gt; $student[<span class="string">'Education'</span>]]);</span><br><span class="line">            <span class="keyword">if</span>($EducationLevel===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'层次不能为空！'</span>);</span><br><span class="line">            $EducationLevelID = $EducationLevel[<span class="string">'ELID'</span>];</span><br><span class="line">            <span class="comment">// 查询 MID</span></span><br><span class="line">            $Major=MajorModel::findOne([<span class="string">'EducationLevelID'</span>=&gt;$EducationLevelID,<span class="string">'MajorName'</span>=&gt;$student[<span class="string">'Major'</span>]]);</span><br><span class="line">            <span class="keyword">if</span>($Major===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'专业不能为空！'</span>);</span><br><span class="line">            $MID = $Major[<span class="string">'MID'</span>];</span><br><span class="line">            <span class="comment">// 创建 MajorEnrollyear 然后查询 MEYID</span></span><br><span class="line">            $majorEnrollYear=<span class="keyword">new</span> MajorEnrollyearModel();</span><br><span class="line">            $majorEnrollYear-&gt;Grade=$student[<span class="string">'Grade'</span>];</span><br><span class="line">            <span class="keyword">if</span>($majorEnrollYear===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'年级不能为空！'</span>);</span><br><span class="line">            $majorEnrollYear-&gt;MajorID=$MID;</span><br><span class="line">            $majorEnrollYear-&gt;save();</span><br><span class="line">            $MajorEnrollyear=MajorEnrollyearModel::findOne([<span class="string">'MajorID'</span>=&gt;$MID,<span class="string">'Grade'</span>=&gt;$student[<span class="string">'Grade'</span>]]);</span><br><span class="line">            <span class="keyword">if</span>($MajorEnrollyear===<span class="keyword">null</span>)<span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'学号 '</span>.$student[<span class="string">'SID'</span>].<span class="string">' 的年级、专业、层次对应关系错误！'</span>);</span><br><span class="line">            $student[<span class="string">'MajorEnrollYearID'</span>]=$MajorEnrollyear[<span class="string">'MEYID'</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 查询 TutorID</span></span><br><span class="line">            $Tutor=TeachersModel::findOne([<span class="string">'TeacherName'</span>=&gt;$student[<span class="string">'Tutor'</span>]]);</span><br><span class="line">            <span class="keyword">if</span>($Tutor===<span class="keyword">null</span>)</span><br><span class="line">                $student[<span class="string">'TutorID'</span>]=<span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                $student[<span class="string">'TutorID'</span>]=intval($Tutor[<span class="string">'TID'</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建 user</span></span><br><span class="line">            <span class="keyword">if</span>($student[<span class="string">'Passwd'</span>]===<span class="keyword">null</span>)$student[<span class="string">'Passwd'</span>]=<span class="string">'111111'</span>;</span><br><span class="line">            $student[<span class="string">'Passwd'</span>]=hash_hmac(<span class="string">'SHA256'</span>, <span class="string">'cc-frontend-vue'</span>,$student[<span class="string">'Passwd'</span>]);</span><br><span class="line">            $user = <span class="keyword">new</span> User();</span><br><span class="line">            $user-&gt;username = $student[<span class="string">'StudentName'</span>];</span><br><span class="line">            $user-&gt;setPassword($student[<span class="string">'Passwd'</span>]);</span><br><span class="line">            $user-&gt;generateAuthKey();</span><br><span class="line">            <span class="keyword">if</span> (!$user-&gt;save())&#123;</span><br><span class="line">                $res[<span class="string">'errors'</span>] = $user-&gt;errors;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">"user 保存失败！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建学生</span></span><br><span class="line">            $stu = <span class="keyword">new</span> StudentModel();</span><br><span class="line">            $stu-&gt;id = $user-&gt;id;</span><br><span class="line">            $stu-&gt;MajorEnrollYearID =$student[<span class="string">'MajorEnrollYearID'</span>];</span><br><span class="line">            $stu-&gt;SID = $student[<span class="string">'SID'</span>];</span><br><span class="line">            $stu-&gt;StudentName = $student[<span class="string">'StudentName'</span>];</span><br><span class="line">            $stu-&gt;TutorID=$student[<span class="string">'TutorID'</span>];</span><br><span class="line">            $stu-&gt;IDCard=$student[<span class="string">'IDCard'</span>];</span><br><span class="line">            <span class="keyword">if</span> (!$stu-&gt;save()) &#123;</span><br><span class="line">                $res[<span class="string">'errors'</span>] = $stu-&gt;errors;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">"student 保存失败！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建 auth_assignment</span></span><br><span class="line">            $assignment = <span class="keyword">new</span> Assignment($user-&gt;id);</span><br><span class="line">            $res[<span class="string">'authRes'</span>]=$assignment-&gt;assign([<span class="string">'学生'</span>,<span class="string">'游客'</span>]);</span><br><span class="line">            <span class="keyword">if</span>($res[<span class="string">'authRes'</span>]!==<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">"auth 保存失败！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        $transaction-&gt;commit();</span><br><span class="line">        <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($StudentArray); $i++)</span><br><span class="line">            $res[<span class="string">'data'</span>][] = $StudentArray[$i][<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;<span class="keyword">catch</span> (\<span class="keyword">Exception</span> $exception)  &#123;</span><br><span class="line">        $transaction-&gt;rollBack();</span><br><span class="line">        LogBatchModel::afterBatch(<span class="keyword">false</span>,$LBID);</span><br><span class="line">        $res[<span class="string">'data'</span>] = $exception-&gt;getMessage();</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    LogBatchModel::afterBatch(<span class="keyword">true</span>,$LBID);</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新导入学生可以成功登陆。</p>
+<p>表格上传失败时进行重置。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/yii2/" rel="tag"># yii2</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/cc-develop-note-i/" rel="prev" title="cc-front/backend-develop-note-1">
+      <i class="fa fa-chevron-left"></i> cc-front/backend-develop-note-1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/28/cc-develop-note-v/" rel="next" title="cc-develop-note-v">
+      cc-develop-note-v <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://jerrymousez.github.io/" title="https://jerrymousez.github.io/" rel="noopener" target="_blank">JZ</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

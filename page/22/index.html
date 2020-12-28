@@ -158,6 +158,902 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/算法复习笔记（六）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/12/算法复习笔记（六）/" class="post-title-link" itemprop="url">算法复习笔记（六）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-12 09:41:27 / 修改时间：10:58:47" itemprop="dateCreated datePublished" datetime="2019-06-12T09:41:27+08:00">2019-06-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="判断集合S中是否存在有两个其和等于x的元素"><a href="#判断集合S中是否存在有两个其和等于x的元素" class="headerlink" title="判断集合S中是否存在有两个其和等于x的元素"></a>判断集合S中是否存在有两个其和等于x的元素</h4><p>将S排序，借用辅助数组$S^{‘}=x-S$，合并$S^{‘}$和S</p>
+<h4 id="dutch-national-flag-problem"><a href="#dutch-national-flag-problem" class="headerlink" title="dutch national flag problem"></a>dutch national flag problem</h4><p>红色球要全部在数组的左侧，白色球全部在中间，蓝色球全部在右侧，在遍历一次所有元素的情况下完成排序。</p>
+<h4 id="maximum-sub-segment-sum"><a href="#maximum-sub-segment-sum" class="headerlink" title="maximum-sub-segment-sum"></a>maximum-sub-segment-sum</h4><p>针对每一个元素，有两个部分需要关注：① “过去部分” pre_sum；② “当前部分”nums[i]本身。有两种选择，① 加上pre_sum，本身融入到子串当中；② 以“当前部分”为子串起始位置，完全抛弃“过去部分”。</p>
+<h4 id="最大子矩阵"><a href="#最大子矩阵" class="headerlink" title="最大子矩阵"></a>最大子矩阵</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0, -2, -7,  0, 3</span><br><span class="line">9,  2, -6,  2, 5</span><br><span class="line">-4, 1, -4,  1, 6</span><br><span class="line">-1, 8,  0, -2, 2</span><br></pre></td></tr></table></figure>
+<p>借鉴或者转为最大子序列，需要加一个辅助矩阵：全部子列和（totalColSum）</p>
+<p>有了该辅助矩阵，我们就可以轻松求出指定列的子列和：</p>
+<p>0, -2, -7, 0, 3<br>9, 0, -13, 2, 8<br>5, 1, -17, 3, 14<br>4, 9, -17, 1, 16</p>
+<ul>
+<li>假如当前的子矩阵是{0,1}行，可直接得到子列和为9,0,-13,2,8</li>
+<li>假如当前的子矩阵是{1,2}行，可通过totalColSum的第2行减去第0行的数据而得5,3,-4,3,11</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/10/计组复习笔记（三）/" class="post-title-link" itemprop="url">计组复习笔记（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-10 20:12:51" itemprop="dateCreated datePublished" datetime="2019-06-10T20:12:51+08:00">2019-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-17 11:18:50" itemprop="dateModified" datetime="2019-06-17T11:18:50+08:00">2019-06-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h1><p><strong>ALU used for</strong></p>
+<ol>
+<li>Load/Store: F = add</li>
+<li>Branch: F = subtract</li>
+<li>R-type: F depends on funct field</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\11.PNG" alt="11"></p>
+<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>提高吞吐率，并未减少单一指令的执行时间（延迟latency）</p>
+<p><strong>吞吐率</strong> TP：单位时间内流水线所完成的任务数量或输出结果的数量</p>
+<p>$TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完n个任务所用的时间</p>
+<p><strong>加速比</strong> S：完成同样一批任务，顺序执行所用的时间与使用流水线所用的时间之比</p>
+<p>$S=T_0/T_k$</p>
+<p><strong>效率</strong> E：流水线上的设备利用率，即时空图上，N个任务占用的时空区与K个流水段占用的总时空区之比。由于流水线有建立时间和排空时间，各段并不总是满负荷工作的。</p>
+<p>E=n个任务占用的时空区/k个流水段占用的时空区=n/(n-k+1)</p>
+<p>在时空图上体现为执行所有指令需要的时间和实际用的时间，多余的时间由建立时间和排空时间造成</p>
+<p>5个处理步骤：IF，ID，EX，MEM，WB</p>
+<h3 id="冒险"><a href="#冒险" class="headerlink" title="冒险"></a>冒险</h3><h4 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h4><p>硬件占用：内存读写—IM，DM分开</p>
+<h4 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h4><p>拿错数据</p>
+<ol>
+<li>前推/旁路</li>
+<li>重新安排代码避免阻塞</li>
+</ol>
+<p>C code for A = B + E; C = B + F</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<p>重新安排代码:</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h4><p>取错指令</p>
+<ol>
+<li>阻塞</li>
+<li>分支预测</li>
+</ol>
+<p>静态预测</p>
+<p>动态预测</p>
+<p>当预测错误时，流水线控制必须确保被错误预测的分支后面的指令执行不会生效，并且在正确的分支地址处重新开始启动流水线。</p>
+<h3 id="流水线数据通路"><a href="#流水线数据通路" class="headerlink" title="流水线数据通路"></a>流水线数据通路</h3><h4 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h4><p>IF/ID，ID/EX，EX/MEM，MEM/WB</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\12.PNG" alt="12"></p>
+<h4 id="最终的数据通路与控制"><a href="#最终的数据通路与控制" class="headerlink" title="最终的数据通路与控制"></a>最终的数据通路与控制</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\13.PNG" alt="13"></p>
+<h3 id="数据冒险：旁路与阻塞"><a href="#数据冒险：旁路与阻塞" class="headerlink" title="数据冒险：旁路与阻塞"></a>数据冒险：旁路与阻塞</h3><h4 id="冒险条件"><a href="#冒险条件" class="headerlink" title="冒险条件"></a>冒险条件</h4><p>前提：写操作(EX/MEM.RegWrite, MEM/WB.RegWrite有效)，写目的寄存器不能是$zero</p>
+<p>1a. EX/MEM.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 10</p>
+<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 10</p>
+<p>2a. MEM/WB.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 01</p>
+<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 01</p>
+<p>1—Fwd from EX/MEM pipeline reg</p>
+<p>2—Fwd from MEM/WB pipeline reg</p>
+<p>ForwardA=0：第一个ALU操作数来自寄存器，ForwardB同理</p>
+<h4 id="旁路单元"><a href="#旁路单元" class="headerlink" title="旁路单元"></a>旁路单元</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\14.PNG" alt="14"></p>
+<p>01选通MEM/WB；10选通EX/MEM</p>
+<p>==为什么有两个Rt啊？还有下面加的红色语句我也没有理解目的所在==</p>
+<p>更复杂的潜在数据冒险：比如一个寄存器对多个数字进行求和运算，一系列连续的指令将会读写到同一寄存器：</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>第二条指令的EX/MEM数据才是最新的。因此，改变MEM冒险的控制策略：</p>
+<p><strong>MEM hazard</strong></p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​     <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                   <font color="red">and (EX/MEM.RegisterRd = ID/EX.RegisterRs))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRs))<br>   ForwardA = 01</p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​      <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                  <font color="red"> and (EX/MEM.RegisterRd = ID/EX.RegisterRt))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRt))<br>   ForwardB = 01</p>
+<h4 id="Load-Use冒险检测单元"><a href="#Load-Use冒险检测单元" class="headerlink" title="Load-Use冒险检测单元"></a>Load-Use冒险检测单元</h4><p>工作在ID级，从而可以在装载指令与紧随其后需要它的结果的指令间插入阻塞</p>
+<p>阻塞条件：ID/EX.MemRead and   ((ID/EX.RegisterRt = IF/ID.RegisterRs) or    (ID/EX.RegisterRt = IF/ID.RegisterRt))</p>
+<p>插入空指令：把ID/EX流水线寄存器的EX、MEM、WB级的控制信号都置为0.仍向前传递，但控制信号为0不会进行Reg和MEM的写操作。（事实上只需将RegWrite和MenWrite置为0）</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\15.PNG" alt="15"></p>
+<p><strong>通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\16.PNG" alt="16"></p>
+<p>冒险检测控制单元控制PC和IF/ID流水线寄存器的写入，以及在实际控制信号与全0中进行选择的多选器。若冒险条件为真，阻塞并清除所有控制字段。</p>
+<h3 id="控制冒险-1"><a href="#控制冒险-1" class="headerlink" title="控制冒险"></a>控制冒险</h3><p>增加寄存器比较电路，如果参与比较的两个寄存器，是两步之前的ALU结果，可以通过旁路解决冒险。如果参与比较的两个寄存器其中有一个，是前一步的ALU结果或是两步之前load的结果，需要一个阻塞。如果参与比较的两个寄存器其中有一个，是前一步的load的结果，需要两个阻塞。</p>
+<h4 id="动态分支预测"><a href="#动态分支预测" class="headerlink" title="动态分支预测"></a>动态分支预测</h4><p>分支预测缓存Branch prediction buffer (aka branch history table)：一小块按照分支指令的低位地址索引的存储器区，其中包括一位或多位数据用以说明最近是否发生过分支。</p>
+<p>2位预测位</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\17.PNG" alt="17"></p>
+<p>依然需要花费一个时钟周期的开销，去计算分支目标地址。使用延迟分支或分支目标地址缓存</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>（另一种形式的控制冒险，机制相同，不同的是由异常重置控制信号）</p>
+<p>异常程序计数器EPC：保存出错指令的地址+4</p>
+<p>协处理器CP0</p>
+<p>Jump to handler at 8000 00180</p>
+<p>记录引起异常的原因的两种方法</p>
+<ol>
+<li>Cause寄存器：有一个字段记录引起异常的原因</li>
+<li>向量中断，控制权转移到由异常原因决定的地址处</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\18.PNG" alt="18"></p>
+<font color="red">从MEM/WB寄存器WB部分出来的向上向左的那个信号，有点小错误，应该只向Registers，是一个写寄存器的控制信号。</font>
+
+<p>多重中断，硬件对异常进行排序从而使得最先发生异常的指令被中断。优先级最高的异常处理完后，继续处理后面的异常。</p>
+<p>非精确中断/非精确异常：在流水线中，将每一个异常与导致该异常的指令对应起来难度很大，EPC中放入相近的值，由操作系统确定精确位置。精确异常是为了支持虚拟存储器。</p>
+<h3 id="指令级并行"><a href="#指令级并行" class="headerlink" title="指令级并行"></a>指令级并行</h3><p>增加流水线的指令级并行程度：</p>
+<ol>
+<li>增加流水线的深度—-更多的重叠</li>
+<li>复制计算机内部部件的数量—每个流水既可以启动多条指令—-多发射multiple issue</li>
+</ol>
+<h4 id="多发射"><a href="#多发射" class="headerlink" title="多发射"></a>多发射</h4><p>CPI可能小于1，可使用IPC</p>
+<p>静态多发射（在编译时）</p>
+<p>动态多发射（在执行时）</p>
+<p>发射槽 issue slot</p>
+<p>Speculation 推测：编译器或处理器推测指令结果以消除其他指令对该结果的依赖。</p>
+<p>推测错误时需要回卷。    指令重排、缓存结果</p>
+<h4 id="静态多发射处理器"><a href="#静态多发射处理器" class="headerlink" title="静态多发射处理器"></a>静态多发射处理器</h4><p>使用编译器封装指令并处理冒险，若无可同时发射的，用nop代替</p>
+<p>发射包 issue packet：在一个时空周期内发射的多条指令的集合。可有编译器静态生成或处理器动态生成。对一个周期内能发射的多条指令有所限制。</p>
+<p>超长指令字VLIW</p>
+<p>例：Two-issue packets</p>
+<p>One ALU/branch instruction</p>
+<p>One load/store instruction</p>
+<p> <strong>数据通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\19.PNG" alt="19"></p>
+<p>数据冒险：</p>
+<p>EX数据：同一个包中，can’t use ALU result in load/store</p>
+<p>load-use：会增加延迟</p>
+<p><strong>调度</strong></p>
+<p>Loop: lw   \$t0,0(\$s1)      # \$t0=array element<br>​      addu \$t0, \$t0,\$s2    # add scalar in \$s2<br>​      sw   \$t0,0(\$s1)      # store result<br>​      addi \$s1,\$s1,–4      # decrement pointer<br>​      bne  \$s1,\$zero, Loop # branch $s1!=0</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>nop</td>
+<td>lw   t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>addi   s1,   $s1,–4</td>
+<td>nop</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   $t0, $s2</td>
+<td>nop</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t0,   4($s1)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p> 循环展开（循环体复制4份）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>addi   s1,   $s1,–16</td>
+<td>lw   \$t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>lw   t1, 12($s1)</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   t0, $s2</td>
+<td>lw   \$t2, 8($s1)</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t1,   t1, $s2</td>
+<td>lw   \$t3, 4($s1)</td>
+<td>4</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t2,   t2, $s2</td>
+<td>sw   \$t0,   <font color="red">16</font>($s1)</td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t3,   t4, $s2</td>
+<td>sw   \$t1,   12($s1)</td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>sw   t2,   8($s1)</td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t3,   4($s1)</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>寄存器重命名——引入临时寄存器，消除虚假的数据依赖（反相关）</p>
+<font color="red">标红处是16而不是0，是因为第一行\$t0取的是\$s1未减去16处的值，从第二行开始，通过旁路技术，$s1已减去16</font>
+
+<h4 id="动态多发射处理器"><a href="#动态多发射处理器" class="headerlink" title="动态多发射处理器"></a>动态多发射处理器</h4><p>也叫超标量处理器</p>
+<p>指令顺序发射，乱序执行，顺序提交。处理器决定每个周期几条指令，硬件保证正确性。</p>
+<p>流水线被划分为：取指与发射单元、多个功能单元、一个提交单元（含重排序缓冲区）。每个功能单元有自己的缓冲区（保留站）用于保存操作数和操作。</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\20.PNG" alt="20"></p>
+<p><strong>寄存器重命名</strong></p>
+<p>保留站和重排序缓冲区提供寄存器重命名机制。发射指令时，它先被复制到合适的功能单元的保留站。如果操作数在寄存器堆中或重排序缓冲区中可用，那么立即数被复制到保留站中。否则该指令一直缓存在保留站中。若指令已发射，那么操作数对应的寄存器的值可以被覆盖。如果操作数不在寄存器堆中或重排序缓冲区中，那么他应该是某个功能单元的结果，硬件帮助定位该功能单元，计算出结果时直接从功能单元复制到保留站，跳过寄存器堆。</p>
+<h5 id="推测"><a href="#推测" class="headerlink" title="推测"></a>推测</h5><p><strong>Predict branch and continue issuing</strong></p>
+<p>Don’t commit until branch outcome determined</p>
+<p><strong>Load speculation</strong></p>
+<p>Avoid load and cache miss delay</p>
+<ol>
+<li>Predict the effective address</li>
+<li>Predict loaded value</li>
+<li>Load before completing outstanding stores</li>
+<li>Bypass stored values to load unit</li>
+</ol>
+<p>Don’t commit load until speculation cleared</p>
+<p><strong>为什么需要动态调度？</strong></p>
+<ol>
+<li>并不是所有的阻塞都可以预知。动态调度在一些指令阻塞时调度其他指令，以掩盖阻塞。</li>
+<li>对于分支指令，若采用动态推测而不是用动态调度，会极大限制指令级并行度。</li>
+<li>流水线延迟和发射宽度根据处理器的具体实现的不同有很大差别。</li>
+</ol>
+<p>多发射的阻碍：窗口期有限、内存访问延迟、带宽受限</p>
+<p>动态调度和推测消耗能源</p>
+<p>指令集、数据通路和控制的设计之间相互影响</p>
+<hr>
+<font color="green"><a href="http://landcareweb.com/questions/43313/tui-ce-he-yu-ce-zhi-jian-de-chai-yi" target="_blank" rel="noopener">预测和推测之间有什么区别？</a></font>
+
+<p>分支预测由处理器完成，以试图确定在条件跳转之后执行将继续的位置，以便它可以从存储器读取下一条指令。</p>
+<p>推测执行更进一步，并确定执行下一条指令的结果。如果分支预测是正确的，则使用结果，否则将其丢弃。即使代码中没有实际的条件分支，也可以应用推测执行。处理器可以从通常将连续执行的若干指令确定结果，但是可以例如通过算术溢出中断来停止执行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/10/计组复习笔记（二）/" class="post-title-link" itemprop="url">计组复习笔记（二）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-10 16:08:24 / 修改时间：19:31:43" itemprop="dateCreated datePublished" datetime="2019-06-10T16:08:24+08:00">2019-06-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="计算机的算术运算"><a href="#计算机的算术运算" class="headerlink" title="计算机的算术运算"></a>计算机的算术运算</h2><h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h3><p>高位HI，低位LO</p>
+<p>Instructions</p>
+<p>mult rs, rt  /  multu rs, rt    64-bit product in HI/LO</p>
+<p>mfhi rd  /  mflo rd    Move from HI/LO to rd，Can test HI value to see if product overflows 32 bits</p>
+<p>mul rd, rs, rt    Least-significant 32 bits of product –&gt; rd</p>
+<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h3><h3 id="浮点运算"><a href="#浮点运算" class="headerlink" title="浮点运算"></a>浮点运算</h3><h4 id="数值表示"><a href="#数值表示" class="headerlink" title="数值表示"></a>数值表示</h4><font color="red">尾数精度=尾数位数+1</font>
+
+<p>单精度规格化数：阶码取值范围在1~254之间；尾数可以取任何值。</p>
+<p>对于float型，特殊的值：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>阶码/指数</th>
+<th>尾数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+/-</td>
+<td>全0</td>
+<td>全0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全1(=255)</td>
+<td>全0</td>
+<td>+无穷/-无穷</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全0</td>
+<td>非0</td>
+<td>非规格化数</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>全1(=255)</td>
+<td>非0</td>
+<td>非数NaN</td>
+</tr>
+</tbody>
+</table>
+<p>移码</p>
+<p>精度范围</p>
+<p>高级语言中可以定义多种数据类型，因此需要存取不同长度操作数的数据传输指令。</p>
+<p>对阶的时候，需要小阶向大阶看齐，因为大阶如果向小阶看齐，那么就要左移，不符号规格化的要求。</p>
+<p>浮点数乘法运算结果规格化：不需要左移，最多需要一次右移；除法：不需要右移，最多需要一次左移。正常的运算过程下，若尾数为0，则结果的阶码也置为0.</p>
+<p>浮点加法不满足结合律</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/数据库复习笔记（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/08/数据库复习笔记（四）/" class="post-title-link" itemprop="url">数据库复习笔记（四）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-08 15:23:44" itemprop="dateCreated datePublished" datetime="2019-06-08T15:23:44+08:00">2019-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-14 09:41:17" itemprop="dateModified" datetime="2019-06-14T09:41:17+08:00">2019-06-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h2><p>parse - convert（Parse Tree -&gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute</p>
+<p>选择和投影尽量早做</p>
+<font color="red">后面整个么懂——反正考试不做要求</font>
+
+<p>Parameters for Estimation</p>
+<p>M: # of available main memory buffers (estimate) </p>
+<p>Kept as statistics for each relation R:</p>
+<p>–T(R) : # of tuples in R</p>
+<p>–B(R): # of blocks to hold all tuples of R</p>
+<p>–V(R, A): # of distinct values for attribute R.A</p>
+<p>  = SELECT COUNT (DISTINCT A) FROM R  </p>
+<p>•Physical operators </p>
+<p>–to implement physical query plans</p>
+<p>–selections, joins</p>
+<p>–one-pass, two-pass, (multi-pass)</p>
+<p>–based on scanning, sorting, hashing, existing indexes</p>
+<h2 id="Crash-Recovery"><a href="#Crash-Recovery" class="headerlink" title="Crash Recovery"></a>Crash Recovery</h2><h3 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h3><p>从后向前恢复</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure undo logging. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">;&lt;T1,A,5&gt;;\<start t2="">, &lt;T1,B,1&gt;; \<commit t1="">;&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">; \<start t3="">;&lt;T3,A,10&gt;;\<start t4="">; &lt;T4,A,11&gt;, &lt;T3,C,7&gt;;&lt;T4,B,22&gt;</start></start></commit></commit></start></start></p>
+<p>The last four actions in the schedule were incrementing each object by 1(e.g.&lt;T4,A,11&gt; was updating A to 12). How many different combinations of values of values for A,B,and C could possibly exist on disk at the time of the system crash?</p>
+<font color="red">A: 10,11,12；B: 22,23；C: 7,8。共12种可能</font>
+
+<font color="green"> &lt;T4,A,11&gt;的只能体现，此时内存中的A被T3改成了11，但是磁盘上有没有被T3改过呢？不知道。内存中写了&lt;Ti, X, v&gt;，才可以改内存中的数据，所有&lt;Ti, X, v&gt;flush之后，才可以改磁盘数据。</font>
+
+<h3 id="Redo日志"><a href="#Redo日志" class="headerlink" title="Redo日志"></a>Redo日志</h3><p>从前向后恢复</p>
+<p>恢复速度极慢 -&gt; 静态检查点</p>
+<h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure redo logging. The initial database state was A=0,B=1,C=2. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">,&lt;T1,A,5&gt;,\<start t2="">, &lt;T1,B,1&gt;, \<commit t1="">,&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">, \<ckpt>,\<start t3="">,&lt;T3,A,10&gt;,\<start t4="">, &lt;T4,A,11&gt;, &lt;T3,C,7&gt;, &lt;T4,B,22&gt;</start></start></ckpt></commit></commit></start></start></p>
+<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
+<p>A: 5；B: 11；C: 8。有一种可能</p>
+<h3 id="Undo-redo日志"><a href="#Undo-redo日志" class="headerlink" title="Undo/redo日志"></a>Undo/redo日志</h3><p>&lt;Ti, X, Old-X-value, New-X-value&gt;</p>
+<p>恢复时，从前向后redo完成(有commit)的，从后向前undo未完成的</p>
+<h4 id="动态检查点"><a href="#动态检查点" class="headerlink" title="动态检查点"></a>动态检查点</h4><start ckpt="" ti,t2,…(未完成的事务undo)="">
+
+<h4 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses undo-redo logging. After a system crash, we find the following log entries on disk:</p>
+<p>\<start t1="">&lt;T1,A,5,0&gt;\<start t2="">&lt;T1,B,1,2&gt;\<commit t1="">&lt;T2,B,2,3&gt;</commit></start></start></p>
+<p><start ckpt(t2)="">&lt;T2,C,8,9&gt;\<commit t2="">\<end ckpt=""></end></commit></start></p>
+<p>\<start t3="">&lt;T3,A,0,10&gt;\<start t4="">&lt;T4,A,10,11&gt;&lt;T3,C,9,7&gt;&lt;T4,B,3,22&gt;</start></start></p>
+<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
+<p>A: 0,10,11；B: 3,22；C: 8,9,7</p>
+<p>共18种可能</p>
+<p>undo: T3,T4；redo: T2</p>
+<p>结果：0,3,9</p>
+<h2 id="Concurrency-Control"><a href="#Concurrency-Control" class="headerlink" title="Concurrency Control"></a>Concurrency Control</h2><p>优先图</p>
+<h3 id="可串行调度"><a href="#可串行调度" class="headerlink" title="可串行调度"></a>可串行调度</h3><h4 id="乐观方法"><a href="#乐观方法" class="headerlink" title="乐观方法"></a>乐观方法</h4><h4 id="悲观方法"><a href="#悲观方法" class="headerlink" title="悲观方法"></a>悲观方法</h4><p>两段锁协议</p>
+<p>共享锁：</p>
+<p>写读后写的元素，可以直接上写锁，或者先上读锁，写的时候再升级为写锁；提倡第二种。</p>
+<p>更新锁：解决两个事务对同一元素上了读锁，形成死锁的问题。If Ti wants to read A and knows it</p>
+<p>may later want to write A, it requests an update lock (not shared)</p>
+<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>一次封锁法：对所有要用的数据都加锁</p>
+<h4 id="顺序封锁法"><a href="#顺序封锁法" class="headerlink" title="顺序封锁法"></a>顺序封锁法</h4><p>调度器1负责按照rule1，rule3给事务加锁；调度器2负责按照rule2形成调度。</p>
+<h4 id="意向锁-IX，IS"><a href="#意向锁-IX，IS" class="headerlink" title="意向锁 IX，IS"></a>意向锁 IX，IS</h4><p>插入时需锁父表，上Lx；删除时上Lx</p>
+<h4 id="锁表"><a href="#锁表" class="headerlink" title="锁表"></a>锁表</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>IS</th>
+<th>IX</th>
+<th>S</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS</td>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>S</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr>
+<td>X</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>S</th>
+<th>X</th>
+<th>U</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S</td>
+<td>T</td>
+<td>F</td>
+<td>T</td>
+</tr>
+<tr>
+<td>X</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>U</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Parent  Child locked in</th>
+<th>Child can be locked in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS</td>
+<td>IS,S</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>IS,S,IX,X</td>
+</tr>
+<tr>
+<td>S</td>
+<td>[S,IS; not necessary]</td>
+</tr>
+<tr>
+<td>X</td>
+<td>NONE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="事务的特性（ACID"><a href="#事务的特性（ACID" class="headerlink" title="事务的特性（ACID)"></a>事务的特性（ACID)</h4><p>•原子性（Atomicity）</p>
+<p>•一致性（Consistency）</p>
+<p>•隔离性（Isolation）</p>
+<p>•持续性（Durability）</p>
+</start>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/07/201812CET6_3Comp/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/07/201812CET6_3Comp/" class="post-title-link" itemprop="url">201812CET6_3Comp</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-07 10:56:39" itemprop="dateCreated datePublished" datetime="2019-06-07T10:56:39+08:00">2019-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="How-to-balance-job-responsibilities-and-personal-interests"><a href="#How-to-balance-job-responsibilities-and-personal-interests" class="headerlink" title="How to balance job responsibilities and personal interests"></a>How to balance job responsibilities and personal interests</h3><font color="red">「personal interests」指「个人兴趣」还是「个人利益」？</font>
+
+<p>我觉得出题人没必要在这种词上面作妖，两种解释都有道理，而根据两外两个题：extracurriculer和leisure，此处应该是爱好的意思。</p>
+<font color="blue">Along with the development of society</font>， more and more problems <font color="blue">are brought to our attention</font>； one of the most serious problems is how to <font color="blue">reach the balance between</font> job responsibilities and personal interests. People have different <font color="blue">attitudes towards </font>the problem.<br><br><font color="blue">It is generally agreed that job responsibilities has been playing an increasingly important role in our life</font>， because we need to complete them to earn money for life. But if people put too much time on work， their<font color="blue"> mental conditions will be damaged and suffer from kinds of diseases</font>. The<font color="blue"> sub health</font> of workers has <font color="blue">attracted extensive attention</font> of the society， which can be found in TV programs， newspapers， university classes and many aspect of our everyday life. Thus， in addition to work responsibility， people should develop personal interests using spare time. Then， they could enjoy the life and get rest <font color="blue">both physically and mentally</font>. However， if people invest too much time on personal interests， their career developments may be affected and lost opportunities for a better life.<br><br>From what has been discussed above， we may<font color="blue"> safely draw the conclusions </font>that people should focus on work responsibility during work time and develop personal interests on spare time.<br><br>———-<br><br>Recently, the topic of hobby has been<font color="blue"> brought to public attention</font>. We can find many examples easily: modern people‘ s <font color="blue">workload </font>makes people <font color="blue">out of breath </font>and<font color="blue"> leaves them no time for their interest. </font>
+
+<p>If this situation <font color="blue">continues to worsen</font>, their physical and mental status <font color="blue">raises the alarm</font>. Thus, it’s <font color="blue">urgent</font> to<font color="blue"> strike a good balance between working duties and personal hobbies</font>. For one thing, too much work<font color="blue"> gives rise to immunity deterioration</font>, which causes many health problems. For another, <font color="blue">constructive pastime</font> helps us <font color="blue">live in a positive cycle.</font></p>
+<p>Therefore, what we should do is to find enough time to develop our hobbies<font color="blue"> by finishing the task on time </font>and arranging some beneficial activities <font color="blue">off work</font>. For example, regular exercise is<font color="blue"> a commendable way </font>to get relaxed. By doing exercises your body can<font color="blue"> produce a hormone</font> that makes you <font color="blue">recover from exhaustion</font>. What’s more you can<font color="blue"> transfer your focus from busy job by</font> reading an interesting book or listening to a favorite song,<font color="blue"> thereby getting your intense nerves calm down.</font></p>
+<h4 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h4><p>workload n. (某一人或组织的)工作量，工作负担</p>
+<p>immunity n. 免疫力;受保护;豁免;免除</p>
+<p>deterioration n. 恶化，变坏；退化；堕落</p>
+<p>commendable adj. 值得赞扬(或嘉许)的</p>
+<p>hormone n. 激素;荷尔蒙</p>
+<p>thereby adv. 因此;由此;从而</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/算法复习笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/06/算法复习笔记（五）/" class="post-title-link" itemprop="url">算法复习笔记（五）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-06 23:07:14" itemprop="dateCreated datePublished" datetime="2019-06-06T23:07:14+08:00">2019-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 19:42:32" itemprop="dateModified" datetime="2019-06-07T19:42:32+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h3><p>容量、源点、汇点、流；流f满足容量条件和守恒定理</p>
+<p>在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。 </p>
+<p>剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}.</p>
+<p>令P是$G_f$中一条简单的s-t路径（增广路径）。bottleneck(P,f)是P上任何边关于流f的最小剩余容量。算法augment(f,P)在G中产生一 个新的流f’.不断调整Gf来获取更大的流量.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Augment(f, P) &#123; </span><br><span class="line">    b ←bottleneck(P) </span><br><span class="line">    foreach e ∈P &#123; <span class="comment">//宽度优先或者广度优先搜索，代价为 O(m+n)=O(m); </span></span><br><span class="line">        <span class="keyword">if</span>(e ∈E) f(e) ←f(e) + b </span><br><span class="line">        <span class="keyword">else</span> f(eR) ←f(e) -b &#125; </span><br><span class="line">    <span class="keyword">return</span> f &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ford-Fulkerson(G,s,t,c)&#123;</span><br><span class="line">    foreach e ∈E f(e)←0</span><br><span class="line">    Gf ← residual graph</span><br><span class="line">    <span class="keyword">while</span>(there exists augmenting path P)&#123;</span><br><span class="line">        f ← Augment(f,c,P)</span><br><span class="line">        update Gf</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ford-Fulkerson算法可以在 O(mC)时间内实现</p>
+<h4 id="最大流与最小割"><a href="#最大流与最小割" class="headerlink" title="最大流与最小割"></a>最大流与最小割</h4><p>v(f)≤c(A,B)，每个流的值是以每个割的容量为上界的。证明：流f的值=A的出度-A的入度≤A的出度=割(A,B)的容量</p>
+<p>最大流的值等于最小割</p>
+<h4 id="选择好的增广路径"><a href="#选择好的增广路径" class="headerlink" title="选择好的增广路径"></a>选择好的增广路径</h4><p>选择了一条瓶颈容量很小的增广路径， 导致收敛很慢！— 选择具有大的瓶颈容量的路径，进展会更大些</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Scaling-Max-Flow(G, s, t, c) &#123; </span><br><span class="line">    foreach e ∈E  f(e) ←0 </span><br><span class="line">    ∆←largest power of <span class="number">2</span> &lt;= Max of Ce out of s </span><br><span class="line">    Gf←residual graph</span><br><span class="line">	<span class="keyword">while</span>(∆≥<span class="number">1</span>) &#123; <span class="comment">// 外层While循环的迭代次数至多是 1 + ⎡log2 C⎤ </span></span><br><span class="line">        Gf(∆)←∆-residual graph </span><br><span class="line">        <span class="keyword">while</span>(there exists augmenting path P in Gf(∆)) &#123; </span><br><span class="line">            <span class="comment">//在∆缩放阶段，每次增广增加的流值至少是∆.</span></span><br><span class="line">            <span class="comment">//在一个缩放阶段增广次数至多是2m</span></span><br><span class="line">            f ←augment(f, c, P) <span class="comment">//一次增广用O(m)时间(包括建立图，找到合适路径)</span></span><br><span class="line">            update Gf(∆) </span><br><span class="line">        &#125; </span><br><span class="line">        ∆←∆/ <span class="number">2</span> </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二分匹配问题"><a href="#二分匹配问题" class="headerlink" title="二分匹配问题"></a>二分匹配问题</h3><h4 id="构造最大流"><a href="#构造最大流" class="headerlink" title="构造最大流"></a>构造最大流</h4><p>构造图G’ = (L ∪R∪{s, t},  E’ ). 连接原图L到R的每条边, 每条边赋予单位容 量；增加一个源点s, 从s到L中的每个结点连接一 条边，每条边赋予单位容量；增加一个终点t, 从R中的每个结点到t连接一 条边，每条边赋予单位容量。</p>
+<p> G中最大匹配的数目与所定义的G‘中最大流值相同. </p>
+<p>令n=|L|=|R|,m是G的边数，一般假定初始问题中每个结点至少存在一条关联边， 因此m&gt;=n/2. </p>
+<p>时间复杂度：C=|L|=n,根据以前O(mC)的界——Ford-Fulkerson算法在 O(mn)时间内找到二部图中的一个最大匹配</p>
+<h2 id="NP与计算的难解性"><a href="#NP与计算的难解性" class="headerlink" title="NP与计算的难解性"></a>NP与计算的难解性</h2><table>
+<thead>
+<tr>
+<th>贪心算法</th>
+<th>区间调度</th>
+<th>O(nlogn)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分治策略</td>
+<td>FFT</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>动态规划</td>
+<td>编辑距离</td>
+<td>O(n^2)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="多项式时间规约"><a href="#多项式时间规约" class="headerlink" title="多项式时间规约"></a>多项式时间规约</h3><p>如果对于问题Y：能用多项式个标准的计算步骤，加上多项式次调用解问题X的黑盒子来解问题Y，则：Y多项式时间可归约到X，或X至少想Y一样难（相对于多项式时间）</p>
+<p>$Y≤_pX$ （有传递性）</p>
+<p>如果X能在多项式时间内求解，则Y也能在多项式时间内求解；如果Y能在多项式时间内求解，则X也能在多项式时间内求解。</p>
+<h4 id="独立集问题"><a href="#独立集问题" class="headerlink" title="独立集问题"></a>独立集问题</h4><p>G=(V,E)，G包含大小至少为k的独立集吗？G包含大小至多为k的顶点覆盖吗？</p>
+<p>S是一个独立集当且仅当它的补图V-S是一个顶点覆盖。</p>
+<p><strong>集合覆盖</strong>：比顶点覆盖更具一般性，顶点覆盖$≤_p$集合覆盖</p>
+<p><strong>使用零件归约</strong></p>
+<p>合取范式，可满足性问题SAT，3-SAT：三元可满足性</p>
+<p>3-SAT$≤_p$独立集</p>
+<p>构造：连接一个三角形的三个顶点（需要同时考虑三个三角形，从三个三角形中各取一个点），并把每个项与它的否定项连接起来。</p>
+<p>3-SAT$≤_p$独立集$≤_p$顶点覆盖$≤_p$集合覆盖</p>
+<p>寻找问题$≤_p$判别问题</p>
+<h3 id="有效证书和NP的定义"><a href="#有效证书和NP的定义" class="headerlink" title="有效证书和NP的定义"></a>有效证书和NP的定义</h3><p>对于判定问题： A解问题X</p>
+<p>存在多项式时间解法的问题的集合P</p>
+<p>判断素性：用2到根号N来判断N是否能被这些数整除，算法的时间复杂度是指数级别的；AKS算法为多项式级别。</p>
+<p>证书串t包含s是X的“yes”实例的证据。</p>
+<p>存在t使得：|t|≤p(|s|)且B(s,t)=yes，则B是问题X的有效验证程序，t是证书。</p>
+<p>NP是所有存在有效验证程序的问题的集合</p>
+<h4 id="例"><a href="#例" class="headerlink" title="例"></a><strong>例</strong></h4><p>独立集问题：</p>
+<p>证书：至少有k个顶点的集合；验证程序B：核实这些顶点中的任何两两之间没有边连接。</p>
+<h4 id="NP完全问题"><a href="#NP完全问题" class="headerlink" title="NP完全问题"></a>NP完全问题</h4><p>电路可满足性</p>
+<p>NP问题要么是P，要么是NP完全问题</p>
+<p>难问题的部分分类：</p>
+<ol>
+<li>包装问题：独立集、集合包装</li>
+<li>覆盖问题：顶点覆盖、集合覆盖</li>
+<li>划分问题：三维匹配、图着色</li>
+<li>排序问题：哈密顿图、哈密顿回路、巡回售货员问题</li>
+<li>数值问题：子集和，带开放时间和截止时间的调度问题</li>
+<li>约束满足问题：SAT，3SAT</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/06/算法复习笔记（五）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559907526582.png" alt="1559907526582"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/数据库复习笔记（三）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -502,591 +1398,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/算法复习笔记（四）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/04/算法复习笔记（四）/" class="post-title-link" itemprop="url">算法复习笔记（四）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 18:04:17" itemprop="dateCreated datePublished" datetime="2019-06-04T18:04:17+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-12 11:10:20" itemprop="dateModified" datetime="2019-06-12T11:10:20+08:00">2019-06-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><font color="red">找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。</font>
-
-<h3 id="带权的区间调度"><a href="#带权的区间调度" class="headerlink" title="带权的区间调度"></a>带权的区间调度</h3><p>对区间j定义p(j)为使得区间i与j不相交的最大的标记i &lt; j, i是最右边的与j不冲突的区间。<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="递归的备忘录形式-自顶向下"><a href="#递归的备忘录形式-自顶向下" class="headerlink" title="递归的备忘录形式 自顶向下"></a>递归的备忘录形式 自顶向下</h4><p>用一个数组M[0…n]保存中间计算结果</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Input: n,  s1,...,sn,  f1,...,fn,   v1,...,vn</span><br><span class="line">sort jobs by finish times so that f1 &lt;= f2 &lt;=...&lt;= fn <span class="comment">//O(nlogn)</span></span><br><span class="line">compute p(<span class="number">1</span>)，p(<span class="number">2</span>),...,p(n) <span class="comment">//如果已对开始时间排序，只需O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j<span class="number">-1</span> to n</span><br><span class="line">	M[j]=empty</span><br><span class="line">M[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">M-Compute_Opt(j)&#123; <span class="comment">//O(n) ，每次递归时，M[]被填充一个，至多有2n次递归调用</span></span><br><span class="line">    <span class="keyword">if</span> (M[j] is empty)&#123;</span><br><span class="line">        M[j]=max(wj+M-Compute_Opt(p(j)),M-Compute_Opt(j<span class="number">-1</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> M[j]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="输出最优解-O-n"><a href="#输出最优解-O-n" class="headerlink" title="输出最优解 O(n)"></a>输出最优解 O(n)</h4><p>j属于一个区间集合{1,…,j} 的最优解当且仅当：$v_j+OPT(p(j)) &gt; OPT(j-1)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Find-Solution(j)&#123;</span><br><span class="line">    <span class="keyword">if</span>(j=<span class="number">0</span>)</span><br><span class="line">        output nothing</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(vj+M[p(j)] &gt;M[j<span class="number">-1</span>])</span><br><span class="line">        print j</span><br><span class="line">        Find-Solution(p(j))</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        Find-Solution(j<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="迭代算法计算M-自底向上"><a href="#迭代算法计算M-自底向上" class="headerlink" title="迭代算法计算M[] 自底向上"></a>迭代算法计算M[] 自底向上</h4><p>Input: n, s1,…,sn, f1,…,fn , v1,…,vn </p>
-<p>Sort jobs by finish times so that f1≤f2≤… ≤fn.</p>
-<p>Computep(1), p(2), …, p(n)</p>
-<p>Iterative-Compute-Opt { //O(n)</p>
-<p>​    M[0] = 0 forj = 1 to n </p>
-<p>​    M[j] = max(vj+ M[p(j)], M[j-1]) </p>
-<p>}</p>
-<p>区别动态规划与分治策略：子问题是否独立</p>
-<h3 id="分段的最小二乘"><a href="#分段的最小二乘" class="headerlink" title="分段的最小二乘"></a>分段的最小二乘</h3><p>罚分度量函数:  E + c L  在所有直线上的平方误差之和E，直线的数目L</p>
-<p>OPT(j) =对于点pi, pi+1, . . . , pj的最优解 </p>
-<p>e(i, j)  = 关系到pi, pi+1, . . . , pj的任何直线的最小误差<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>min_{1≤i≤j}{e(i,j)+c+OPT(i-1)},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="自底向上"><a href="#自底向上" class="headerlink" title="自底向上"></a>自底向上</h4><p>INPUT: n, p1,…,pN,c</p>
-<p>Segmented-Least-Squares() { </p>
-<p>​    M[0] = 0 </p>
-<p>​    for j = 1 to n </p>
-<p>​        for i = 1 to j </p>
-<p>​            compute the least square error eij for the segment pi,…, pj //O(n)<br>​    for j = 1 to n </p>
-<p>​        M[j] =$min_{1≤i≤j}{e(i,j)+c+OPT(i-1)}$ //O(n^2) </p>
-<p>​    return M[n]<br>}</p>
-<p>总的算法代价是O(n^3)；如果预先计算了统计信息e(i, j) ，那么代价就是 O(n^2)</p>
-<h4 id="通过数组M-向回寻找计算最优的划分"><a href="#通过数组M-向回寻找计算最优的划分" class="headerlink" title="通过数组M 向回寻找计算最优的划分"></a>通过数组M 向回寻找计算最优的划分</h4><p>Find-Segments(j) </p>
-<p>​    If j=0 then </p>
-<p>​        不用输出 </p>
-<p>​    Else </p>
-<p>​        找一个使得e(i,j)+c+M[i-1]最小的i </p>
-<p>​    输出这一段{pi,…,pj}作为直线段，以及输出递归函数Find-Segments(i-1)的结果 </p>
-<p>End if</p>
-<h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p>增加一个变量<br>$$<br>OPT(i,w)=\begin{cases}<br>0,\quad if\ i=0 \\<br>OPT(i-1,w),\quad if\ wi&gt;w \\<br>max{OPT(i-1,w),vi+OPT(i-1,w-wi)},\quad otherwise<br>\end{cases}<br>$$<br>自底向上算法，填满一个n*W的二维数组</p>
-<p>Input: n, w1,…,wN, v1,…,vN</p>
-<p>for w = 0 to W </p>
-<p>​    M[0, w] = 0</p>
-<p>for i = 1 to n </p>
-<p>​    for w = 1 to W </p>
-<p>​        if(wi&gt; w) </p>
-<p>​            M[i, w] = M[i-1, w] </p>
-<p>​        else </p>
-<p>​            M[i, w] = $max{OPT(i-1,w),vi+OPT(i-1,w-wi)}$</p>
-<p>return M[n, W]</p>
-<p><img src="//yoursite.com/2019/06/04/算法复习笔记（四）/blog\source\_posts\sql\算法1.PNG" width="60%"></p>
-<p>Θ(nW)，伪多项式。在O(n)时间内找到最优集合。</p>
-<h3 id="RNA二级结构"><a href="#RNA二级结构" class="headerlink" title="RNA二级结构"></a>RNA二级结构</h3><p>没有尖的转弯：S中每个对的两端被至少四个插入的碱基所分割.  即如果(bi, bj) ∈S, 那么i &lt; j -4.<br>$$<br>OPT(i,j)=\begin{cases}<br>0,\quad if\ i≥j-4 \\<br>max{OPT(i,j-1),1+max_t{OPT(i,t-1)+OPT(t+1,j)}},\quad otherwise<br>\end{cases}<br>$$<br>$max_t$遍取所有的t,使得bt与bj是一对被允许的碱基.</p>
-<p>存在O(n^2)个子问题;每次求值用O(n)时间,总运行时间是O(n^3)</p>
-<h3 id="序列比对"><a href="#序列比对" class="headerlink" title="序列比对"></a>序列比对</h3><p>空隙罚分δ; 不匹配罚分$α_{pq}$</p>
-<p> 一个比对M是一些有序配对xi-yj 的集合，每一项至多出现在一个配对中， 而且没有配对交叉.<br>$$<br>OPT(i,j)=\begin{cases}<br>jδ,\quad if\ i=0 \\<br>min\begin{cases}<br>α_{x_iy_j}+OPT(i-1,j-1)\quad\\<br>δ+OPT(i-1,j)\quad \\<br>δ+OPT(i,j-1)\quad<br>\end{cases}\quad otherwise\\<br>iδ,\quad if\ j=0<br>\end{cases}<br>$$</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><strong>Sequence-Alignment(m, n, x1x2…xm, y1y2…yn, δ, α)</strong> { </p>
-<p>for i = 0 to m M[0, i] = iδ </p>
-<p>for j = 0 to n M[j, 0] = jδ</p>
-<p>for i = 1 to m </p>
-<p>​    for j = 1 to n </p>
-<p>​        M[i, j] = min(α[xi, yj] + M[i-1, j-1], δ+ M[i-1, j], δ+ M[i, j-1]) </p>
-<p>returnM[m, n]<br>}</p>
-<p>时间和空间复杂度：Θ(mn)</p>
-<h4 id="线性空间的序列比对"><a href="#线性空间的序列比对" class="headerlink" title="线性空间的序列比对"></a>线性空间的序列比对</h4><p><strong>Space-Efficient-Alignment(X,Y)</strong></p>
-<p>​    数组B[0…m,0…1] </p>
-<p>​    初始化对每个i令B[i,0]=iδ </p>
-<p>​    For j=1,…,n</p>
-<p>​        B[0,1] =jδ </p>
-<p>​        For i=1,…,m </p>
-<p>​            B[i,1]=  min(α[xi, yj] + B[i-1, 0], δ+ B[i-1, 1], δ+ B[i,0]) </p>
-<p>​        Endfor </p>
-<p>​        将B的第一列移到第0列来为下一次迭代留出空间 </p>
-<p>​        对每个i修改B[i,0]=B[i,1] </p>
-<p>​    Endfor</p>
-<p>O(mn)的时间与O(m)的空间.</p>
-<font color="red">最优序列比对算法可以在O(m + n) 空间，O(mn)时间复杂度内完成。把动态规划算法和分治算法结合起来</font>
-
-<p><strong>Divide-and-Conquer-Alignment(X,Y)</strong> </p>
-<p>令m是X中的符号个数 </p>
-<p>令n是Y中的符合个数 </p>
-<p>If m&lt;=1或N&lt;=2, then </p>
-<p>​    使用Alignment(X,Y)计算最优比对 </p>
-<p>调用Space-Efficient-Alignment(X,Y[1:n/2]) </p>
-<p>调用Backward-Space-Efficient-Alignment(X,Y[n/2+1:n]) </p>
-<p>令q是使得f(q,n/2)+g(q,n/2)达到最小的指标 </p>
-<p>把(q,n/2)加到全局表P中 </p>
-<p>Divide-and-Conquer-Alignment(X[1:q],Y[1:n/2]) </p>
-<p>Divide-and-Conquer-Alignment(X[q:m],Y[n/2:n]) </p>
-<p>返回P</p>
-<p>采用待定系数法式的归纳法可以证明算法Divide-and-Conquer在长度为m与n的串上运行时间是O(mn). </p>
-<h3 id="图中的最短路径"><a href="#图中的最短路径" class="headerlink" title="图中的最短路径"></a>图中的最短路径</h3><p>OPT(i, v) 表示至多使用i条边的v-t最短路径的最小费用。<br>$$<br>OPT(i,v)=\begin{cases}<br>0,\quad if\ i=0 \\<br>min{OPT(i-1,v),min_{(v,w)∈E}{OPT(i-1,w)+c_{vw}}},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><strong>Shortest-Path(G, t)</strong> { </p>
-<p>foreach node v ∈V </p>
-<p>​    M[0, v] ←∞ </p>
-<p>M[0, t] ←0<br>for i = 1 to n-1 </p>
-<p>​    foreach node v ∈V </p>
-<p>​        M[i, v] ←M[i-1, v] </p>
-<p>​    foreach edge (v, w) ∈E </p>
-<p>​        M[i, v] ←min { M[i, v], M[i-1, w] + cvw}<br>}</p>
-<p>表M有n^2项，每项O(n)时间计算，时间复杂度：O(n^3)，空间复杂度：O(n^2)</p>
-<h4 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h4><p>对每个结点v更新一个值M[v]，即我们至今已经找到的从v到t的最短路径的长度。为了帮助复原这条最短路径，记录每个结点通向终点t的路径上它后面的第一个结点；只要距离M[v]更新，我们就更新 这个值(first[v]).</p>
-<p>O(mn)时间</p>
-<p>$M[v]=min(M[v],min_{w∈V}(M[w]+c_{vw}))$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PUsh-Based-Shortest-Path(G,s,t)&#123;</span><br><span class="line">    foreach node v∈V&#123;</span><br><span class="line">        M[v]←∞ </span><br><span class="line">        successor[v]←∅</span><br><span class="line">    &#125;</span><br><span class="line">    M[t]=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to n<span class="number">-1</span>&#123;</span><br><span class="line">        foreach node w∈V&#123;</span><br><span class="line">            <span class="keyword">if</span>(M[w]has been updated in previous iteration)&#123;</span><br><span class="line">                foreach node v such that (v,w)∈E &#123;</span><br><span class="line">                    <span class="keyword">if</span>(M[v]&gt;M[w]+Cvw)&#123;</span><br><span class="line">                        M[v]←M[w]+Cvw</span><br><span class="line">                        successor[v]←w   </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> no M[w]value changed in iteration i, stop.</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="图中的负圈"><a href="#图中的负圈" class="headerlink" title="图中的负圈"></a>图中的负圈</h4><p>增加一个终点t。如果G有n个结点且 OPT(n,v)!=OPT(n-1,v),那么一条从v到t 的费用OPT(n,v)的路径P包含一个圈C,并 且C有负费用。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/201812CET6_02Trans/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/04/201812CET6_02Trans/" class="post-title-link" itemprop="url">201812CET6_02Trans</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 10:42:46" itemprop="dateCreated datePublished" datetime="2019-06-04T10:42:46+08:00">2019-06-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><p>近年来,中国越来越多的博物馆免费向公众开放。博物馆展览次数和参观人数都明显增长。在一些广受欢迎的博物馆门前,排长队已很常见。这些博物馆必须采取措施限制参观人数。如今,展览形式越来越多样。一些大型博物馆利用多媒体和虚拟现实等先进技术,使展览更具吸引力。不少博物馆还举办在线展览,人们可在网上观赏珍稀展品。然而,现场观看展品的体验对大多数参观者还是更具吸引力。</p>
-<p>In recent years, more and more museums in China have <font color="green">been opened to the public for free</font>. The number of museums exhibitions and visitors have <font color="green">increased significantly</font>. <font color="green">Queuing up in front of</font> some popular museums is very common, and these museums must take measures to restrict the number of visitors. Today, the form of exhibitions is becoming more <font color="green">diverse</font>. Some large museums use advanced technologies such as <font color="green">multimedia and virtual reality,</font> to make exhibitions more attractive. Many museums also hold online exhibitions where people can view <font color="green">rare exhibits</font> on the Internet. However, the experience of viewing exhibits <font color="green">on site</font> is still more attractive to most visitors.</p>
-<h4 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h4><p>exhibit [ɪɡˈzɪbɪt] v.展览;展出;表现，显示，显出(感情、品质或能力)<br>n.(一件)展览品，陈列品;(在法庭上出示的)物证，证据</p>
-<p>on site 在现场;临场</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/数据库外键约束/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/04/数据库外键约束/" class="post-title-link" itemprop="url">数据库外键约束</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 10:18:57" itemprop="dateCreated datePublished" datetime="2019-06-04T10:18:57+08:00">2019-06-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一个表中的 FOREIGN KEY 指向另一个表中的 UNIQUE KEY(唯一约束的键)。</p>
-<p>在创建表的时候指定外键约束：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONSTRAINT 外键约束名 FOREIGN KEY  (column1,column2,... column_n) </span><br><span class="line">        REFERENCES 外键依赖的表 (column1,column2,...column_n)</span><br><span class="line">        ON <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span><span class="comment">--级联删除</span></span><br></pre></td></tr></table></figure>
-<p>在创建表后增加外键约束:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名</span><br><span class="line">    <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> 外键约束名</span><br><span class="line">    <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (column1, column2,...column_n) </span><br><span class="line">    <span class="keyword">REFERENCES</span> 外键所依赖的表 (column1,column2,...column_n)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span>;<span class="comment">--级联删除</span></span><br></pre></td></tr></table></figure>
-<hr>
-<p>顺便记录yii框架使用过程中发现的一个疑问，以后解决：</p>
-<p>在调用存储过程时，delete()中使用：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionDelete</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    $username=Yii::$app-&gt;user-&gt;identity-&gt;username;</span><br><span class="line">    $model = <span class="keyword">$this</span>-&gt;findModel($id);</span><br><span class="line">    <span class="keyword">if</span> (!$model-&gt;load(Yii::$app-&gt;request-&gt;post())) &#123;</span><br><span class="line"></span><br><span class="line">        $command= Yii::$app-&gt;db</span><br><span class="line">            -&gt;createCommand(<span class="string">'call proc_delete(:p0,:p1)'</span>)</span><br><span class="line">            -&gt;bindValues([<span class="string">":p0"</span> =&gt;$model-&gt;catid,<span class="string">":p1"</span>=&gt;$username]);</span><br><span class="line">        $res=$command-&gt;execute();</span><br><span class="line">        <span class="keyword">if</span>($res&gt;=<span class="number">0</span>)</span><br><span class="line">        &#123;             </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'index'</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'index'</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>update()中使用：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionUpdate</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $model = <span class="keyword">$this</span>-&gt;findModel($id);</span><br><span class="line">        <span class="keyword">if</span> ($model-&gt;load(Yii::$app-&gt;request-&gt;post())) &#123;</span><br><span class="line"></span><br><span class="line">            $command= Yii::$app-&gt;db</span><br><span class="line">                -&gt;createCommand(<span class="string">'call proc_update(:p0,:p1)'</span>)</span><br><span class="line">                -&gt;bindValues([<span class="string">":p0"</span> =&gt;$model-&gt;catid, <span class="string">":p1"</span> =&gt;$model-&gt;price]);</span><br><span class="line">            $res=$command-&gt;execute();</span><br><span class="line">            <span class="keyword">if</span>($res&gt;=<span class="number">0</span>)</span><br><span class="line">            &#123;             </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'view'</span>, <span class="string">'id'</span> =&gt; $model-&gt;catid]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'update'</span>, [</span><br><span class="line">            <span class="string">'model'</span> =&gt; $model,</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>帮jz同学看了很久他的语句，才发现if条件语句中，delete()和update()差了一个感叹号，但具体原因现在先不探寻了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/算法复习笔记（三）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/03/算法复习笔记（三）/" class="post-title-link" itemprop="url">算法复习笔记（三）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-03 21:44:51" itemprop="dateCreated datePublished" datetime="2019-06-03T21:44:51+08:00">2019-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-04 18:32:29" itemprop="dateModified" datetime="2019-06-04T18:32:29+08:00">2019-06-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="分治策略"><a href="#分治策略" class="headerlink" title="分治策略"></a>分治策略</h2><h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><h4 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h4><p>$$<br>T(n)=\begin{cases}<br>2T(n/2)+cn,\quad n&gt;2 \\<br>c,\quad n=2<br>\end{cases}<br>$$</p>
-<p>用归纳法可证：<br>$$<br>T(n)=O(nlogn)<br>$$</p>
-<h4 id="其他递推关系"><a href="#其他递推关系" class="headerlink" title="其他递推关系"></a>其他递推关系</h4><p>$$<br>T(n)=\begin{cases}qT(n/2)+cn,\quad n&gt;2 \\c,\quad n=2\end{cases}<br>$$</p>
-<p>对于q&gt;2，$T(n)=O(n^{log_2q})$</p>
-<p>对于q=1，$T(n)=O(n)$<br>$$<br>T(n)=\begin{cases}2T(n/2)+cn^2,\quad n&gt;2 \\c,\quad n=2\end{cases}<br>$$</p>
-<p>$$<br>T(n)=O(n^2)<br>$$</p>
-<h3 id="计数逆序-O-nlogn"><a href="#计数逆序-O-nlogn" class="headerlink" title="计数逆序 $O(nlogn)$"></a>计数逆序 $O(nlogn)$</h3><p>Merge-and-Count(A,B)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">维护一个Current指针指向每个表，初始化指向首元素</span><br><span class="line">维护一个变量Count用于逆序的计数，初始为<span class="number">0</span></span><br><span class="line">While两个表都不空</span><br><span class="line">	令ai和bj是由Current指针指向的元素</span><br><span class="line">	把这两个表中娇小的元素输出到表中</span><br><span class="line">	If bj是较小的元素 then</span><br><span class="line">		把Count加上在A中的剩余元素数</span><br><span class="line">	Endif</span><br><span class="line">	把较小元素选出的表中的Current指针前移</span><br><span class="line">EndWhile</span><br><span class="line">一旦一个表为空，把另一个表剩余所有元素加到输出中</span><br><span class="line">返回Count和合并后的表</span><br></pre></td></tr></table></figure>
-<p>Sort-and-Count(L)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">If这个表中有一个元素 then</span><br><span class="line">	没有逆序</span><br><span class="line">Else</span><br><span class="line">	把这个表划分成两半</span><br><span class="line">	A包含前n/<span class="number">2</span>个元素</span><br><span class="line">	B包含剩下的n/<span class="number">2</span>个元素</span><br><span class="line">	(rA,A)=Sort-<span class="keyword">and</span>-Count(A)</span><br><span class="line">    (rB,B)=Sort-<span class="keyword">and</span>-Count(B)</span><br><span class="line">    (r,L)=Merge-<span class="keyword">and</span>-Count(A,B)</span><br><span class="line">Endif</span><br><span class="line">返回r=rA+rB+r以及排好序的L</span><br></pre></td></tr></table></figure>
-<h3 id="最邻近点对"><a href="#最邻近点对" class="headerlink" title="最邻近点对"></a>最邻近点对</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Closest-Pair(p1, …, pn) &#123; </span><br><span class="line">    <span class="comment">//O(n log n)</span></span><br><span class="line">    Compute separation line L such that half the points are on one side <span class="keyword">and</span> half on the other side.      </span><br><span class="line">    <span class="comment">//2T(n / 2)</span></span><br><span class="line">	δ<span class="number">1</span>= Closest-Pair(left half) </span><br><span class="line">    δ<span class="number">2</span>= Closest-Pair(right half) </span><br><span class="line">    δ= min(δ<span class="number">1</span>, δ<span class="number">2</span>)</span><br><span class="line">    <span class="comment">//O(n) </span></span><br><span class="line">	Delete all points further than δ from separation line L</span><br><span class="line">	<span class="comment">//O(n log n)  改进时，通过预处理去掉这一步排序</span></span><br><span class="line">    Sort remaining points by y-coordinate.</span><br><span class="line">    <span class="comment">//O(n)</span></span><br><span class="line">	Scan points in y-order <span class="keyword">and</span> compare distance between each point <span class="keyword">and</span> next <span class="number">7</span> neighbors. If any of these distances is less than δ, update δ.</span><br><span class="line">	<span class="keyword">return</span> δ.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面算法的时间复杂度为$T(n)=O(nlog^2n)$</p>
-<p>改进后时间复杂度为$T(n)=O(nlogn)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Closest-Pair-Rec(Px,Py) &#123;</span><br><span class="line">    If |P|&lt;=<span class="number">3</span> then </span><br><span class="line">    	进行简单穷举排序 </span><br><span class="line">        <span class="comment">//在这里按y坐标将点排序，方便下面直接对窄带内的点归并排序</span></span><br><span class="line">    End <span class="keyword">if</span></span><br><span class="line">        </span><br><span class="line">	构造Qx,Qy,Rx,Ry(O(n)时间) </span><br><span class="line">    （q0*,q1*）=Closest-Pair-Rec(Qx,Qy) </span><br><span class="line">    （r0*,r1*）=Closest-Pair-Rec(Rx,Ry)</span><br><span class="line">        </span><br><span class="line">	Delta=min(d(qo*,q1*),（r0*,r1*）) </span><br><span class="line">    x*=集合Q中的点的大的x坐标 </span><br><span class="line">    L=&#123;(x,y):x=x*&#125; </span><br><span class="line">	S=P中与L相距在Delta之内的点集</span><br><span class="line"></span><br><span class="line">    构造Sy(O(n)时间) </span><br><span class="line">    For每个点Sy中的点s, 计算从s到跟着Sy的<span class="number">7</span>个点中每个点的距离 </span><br><span class="line">    令s,s'是达到其中小距离的点对(O(n)时间)</span><br><span class="line"></span><br><span class="line">    If d(s,s')&lt;Delta then </span><br><span class="line">         Return (s,s') </span><br><span class="line">    Else <span class="keyword">if</span> d(q0*,q1*)&lt;d(r0*,r1*) then</span><br><span class="line">        Return (q0*,q1*) </span><br><span class="line">    Else </span><br><span class="line">        Return（r0*,r1*） </span><br><span class="line">    End <span class="keyword">if</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="整数乘法"><a href="#整数乘法" class="headerlink" title="整数乘法"></a>整数乘法</h3><h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p>$x=x_12^{n/2}+x_0$</p>
-<p>$y=y_12^{n/2}+y_0$</p>
-<p>$xy=2^n<em>x_1y_1+2^{n/2}</em>(x_1y_0+x_0y_1)+x_0y_0$</p>
-<p>$=2^n<em>x_1y_1+2^{n/2}</em>((x_1+x_0)(y_1+y_0)-x_1y_1-x_0y_0)+x_0y_0$</p>
-<p>把4个乘法变成3个.</p>
-<h4 id="Recursive-Multiply-x-y-Karatsuba-Ofman"><a href="#Recursive-Multiply-x-y-Karatsuba-Ofman" class="headerlink" title="Recursive-Multiply(x,y)   [Karatsuba-Ofman]"></a>Recursive-Multiply(x,y)   [Karatsuba-Ofman]</h4><p>令$x=x_12^{n/2}+x_0，y=y_12^{n/2}+y_0$，</p>
-<p>计算$x_1+x_0，y_1+y_0$，</p>
-<p>p=Recursive-Multiply($x_1+x_0，y_1+y_0$) </p>
-<p>x1y1=Recursive-Multiply(x1,y1) </p>
-<p>x0y0=Recursive-Multiply(x0,y0) </p>
-<p>return  $x_1y_12^n+(p-x_1y_1-x_0y_0)2^{n/2}+x_0y_0$</p>
-<p>在两个n位因数上的运行时间是  $T(n)=O(n^{log_23})=O(n^{1.59})$</p>
-<h3 id="矩阵乘积-Strassen"><a href="#矩阵乘积-Strassen" class="headerlink" title="矩阵乘积  (Strassen)"></a>矩阵乘积  (Strassen)</h3><p>P1=A11×(B12−B22) </p>
-<p>P2=(A11+A12)×B22</p>
-<p>P3=(A21+A22)×B11 </p>
-<p>P4=A22×(B21−B11) </p>
-<p>P5=(A11+A22)×(B11+B22)</p>
-<p>P6=(A12−A22)×(B21+B22) </p>
-<p>P7=(A11−A21)×(B11+B12)</p>
-<p>$C_{2<em>2}=A_{2</em>2}B_{2*2}$</p>
-<p>C11=P 5+P4−P 2+P 6 </p>
-<p>C12=P1+P2 </p>
-<p>C21=P3+P4 </p>
-<p>C22=P5+P1−P3−P7</p>
-<p>7 次乘法，18 = 10 + 8 次加减法</p>
-<p>$T(n)=O(n^{log_27})=O(n^{2.81})$</p>
-<p>类Strassen算法上每获得一点理论上的改进， 实际上的可用性就会降低。 （需要n达到一定规模，例：两个70×70分块矩阵乘法可以用143,640次向量乘法 ）</p>
-<h3 id="卷积与快速傅立叶变换"><a href="#卷积与快速傅立叶变换" class="headerlink" title="卷积与快速傅立叶变换"></a>卷积与快速傅立叶变换</h3><h4 id="多项式"><a href="#多项式" class="headerlink" title="多项式"></a>多项式</h4><table>
-<thead>
-<tr>
-<th></th>
-<th>系数表示</th>
-<th>点值表示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>求值</td>
-<td>O(n) (采用Horner方法)</td>
-<td>O(n^2)</td>
-</tr>
-<tr>
-<td>加法</td>
-<td>O(n) arithmetic operations</td>
-<td>O(n) arithmetic operations</td>
-</tr>
-<tr>
-<td>乘法(卷积)</td>
-<td>采用直接算法O(n^2)</td>
-<td>需要2n-1 个点 O(n)</td>
-</tr>
-</tbody>
-</table>
-<h4 id="系数表达到点值表达"><a href="#系数表达到点值表达" class="headerlink" title="系数表达到点值表达"></a>系数表达到点值表达</h4><p>把多项式表达分成奇偶部分。选择$x_k= ω^k$，其中ω是n次单位根。求$A(x) = a_0+ … + a_{n-1}x^{n-1}$在n次单位根$ω^0, ω^1, …, ω^{n-1}$处的值。 </p>
-<p><img src="//yoursite.com/2019/06/03/算法复习笔记（三）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559642308319.png" alt="1559642308319"></p>
-<p>如果n是偶数，那么n/2次单位根可以表 示为$ν^0, ν^1, …, ν^{n/2-1}$，其中$ν= e ^{4πi / n}$.</p>
-<p>$A(x)   =A_{even}(x^2) + xA_{odd}(x^2)$.   $A(-x)   =A_{even}(x^2) - xA_{odd}(x^2)$.</p>
-<p>分别计算多项式：</p>
-<p>$A_{even}(x)$ ，$A_{odd}(x)$在$½n$th单位根$ν^0, ν^1, …, ν^{n/2-1}$处的值. </p>
-<p>组合：</p>
-<p>$A(ω^k) = A_{even}(ν^k) + ω^kA_{odd}(ν^k),   0 ≤k &lt; n/2$</p>
-<p>$A(ω^{k+n/2}) = A_{even}(ν^k) - ω^kA_{odd}(ν^k),   0 ≤k &lt; n/2$</p>
-<p>$ω^{k+n/2}= -ω^k，ν^k  =  (ω^k)^2   =  (ω^{k+n/2})^2$</p>
-<h4 id="FFT算法-O-n-log-n"><a href="#FFT算法-O-n-log-n" class="headerlink" title="FFT算法 O(n log n)"></a>FFT算法 O(n log n)</h4><p>fft(n,$a^0,a^1, …, a^{n-1}$) {</p>
-<p>​    if(n == 1) return  $a_0$</p>
-<p>​    $(e_0,e_1,…,e_{n/2-1}) ←FFT(n/2, a_0,a_2,a_4,…,a_{n-2}) $</p>
-<p>​    $(d_0,d_1,…,d_{n/2-1}) ←FFT(n/2, a_1,a_3,a_5,…,a_{n-1})$</p>
-<p>​    for k = 0 to n/2 -1 { </p>
-<p>​        $ω^k←e^{2πik/n}$</p>
-<p>​        $y_k←e_k+ ω^kd_k$</p>
-<p>​        $y_{k+n/2}←e_k-ω^kd_k$}</p>
-<p>​    return ($y_0,y_1,…,y_{n-1}$)</p>
-<p>}</p>
-<h4 id="傅立叶变换逆变换"><a href="#傅立叶变换逆变换" class="headerlink" title="傅立叶变换逆变换"></a>傅立叶变换逆变换</h4><p><img src="//yoursite.com/2019/06/03/算法复习笔记（三）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559642268376.png" alt="1559642268376"></p>
-<p>$F_n×G_n=I_n$</p>
-<p>把 $ω^{-1}=e^{-2πi / n}$看成是n次单位根的生成元.</p>
-<h4 id="IFFT算法-O-n-log-n"><a href="#IFFT算法-O-n-log-n" class="headerlink" title="IFFT算法 O(n log n)"></a>IFFT算法 O(n log n)</h4><p>ifft(n,$a^0,a^1, …, a^{n-1}$) {</p>
-<p>​    if(n == 1) return  $a_0$</p>
-<p>​    $(e_0,e_1,…,e_{n/2-1}) ←FFT(n/2, a_0,a_2,a_4,…,a_{n-2}) $</p>
-<p>​    $(d_0,d_1,…,d_{n/2-1}) ←FFT(n/2, a_1,a_3,a_5,…,a_{n-1})$</p>
-<p>​    for k = 0 to n/2 -1 { </p>
-<p>​        $ω^k←e^{-2πik/n}$</p>
-<p>​        $y_k←(e_k+ ω^kd_k)/n$</p>
-<p>​        $y_{k+n/2}←(e_k-ω^kd_k)/n$}</p>
-<p>​    return ($y_0,y_1,…,y_{n-1}$)</p>
-<p>}</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/使用优先队列的dijkstra和prim算法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/03/使用优先队列的dijkstra和prim算法/" class="post-title-link" itemprop="url">使用优先队列的dijkstra和prim算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-06-03 18:26:37 / 修改时间：20:37:20" itemprop="dateCreated datePublished" datetime="2019-06-03T18:26:37+08:00">2019-06-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>复习时没有理解为什么使用优先队列的dijkstra和prim算法时间复杂度为O(mlogn)，专门拿出来学习一下。</p>
-<h3 id="dijkstra"><a href="#dijkstra" class="headerlink" title="dijkstra"></a>dijkstra</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF  0x3f3f3f3f   <span class="comment">//定义一个很大的数</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> num,val;   <span class="comment">//存放结点编号和到初始点的距离 </span></span><br><span class="line">&#125;nod;</span><br><span class="line"> </span><br><span class="line">priority_queue&lt;Node&gt; qq;  <span class="comment">//优先从小到大</span></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Node a,Node b)&#123;</span><br><span class="line"><span class="keyword">if</span>(a.val == b.val) <span class="keyword">return</span> a.num&gt;b.num;</span><br><span class="line"><span class="keyword">return</span> a.val&gt;b.val;              <span class="comment">//先出小 </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">int</span> book[<span class="number">100</span>];  <span class="comment">//检查这个点是否用过 </span></span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">100</span>];     <span class="comment">//到原点最短距离 </span></span><br><span class="line"><span class="keyword">int</span> D[<span class="number">100</span>][<span class="number">100</span>];  <span class="comment">//记录路径长度</span></span><br><span class="line"><span class="keyword">int</span> V,E; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> a,b,d;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;V&gt;&gt;E &amp;&amp; V&amp;&amp; E)  <span class="comment">//输入顶点数和边数 </span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span>(!qq.empty()) qq.pop(); <span class="comment">//清空</span></span><br><span class="line"><span class="built_in">memset</span>(book,<span class="number">0</span>,<span class="keyword">sizeof</span>(book));</span><br><span class="line"><span class="built_in">memset</span>(D,<span class="number">-1</span>,<span class="keyword">sizeof</span>(D));  </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;E;i++)&#123;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;d;</span><br><span class="line">D[a][b] = D[b][a] = d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=V;i++)</span><br><span class="line">dis[i]=INF;</span><br><span class="line"> </span><br><span class="line">dis[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">nod.num=<span class="number">1</span>;</span><br><span class="line">nod.val=<span class="number">0</span>;</span><br><span class="line">qq.push(nod);   <span class="comment">//将起点放入队列 </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span>(!qq.empty())&#123; <span class="comment">//每次排序需要logn的时间</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=V;i++)&#123;<span class="comment">//更新距离</span></span><br><span class="line"><span class="keyword">if</span>(D[qq.top().num][i] != <span class="number">-1</span>  &amp;&amp;dis[i]&gt;dis[qq.top().num] + D[qq.top().num][i]) </span><br><span class="line">&#123;<span class="comment">//qq.top()的点与i连通并且有了更短的路径，这个条件最多进来m次，因为每条边只会被用最多一次。</span></span><br><span class="line">dis[i]=dis[qq.top().num] + D[qq.top().num][i];</span><br><span class="line">nod.num=i; nod.val=dis[i];</span><br><span class="line">qq.push(nod);</span><br><span class="line">&#125;&#125; </span><br><span class="line">qq.pop();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=V;i++)&#123;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"初始点到"</span>&lt;&lt;i&lt;&lt;<span class="string">"点的距离为："</span>&lt;&lt;dis[i]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原文：<a href="https://blog.csdn.net/jobsandczj/article/details/49962557" target="_blank" rel="noopener">https://blog.csdn.net/jobsandczj/article/details/49962557</a> </p>
-<h3 id="prim"><a href="#prim" class="headerlink" title="prim"></a>prim</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">50</span> + <span class="number">5</span>, M = <span class="number">5000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, w;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Edge &amp;other) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> w &gt; other.w;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;Edge&gt; v[N];</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Prime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;Edge&gt; q;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, x, ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[<span class="number">1</span>].size(); ++i)q.push(v[<span class="number">1</span>][i]);</span><br><span class="line">    vis[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (cnt &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">        Edge e = q.top();<span class="comment">//排序每次需要logn的时间</span></span><br><span class="line">        q.pop();</span><br><span class="line">        x = e.to;</span><br><span class="line">        <span class="keyword">if</span> (!vis[x]) &#123;<span class="comment">//最多走m条边</span></span><br><span class="line">            vis[x] = <span class="number">1</span>;</span><br><span class="line">            ans += e.w, cnt++;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v[x].size(); ++i)q.push(v[x][i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y, w;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; w;</span><br><span class="line">        v[x].push_back(Edge&#123;y, w&#125;);</span><br><span class="line">        v[y].push_back(Edge&#123;x, w&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Prime() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/03/201812CET6_01Trans/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/03/201812CET6_01Trans/" class="post-title-link" itemprop="url">201812CET6_01Trans</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-03 18:26:01" itemprop="dateCreated datePublished" datetime="2019-06-03T18:26:01+08:00">2019-06-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><p>中国越来越重视公共图书馆,并鼓励人们充分加以利用。新近公布的统计数字表明,中国的公共图书馆数量在逐年增长。许多图书馆通过翻新和扩建,为读者创造了更为安静、舒适的环境。大型公共图书馆不仅提供种类繁多的参考资料,而且定期举办讲座、展览等活动。近年来,也出现了许多数字图书馆,从而节省了存放图书所需的空间。一些图书馆还推出了自助服务系统,使读者借书还书更加方便,进一步满足了读者的需求。</p>
-<p>China is <font color="orange">paying more and more attention to</font> public libraries, and <font color="orange">people are encouraged to</font> make full use of them. The <font color="orange">newly published statistics</font> show that the number of public libraries in China is<font color="orange"> increasing year by year</font>. Many libraries have created a quieter and more comfortable environment for readers through <font color="orange">refurbishment and expansion</font>. Large public libraries not only provide <font color="orange">a wide variety of reference materials</font>, but also regularly hold activities such as lectures, exhibitions and so on. In recent years, there have been many <font color="orange">digital libraries</font> which can save the space to store books. Some libraries have also introduced <font color="orange">self-services systems</font>, making it more convenient for readers to borrow and return books, which further <font color="orange">meets the needs of</font> readers.</p>
-<h4 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h4><p>refurbishment [ˌriːˈfɜːrbɪʃmənt] n. 翻新;整修<br>The office looks so much better following its refurbishment.办公室翻新后看上去好多了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1153,14 +1468,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

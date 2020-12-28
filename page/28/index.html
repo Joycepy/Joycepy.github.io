@@ -158,6 +158,446 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/Machine-Learning-Note6/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/25/Machine-Learning-Note6/" class="post-title-link" itemprop="url">Machine-Learning-Note6</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-04-25 00:00:00 / 修改时间：21:23:16" itemprop="dateCreated datePublished" datetime="2019-04-25T00:00:00+08:00">2019-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h4><p>线性回归、逻辑回归（分类）：</p>
+<p>欠拟合—有高偏差</p>
+<p>过度拟合—具有高方差，变量太多，过度拟合数据而无法泛华</p>
+<p>解决过拟合方法：</p>
+<p>人工减少变量数量，或使用模型选择算法（自动），缺点：舍弃了一部分信息</p>
+<p>选择正则化，减少量级，保留所有特征变量</p>
+<p>####正则化</p>
+<p>加入惩罚，扩大参数值的影响，参数会尽可能小，使模型简化。</p>
+<p>$J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+1000\theta_3^2+1000\theta_4^2$</p>
+<p>在实际问题中很难判断哪些特征比较重要, 所以在正则化中，对每一个参数(除了第一个)参数进行惩罚, 将代价函数改为:</p>
+<p>$J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)} )^2+\lambda\sum_{i=1}^n\theta_j^2\right]$</p>
+<p>$\lambda$叫做正则化参数(Regularization Parameter).$\lambda$的作用就是在”更好地拟合数据”和”防止过拟合”之间权衡。惩罚程度过大，会导致欠拟合。</p>
+<h5 id="正则化线性回归"><a href="#正则化线性回归" class="headerlink" title="正则化线性回归"></a>正则化线性回归</h5><p>梯度下降<img src="//yoursite.com/2019/04/25/Machine-Learning-Note6/blog\source\_posts\正则化.PNG" alt=""></p>
+<p>$\theta=(X^TX+\lambda\begin{bmatrix} 0&amp;0&amp;0&amp;0&amp;…&amp;0\ 0&amp;1&amp;0&amp;0&amp;…&amp;0\ 0&amp;0&amp;1&amp;0&amp;…&amp;0\ 0&amp;0&amp;0&amp;1&amp;…&amp;0\ 0&amp;0&amp;0&amp;0&amp;…&amp;0 \ 0&amp;0&amp;0&amp;0&amp;…&amp;1 \end{bmatrix})^{-1}X^Ty$</p>
+<p>对于正则化后的正规方程, 只要λ&gt;0λ&gt;0, 括号里的那一项总是可逆的。</p>
+<p>改进梯度算法和高级算法，以应用到正则化逻辑回归中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/数据库中where和having的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/24/数据库中where和having的区别/" class="post-title-link" itemprop="url">数据库中where和having的区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-24 10:29:43" itemprop="dateCreated datePublished" datetime="2019-04-24T10:29:43+08:00">2019-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-31 09:21:00" itemprop="dateModified" datetime="2019-05-31T09:21:00+08:00">2019-05-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>where是一个约束声明，在查询结果返回之前起作用，where后面不能使用“聚合函数”，因为where的执行顺序在聚合函数之前；</p>
+<p>having是一个过滤声明，分组筛选，在查询结果返回之后起作用，不能对没有查出来的值使用having，having后面可以使用“聚合函数”。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/JavaScript_tips/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/23/JavaScript_tips/" class="post-title-link" itemprop="url">JavaScript_tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-23 23:04:27" itemprop="dateCreated datePublished" datetime="2019-04-23T23:04:27+08:00">2019-04-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p><code>JavaS提供7种变量：undefined（未定义）, null（空）, boolean（布尔型）, string（字符串）, symbol(符号), number（数字）, and object（对象）。Variables</code>（变量）允许计算机以一种动态的形式来存储和操作数据，通过操作指向数据的指针而不是数据本身来避免了内存泄露，以上的七种数据类型都可以存储到一个变量（variable）中。在变量前使用关键字var来创建一个变量。<code>Variable</code> （变量）的名字可以由数字、字母、<code>$</code> 或者 <code>_</code>组成，但是不能包含空格或者以数字为首。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/逆序计数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/22/逆序计数/" class="post-title-link" itemprop="url">逆序计数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-22 16:04:40" itemprop="dateCreated datePublished" datetime="2019-04-22T16:04:40+08:00">2019-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-10 21:20:42" itemprop="dateModified" datetime="2020-02-10T21:20:42+08:00">2020-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ul>
+<li>穷举（Brute force）:  Θ(n2).</li>
+<li>分治策略：Θ(nlgn)</li>
+</ul>
+<ol>
+<li><p>划分：把序列一分为二；</p>
+</li>
+<li><p>分别递归求出左右各自部分的逆序数；</p>
+</li>
+<li><p>组合: 计数左右部份之间的逆序数, 返回总的逆序数</p>
+<p><img src="//yoursite.com/2019/04/22/逆序计数/blog\source\_posts\revcount.png" alt=""></p>
+</li>
+</ol>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><h6 id="Merge-and-Count-A-B"><a href="#Merge-and-Count-A-B" class="headerlink" title="Merge-and-Count(A,B)"></a>Merge-and-Count(A,B)</h6><p>维护一个Current指针指向每个表，初始化指向首元素 </p>
+<p>维护一个变量Count用于逆序的计数，初始为0 </p>
+<p>While两个表都不空 </p>
+<p>  令ai与bj是由Current指针指向的元 </p>
+<p>  把这两个表中较小的元素加到输出表中</p>
+<p>  If bj是较小的元素then</p>
+<p>​    把Count加上在A中右边剩余的元素数</p>
+<p>  Endif</p>
+<p>  把较小元素选出的表中的Current指针右移</p>
+<p>Endwhile</p>
+<p>一旦一个表为空，把另一个表剩余的所有元素加到输出中</p>
+<p>返回Count和合并后的表</p>
+<h6 id="Sort-and-Count-L"><a href="#Sort-and-Count-L" class="headerlink" title="Sort-and-Count(L)"></a>Sort-and-Count(L)</h6><p>If这个表中有一个元素，then</p>
+<p> 没有逆序 </p>
+<p>Else</p>
+<p> 把这个表划分成两半，</p>
+<p> A包含前个元素</p>
+<p> B包含剩下的个元素<br>(rA,A)=Sort-and-Count(A)</p>
+<p> (rB,B)=Sort-and-Count(B)</p>
+<p> (r,L)=Merge-and-Count(A,B)</p>
+<p> Endif </p>
+<p>返回r=rA+rB+r以及排好序的表L</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> rev_count = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; merge_count(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp;A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp;B)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; R;</span><br><span class="line">	<span class="keyword">while</span> (!A.empty() &amp;&amp; !B.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a = A.front();</span><br><span class="line">		<span class="keyword">int</span> b = B.front();</span><br><span class="line">		<span class="keyword">if</span> (b &lt; a)</span><br><span class="line">		&#123;</span><br><span class="line">			R.push_back(b);</span><br><span class="line">			rev_count += A.size();</span><br><span class="line">			B.erase(B.begin());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			R.push_back(a);</span><br><span class="line">			A.erase(A.begin());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	R.insert(R.end(), A.begin(), A.end());</span><br><span class="line">	R.insert(R.end(), B.begin(), B.end());</span><br><span class="line">	<span class="keyword">return</span> R;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; sort_count(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp;L)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> ls = L.size();</span><br><span class="line">	<span class="keyword">if</span> ( ls!= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> x = ls / <span class="number">2</span>;</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, B;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; x; ++i)</span><br><span class="line">			A.push_back(L.at(i));</span><br><span class="line">		<span class="keyword">for</span>(;i&lt;ls;++i)</span><br><span class="line">			B.push_back(L.at(i));</span><br><span class="line">		A = sort_count(A);</span><br><span class="line">		B = sort_count(B);</span><br><span class="line">		L = merge_count(A, B);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">int</span> n; <span class="keyword">int</span> t;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">		L.push_back(t);</span><br><span class="line">	&#125;</span><br><span class="line">	sort_count(L);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; rev_count &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; L.at(i) &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/left-join-where/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/17/left-join-where/" class="post-title-link" itemprop="url">left join & where</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-04-17 21:38:49 / 修改时间：22:22:28" itemprop="dateCreated datePublished" datetime="2019-04-17T21:38:49+08:00">2019-04-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在做数据库练习题时，遇到了这样的问题：</p>
+<p>给出每个专业借阅的“c2”类的图书总数，没有借阅的次数显示为0（majorid，majorname，borrowcount）</p>
+<p>数据库内容如下</p>
+<p><img src="//yoursite.com/2019/04/17/left-join-where/blog\source\_posts\left-join-where\db.PNG" alt="数据库"></p>
+<p>最开始使用where语句对结果进行筛选，但是显示不了为0的项<img src="//yoursite.com/2019/04/17/left-join-where/blog\source\_posts\left-join-where\where.PNG" alt="where"></p>
+<p>参照网上的做法用LEFT JOIN 关键字进行了修改<img src="//yoursite.com/2019/04/17/left-join-where/blog\source\_posts\left-join-where\join.PNG" alt="join"></p>
+<p>所以查了一下where和left join的区别：</p>
+<p>LEFT JOIN 关键字从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL（在某些数据库中，LEFT JOIN 称为 LEFT OUTER JOIN。）</p>
+<p>where语句中如果没有匹配的，则返回一个空集，因此借阅人数为0的书籍不会被显示出来</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/Longest-Palindromic-Substring/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/15/Longest-Palindromic-Substring/" class="post-title-link" itemprop="url">Longest Palindromic Substring</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-15 12:47:03" itemprop="dateCreated datePublished" datetime="2019-04-15T12:47:03+08:00">2019-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-09 11:47:39" itemprop="dateModified" datetime="2020-07-09T11:47:39+08:00">2020-07-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>比较容易理解的方法是以s[i]为中心(i=1,…,n)，分回文序列长度为奇数和偶数的情况，向两边扩张，找到最长的回文序列，这样的时间复杂度为O(n^2)。</p>
+<p>还有一种很巧妙的<a href="https://www.felix021.com/blog/read.php?2040" title="Manacher&#39;s ALGORITHM:" target="_blank" rel="noopener">Manacher 算法</a>，可以在O(n)时间求字符串的最长回文子串，大致思路如下：</p>
+<p>插入特殊字符，使奇数或偶数长度的字符串，长度都变成了奇数，并且在字符串首位加另外一个特殊字符，就不用处理越界问题，如：”12212321”变成”$#1#2#2#1#2#3#2#1#”;这种做法让我想到“求两个有序数组的中位数”的预处理的思想，同样也是为了统一讨论，将数组元素的下标进行处理，对越界的下标赋了特殊值。</p>
+<p>用一个数组 P[i] 来记录以字符S[i]为中心的最长回文子串向左/右扩张的长度。那么p[i]-1正好是原字符串中以s[i]为中心的回文串的长度。</p>
+<p>为了计算p[i]，增加变量id,mx，id是当前已知的右边界最大回文串的中心，mx=id+p[id]，即子串的右边界。id,mx初始值都为0。接下来是算法的关键：</p>
+<p><strong>当mx&gt;i，p[i]&gt;=MIN(p[2*id-i],mx-i)；当mx&lt;=i，p[i]=1，然后向两边扩展。</strong></p>
+<p>对于mx&gt;i的情况，j=2*id-i是i关于id的对称点，利用前面计算的结果，可以得出对称点的两侧回文串的长度。</p>
+<p><img src="//yoursite.com/2019/04/15/Longest-Palindromic-Substring/blog\source\_posts\1.png" alt="mx-i&gt;p[i]"></p>
+<p><img src="//yoursite.com/2019/04/15/Longest-Palindromic-Substring/blog\source\_posts\2.png" alt="mx-i&lt;=p[i]"></p>
+<p>代码主要部分：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//预处理</span></span><br><span class="line">	<span class="built_in">string</span> a = <span class="string">"$#"</span>;</span><br><span class="line">	<span class="keyword">int</span> len = s.size();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">		a = a + s[i] + <span class="string">"#"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> p[<span class="number">2002</span>], mx = <span class="number">0</span>, id = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(p, <span class="number">0</span>, <span class="number">2002</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; a[i] != <span class="number">0</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		p[i] = mx &gt; i ? min(p[<span class="number">2</span> * id - i], mx - i) : <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (a[i + p[i]] == a[i - p[i]])++p[i];</span><br><span class="line">		<span class="keyword">if</span> (i + p[i] &gt; mx)</span><br><span class="line">		&#123;</span><br><span class="line">			id = i;</span><br><span class="line">			mx = i + p[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">2002</span>; i++)</span><br><span class="line">		tmp = p[tmp] &gt; p[i] ? tmp : i;</span><br><span class="line">	<span class="keyword">return</span> s.substr((tmp-p[tmp] + <span class="number">1</span>)/<span class="number">2</span>, p[tmp] - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/Ted-Note1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -523,536 +963,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/HTML-tips/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/HTML-tips/" class="post-title-link" itemprop="url">HTML-tips</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-11 23:12:37" itemprop="dateCreated datePublished" datetime="2019-04-11T23:12:37+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-16 23:01:42" itemprop="dateModified" datetime="2019-04-16T23:01:42+08:00">2019-04-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="Style覆盖优先级："><a href="#Style覆盖优先级：" class="headerlink" title="Style覆盖优先级："></a>Style覆盖优先级：</h6><p>!important属性 &gt; in-line style &gt; id &gt; class(后覆盖前)</p>
-<p>CSS 中，可以使用 6 位十六进制数字表示颜色，每 2 位分别表示红色 (R)、绿色 (G) 和蓝色 (B) 成分。例如，<code>#000000</code>是黑色，也可以表示为 <code>rgb(0, 0, 0)</code> </p>
-<h6 id="script元素："><a href="#script元素：" class="headerlink" title="script元素："></a>script元素：</h6><p>元素选择器：<code>$(&quot;button&quot;)</code>、class选择器：<code>$(&quot;.btn&quot;)</code>、id选择器：<code>$(&quot;#target1&quot;)</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $(document).ready(function() &#123;</span></span><br><span class="line"><span class="undefined">	$("button").addClass("animated");</span></span><br><span class="line"><span class="undefined">    $(".btn").addClass("shake");</span></span><br><span class="line"><span class="undefined">    $("#target1").addClass("btn-primary");</span></span><br><span class="line"><span class="undefined">  &#125;);    </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h6 id="继承"><a href="#继承" class="headerlink" title="继承:"></a>继承:</h6><p>h3继承div，div继承body</p>
-<p>.parent()    .children()</p>
-<p>jQuery 用CSS选择器来选取元素，<code>target:nth-child(n)</code> CSS选择器允许你按照索引顺序(从1开始)选择目标元素的所有子元素。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/median-of-two-sorted-arrays/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/11/median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">median-of-two-sorted-arrays</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-11 22:35:19" itemprop="dateCreated datePublished" datetime="2019-04-11T22:35:19+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-13 22:41:51" itemprop="dateModified" datetime="2019-04-13T22:41:51+08:00">2019-04-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.</p>
-<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
-<p>You may assume <strong>nums1</strong> and <strong>nums2</strong> cannot be both empty.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">The median is 2.0</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line">The median is (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于复杂度的要求加大了题目的难度，一般容易想到线性级别的解决方法，如果要降到对数级别，要用到二分查找法。这里的二分其实是针对切割的位置。参考了LeetCode上的解答。</p>
-<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation</a></p>
-<p>为了简化问题，偶数和奇数个数的有序数组，可以综合成一种情况：数组长度为N时，index of L = (N-1)/2, and R is at N/2。 中位数的下标可以表示为(L + R)/2 = (A[(N-1)/2] + A[N/2])/2。函数中使A1是更长的数组。</p>
-<p>设想数组中有更多的位置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1: [# 1 # 2 # 3 # 4 # 5 #]    (N1 = 5, N1_positions = 11)</span><br><span class="line">A2: [# 1 # 1 # 1 # 1 #]     (N2 = 4, N2_positions = 9)</span><br></pre></td></tr></table></figure>
-<p>两个数组共有2<em>N1 + 2</em>N2 + 2个位置，每次分割后左右分别有N1 + N2个位置，最终的分割应保证L1 &lt;= R1 &amp;&amp; L1 &lt;= R2 &amp;&amp; L2 &lt;= R1 &amp;&amp; L2 &lt;= R2，相当于L1 &lt;= R2&amp;&amp;L2 &lt;= R1。</p>
-<p>在两种情况下需要对切割的位置做出调整：</p>
-<ul>
-<li><p>L1&gt;R2：说明A1左边大数过多，A1的切割点左移，同时A2切割点右移；</p>
-</li>
-<li><p>L2&gt;R1：说明A2左边大数过多，A2的切割点左移，同时A1切割点右移；</p>
-<p>否则，找到的即为中位数的位置，中位数等于(max(L1, L2) + min(R1, R2)) / 2。</p>
-</li>
-</ul>
-<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = nums1.size();</span><br><span class="line">	<span class="keyword">int</span> n = nums2.size();</span><br><span class="line">	<span class="keyword">if</span> (m &lt; n)</span><br><span class="line">		<span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lo = <span class="number">0</span>, hi = n * <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt;= hi)</span><br><span class="line">	&#123;<span class="comment">//移动A2的切割点，A2为长度更短的数组</span></span><br><span class="line">		<span class="keyword">int</span> c2 = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c1 = m + n - c2;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> L1 = (c1 == <span class="number">0</span>) ? INT_MIN : nums1[(c1 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> L2 = (c2 == <span class="number">0</span>) ? INT_MIN : nums2[(c2 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R1 = (c1 == m*<span class="number">2</span>) ? INT_MAX : nums1[(c1) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R2 = (c2 == n*<span class="number">2</span>) ? INT_MAX : nums2[(c2) / <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (L1 &gt; R2) lo = c2 + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (L2 &gt; R1)hi = c2 - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (((L1&gt; L2)?L1:L2) + ((R1&lt;R2)?R1:R2)) / <span class="number">2.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i * <span class="number">2</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums1.push_back(i * <span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; j * j &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums2.push_back(j*j);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">double</span> a=findMedianSortedArrays(nums1, nums2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>复杂度：O(log(min(N1, N2))) </p>
-<p>若下标超出数组界限，可以假设有两个额外的值 INT_MAX at A[-1] 和 INT_MAX at A[N]，不影响结果并且简化了情况。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/10/Machine-Learning-Note5/" class="post-title-link" itemprop="url">Machine-Learning-Note5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-10T00:00:00+08:00">2019-04-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-25 19:34:28" itemprop="dateModified" datetime="2019-04-25T19:34:28+08:00">2019-04-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1.</p>
-<p>#####假设函数</p>
-<p>假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Function或者Logistic Function.对数几率函数是Sigmoid函数的一种, 它将z值转化为一个接近0或1的y值, 并且其输出值在z=0z=0附近变化很陡. Sigmoid函数即形似S的函数, 对率函数是Sigmoid函数最重要的代表.<br>$$<br>{h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}}<br>$$</p>
-<p>#####决策边界</p>
-<p>“0“与”1“的分界线</p>
-<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>线性回归中用到的代价函数（凸函数）：<br>$$<br>{J(\theta)=\frac{1}{m}\sum_{i=1}^m\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2}<br>$$</p>
-<p>$$<br>Cost\left(h_\theta(x^{(i)}),y^{(i)}\right)=\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2<br>$$</p>
-<p>Sigmiod函数会使代价函数变成非凸函数。若想使用梯度下降法收敛到全局最小值，需要另外定义对率回归的代价函数，得到凸函数。</p>
-<p>对率回归中代价函数：<br>$$<br>{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^my^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))\right]}<br>$$</p>
-<p>$$<br>{Cost\left(h_\theta(x),y\right)=-ylog(h_\theta(x))-(1-y)log(1-h_\theta(x))}<br>$$</p>
-<p>y的值只有0,1两种情况</p>
-<h5 id="梯度下降法求对率回归的代价函数参数"><a href="#梯度下降法求对率回归的代价函数参数" class="headerlink" title="梯度下降法求对率回归的代价函数参数"></a>梯度下降法求对率回归的代价函数参数</h5><p>虽然与线性回归的更新规则看起来相同，但假设函数h(x)发生了变化，所以是两个完全不同的东西。可使用特征缩放使梯度下降得更快。</p>
-<h4 id="高级优化算法"><a href="#高级优化算法" class="headerlink" title="高级优化算法"></a>高级优化算法</h4><p>计算$J(\theta)$和导数项，使用更高级的算法来最小化代价函数。</p>
-<p>#####Conjugate gradient</p>
-<h5 id="共轭梯度法BFGS"><a href="#共轭梯度法BFGS" class="headerlink" title="共轭梯度法BFGS"></a>共轭梯度法BFGS</h5><h5 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h5><p>######优点：</p>
-<p>不需要手动选择学习率$\alpha$，含有智能内循环（线搜索算法）自动尝试并选择好的$\alpha$；</p>
-<p>收敛得远远快于梯度下降；</p>
-<p><strong>例</strong>：</p>
-<p>代价函数：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[jVal,gradient]</span>=<span class="title">costFunction</span><span class="params">(theta)</span></span></span><br><span class="line">jVal = (theta(<span class="number">1</span>)<span class="number">-5</span>)^<span class="number">2</span>+(theta(<span class="number">2</span>)<span class="number">-5</span>)^<span class="number">2</span>;</span><br><span class="line">gradient = <span class="built_in">zeros</span>(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">gradient(<span class="number">1</span>)=<span class="number">2</span>*(theta(<span class="number">1</span>)<span class="number">-5</span>);</span><br><span class="line">gradient(<span class="number">2</span>)=<span class="number">2</span>*(theta(<span class="number">2</span>)<span class="number">-5</span>);</span><br></pre></td></tr></table></figure>
-<p>在Octave中执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; options=optimset(&apos;GradObj&apos;,&apos;on&apos;,&apos;MaxIter&apos;,&apos;100&apos;);</span><br><span class="line">&gt;&gt; initialTheta=zeros(2,1)</span><br><span class="line">initialTheta =</span><br><span class="line"></span><br><span class="line">   0</span><br><span class="line">   0</span><br><span class="line"></span><br><span class="line">&gt;&gt; [optTheta,functionVal,exitFlag]=fminunc(@costFunction2,initialTheta,options) %无约束最小化函数</span><br><span class="line"></span><br><span class="line">optTheta =</span><br><span class="line"></span><br><span class="line">   5.0000</span><br><span class="line">   5.0000</span><br><span class="line"></span><br><span class="line">functionVal =    1.5777e-30</span><br><span class="line">exitFlag =  1 %exitFlag判断是否已经收敛</span><br></pre></td></tr></table></figure>
-<h4 id="“一对多”分类算法（1-n）"><a href="#“一对多”分类算法（1-n）" class="headerlink" title="“一对多”分类算法（1-n）"></a>“一对多”分类算法（1-n）</h4><p>变成n个独立的二元分类问题，计算$h_\theta^{(1)}(x)$、$h_\theta^{(2)}(x)$…$h_\theta^{(n)}(x)$，得出最大值，选择n个分类器中可信度最高的</p>
-<p><a href="https://study.163.com/course/courseLearn.htm?courseId=1004570029#/learn/text?lessonId=1051049702&amp;courseId=1004570029" target="_blank" rel="noopener">课件链接</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/拓扑排序/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/09/拓扑排序/" class="post-title-link" itemprop="url">拓扑排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-09T00:00:00+08:00">2019-04-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-31 08:31:35" itemprop="dateModified" datetime="2019-05-31T08:31:35+08:00">2019-05-31</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>####题目描述</p>
-<p>假设给我们一个任意的图，它可能是也可能不是DAG（有向无圈图），推广拓扑排序算法，以使得给定有向图G的输入，它的输出是以下两者之一：<br>(a) 一个拓扑排序，于是确定了G为DAG；<br>或者<br>(b) G中的一个圈，于是确定了G不是DAG.<br>注意到输出的解可能不是唯一的，输出任意一个答案即可。</p>
-<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>  第一行两个数n,m,代表节点数和边数<br>m行，每行两个数代表一条有向边</p>
-<p>测试数据范围：(1&lt;=n&lt;=50,0&lt;=m&lt;2500)  </p>
-<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>  YES<br>一个拓扑序，数字之间用逗号分隔。</p>
-<p>或者</p>
-<p>NO<br>一个圈，数字之间用逗号分隔。  </p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>由顶点的入度判断是否有环，若无环，则存在拓扑排序，利用队列，不断加入入度为0的顶点，并调整邻接于该点的顶点的入度，输出拓扑排序；若有环，用深度优先搜索找环，创建数组fath存储父节点，若遇到已标记过的点，则找到了环，利用fath数组输出环。代码中有数组越界的问题，但是我还没有找出来(委屈.jpg)……</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">bool</span>* label;	<span class="keyword">int</span> * fath; <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>**a, <span class="keyword">int</span> n,<span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	label[s] = <span class="literal">true</span>;	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[s][i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!label[i])</span><br><span class="line">			&#123;</span><br><span class="line">				fath[i] = s;</span><br><span class="line">				dfs(a, n, i);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(flag)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">				<span class="keyword">int</span> tmp = s;</span><br><span class="line">				<span class="keyword">while</span> (tmp != i)</span><br><span class="line">				&#123;</span><br><span class="line">					q.push(tmp);</span><br><span class="line">					tmp = fath[tmp];</span><br><span class="line">				&#125;</span><br><span class="line">				q.push(tmp);</span><br><span class="line">				tmp = q.front();</span><br><span class="line">				<span class="keyword">while</span> (!q.empty())</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">cout</span>&lt;&lt;q.front() &lt;&lt; <span class="string">","</span>;</span><br><span class="line">					q.pop();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; tmp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">isDAG</span><span class="params">(<span class="keyword">int</span>**a,<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* indg = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">	label = <span class="keyword">new</span> <span class="keyword">bool</span>[n + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		indg[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		label[i] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">			indg[j] += a[i][j];<span class="comment">//计算入度</span></span><br><span class="line">		<span class="keyword">if</span> (a[i][i])</span><br><span class="line">		&#123;<span class="comment">//自环</span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">","</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (q.size()&lt;n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> min = n; <span class="keyword">int</span> index;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">			<span class="keyword">if</span> (indg[i] &lt; min &amp;&amp; !label[i])</span><br><span class="line">			&#123;</span><br><span class="line">				min = indg[i];</span><br><span class="line">				index = i;</span><br><span class="line">				label[i] = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span> (min &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			q.push(index);</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">				indg[i] -= a[index][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (q.size() == n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"YES"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">while</span> (q.size() &gt; <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="string">","</span>;</span><br><span class="line">			q.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		q.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;<span class="comment">//不是拓扑排序</span></span><br><span class="line">		fath = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			label[i] = <span class="literal">false</span>;</span><br><span class="line">			fath[i] = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n&amp;&amp;flag; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!label[i])</span><br><span class="line">				dfs(a, n,i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, m;<span class="comment">//节点数和边数</span></span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	<span class="keyword">int</span>**a = <span class="keyword">new</span> <span class="keyword">int</span>*[n + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n + <span class="number">1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">			a[i][j] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">		a[x][y] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	isDAG(a,n,m);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/WayCount/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/08/WayCount/" class="post-title-link" itemprop="url">WayCount</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-08 20:40:08" itemprop="dateCreated datePublished" datetime="2019-04-08T20:40:08+08:00">2019-04-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="算法导论练习题"><a href="#算法导论练习题" class="headerlink" title="算法导论练习题"></a>算法导论练习题</h4><p>有一个机器人，从S出发到E去，只能向右或向下走，X表示该格子不能走。问从S到E共有多少种走法。</p>
-<table>
-<thead>
-<tr>
-<th>S</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td>X</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td>X</td>
-<td></td>
-<td></td>
-<td>X</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>X</td>
-<td></td>
-<td>E</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">8</span>][<span class="number">12</span>] = &#123; </span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125; &#125;;</span><br><span class="line">	<span class="keyword">int</span> b[<span class="number">8</span>][<span class="number">12</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">10</span>; j++)</span><br><span class="line">			b[i][j] = a[i][j];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;=<span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt;=<span class="number">10</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i][j])</span><br><span class="line">				b[i][j] = b[i - <span class="number">1</span>][j] + b[i][j - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">10</span>; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; setw(<span class="number">4</span>)&lt;&lt;b[i][j];</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/Dijkstra算法找单源最短路径/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/08/Dijkstra算法找单源最短路径/" class="post-title-link" itemprop="url">Dijkstra算法找单源最短路径</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-08T00:00:00+08:00">2019-04-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-31 08:30:35" itemprop="dateModified" datetime="2019-05-31T08:30:35+08:00">2019-05-31</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-            <img src="E:\blog\source\_posts\dijkstra.PNG" itemprop="contentUrl">
-        </div>
-          <p><img src="//yoursite.com/2019/04/08/Dijkstra算法找单源最短路径/blog\source\_posts\dijkstra.PNG" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Dijkstra寻找最短路径（广度优先思想）</span></span><br><span class="line"><span class="comment">//用邻接矩阵实现图的存储，为简化问题，省去对图的定义</span></span><br><span class="line"><span class="comment">//单源最短路径问题：给定源顶点s，求它到其他任意顶点（目的顶点）的最短路径</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> Max = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">djstr</span><span class="params">(<span class="keyword">int</span>** a, <span class="keyword">int</span> v, <span class="keyword">int</span> e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* p = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">	<span class="comment">//p[i]：最短路径中顶点i的前驱顶点,</span></span><br><span class="line">	<span class="comment">//从终点开始，逆向即可获取路径</span></span><br><span class="line">	<span class="keyword">int</span>* d = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">	<span class="comment">//当前最短路径长度</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span>* label = <span class="keyword">new</span> <span class="keyword">bool</span>[v];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		label[i] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>][i] &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			p[i] = <span class="number">0</span>;</span><br><span class="line">			d[i] = a[<span class="number">0</span>][i];</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			p[i] = <span class="number">-1</span>;</span><br><span class="line">			d[i] = Max;</span><br><span class="line">		&#125;</span><br><span class="line">	label[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; v)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> index=<span class="number">0</span>, min=d[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;v;i++)</span><br><span class="line">			<span class="keyword">if</span> (!label[i]&amp;&amp;d[i] &lt; min)</span><br><span class="line">			&#123;</span><br><span class="line">				min = d[i];</span><br><span class="line">				index = i;</span><br><span class="line">			&#125;</span><br><span class="line">		++s; label[index] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (a[index][i] + d[index] &lt; d[i])</span><br><span class="line">			&#123;</span><br><span class="line">				d[i] = a[index][i] + d[index];</span><br><span class="line">				p[i] = index;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	d[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; d[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; p[i]+<span class="number">1</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> v = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> e = <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">int</span> b[<span class="number">5</span>][<span class="number">5</span>] = &#123;</span><br><span class="line">	&#123; <span class="number">0</span>,<span class="number">4</span>,<span class="number">2</span>,Max,<span class="number">8</span> &#125;,</span><br><span class="line">	&#123; Max,<span class="number">0</span>,Max,<span class="number">4</span>,<span class="number">5</span> &#125;,</span><br><span class="line">	&#123; Max,Max,<span class="number">0</span>,<span class="number">1</span>,Max &#125;,</span><br><span class="line">	&#123; Max,Max,Max,<span class="number">0</span>,<span class="number">3</span> &#125;,</span><br><span class="line">	&#123; Max,Max,Max,Max,<span class="number">0</span> &#125; &#125;;</span><br><span class="line">	<span class="keyword">int</span>** a = <span class="keyword">new</span> <span class="keyword">int</span>*[v];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; v; j++)</span><br><span class="line">			a[i][j] = b[i][j];</span><br><span class="line">	&#125;</span><br><span class="line">	djstr(a, v, e);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1119,14 +1033,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

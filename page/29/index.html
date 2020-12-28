@@ -158,6 +158,532 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/HTML-tips/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/HTML-tips/" class="post-title-link" itemprop="url">HTML-tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 23:12:37" itemprop="dateCreated datePublished" datetime="2019-04-11T23:12:37+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-16 23:01:42" itemprop="dateModified" datetime="2019-04-16T23:01:42+08:00">2019-04-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="Style覆盖优先级："><a href="#Style覆盖优先级：" class="headerlink" title="Style覆盖优先级："></a>Style覆盖优先级：</h6><p>!important属性 &gt; in-line style &gt; id &gt; class(后覆盖前)</p>
+<p>CSS 中，可以使用 6 位十六进制数字表示颜色，每 2 位分别表示红色 (R)、绿色 (G) 和蓝色 (B) 成分。例如，<code>#000000</code>是黑色，也可以表示为 <code>rgb(0, 0, 0)</code> </p>
+<h6 id="script元素："><a href="#script元素：" class="headerlink" title="script元素："></a>script元素：</h6><p>元素选择器：<code>$(&quot;button&quot;)</code>、class选择器：<code>$(&quot;.btn&quot;)</code>、id选择器：<code>$(&quot;#target1&quot;)</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  $(document).ready(function() &#123;</span></span><br><span class="line"><span class="undefined">	$("button").addClass("animated");</span></span><br><span class="line"><span class="undefined">    $(".btn").addClass("shake");</span></span><br><span class="line"><span class="undefined">    $("#target1").addClass("btn-primary");</span></span><br><span class="line"><span class="undefined">  &#125;);    </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="继承"><a href="#继承" class="headerlink" title="继承:"></a>继承:</h6><p>h3继承div，div继承body</p>
+<p>.parent()    .children()</p>
+<p>jQuery 用CSS选择器来选取元素，<code>target:nth-child(n)</code> CSS选择器允许你按照索引顺序(从1开始)选择目标元素的所有子元素。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/median-of-two-sorted-arrays/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">median-of-two-sorted-arrays</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 22:35:19" itemprop="dateCreated datePublished" datetime="2019-04-11T22:35:19+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-13 22:41:51" itemprop="dateModified" datetime="2019-04-13T22:41:51+08:00">2019-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.</p>
+<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<p>You may assume <strong>nums1</strong> and <strong>nums2</strong> cannot be both empty.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">The median is 2.0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line">The median is (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于复杂度的要求加大了题目的难度，一般容易想到线性级别的解决方法，如果要降到对数级别，要用到二分查找法。这里的二分其实是针对切割的位置。参考了LeetCode上的解答。</p>
+<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation</a></p>
+<p>为了简化问题，偶数和奇数个数的有序数组，可以综合成一种情况：数组长度为N时，index of L = (N-1)/2, and R is at N/2。 中位数的下标可以表示为(L + R)/2 = (A[(N-1)/2] + A[N/2])/2。函数中使A1是更长的数组。</p>
+<p>设想数组中有更多的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1: [# 1 # 2 # 3 # 4 # 5 #]    (N1 = 5, N1_positions = 11)</span><br><span class="line">A2: [# 1 # 1 # 1 # 1 #]     (N2 = 4, N2_positions = 9)</span><br></pre></td></tr></table></figure>
+<p>两个数组共有2<em>N1 + 2</em>N2 + 2个位置，每次分割后左右分别有N1 + N2个位置，最终的分割应保证L1 &lt;= R1 &amp;&amp; L1 &lt;= R2 &amp;&amp; L2 &lt;= R1 &amp;&amp; L2 &lt;= R2，相当于L1 &lt;= R2&amp;&amp;L2 &lt;= R1。</p>
+<p>在两种情况下需要对切割的位置做出调整：</p>
+<ul>
+<li><p>L1&gt;R2：说明A1左边大数过多，A1的切割点左移，同时A2切割点右移；</p>
+</li>
+<li><p>L2&gt;R1：说明A2左边大数过多，A2的切割点左移，同时A1切割点右移；</p>
+<p>否则，找到的即为中位数的位置，中位数等于(max(L1, L2) + min(R1, R2)) / 2。</p>
+</li>
+</ul>
+<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = nums1.size();</span><br><span class="line">	<span class="keyword">int</span> n = nums2.size();</span><br><span class="line">	<span class="keyword">if</span> (m &lt; n)</span><br><span class="line">		<span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lo = <span class="number">0</span>, hi = n * <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt;= hi)</span><br><span class="line">	&#123;<span class="comment">//移动A2的切割点，A2为长度更短的数组</span></span><br><span class="line">		<span class="keyword">int</span> c2 = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c1 = m + n - c2;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> L1 = (c1 == <span class="number">0</span>) ? INT_MIN : nums1[(c1 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> L2 = (c2 == <span class="number">0</span>) ? INT_MIN : nums2[(c2 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R1 = (c1 == m*<span class="number">2</span>) ? INT_MAX : nums1[(c1) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R2 = (c2 == n*<span class="number">2</span>) ? INT_MAX : nums2[(c2) / <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (L1 &gt; R2) lo = c2 + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (L2 &gt; R1)hi = c2 - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (((L1&gt; L2)?L1:L2) + ((R1&lt;R2)?R1:R2)) / <span class="number">2.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i * <span class="number">2</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums1.push_back(i * <span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; j * j &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums2.push_back(j*j);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">double</span> a=findMedianSortedArrays(nums1, nums2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>复杂度：O(log(min(N1, N2))) </p>
+<p>若下标超出数组界限，可以假设有两个额外的值 INT_MAX at A[-1] 和 INT_MAX at A[N]，不影响结果并且简化了情况。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/10/Machine-Learning-Note5/" class="post-title-link" itemprop="url">Machine-Learning-Note5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-10T00:00:00+08:00">2019-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-25 19:34:28" itemprop="dateModified" datetime="2019-04-25T19:34:28+08:00">2019-04-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>对数几率回归(Logistic Regression/Logit regression)也称逻辑回归，用于解决分类问题。在对率回归(对数几率回归的简称)中, 0≤hθ(x)≤1.</p>
+<p>#####假设函数</p>
+<p>假设函数为$h_\theta(x)=g(\theta^Tx)$，其中$g(z)=\frac{1}{1+e^{-z}}$，$g(z)$叫做Sigmoid Function或者Logistic Function.对数几率函数是Sigmoid函数的一种, 它将z值转化为一个接近0或1的y值, 并且其输出值在z=0z=0附近变化很陡. Sigmoid函数即形似S的函数, 对率函数是Sigmoid函数最重要的代表.<br>$$<br>{h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}}<br>$$</p>
+<p>#####决策边界</p>
+<p>“0“与”1“的分界线</p>
+<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>线性回归中用到的代价函数（凸函数）：<br>$$<br>{J(\theta)=\frac{1}{m}\sum_{i=1}^m\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2}<br>$$</p>
+<p>$$<br>Cost\left(h_\theta(x^{(i)}),y^{(i)}\right)=\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2<br>$$</p>
+<p>Sigmiod函数会使代价函数变成非凸函数。若想使用梯度下降法收敛到全局最小值，需要另外定义对率回归的代价函数，得到凸函数。</p>
+<p>对率回归中代价函数：<br>$$<br>{J(\theta)=-\frac{1}{m}\left[\sum_{i=1}^my^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))\right]}<br>$$</p>
+<p>$$<br>{Cost\left(h_\theta(x),y\right)=-ylog(h_\theta(x))-(1-y)log(1-h_\theta(x))}<br>$$</p>
+<p>y的值只有0,1两种情况</p>
+<h5 id="梯度下降法求对率回归的代价函数参数"><a href="#梯度下降法求对率回归的代价函数参数" class="headerlink" title="梯度下降法求对率回归的代价函数参数"></a>梯度下降法求对率回归的代价函数参数</h5><p>虽然与线性回归的更新规则看起来相同，但假设函数h(x)发生了变化，所以是两个完全不同的东西。可使用特征缩放使梯度下降得更快。</p>
+<h4 id="高级优化算法"><a href="#高级优化算法" class="headerlink" title="高级优化算法"></a>高级优化算法</h4><p>计算$J(\theta)$和导数项，使用更高级的算法来最小化代价函数。</p>
+<p>#####Conjugate gradient</p>
+<h5 id="共轭梯度法BFGS"><a href="#共轭梯度法BFGS" class="headerlink" title="共轭梯度法BFGS"></a>共轭梯度法BFGS</h5><h5 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h5><p>######优点：</p>
+<p>不需要手动选择学习率$\alpha$，含有智能内循环（线搜索算法）自动尝试并选择好的$\alpha$；</p>
+<p>收敛得远远快于梯度下降；</p>
+<p><strong>例</strong>：</p>
+<p>代价函数：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[jVal,gradient]</span>=<span class="title">costFunction</span><span class="params">(theta)</span></span></span><br><span class="line">jVal = (theta(<span class="number">1</span>)<span class="number">-5</span>)^<span class="number">2</span>+(theta(<span class="number">2</span>)<span class="number">-5</span>)^<span class="number">2</span>;</span><br><span class="line">gradient = <span class="built_in">zeros</span>(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">gradient(<span class="number">1</span>)=<span class="number">2</span>*(theta(<span class="number">1</span>)<span class="number">-5</span>);</span><br><span class="line">gradient(<span class="number">2</span>)=<span class="number">2</span>*(theta(<span class="number">2</span>)<span class="number">-5</span>);</span><br></pre></td></tr></table></figure>
+<p>在Octave中执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; options=optimset(&apos;GradObj&apos;,&apos;on&apos;,&apos;MaxIter&apos;,&apos;100&apos;);</span><br><span class="line">&gt;&gt; initialTheta=zeros(2,1)</span><br><span class="line">initialTheta =</span><br><span class="line"></span><br><span class="line">   0</span><br><span class="line">   0</span><br><span class="line"></span><br><span class="line">&gt;&gt; [optTheta,functionVal,exitFlag]=fminunc(@costFunction2,initialTheta,options) %无约束最小化函数</span><br><span class="line"></span><br><span class="line">optTheta =</span><br><span class="line"></span><br><span class="line">   5.0000</span><br><span class="line">   5.0000</span><br><span class="line"></span><br><span class="line">functionVal =    1.5777e-30</span><br><span class="line">exitFlag =  1 %exitFlag判断是否已经收敛</span><br></pre></td></tr></table></figure>
+<h4 id="“一对多”分类算法（1-n）"><a href="#“一对多”分类算法（1-n）" class="headerlink" title="“一对多”分类算法（1-n）"></a>“一对多”分类算法（1-n）</h4><p>变成n个独立的二元分类问题，计算$h_\theta^{(1)}(x)$、$h_\theta^{(2)}(x)$…$h_\theta^{(n)}(x)$，得出最大值，选择n个分类器中可信度最高的</p>
+<p><a href="https://study.163.com/course/courseLearn.htm?courseId=1004570029#/learn/text?lessonId=1051049702&amp;courseId=1004570029" target="_blank" rel="noopener">课件链接</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/拓扑排序/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/09/拓扑排序/" class="post-title-link" itemprop="url">拓扑排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-09T00:00:00+08:00">2019-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-31 08:31:35" itemprop="dateModified" datetime="2019-05-31T08:31:35+08:00">2019-05-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>####题目描述</p>
+<p>假设给我们一个任意的图，它可能是也可能不是DAG（有向无圈图），推广拓扑排序算法，以使得给定有向图G的输入，它的输出是以下两者之一：<br>(a) 一个拓扑排序，于是确定了G为DAG；<br>或者<br>(b) G中的一个圈，于是确定了G不是DAG.<br>注意到输出的解可能不是唯一的，输出任意一个答案即可。</p>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>  第一行两个数n,m,代表节点数和边数<br>m行，每行两个数代表一条有向边</p>
+<p>测试数据范围：(1&lt;=n&lt;=50,0&lt;=m&lt;2500)  </p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>  YES<br>一个拓扑序，数字之间用逗号分隔。</p>
+<p>或者</p>
+<p>NO<br>一个圈，数字之间用逗号分隔。  </p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>由顶点的入度判断是否有环，若无环，则存在拓扑排序，利用队列，不断加入入度为0的顶点，并调整邻接于该点的顶点的入度，输出拓扑排序；若有环，用深度优先搜索找环，创建数组fath存储父节点，若遇到已标记过的点，则找到了环，利用fath数组输出环。代码中有数组越界的问题，但是我还没有找出来(委屈.jpg)……</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">bool</span>* label;	<span class="keyword">int</span> * fath; <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>**a, <span class="keyword">int</span> n,<span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	label[s] = <span class="literal">true</span>;	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[s][i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!label[i])</span><br><span class="line">			&#123;</span><br><span class="line">				fath[i] = s;</span><br><span class="line">				dfs(a, n, i);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(flag)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">				<span class="keyword">int</span> tmp = s;</span><br><span class="line">				<span class="keyword">while</span> (tmp != i)</span><br><span class="line">				&#123;</span><br><span class="line">					q.push(tmp);</span><br><span class="line">					tmp = fath[tmp];</span><br><span class="line">				&#125;</span><br><span class="line">				q.push(tmp);</span><br><span class="line">				tmp = q.front();</span><br><span class="line">				<span class="keyword">while</span> (!q.empty())</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">cout</span>&lt;&lt;q.front() &lt;&lt; <span class="string">","</span>;</span><br><span class="line">					q.pop();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; tmp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">isDAG</span><span class="params">(<span class="keyword">int</span>**a,<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* indg = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">	label = <span class="keyword">new</span> <span class="keyword">bool</span>[n + <span class="number">1</span>];</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		indg[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		label[i] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">			indg[j] += a[i][j];<span class="comment">//计算入度</span></span><br><span class="line">		<span class="keyword">if</span> (a[i][i])</span><br><span class="line">		&#123;<span class="comment">//自环</span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">","</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (q.size()&lt;n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> min = n; <span class="keyword">int</span> index;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">			<span class="keyword">if</span> (indg[i] &lt; min &amp;&amp; !label[i])</span><br><span class="line">			&#123;</span><br><span class="line">				min = indg[i];</span><br><span class="line">				index = i;</span><br><span class="line">				label[i] = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span> (min &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			q.push(index);</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">				indg[i] -= a[index][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (q.size() == n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"YES"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">while</span> (q.size() &gt; <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="string">","</span>;</span><br><span class="line">			q.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		q.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;<span class="comment">//不是拓扑排序</span></span><br><span class="line">		fath = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			label[i] = <span class="literal">false</span>;</span><br><span class="line">			fath[i] = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n&amp;&amp;flag; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!label[i])</span><br><span class="line">				dfs(a, n,i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, m;<span class="comment">//节点数和边数</span></span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	<span class="keyword">int</span>**a = <span class="keyword">new</span> <span class="keyword">int</span>*[n + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n + <span class="number">1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">			a[i][j] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">		a[x][y] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	isDAG(a,n,m);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/WayCount/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/08/WayCount/" class="post-title-link" itemprop="url">WayCount</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-08 20:40:08" itemprop="dateCreated datePublished" datetime="2019-04-08T20:40:08+08:00">2019-04-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="算法导论练习题"><a href="#算法导论练习题" class="headerlink" title="算法导论练习题"></a>算法导论练习题</h4><p>有一个机器人，从S出发到E去，只能向右或向下走，X表示该格子不能走。问从S到E共有多少种走法。</p>
+<table>
+<thead>
+<tr>
+<th>S</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+<td>E</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">8</span>][<span class="number">12</span>] = &#123; </span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125; &#125;;</span><br><span class="line">	<span class="keyword">int</span> b[<span class="number">8</span>][<span class="number">12</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">10</span>; j++)</span><br><span class="line">			b[i][j] = a[i][j];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;=<span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt;=<span class="number">10</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i][j])</span><br><span class="line">				b[i][j] = b[i - <span class="number">1</span>][j] + b[i][j - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">10</span>; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; setw(<span class="number">4</span>)&lt;&lt;b[i][j];</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/Dijkstra算法找单源最短路径/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/08/Dijkstra算法找单源最短路径/" class="post-title-link" itemprop="url">Dijkstra算法找单源最短路径</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-08T00:00:00+08:00">2019-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-31 08:30:35" itemprop="dateModified" datetime="2019-05-31T08:30:35+08:00">2019-05-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+            <img src="E:\blog\source\_posts\dijkstra.PNG" itemprop="contentUrl">
+        </div>
+          <p><img src="//yoursite.com/2019/04/08/Dijkstra算法找单源最短路径/blog\source\_posts\dijkstra.PNG" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Dijkstra寻找最短路径（广度优先思想）</span></span><br><span class="line"><span class="comment">//用邻接矩阵实现图的存储，为简化问题，省去对图的定义</span></span><br><span class="line"><span class="comment">//单源最短路径问题：给定源顶点s，求它到其他任意顶点（目的顶点）的最短路径</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> Max = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">djstr</span><span class="params">(<span class="keyword">int</span>** a, <span class="keyword">int</span> v, <span class="keyword">int</span> e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span>* p = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">	<span class="comment">//p[i]：最短路径中顶点i的前驱顶点,</span></span><br><span class="line">	<span class="comment">//从终点开始，逆向即可获取路径</span></span><br><span class="line">	<span class="keyword">int</span>* d = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">	<span class="comment">//当前最短路径长度</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span>* label = <span class="keyword">new</span> <span class="keyword">bool</span>[v];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		label[i] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>][i] &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			p[i] = <span class="number">0</span>;</span><br><span class="line">			d[i] = a[<span class="number">0</span>][i];</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			p[i] = <span class="number">-1</span>;</span><br><span class="line">			d[i] = Max;</span><br><span class="line">		&#125;</span><br><span class="line">	label[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; v)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> index=<span class="number">0</span>, min=d[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;v;i++)</span><br><span class="line">			<span class="keyword">if</span> (!label[i]&amp;&amp;d[i] &lt; min)</span><br><span class="line">			&#123;</span><br><span class="line">				min = d[i];</span><br><span class="line">				index = i;</span><br><span class="line">			&#125;</span><br><span class="line">		++s; label[index] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (a[index][i] + d[index] &lt; d[i])</span><br><span class="line">			&#123;</span><br><span class="line">				d[i] = a[index][i] + d[index];</span><br><span class="line">				p[i] = index;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	d[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; d[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; p[i]+<span class="number">1</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> v = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> e = <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">int</span> b[<span class="number">5</span>][<span class="number">5</span>] = &#123;</span><br><span class="line">	&#123; <span class="number">0</span>,<span class="number">4</span>,<span class="number">2</span>,Max,<span class="number">8</span> &#125;,</span><br><span class="line">	&#123; Max,<span class="number">0</span>,Max,<span class="number">4</span>,<span class="number">5</span> &#125;,</span><br><span class="line">	&#123; Max,Max,<span class="number">0</span>,<span class="number">1</span>,Max &#125;,</span><br><span class="line">	&#123; Max,Max,Max,<span class="number">0</span>,<span class="number">3</span> &#125;,</span><br><span class="line">	&#123; Max,Max,Max,Max,<span class="number">0</span> &#125; &#125;;</span><br><span class="line">	<span class="keyword">int</span>** a = <span class="keyword">new</span> <span class="keyword">int</span>*[v];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i] = <span class="keyword">new</span> <span class="keyword">int</span>[v];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; v; j++)</span><br><span class="line">			a[i][j] = b[i][j];</span><br><span class="line">	&#125;</span><br><span class="line">	djstr(a, v, e);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/完全主元高斯消去法解线性方程组/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -437,537 +963,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Machine-Learning-Note3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/29/Machine-Learning-Note3/" class="post-title-link" itemprop="url">Machine-Learning-Note3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">2019-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-30 19:58:02" itemprop="dateModified" datetime="2019-03-30T19:58:02+08:00">2019-03-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>###Octave的使用</p>
-<p>更改提示符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:11&gt; PS1(&apos;&gt;&gt;&apos;)</span><br><span class="line">&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>添加分号抑制输出</p>
-<p>查看帮助：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; help eye</span><br></pre></td></tr></table></figure>
-<p>构造10000个随机数并绘制高斯分布：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; w=randn(1,10000);</span><br><span class="line">&gt;&gt; hist(w,50)</span><br></pre></td></tr></table></figure>
-<p>圆周率：pi ，常数：e</p>
-<p>格式化输出</p>
-<p><img src="//yoursite.com/2019/03/29/Machine-Learning-Note3/blog\.deploy_git\images\octave_output.PNG" width="50%" height="50%"></p>
-<p><strong>矩阵</strong></p>
-<p>横向量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1,2,3]</span><br></pre></td></tr></table></figure>
-<p>列向量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; v=[1;2;3]</span><br></pre></td></tr></table></figure>
-<p>2*3，所有元素均为1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ones(2,3)</span><br></pre></td></tr></table></figure>
-<p>1*3，所有元素均为0：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w=zeros(1,3)</span><br></pre></td></tr></table></figure>
-<p>5*5单位矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I=eye(5)</span><br></pre></td></tr></table></figure>
-<p>3*3高斯随机数矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rand(3,3)</span><br></pre></td></tr></table></figure>
-<p>矩阵数乘：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C=2*ones(2,3)</span><br></pre></td></tr></table></figure>
-<p>读取A[3,2]:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(3,2)</span><br></pre></td></tr></table></figure>
-<p>读取矩阵A第2列所有元素：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)</span><br></pre></td></tr></table></figure>
-<p>读取矩阵A第1行和第3行所有元素：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A([1 3],:)</span><br></pre></td></tr></table></figure>
-<p>将A第二列替换为[10;11;12]：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:,2)=[10;11;12]</span><br></pre></td></tr></table></figure>
-<p>在A的最后加上一列:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[A,[100,101,102]]</span><br></pre></td></tr></table></figure>
-<p>将A所有的元素合并成一个列向量:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A(:)</span><br></pre></td></tr></table></figure>
-<p>两个矩阵列合并：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; C=[A B]</span><br></pre></td></tr></table></figure>
-<p>两个矩阵行合并</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; D=[A;B]</span><br></pre></td></tr></table></figure>
-<h4 id="移动数据"><a href="#移动数据" class="headerlink" title="移动数据"></a>移动数据</h4><p>所用到的数据: <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/featuresX.dat" target="_blank" rel="noopener">featuresX.dat</a>, <a href="https://raw.githubusercontent.com/tansaku/py-coursera/master/priceY.dat" target="_blank" rel="noopener">priceY.dat</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; cd E:\桌面 %Octave中不能输入中文，在左上窗口双击打开</span><br><span class="line">&gt;&gt; load featuresX.dat</span><br><span class="line">&gt;&gt; load(&apos;priceY.dat&apos;)</span><br><span class="line">&gt;&gt; who %使用who命令显示当前所有变量,使用whos查看变量更详细的信息</span><br><span class="line">&gt;&gt; featuresX %展示数据</span><br><span class="line">featuresX =</span><br><span class="line"></span><br><span class="line">   2104      3</span><br><span class="line">   1600      3</span><br><span class="line">   2400      3</span><br><span class="line">   1416      2</span><br><span class="line">   3000      4</span><br><span class="line"> ......</span><br><span class="line">&gt;&gt; size(featuresX)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   27    2</span><br><span class="line">&gt;&gt; v=featuresX(1:5)</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">   2104   1600   2400   1416   3000</span><br><span class="line"></span><br><span class="line">&gt;&gt; save hello.mat v %二进制方式存储数据</span><br><span class="line">&gt;&gt; save hello.txt v -ascii %存储数据</span><br><span class="line">&gt;&gt;clear %清空所有变量</span><br></pre></td></tr></table></figure>
-<h5 id="数据的计算"><a href="#数据的计算" class="headerlink" title="数据的计算"></a>数据的计算</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%各种矩阵的运算</span><br><span class="line">&gt;&gt; A*B</span><br><span class="line">&gt;&gt; A.*b</span><br><span class="line">&gt;&gt; A.^2</span><br><span class="line">&gt;&gt; 1 ./A</span><br><span class="line">&gt;&gt; log(A)</span><br><span class="line">&gt;&gt; exp(A)</span><br><span class="line">&gt;&gt; -A</span><br></pre></td></tr></table></figure>
-<p>A中每个元素加1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A+ones(size(A))</span><br><span class="line">%或者：</span><br><span class="line">&gt;&gt; A+1</span><br></pre></td></tr></table></figure>
-<p>矩阵转置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A&apos;</span><br></pre></td></tr></table></figure>
-<p>最值，比较大小</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 0.5 100]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">     1.00000     3.00000     0.50000   100.00000</span><br><span class="line"></span><br><span class="line">&gt;&gt; [val ind]=max(A)</span><br><span class="line">val =  100</span><br><span class="line">ind =  4</span><br><span class="line">&gt;&gt; [val]=min(A)</span><br><span class="line">val =  0.50000</span><br><span class="line">&gt;&gt; A&gt;2</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  0  1  0  1</span><br></pre></td></tr></table></figure>
-<p>查找特定元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 3 5;6 8 9]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   3   5</span><br><span class="line">   6   8   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; find(a&gt;3)</span><br><span class="line">error: &apos;a&apos; undefined near line 1 column 6</span><br><span class="line">&gt;&gt; find(A&gt;3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   5</span><br><span class="line">   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; [r c]=find(A&gt;=2)</span><br><span class="line">r =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">c =</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   2</span><br><span class="line">   3</span><br><span class="line">   3</span><br></pre></td></tr></table></figure>
-<p>生成任意行、列、对角线和相等的矩阵：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; magic(3)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   8   1   6</span><br><span class="line">   3   5   7</span><br><span class="line">   4   9   2</span><br></pre></td></tr></table></figure>
-<p>列向量求和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; sum(A)</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">    7   11   14</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; floor(a)%向下取整</span><br><span class="line">&gt;&gt; ceil(a)%向上取整</span><br></pre></td></tr></table></figure>
-<p>最值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[1 2;3 4;5 6]</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; A=[1 2;3 4;5 6],</span><br><span class="line">A =</span><br><span class="line"></span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; B=[3 1;4 6;2 9]</span><br><span class="line">B =</span><br><span class="line"></span><br><span class="line">   3   1</span><br><span class="line">   4   6</span><br><span class="line">   2   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,B)</span><br><span class="line">%构造一个由A,B两个矩阵中对应位置较大的数组成的矩阵</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   3   2</span><br><span class="line">   4   6</span><br><span class="line">   5   9</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],1)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line"></span><br><span class="line">&gt;&gt; max(A,[],2)%取出矩阵每列最大的元素</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">   6</span><br><span class="line">%获取矩阵中最大元素两种方式</span><br><span class="line">&gt;&gt; max(max(A))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; max(A(:))</span><br><span class="line">ans =  6</span><br><span class="line">&gt;&gt; flipud(A)%矩阵上下翻转</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">   5   6</span><br><span class="line">   3   4</span><br><span class="line">   1   2</span><br><span class="line">&gt;&gt; pinv(A)%矩阵的逆</span><br><span class="line">ans =</span><br><span class="line"></span><br><span class="line">  -1.33333  -0.33333   0.66667</span><br><span class="line">   1.08333   0.33333  -0.41667</span><br></pre></td></tr></table></figure>
-<h5 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h5><p>（将函数画在同一图中、添加坐标轴说明、图示、存储图像、同一窗口不同位置显示两个图像、坐标轴刻度）</p>
-<p>将矩阵可视化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; imagesc(magic(15))</span><br></pre></td></tr></table></figure>
-<h5 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h5><p>循环语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; for i=1:10,</span><br><span class="line">v(i)=i^2;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">     1     4     9    16    25    36    49    64    81   100</span><br><span class="line"></span><br><span class="line">&gt;&gt; i=1;</span><br><span class="line">&gt;&gt; while i&lt;=10,</span><br><span class="line">v(i)=sqrt(v(i));</span><br><span class="line">i=i+1;</span><br><span class="line">end;</span><br><span class="line">&gt;&gt; v</span><br><span class="line">v =</span><br><span class="line"></span><br><span class="line">    1    2    3    4    5    6    7    8    9   10</span><br></pre></td></tr></table></figure>
-<p>定义函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; [y1,y2]=squareAndcube(5)</span><br><span class="line">y1 =  25</span><br><span class="line">y2 =  125</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/17/Machine-Learning-Note2/" class="post-title-link" itemprop="url">Machine-Learning-Note2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-17 19:55:43" itemprop="dateCreated datePublished" datetime="2019-03-17T19:55:43+08:00">2019-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-18 20:14:52" itemprop="dateModified" datetime="2019-03-18T20:14:52+08:00">2019-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="矩阵和向量"><a href="#矩阵和向量" class="headerlink" title="矩阵和向量"></a>矩阵和向量</h5><p>大写字母-矩阵，小写字母-向量（特殊的矩阵）  </p>
-<ul>
-<li>加减，数乘</li>
-<li>数据矩阵乘参数向量  </li>
-<li>矩阵乘矩阵-大量运算打包，有结合律无交换律 <h5 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h5>特征量，训练样本数<br>定义第0个向量<br>多元梯度下降法<br><strong>特征缩放</strong>:使不同特征的取值在相近的范围内（例如-1~+1），梯度下降法能更快收敛，减少迭代次数。  </li>
-</ul>
-<p>方法：</p>
-<ol>
-<li>将特征除以最大值</li>
-<li>均值归一化，使特征值的均值为0 &lt;= 减均值，除以范围。<br>解决细长的椭圆等高线，梯度下降时来回波动，速度较慢的问题。  <h5 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h5>根据代价函数随迭代步数增加的变化曲线，判断是否已经收敛。或自动判断，选择合适阈值。<br>若发散或反复升降，选择更小的学习率。<h5 id="选择学习率α"><a href="#选择学习率α" class="headerlink" title="选择学习率α"></a>选择学习率α</h5>大致按3的倍数取值，结合代价函数随迭代步数增加的变化曲线。  </li>
-</ol>
-<h5 id="特征选择—多项式回归"><a href="#特征选择—多项式回归" class="headerlink" title="特征选择—多项式回归"></a>特征选择—多项式回归</h5><p>使数据与模型更好的拟合。<br>特征缩放更显重要。</p>
-<h5 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h5><p>不再像梯度下降中，迭代地求最优解，而是直接一次性求解0最优解。–&gt; 求导，导数置零。<br>加额外的特征变量x_0,用所有的特征变量构造矩阵<br>设计矩阵（特征矩阵的转置）<br>不需要做特征缩放！<br>在Octave中使用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinv(x&apos;*x)*x&apos;*y</span><br></pre></td></tr></table></figure>
-<p>对比梯度下降法与正规方程法：<br>梯度下降法 | 正规方程法<br>—|—<br>需要选择学习率α | 无需选择学习率α<br>需要多次迭代 | 无需多次迭代<br>适用于大样本量 | 样本较多时速度较慢,O(n^3)<br>当样本量大于10^6时，更适合采用梯度下降法。样本量较小时，正规方程法更优。<br>正规方程法适用于线性回归，不适合复杂的算法。</p>
-<h5 id="正规方程以及不可逆性"><a href="#正规方程以及不可逆性" class="headerlink" title="正规方程以及不可逆性"></a>正规方程以及不可逆性</h5><p>不可逆的矩阵（奇异或退化矩阵），很少发生，在软件中可得到正解。–&gt;数值计算问题</p>
-<p> 原因：可能是因为我们使用了冗余的特征,或是我们使用了太多的特征(特征的数量超过了样本的数量)<br>解决：去掉多余特征或使用正规化方法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/17/Machine-Learning-Note1/" class="post-title-link" itemprop="url">Machine-Learning-Note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-17 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-17T00:00:00+08:00">2019-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-08 19:58:56" itemprop="dateModified" datetime="2019-04-08T19:58:56+08:00">2019-04-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-            <img src="E:\blog\themes\landscape\source\css\images\cost_function.png" itemprop="contentUrl">
-        </div>
-          <h5 id="监督学习vs无监督学习"><a href="#监督学习vs无监督学习" class="headerlink" title="监督学习vs无监督学习"></a>监督学习vs无监督学习</h5><ul>
-<li>监督学习：通过算法来对一些离散的数据进行一个监督。回归问题&amp;分类问题  </li>
-<li>无监督学习：通过给予算法大量的数据，来让算法找出数据的类型结构。聚类算法。  </li>
-</ul>
-<p>从数据的角度来讲, 监督学习和无监督学习的区别就在于每一个数据样本是否包含一个准确的输出值。</p>
-<h5 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h5><p>（Linear regression with one variable = Univariate linear regression）<br>代价函数（平方误差代价函数）：每个样例的估计值与真实值之间差的平方的均值。<br><img src="//yoursite.com/2019/03/17/Machine-Learning-Note1/blog\themes\landscape\source\css\images\cost_function.png"><br>++<strong>梯度下降+代价函数=线性回归算法</strong>++，用直线模型拟合数据<br>优化目标：代价函数最小<br>优化算法：<br>梯度下降法：给定初始值（0或其他），不停的改变参数以找到局部最小值。要注意同步更新多个θ！  </p>
-<ul>
-<li>梯度：代价函数对每个θ的偏导。  </li>
-<li>学习率α：梯度下降时，迈的步子大小。   </li>
-</ul>
-<p>初始状态不同,可能得到不同的局部最低点。用于线性回归的代价函数总是一个凸函数(Convex Function)。这样的函数没有局部最优解，只有一个全局最优解。所以使用梯度下降的时候，总会得到一个全局最优解。<br>Batch梯度下降</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/Add Two Numbers/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/02/Add Two Numbers/" class="post-title-link" itemprop="url">Add Two Numbers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-02 16:32:28" itemprop="dateCreated datePublished" datetime="2019-03-02T16:32:28+08:00">2019-03-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-08 19:58:06" itemprop="dateModified" datetime="2019-04-08T19:58:06+08:00">2019-04-08</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
-<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
-<p>Example:</p>
-<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8<br>Explanation: 342 + 465 = 807</p>
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">		ListNode * addTwoNumbers(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">		ListNode *tmp1 = l1-&gt;next, *tmp2 = l2-&gt;next;</span><br><span class="line">		ListNode *res = new ListNode((l1-&gt;val + l2-&gt;val) % 10);</span><br><span class="line">		ListNode *tmp = res;</span><br><span class="line">		int flag = (l1-&gt;val + l2-&gt;val) &gt; 9 ? 1 : 0;</span><br><span class="line">		int k;</span><br><span class="line">		while (tmp1&amp;&amp;tmp2)</span><br><span class="line">		&#123;</span><br><span class="line">			k = tmp1-&gt;val + tmp2-&gt;val+flag;</span><br><span class="line">			tmp-&gt;next = new ListNode(k%10);</span><br><span class="line">			flag = k / 10;</span><br><span class="line">			tmp1 = tmp1-&gt;next;</span><br><span class="line">			tmp2 = tmp2-&gt;next;</span><br><span class="line">			tmp = tmp-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		while (tmp1)</span><br><span class="line">		&#123;</span><br><span class="line">			k = tmp1-&gt;val+flag;</span><br><span class="line">			tmp-&gt;next = new ListNode(k % 10);</span><br><span class="line">			flag = k / 10;</span><br><span class="line">			tmp1 = tmp1-&gt;next;</span><br><span class="line">			tmp = tmp-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		while (tmp2)</span><br><span class="line">		&#123;</span><br><span class="line">			k = tmp2-&gt;val+flag;</span><br><span class="line">			tmp-&gt;next = new ListNode(k % 10);</span><br><span class="line">			flag = k / 10;</span><br><span class="line">			tmp2 = tmp2-&gt;next;</span><br><span class="line">			tmp = tmp-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">        if(flag)</span><br><span class="line">        tmp-&gt;next = new ListNode(1);</span><br><span class="line">		return res;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="lessons"><a href="#lessons" class="headerlink" title="lessons"></a>lessons</h5><p>题目思路其实就像平时算加法一样，从后向前算，考虑进位。开始傻傻地想要把两个list倒过来，得到两个整数进行相加，然后发现长整形的范围远不能满足题目要求，所以才改成了上面那样。看了看别人的代码，发现我的三个while循环实在有些冗杂，可以整理成一个循环，主要考虑对第一个while循环条件进行修改（ &amp;&amp; -&gt; || ），后面的做法就比较类似了。有点乏了，先不改了，就这样吧。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/two-sum/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/02/22/two-sum/" class="post-title-link" itemprop="url">Two Sum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-02-22 20:01:59" itemprop="dateCreated datePublished" datetime="2019-02-22T20:01:59+08:00">2019-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:16:17" itemprop="dateModified" datetime="2020-02-10T21:16:17+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h5><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<h6 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h6><p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
-<p>本来想找道很简单的题目消磨时间，出了好几次错之后，觉得自己的水平真是，惨不忍睹——不仅至今没有处理异常的习惯，连整数数组里面出现负数的情况都没有考虑……</p>
-<p>最先想到的是直接遍历的方法，时间复杂度为O(n^2)：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x = target - nums[i];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.size(); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] == x)</span><br><span class="line">                &#123;</span><br><span class="line">                    a.push_back(i);</span><br><span class="line">                    a.push_back(j);</span><br><span class="line">                    <span class="keyword">return</span> a;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="keyword">throw</span> <span class="string">"Bad Input !"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/VirtualBank-Java/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/20/VirtualBank-Java/" class="post-title-link" itemprop="url">Java虚拟银行</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-20T00:00:00+08:00">2019-01-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-18 20:16:36" itemprop="dateModified" datetime="2019-03-18T20:16:36+08:00">2019-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Virtual-Bank"><a href="#Virtual-Bank" class="headerlink" title="Virtual Bank"></a>Virtual Bank</h1><h4 id="模拟银行的多线程程序-实现如下要求："><a href="#模拟银行的多线程程序-实现如下要求：" class="headerlink" title="模拟银行的多线程程序,实现如下要求："></a>模拟银行的多线程程序,实现如下要求：</h4><ol>
-<li>银行于某时刻开始营业，运行若干时间后下班，窗口最上方会显示营业或下班的信息。到了下班时间，不再产生新的客户，只将等待的客户处理完，然后银行关门。</li>
-<li>营业期间有多名顾客随机地来银行存钱、取钱，顾客的原有存款金额是随机生成的，此次交易需要的时间以及交易金额也是随机生成的。不允许透支，若取钱时余额不足，则退出本次操作。在窗口显示当前客户的序号、交易时长、操作金额和余额；</li>
-<li>只有一名工作人员提供服务，若顾客数为0，则进行等待；</li>
-<li>每次存取钱，在窗口显示当前有多少顾客在等待，以及银行目前的金额；</li>
-<li>银行处理完所有的交易，关门时再报告今日受理客户总数以及银行余额；</li>
-<li>程序运行的过程中在控制台打印出今日所有的交易记录。<h4 id="自定义类型："><a href="#自定义类型：" class="headerlink" title="自定义类型："></a>自定义类型：</h4></li>
-</ol>
-<ul>
-<li><p>Customer：客户类;</p>
-</li>
-<li><p>CustomerLine：客户队列;</p>
-</li>
-<li><p>CustomerGen：客户生成器；</p>
-</li>
-<li><p>Teller：工作人员</p>
-</li>
-<li><p>MyWindow：银行信息窗口</p>
-</li>
-<li><p>VirtualBank:模拟银行（主程序）</p>
-<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><ul>
-<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\1.png" alt="avatar"></li>
-<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\2.png" alt="avatar"></li>
-<li><img src="//yoursite.com/2019/01/20/VirtualBank-Java/pic\3.png" alt="avatar"></li>
-</ul>
-</li>
-</ul>
-<h4 id="主类"><a href="#主类" class="headerlink" title="主类"></a>主类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VirtualBank</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//银行交易显示窗口</span></span><br><span class="line">		MyWindow myWindow=<span class="keyword">new</span> MyWindow();</span><br><span class="line">		myWindow.display();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//客户队列</span></span><br><span class="line">		CustomerLine line=<span class="keyword">new</span> CustomerLine(<span class="number">50</span>,myWindow);</span><br><span class="line">		CustomerGen gen=<span class="keyword">new</span> CustomerGen(line,myWindow);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//银行工作人员</span></span><br><span class="line">		Teller teller=<span class="keyword">new</span> Teller(line,myWindow);</span><br><span class="line">	</span><br><span class="line">		gen.start();</span><br><span class="line">		teller.start();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//下班时间到了，不再接待客户</span></span><br><span class="line">		TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">        gen.exit = <span class="keyword">true</span>;</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">4</span>);</span><br><span class="line">        teller.exit = <span class="keyword">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//处理完剩余业务，银行关门</span></span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        myWindow.textField_5.setText(<span class="string">"交易完毕"</span>);</span><br><span class="line">        System.out.println(<span class="string">"剩余的业务处理完毕               银行剩余钱数："</span>+teller.total+<span class="string">"     今日受理客户总数："</span>+teller.num);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="客户类"><a href="#客户类" class="headerlink" title="客户类"></a>客户类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> balance;<span class="comment">//客户余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> time;<span class="comment">//客户服务时长</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">boolean</span> deposit;<span class="comment">//客户操作类型，如果为true则为存款，false为取款</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> money;<span class="comment">//客户操作金额</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w1;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">(<span class="keyword">int</span> balance,<span class="keyword">int</span> time,<span class="keyword">int</span> depos,<span class="keyword">int</span> money,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.balance=balance;<span class="keyword">this</span>.time=time;<span class="keyword">this</span>.money=money;</span><br><span class="line">		w1=w;</span><br><span class="line">		<span class="keyword">if</span>(depos==<span class="number">0</span>)</span><br><span class="line">		&#123;<span class="comment">//存钱</span></span><br><span class="line">			deposit=<span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			deposit=<span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">withdrawal</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;<span class="comment">//取钱</span></span><br><span class="line">		w1.textField_9.setText(<span class="string">"时长："</span>+time);</span><br><span class="line">		<span class="keyword">if</span>(balance&lt;money)</span><br><span class="line">		&#123;<span class="comment">//余额不足</span></span><br><span class="line">			System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">			w1.textField_2.setText(<span class="string">"取款："</span>+money);</span><br><span class="line">			w1.textField_3.setText(<span class="string">"余额："</span>+balance+<span class="string">"(不足)"</span>);</span><br><span class="line">			System.out.println(<span class="string">"  取款："</span>+money+<span class="string">",余额："</span>+balance+<span class="string">"(不足)  操作失败"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;<span class="comment">//取钱失败</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">			balance=balance-money;</span><br><span class="line">			w1.textField_2.setText(<span class="string">"取款："</span>+money);</span><br><span class="line">			w1.textField_3.setText(<span class="string">"余额："</span>+balance);</span><br><span class="line">			System.out.println(<span class="string">"  取款:"</span>+money+<span class="string">",余额："</span>+balance+<span class="string">"  操作成功"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//取钱成功</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">deposit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;<span class="comment">//存钱</span></span><br><span class="line">		System.out.print(<span class="string">"时长："</span>+time+<span class="string">"    原存款："</span>+balance);</span><br><span class="line">		w1.textField_9.setText(<span class="string">"时长："</span>+time);</span><br><span class="line">		balance+=money;</span><br><span class="line">		w1.textField_2.setText(<span class="string">"存款："</span>+money);</span><br><span class="line">		w1.textField_3.setText(<span class="string">"余额："</span>+balance);</span><br><span class="line">		System.out.println(<span class="string">"  存款"</span>+money+<span class="string">",余额："</span>+balance);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="客户队列"><a href="#客户队列" class="headerlink" title="客户队列"></a>客户队列</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*ArrayBlockingQueue:</span></span><br><span class="line"><span class="comment">A bounded blocking queue backed by an array. This queue orders elements FIFO (first-in-first-out).</span></span><br><span class="line"><span class="comment">Once created, the capacity cannot be changed.</span></span><br><span class="line"><span class="comment">Attempts to put an element into a full queue will result in the operation blocking; </span></span><br><span class="line"><span class="comment">attempts to take an element from an empty queue will similarly block. </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomerLine</span> <span class="keyword">extends</span> <span class="title">ArrayBlockingQueue</span>&lt;<span class="title">Customer</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;<span class="comment">//客户队列</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w2;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CustomerLine</span><span class="params">(<span class="keyword">int</span> maxSize,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(maxSize);</span><br><span class="line">		w2=w;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="随机产生客户"><a href="#随机产生客户" class="headerlink" title="随机产生客户"></a>随机产生客户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//随机产生顾客</span><br><span class="line">class CustomerGen extends Thread</span><br><span class="line">&#123;</span><br><span class="line">	Random rand=new Random();</span><br><span class="line">	public boolean exit=false;//false表示银行仍在受理新来客户，可以继续产生客户</span><br><span class="line">	CustomerLine line;//客户队列</span><br><span class="line">	public MyWindow w3;//银行窗口显示信息</span><br><span class="line">	//得到顾客的队列</span><br><span class="line">	public CustomerGen(CustomerLine line,MyWindow w)</span><br><span class="line">	&#123;</span><br><span class="line">		this.line=line;</span><br><span class="line">		w3=w;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void run()</span><br><span class="line">	&#123;</span><br><span class="line">		try</span><br><span class="line">		&#123;//一直产生新的客户</span><br><span class="line">			while(!exit)</span><br><span class="line">			&#123;</span><br><span class="line">				//随机时间里面产生顾客，产生的顾客需求也是随机地,客户的初始余额也是随机的 </span><br><span class="line">	            TimeUnit.MILLISECONDS.sleep(rand.nextInt(1000));  </span><br><span class="line">	            //然后队列里面添加一个随机地顾客  </span><br><span class="line">	            line.put(new Customer(rand.nextInt(1000),rand.nextInt(1000),rand.nextInt(2),rand.nextInt(1000),w3));  //随机的顾客需求</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		catch(InterruptedException e)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(&quot;顾客线程出错！&quot;);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		w3.textField.setText(&quot;                        下班时间到了&quot;);</span><br><span class="line">		System.out.println(&quot;\n工作人员要下班啦！不再受理新来客户\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="工作人员"><a href="#工作人员" class="headerlink" title="工作人员"></a>工作人员</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//工作人员</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teller</span> <span class="keyword">extends</span> <span class="title">Thread</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">boolean</span> exit=<span class="keyword">false</span>;<span class="comment">//false表示没有下班</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> num=<span class="number">0</span>;<span class="comment">//已服务的客户数</span></span><br><span class="line">	<span class="keyword">private</span> CustomerLine line;<span class="comment">//顾客队列</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> total=<span class="number">10000</span>;<span class="comment">//银行余额</span></span><br><span class="line">	<span class="keyword">public</span> MyWindow w4;<span class="comment">//银行窗口显示信息</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Teller</span><span class="params">(CustomerLine line,MyWindow w)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.line=line;</span><br><span class="line">		w4=w;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">try</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(!exit)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(line.size()==<span class="number">0</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//若没有客户，则进行等待</span></span><br><span class="line">					w4.textField_8.setText(<span class="string">"0"</span>);</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">//Retrieves and removes the head of this queue, </span></span><br><span class="line">				<span class="comment">//waiting if necessary until an element becomes available.</span></span><br><span class="line">				<span class="comment">//队列里面排第一个的顾客脱离队伍，接受服务</span></span><br><span class="line">                Customer customer = line.take();	</span><br><span class="line">              <span class="comment">//这个要被服务的时间队列需要停顿，停顿时间有当前的customer决定 </span></span><br><span class="line">                TimeUnit.MILLISECONDS.sleep(customer.time); </span><br><span class="line">                </span><br><span class="line">                <span class="comment">//显示顾客信息</span></span><br><span class="line">                <span class="keyword">if</span>(customer.deposit)</span><br><span class="line">                &#123;<span class="comment">//存钱</span></span><br><span class="line">                	customer.deposit();</span><br><span class="line">                	total+=customer.money;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;<span class="comment">//取钱</span></span><br><span class="line">                	<span class="keyword">if</span>(customer.withdrawal())</span><br><span class="line">                		total-=customer.money;</span><br><span class="line">                &#125;</span><br><span class="line">            	w4.textField_6.setText(<span class="string">""</span>+total);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//服务客户数量加一 </span></span><br><span class="line">               <span class="comment">// synchronized(this)  </span></span><br><span class="line">                &#123;  </span><br><span class="line">                    num++;</span><br><span class="line">                    w4.textField_1.setText(<span class="string">"第"</span>+num+<span class="string">"位客户"</span>);</span><br><span class="line">                    w4.textField_8.setText(<span class="string">""</span>+line.size());</span><br><span class="line">                    w4.textField_6.setText(<span class="string">""</span>+total);</span><br><span class="line">                    System.out.println(<span class="string">"当前服务顾客数："</span>+num+<span class="string">"，当前等待人数："</span>+line.size()+<span class="string">"，银行余额："</span>+total);</span><br><span class="line">                    System.out.println();</span><br><span class="line">                &#125; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span>(InterruptedException e)</span><br><span class="line">		&#123;</span><br><span class="line">			w4.textField_1.setText(<span class="string">"银行服务线程出错！"</span>);</span><br><span class="line">			System.out.println(<span class="string">"银行服务线程出错！"</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="银行窗口"><a href="#银行窗口" class="headerlink" title="银行窗口"></a>银行窗口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//银行窗口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWindow</span> <span class="keyword">extends</span> <span class="title">JFrame</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JPanel contentPane;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField;<span class="comment">//显示“上班时间”或“下班时间”</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_1;<span class="comment">//第几位客户</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_2;<span class="comment">//交易金额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_3;<span class="comment">//客户余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_4;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_5;<span class="comment">//交易状态</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_6;<span class="comment">//银行余额</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_7;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_8;<span class="comment">//正在等待的人数</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> JTextField textField_9;<span class="comment">//交易时长</span></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Launch the application.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//显示窗口</span></span><br><span class="line">		MyWindow frame = <span class="keyword">new</span> MyWindow();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create the frame.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyWindow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		setBounds(<span class="number">100</span>, <span class="number">100</span>, <span class="number">450</span>, <span class="number">300</span>);</span><br><span class="line">		contentPane = <span class="keyword">new</span> JPanel();</span><br><span class="line">		contentPane.setBorder(<span class="keyword">new</span> EmptyBorder(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>));</span><br><span class="line">		setContentPane(contentPane);</span><br><span class="line">		</span><br><span class="line">		textField = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField.setBackground(Color.PINK);</span><br><span class="line">		textField.setText(<span class="string">"                        正在营业       "</span>);</span><br><span class="line">		textField.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_1 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_1.setText(<span class="string">"第0位客户"</span>);</span><br><span class="line">		textField_1.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_2 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_2.setText(<span class="string">"交易：0"</span>);</span><br><span class="line">		textField_2.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_3 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_3.setText(<span class="string">"余额：0"</span>);</span><br><span class="line">		textField_3.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_4 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_4.setText(<span class="string">"银行余额"</span>);</span><br><span class="line">		textField_4.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_5 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_5.setBackground(Color.PINK);</span><br><span class="line">		textField_5.setText(<span class="string">"正在交易"</span>);</span><br><span class="line">		textField_5.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_6 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_6.setText(<span class="string">"0"</span>);</span><br><span class="line">		textField_6.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_7 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_7.setText(<span class="string">"等待人数"</span>);</span><br><span class="line">		textField_7.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_8 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_8.setText(<span class="string">"0"</span>);</span><br><span class="line">		textField_8.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		textField_9 = <span class="keyword">new</span> JTextField();</span><br><span class="line">		textField_9.setText(<span class="string">"时长：0"</span>);</span><br><span class="line">		textField_9.setColumns(<span class="number">10</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//布置文本框位置</span></span><br><span class="line">		GroupLayout gl_contentPane = <span class="keyword">new</span> GroupLayout(contentPane);</span><br><span class="line">		gl_contentPane.setHorizontalGroup(</span><br><span class="line">			gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addGap(<span class="number">84</span>)</span><br><span class="line">					.addComponent(textField, GroupLayout.PREFERRED_SIZE, <span class="number">222</span>, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addContainerGap(<span class="number">112</span>, Short.MAX_VALUE))</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, <span class="keyword">false</span>)</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGap(<span class="number">157</span>)</span><br><span class="line">							.addComponent(textField_3))</span><br><span class="line">						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">								.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">								.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">							.addGap(<span class="number">61</span>)</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, <span class="keyword">false</span>)</span><br><span class="line">								.addComponent(textField_2)</span><br><span class="line">								.addComponent(textField_1, <span class="number">0</span>, <span class="number">0</span>, Short.MAX_VALUE)</span><br><span class="line">								.addComponent(textField_5, GroupLayout.DEFAULT_SIZE, <span class="number">87</span>, Short.MAX_VALUE)</span><br><span class="line">								.addComponent(textField_9))))</span><br><span class="line">					.addPreferredGap(ComponentPlacement.RELATED, <span class="number">69</span>, Short.MAX_VALUE)</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, <span class="keyword">false</span>)</span><br><span class="line">						.addComponent(textField_6)</span><br><span class="line">						.addComponent(textField_4)))</span><br><span class="line">		);</span><br><span class="line">		gl_contentPane.setVerticalGroup(</span><br><span class="line">			gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">				.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addGap(<span class="number">15</span>)</span><br><span class="line">					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)</span><br><span class="line">								.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">									.addGap(<span class="number">18</span>)</span><br><span class="line">									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.UNRELATED)</span><br><span class="line">									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">									.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">								.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">									.addGap(<span class="number">38</span>)</span><br><span class="line">									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">									.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))</span><br><span class="line">							.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))</span><br><span class="line">						.addGroup(gl_contentPane.createSequentialGroup()</span><br><span class="line">							.addGap(<span class="number">35</span>)</span><br><span class="line">							.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">							.addGap(<span class="number">18</span>)</span><br><span class="line">							.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))</span><br><span class="line">					.addPreferredGap(ComponentPlacement.RELATED)</span><br><span class="line">					.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)</span><br><span class="line">					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))</span><br><span class="line">		);</span><br><span class="line">		contentPane.setLayout(gl_contentPane);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​    </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1034,14 +1033,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

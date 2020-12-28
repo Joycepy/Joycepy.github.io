@@ -158,6 +158,474 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Java12.5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/05/Java12.5/" class="post-title-link" itemprop="url">Java12.5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-05T00:00:00+08:00">2018-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:15:40" itemprop="dateModified" datetime="2018-12-06T21:15:40+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h3 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h3><ol>
+<li>自定义实现runnable接口<br>重载run()操作，作为参数创建Thread</li>
+<li>继承Thread类<br>extends Thread,间接实现runnable<br>run(),start()开始执行run(),Thread implements Runnnable</li>
+</ol>
+<h5 id="Thread构造方法"><a href="#Thread构造方法" class="headerlink" title="Thread构造方法"></a>Thread构造方法</h5><p>参数：无参、线程名、runnable<br><em>内部类保存了外部类的指针</em></p>
+<h5 id="Thread-sleep-100-休眠一百毫秒"><a href="#Thread-sleep-100-休眠一百毫秒" class="headerlink" title="Thread.sleep(100)休眠一百毫秒"></a>Thread.sleep(100)休眠一百毫秒</h5><p>注意使用try-catch(sleep可能被打断)<br>==native==方法：调用本地的、底层的代码，主要用于执行run()</p>
+<h5 id="对共享数据的访问不完整性-gt-解决方法："><a href="#对共享数据的访问不完整性-gt-解决方法：" class="headerlink" title="对共享数据的访问不完整性=&gt;解决方法："></a>对共享数据的访问不完整性=&gt;解决方法：</h5><ul>
+<li>做成一个整体：synchronized,修饰方法或代码段，每个包含synchronized的对象使用一把互斥锁</li>
+<li>使用时避免死锁</li>
+<li>若修饰一个静态方法，所有对象共用一把互斥锁<h4 id="线程生命周期"><a href="#线程生命周期" class="headerlink" title="线程生命周期"></a>线程生命周期</h4>新建、就绪、执行、阻塞/消亡<br>yield()放弃run()回到就绪<br><strong>blocked</strong>：I/O操作、wait()释放互斥锁、sleep()和suspend()不释放互斥锁</li>
+</ul>
+<p>wait()与notify():<br>消费者生产者模式，实现线程间通信</p>
+<p>但可能造成死锁，synchronized,同时等待对方放弃自己需要的资源</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Java11.28/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/28/Java11.28/" class="post-title-link" itemprop="url">Java11.28</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-28T00:00:00+08:00">2018-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:16:01" itemprop="dateModified" datetime="2018-12-06T21:16:01+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="JComboBox"><a href="#JComboBox" class="headerlink" title="JComboBox"></a>JComboBox</h3><p>(下拉菜单)</p>
+<p>addItem(),getSelectedItem(),setEditable()</p>
+<h5 id="ComboBoxEditor接口，ListCellRenderer渲染"><a href="#ComboBoxEditor接口，ListCellRenderer渲染" class="headerlink" title="ComboBoxEditor接口，ListCellRenderer渲染"></a>ComboBoxEditor接口，ListCellRenderer渲染</h5><h3 id="Icon接口，由ImageIcon实现"><a href="#Icon接口，由ImageIcon实现" class="headerlink" title="Icon接口，由ImageIcon实现"></a>Icon接口，由ImageIcon实现</h3><p>Jcomponent,提示信息,setBorder设置边框</p>
+<h3 id="JList"><a href="#JList" class="headerlink" title="JList"></a>JList</h3><p>DefaultListModel,ListSelectedionListener</p>
+<h6 id="JTextField-JPasswordField-JFormattedTextField"><a href="#JTextField-JPasswordField-JFormattedTextField" class="headerlink" title="JTextField:JPasswordField,JFormattedTextField"></a>JTextField:JPasswordField,JFormattedTextField</h6><h5 id="Document接口"><a href="#Document接口" class="headerlink" title="Document接口"></a>Document接口</h5><h5 id="JOptionPane-Message-boxes对话框"><a href="#JOptionPane-Message-boxes对话框" class="headerlink" title="JOptionPane,Message boxes对话框"></a>JOptionPane,Message boxes对话框</h5><p>showConfirmDialogue,showOptionDialogue,showInputDialogue</p>
+<h5 id="JDialog"><a href="#JDialog" class="headerlink" title="JDialog"></a>JDialog</h5><h5 id="JSlider-JProgressBar"><a href="#JSlider-JProgressBar" class="headerlink" title="JSlider,JProgressBar"></a>JSlider,JProgressBar</h5><h5 id="JMenubar-JMenu-JMenuItem"><a href="#JMenubar-JMenu-JMenuItem" class="headerlink" title="JMenubar+JMenu+JMenuItem"></a>JMenubar+JMenu+JMenuItem</h5><p>setMenuBar</p>
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><p>JComponent–Graphics<br>改写paintComponent</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/Java-11.21/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/21/Java-11.21/" class="post-title-link" itemprop="url">Java11.21</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-21T00:00:00+08:00">2018-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:22:31" itemprop="dateModified" datetime="2018-12-06T21:22:31+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>低级事件（component,container,window,fous,key,mousewheel…）</li>
+<li>语义事件（action.itemevent,adjustment,textevent…）<h3 id="ActionEvent"><a href="#ActionEvent" class="headerlink" title="ActionEvent"></a>ActionEvent</h3><h3 id="KeyEvent"><a href="#KeyEvent" class="headerlink" title="KeyEvent"></a>KeyEvent</h3></li>
+<li>引发原因：敲完、按下、释放</li>
+<li>KeyListener:KeyPressed,KeyReleased</li>
+<li>方法：getKeyChar()</li>
+<li>事件适配器（有一个以上的方法）KeyAdapter<h3 id="MouseEvent"><a href="#MouseEvent" class="headerlink" title="MouseEvent"></a>MouseEvent</h3></li>
+<li>引发原因：移动拖动，点击</li>
+<li>两个接口：MouseListener，MouseMotionListene r=&gt; MouseInputListener</li>
+<li>方法：getClickCount,getPoint(getX/getY)，getModifiers(左右键)<h2 id="applet下载"><a href="#applet下载" class="headerlink" title="applet下载"></a>applet下载</h2>执行框架：init,start,stop,destroy</li>
+</ul>
+<p>……</p>
+<p>计算器：pannel做分割，一部分为grid</p>
+<h2 id="Swing"><a href="#Swing" class="headerlink" title="Swing"></a>Swing</h2><h3 id="常用控件："><a href="#常用控件：" class="headerlink" title="常用控件："></a>常用控件：</h3><h5 id="Buttons"><a href="#Buttons" class="headerlink" title="- Buttons"></a>- Buttons</h5><ol>
+<li>AbstractButton为父类：</li>
+</ol>
+<ul>
+<li>JButton</li>
+<li>JToggleButton</li>
+<li>JCheckBox</li>
+<li>RadioButton</li>
+<li>JMenuItem</li>
+</ul>
+<p>==ButtonGroup中只有一个按钮可以被选中==</p>
+<p><em>JPanel.setBorder(new TitleBorder(String))</em><br><em>JTextArea(m,n) t —- m行n列文本区</em><br><em>add(new JScrollPane(t))</em></p>
+<p>itemListener.itemStageChange()(监听程序)</p>
+<p>JCheckBox.addItemListener<br>2.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/Java11.17/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/17/Java11.17/" class="post-title-link" itemprop="url">Java11.17</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-17T00:00:00+08:00">2018-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:23:30" itemprop="dateModified" datetime="2018-12-06T21:23:30+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>throw~throws<br>子类的构造方法可以跑出更多的exception<br>    重写父类其他方法exception不能比父类多<br>try-catch先具体后一般</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/Java11.14/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/14/Java11.14/" class="post-title-link" itemprop="url">Java11.14</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-14T00:00:00+08:00">2018-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 21:22:17" itemprop="dateModified" datetime="2018-12-06T21:22:17+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="AWT——Swing区别："><a href="#AWT——Swing区别：" class="headerlink" title="AWT——Swing区别："></a>AWT——Swing区别：</h5><p><strong>名称改变</strong>：Button-JButton<br>    Frame-JFrame<br>    …….<br><strong>Swing:</strong></p>
+<ul>
+<li>新添JSplitPane、JTree、</li>
+<li>提供更多功能（组件形状任意、边框任意、显示多样）</li>
+<li>无native代码（light weight,无本地代码）</li>
+<li>可设置外观（look&amp;feel）</li>
+<li>MVC设计模式（model保存数据据</li>
+</ul>
+<p>==light weight与heavy weight勿混用==</p>
+<h5 id="布局管理器"><a href="#布局管理器" class="headerlink" title="布局管理器"></a>布局管理器</h5><ul>
+<li>BorderLayout—add(acomponent,BorderLayout.North/South/East/West/Center)控件相对位置不变</li>
+<li>FlowLayout(int align,int hgap,int vgap)参数可缺省，控件大小不变</li>
+<li>GridLayout  控件大小相同，相同位置不变，行数不为零时，列数被忽略</li>
+<li>GridBagLayout</li>
+<li>BoxLayout</li>
+</ul>
+<h6 id="Box容器"><a href="#Box容器" class="headerlink" title="Box容器"></a>Box容器</h6><p>……</p>
+<h6 id="直接管理组件"><a href="#直接管理组件" class="headerlink" title="直接管理组件"></a>直接管理组件</h6><p>setLayout(null)关闭布局管理器</p>
+<ol>
+<li>getInsets()边界空隙</li>
+<li>JButton.getPreferedSize()</li>
+<li>JButton.setBounds(x,x,x,x)</li>
+<li>主方法创建JFrame</li>
+</ol>
+<h4 id="事件及处理机制"><a href="#事件及处理机制" class="headerlink" title="事件及处理机制"></a>事件及处理机制</h4><p>KeyEvent\MouseEvent\ActionEvent……</p>
+<p>对应listener监听者接口</p>
+<p>JButton.addActionListener(ActionEvent)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/03/hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/03/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-03 10:47:04" itemprop="dateCreated datePublished" datetime="2018-11-03T10:47:04+08:00">2018-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-10-28 08:39:58" itemprop="dateModified" datetime="2017-10-28T08:39:58+08:00">2017-10-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/31/Java10.31/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -428,148 +896,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/06/Java10.6/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/06/Java10.6/" class="post-title-link" itemprop="url">Java10.6</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-06T00:00:00+08:00">2018-10-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-06 21:18:16" itemprop="dateModified" datetime="2018-12-06T21:18:16+08:00">2018-12-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>类名：首字母大写，每部单词并在一起且首字母大写（驼峰风格）<br>其他内容（方法、成员变量、对象…）风格与类相同，但第一个字母小写</p>
-<p>“=”在为对象赋值时，是对象的引用<br>==和!=比较的是对象的引用，用equals()比较实际内容<br>自定义的类需覆盖equals()</p>
-<p>主程序是public static class main，在Java中，类中的静态方法不能直接调用动态方法<br>只有将某个内部类修饰为静态类，然后才能够在静态类中调用该类的成员变量与成员方法<br>解决办法：将public<br> class改为public static class.</p>
-<p>数字的二进制表示形式为有符号的二进制补码</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/19/Java9.19/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/19/Java9.19/" class="post-title-link" itemprop="url">Java9.19</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-19T00:00:00+08:00">2018-09-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-06 21:15:06" itemprop="dateModified" datetime="2018-12-06T21:15:06+08:00">2018-12-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>java virtual machine ：Java所定义的虚拟CPU<br>    提供以下定义：<br>指令集、寄存器组、类文件格式、栈、堆（实现内存动态分配、自动回收）</p>
-<p>JRE:Java运行环境（jvm+核心类）<br>Bytecode 字节码<br>JDK java developer’s kit=JSDK software development kit<br>java开发平台：Javase\javaee\javame</p>
-<p>java程序类型：<br>application（可独立执行）<br>applet(小程序，嵌入网页 执行，需要java兼容浏览器)<br>servlets（服务器执行，桥梁）</p>
-<p>applet小程序：<br>init()初始化，start()开始执行，stop()停止执行<br>destroy()释放资源，paint()绘制区域</p>
-<p>Servlet:<br>超文本文件<br>Tomcat</p>
-<p>JSP全名为Java Server Pages</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span>
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -636,14 +966,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

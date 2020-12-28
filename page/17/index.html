@@ -158,6 +158,407 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/23/implement-strstr/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/23/implement-strstr/" class="post-title-link" itemprop="url">implement-strstr</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-23 16:17:38 / 修改时间：22:49:07" itemprop="dateCreated datePublished" datetime="2020-01-23T16:17:38+08:00">2020-01-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>实现 strStr() 函数。</p>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1</p>
+<p>当 <code>needle</code> 是空字符串时我们应当返回 0 。这与C语言的 <a href="https://baike.baidu.com/item/strstr/811469" target="_blank" rel="noopener">strstr()</a> 以及 Java的 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String" target="_blank" rel="noopener">indexOf()</a>) 定义相符。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>比较简单的想法如下，但是时空消耗是在有点看不过去，最主要的问题是，如果字符串中重复的字符比较多，该算法就显得很蠢。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(<span class="built_in">string</span> haystack, <span class="built_in">string</span> needle)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len1 = haystack.length();</span><br><span class="line">	<span class="keyword">int</span> len2 = needle.length();</span><br><span class="line">	<span class="keyword">if</span> (!len2)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!len1)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">-1</span>, j = <span class="number">0</span>, k = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			j = <span class="number">0</span>; i++;</span><br><span class="line">			<span class="keyword">while</span> (i&lt;len1 &amp;&amp; haystack[i] != needle[j])</span><br><span class="line">				i++;</span><br><span class="line">			k = i;</span><br><span class="line">			<span class="keyword">while</span> (k&lt;len1 &amp;&amp; j&lt;len2 &amp;&amp; haystack[k] == needle[j])</span><br><span class="line">			&#123;</span><br><span class="line">				k++; j++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (j == len2)</span><br><span class="line">				<span class="keyword">return</span> k - len2;</span><br><span class="line">			<span class="keyword">if</span> (k &gt;= len1)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>动态规划是个好东西，可惜我没掌握。</p>
+<p>明天大年三十，我还是偷个懒，不学别人的优秀解法了吧。听说KMP 算法（Knuth-Morris-Pratt 算法）是一个著名的字符串匹配算法，效率很高，但是有点复杂。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/22/remove-element/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/22/remove-element/" class="post-title-link" itemprop="url">remove-element</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-22 18:21:34" itemprop="dateCreated datePublished" datetime="2020-01-22T18:21:34+08:00">2020-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-23 16:14:05" itemprop="dateModified" datetime="2020-01-23T16:14:05+08:00">2020-01-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 1: 给定 nums = [3,2,2,3], val = 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。<br>示例 2: 给定 nums = [0,1,2,2,3,0,4,2], val = 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>一个快指针，一个慢指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> size = nums.size();</span><br><span class="line">	<span class="keyword">if</span> (!size)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">auto</span> it1 = nums.begin();</span><br><span class="line">	<span class="keyword">auto</span> it2 = nums.begin();</span><br><span class="line">	<span class="keyword">int</span> t2;</span><br><span class="line">	<span class="keyword">while</span> (it2 != nums.end())</span><br><span class="line">	&#123;</span><br><span class="line">		t2 = *it2;</span><br><span class="line">		<span class="keyword">while</span>(t2 == val)</span><br><span class="line">		&#123;</span><br><span class="line">			it2++;</span><br><span class="line">			size--;</span><br><span class="line">			<span class="keyword">if</span> (it2 == nums.end())</span><br><span class="line">				<span class="keyword">return</span> size;</span><br><span class="line">			t2 = *it2;</span><br><span class="line">		&#125;</span><br><span class="line">		*it1 = t2;</span><br><span class="line">		it1++;</span><br><span class="line">		it2++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/22/remove-duplicates-from-sorted-array/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/22/remove-duplicates-from-sorted-array/" class="post-title-link" itemprop="url">remove-duplicates-from-sorted-array</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-22 17:20:08 / 修改时间：18:17:36" itemprop="dateCreated datePublished" datetime="2020-01-22T17:20:08+08:00">2020-01-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
+<p>示例 1:</p>
+<p>给定数组 nums = [1,1,2], </p>
+<p>函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </p>
+<p>示例 2:</p>
+<p>给定 nums = [0,0,1,1,1,2,2,3,3,4],</p>
+<p>函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>没啥意思，主要就是vector的基本操作。注意边界条件。</p>
+<p>但是我写出来咋这么慢呢？还占这么多内存？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = nums.size();</span><br><span class="line">	<span class="keyword">if</span> (res == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> temp = nums[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">auto</span> it = nums.begin() + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (it != nums.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d = *it;</span><br><span class="line">		<span class="keyword">if</span> (d == temp)</span><br><span class="line">		&#123;</span><br><span class="line">			nums.erase(it);</span><br><span class="line">			res--;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		temp = d;</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看了一下别人的题解，大概是我在erase函数上花的时间太多了，难怪题上说“你不需要考虑数组中超出新长度后面的元素。” 那就 直接覆盖嘛。需要使用两个指针。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = nums.size();</span><br><span class="line">	<span class="keyword">if</span> (res == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">auto</span> it1 = nums.begin();</span><br><span class="line">	<span class="keyword">auto</span> it2 = nums.begin() + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (it2 != nums.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d = *it1;</span><br><span class="line">		<span class="keyword">int</span> t = *it2;</span><br><span class="line">		<span class="keyword">while</span> (t == d)</span><br><span class="line">		&#123;</span><br><span class="line">			it2++;</span><br><span class="line">			res--;</span><br><span class="line">			<span class="keyword">if</span> (it2 != nums.end())</span><br><span class="line">				t = *it2;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> res;</span><br><span class="line">		&#125;</span><br><span class="line">		it1++;</span><br><span class="line">		it2++;</span><br><span class="line">		*it1 = t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/reverse-nodes-in-k-group/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/21/reverse-nodes-in-k-group/" class="post-title-link" itemprop="url">reverse-nodes-in-k-group</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-21 23:09:58" itemprop="dateCreated datePublished" datetime="2020-01-21T23:09:58+08:00">2020-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-22 16:27:05" itemprop="dateModified" datetime="2020-01-22T16:27:05+08:00">2020-01-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>一个链表，每 k 个节点一组进行翻转，返回翻转后的链表。k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，最后剩余的节点保持原有顺序。</p>
+<p>示例 : 给定链表：1-&gt;2-&gt;3-&gt;4-&gt;5，当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5；当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5</p>
+<p>说明 : 只能使用常数的额外空间。不能只是单纯的改变节点内部的值，需要实际的进行节点交换。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>双向队列会比较适合这次的题目，按序压入，再反序取出连起来。为了编程方便，加了preHeader.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!head || !head-&gt;next || k &lt;= <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	ListNode* preh;</span><br><span class="line">	preh = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">	preh-&gt;next = head;</span><br><span class="line">	ListNode* lenp=head;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="built_in">deque</span>&lt;ListNode*&gt; d;</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">1</span>; lenp &amp;&amp; i &lt; k; i++)&#123;</span><br><span class="line">			d.push_front(lenp);</span><br><span class="line">			lenp = lenp-&gt;next;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!lenp &amp;&amp; i&lt;=k)</span><br><span class="line">			<span class="keyword">if</span> (!d.empty())</span><br><span class="line">				preh-&gt;next = d.back();</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		d.push_front(lenp);</span><br><span class="line">		ListNode* n1 = d.back();</span><br><span class="line">		n1-&gt;next = lenp-&gt;next;</span><br><span class="line">		ListNode* n2 = d.front();</span><br><span class="line">		preh-&gt;next = n2;</span><br><span class="line">		<span class="keyword">if</span> (flag)&#123;</span><br><span class="line">			head = n2;</span><br><span class="line">			flag = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; k; j++)&#123;</span><br><span class="line">			d.pop_front();</span><br><span class="line">			n2-&gt;next = d.front();</span><br><span class="line">			n2 = n2-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		lenp = d.front()-&gt;next;</span><br><span class="line">		preh= d.front();</span><br><span class="line">		d.pop_front();</span><br><span class="line">	&#125; <span class="keyword">while</span> (<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>倒是挺有意思的一道题。本来以为会是在两两交换的基础上完成这道题目，现在发现使用了合适的数据结构，真是能节省不少精力。或许两两交换那道题目也可以做一些改进。</p>
+<p>在上面的代码中或许加一个后驱会方便一些。</p>
+<p>用递归的方法也可以解这个题，每次交换待反转结点的第一个和最后一个。</p>
+<p>真  面向样例编程 唉 什么时候才能真正有质变啊</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/swap-nodes-in-pairs/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/21/swap-nodes-in-pairs/" class="post-title-link" itemprop="url">swap-nodes-in-pairs</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-21 20:26:18 / 修改时间：23:05:23" itemprop="dateCreated datePublished" datetime="2020-01-21T20:26:18+08:00">2020-01-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。<strong>不能只是单纯的改变节点内部的值</strong>，而是需要实际的进行节点交换。</p>
+<p>例：给定 1-&gt;2-&gt;3-&gt;4, 你应该返回 2-&gt;1-&gt;4-&gt;3.</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>主要还是弄清楚指针指来指去的顺序。还有注意把两两交换后的节点对连起来。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">ListNode* <span class="title">swapPair</span><span class="params">(ListNode* n1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ListNode* p = n1;</span><br><span class="line">	ListNode* q = n1-&gt;next-&gt;next; </span><br><span class="line">	n1 = n1-&gt;next;</span><br><span class="line">	n1-&gt;next = p;</span><br><span class="line">	n1-&gt;next-&gt;next = q;</span><br><span class="line">	<span class="keyword">return</span> n1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ListNode* <span class="title">swapPairs</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!head || !head-&gt;next)</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	ListNode* h = head;</span><br><span class="line">	ListNode* link = head;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		ListNode* tmp = h;</span><br><span class="line">		tmp=swapPair(tmp);</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">		&#123;</span><br><span class="line">			head = tmp;</span><br><span class="line">			flag = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			link-&gt;next = tmp;</span><br><span class="line">			link = tmp-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		h = tmp-&gt;next-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (!h||!h-&gt;next)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125; <span class="keyword">while</span> (<span class="literal">true</span>);</span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/merge-k-sorted-lists/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/20/merge-k-sorted-lists/" class="post-title-link" itemprop="url">merge-k-sorted-lists</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-20 17:14:43 / 修改时间：22:28:58" itemprop="dateCreated datePublished" datetime="2020-01-20T17:14:43+08:00">2020-01-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>合并 <em>k</em> 个排序链表</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>我的解题思路是基于合并两个有序链表。合并k个链表时，若每次创建新的节点，可能需要较大内存，因此对上次的代码进行了改进，每次将现有的节点串起来，不再创建新节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l1 == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> l2;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (l2 == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> l1;</span><br><span class="line">    ListNode *t1, *t2, *tmp;</span><br><span class="line">    <span class="keyword">int</span> n = l1-&gt;val, m = l2-&gt;val;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; m)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp = l1;</span><br><span class="line">        l1 = l2;</span><br><span class="line">        l2 = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    t1 = l1;</span><br><span class="line">    t2 = l2;</span><br><span class="line">    <span class="keyword">while</span> (t1&amp;&amp;t2)</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode *tmp1, *tmp2;</span><br><span class="line">        n = t1-&gt;val, m = t2-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (n &gt; m)</span><br><span class="line">            <span class="keyword">while</span> (t2-&gt;next&amp;&amp;t2-&gt;next-&gt;val &lt;= n)</span><br><span class="line">                t2 = t2-&gt;next;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n&lt;m)</span><br><span class="line">            <span class="keyword">while</span> (t1-&gt;next&amp;&amp;t1-&gt;next-&gt;val &lt;= m)</span><br><span class="line">                t1 = t1-&gt;next;</span><br><span class="line">        tmp1 = t1-&gt;next;</span><br><span class="line">        t1-&gt;next = t2;</span><br><span class="line">        t1 = t2;</span><br><span class="line">        tmp2 = t2-&gt;next;</span><br><span class="line">        <span class="keyword">if</span> (t1 != <span class="literal">NULL</span>)</span><br><span class="line">            t2-&gt;next = tmp1;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        t2 = tmp2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (t2)</span><br><span class="line">        t1 = t2;</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> num = lists.size();</span><br><span class="line">   <span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (num == <span class="number">1</span>)</span><br><span class="line">       <span class="keyword">return</span> lists[<span class="number">0</span>];</span><br><span class="line">    ListNode* res = lists[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">1</span>; i &lt; num; i++) &#123;</span><br><span class="line">       res = mergeTwoLists(res, lists[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/generate-parentheses/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -433,409 +834,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/Lab_note_11.10/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/Lab_note_11.10/" class="post-title-link" itemprop="url">Lab_note_11.10</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 16:57:02" itemprop="dateCreated datePublished" datetime="2019-11-10T16:57:02+08:00">2019-11-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/remove-nth-node-from-end-of-list/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/01/remove-nth-node-from-end-of-list/" class="post-title-link" itemprop="url">remove-nth-node-from-end-of-list</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-01 20:34:23 / 修改时间：21:25:31" itemprop="dateCreated datePublished" datetime="2019-11-01T20:34:23+08:00">2019-11-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>对于给定的链表，删除倒数第n个节点，返回头节点。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>一个指针遍历两次，或者两个指针遍历一次。对于两个指针p,q，需要固定间隔长度n (p-q=n)，然后同时移动两个指针，直至q移到链表尾。此时q指向需要被移除的节点。注意返回空指针的处理。</p>
-<p>易错情况：</p>
-<p>([1,2],1)  ([1,2],2)  ([1],1)</p>
-<p>编译时报错：<code>error: expected unqualified-id before &#39;while&#39;</code></p>
-<p>原因是在类的定义中误写了循环体。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode *next;</span><br><span class="line">     ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line"> &#125;;	</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode * <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	ListNode *p =head, *q = head;</span><br><span class="line">	<span class="keyword">int</span> i = n;</span><br><span class="line">    <span class="keyword">bool</span> flag=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (i--)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="keyword">if</span>(q-&gt;next)</span><br><span class="line">		    q = q-&gt;next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            flag=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!q-&gt;next&amp;&amp;flag)<span class="comment">//要删除的是头节点</span></span><br><span class="line">		<span class="keyword">if</span> (p-&gt;next)</span><br><span class="line">			<span class="keyword">return</span> p-&gt;next;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (q-&gt;next)</span><br><span class="line">	&#123;</span><br><span class="line">		q = q-&gt;next;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;next = p-&gt;next-&gt;next;</span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/19/4Sum/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/19/4Sum/" class="post-title-link" itemprop="url">4Sum</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-19 22:34:14" itemprop="dateCreated datePublished" datetime="2019-10-19T22:34:14+08:00">2019-10-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 11:22:33" itemprop="dateModified" datetime="2019-10-20T11:22:33+08:00">2019-10-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个整数数组nums和一个整数值target，找出nums中所有的4个数之和等于target的组合。</p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>降低时间复杂度的关键在于避免重复地找出这四个数。将4个数之和转化为两组数之和，即外层之和、内层之和。排序肯定是要有的。之后就是外层的两个指针缩小范围，然后内层两个指针向中间走的过程了。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>嘤……我放弃了，还是好好学习别人的代码吧……</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; fourSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> size = nums.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="keyword">if</span> (size &lt; <span class="number">4</span>) <span class="keyword">return</span> res;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">int</span> s1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> e1 = size - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (s1 &lt; e1 - <span class="number">2</span>) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (nums[s1] + nums[e1<span class="number">-2</span>] + nums[e1<span class="number">-1</span>] + nums[e1] &lt; target) s1++;</span><br><span class="line">        	<span class="keyword">else</span> <span class="keyword">if</span> (nums[s1] + nums[s1+<span class="number">1</span>] + nums[s1+<span class="number">2</span>] + nums[e1] &gt; target) e1--;</span><br><span class="line">        	<span class="keyword">else</span> &#123;</span><br><span class="line">        		<span class="keyword">int</span> tmp1 = s1;</span><br><span class="line">        		<span class="keyword">int</span> tmp2 = e1;</span><br><span class="line">        		twoSum(s1, s1+<span class="number">1</span>, e1<span class="number">-1</span>, e1, res, nums, target);</span><br><span class="line">        		tmp2--;</span><br><span class="line">        		<span class="keyword">while</span> (s1 &lt; tmp2 - <span class="number">2</span>) &#123;</span><br><span class="line">        			<span class="keyword">while</span> (nums[tmp2] == nums[tmp2+<span class="number">1</span>]) tmp2--;</span><br><span class="line">        			twoSum(s1, s1+<span class="number">1</span>, tmp2<span class="number">-1</span>, tmp2, res, nums, target);</span><br><span class="line">                    tmp2--;</span><br><span class="line">        		&#125;</span><br><span class="line">        		tmp1++;</span><br><span class="line">        		<span class="keyword">while</span> (tmp1 &lt; e1 - <span class="number">2</span>) &#123;</span><br><span class="line">        			<span class="keyword">while</span> (nums[tmp1] == nums[tmp1<span class="number">-1</span>]) tmp1++;</span><br><span class="line">        			twoSum(tmp1, tmp1+<span class="number">1</span>, e1<span class="number">-1</span>, e1, res, nums, target);</span><br><span class="line">                    tmp1++;</span><br><span class="line">        		&#125;</span><br><span class="line">                e1--;</span><br><span class="line">        		<span class="keyword">while</span> (s1 &lt; e1 - <span class="number">2</span> &amp;&amp; nums[e1] == nums[e1+<span class="number">1</span>]) e1--;</span><br><span class="line">        		s1++;</span><br><span class="line">                <span class="keyword">while</span> (s1 &lt; e1 - <span class="number">2</span> &amp;&amp; nums[s1] == nums[s1<span class="number">-1</span>]) s1++;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(res.begin(),res.end());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">twoSum</span><span class="params">(<span class="keyword">int</span> s1, <span class="keyword">int</span> s2, <span class="keyword">int</span> e2, <span class="keyword">int</span> e1, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; res, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">while</span> (s2 &lt; e2) &#123;</span><br><span class="line">			<span class="keyword">if</span> (nums[s1] + nums[s2] + nums[e2] + nums[e1] &lt; target) s2++;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (nums[s1] + nums[s2] + nums[e2] + nums[e1] &gt; target) e2--;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tmp&#123;nums[s1], nums[s2], nums[e2], nums[e1]&#125;;</span><br><span class="line">				res.push_back(tmp);</span><br><span class="line">				<span class="keyword">while</span> (s2 &lt; e2 - <span class="number">1</span> &amp;&amp; nums[s2] == nums[s2+<span class="number">1</span>]) s2++;</span><br><span class="line">				s2++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/05/OS_note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/05/OS_note1/" class="post-title-link" itemprop="url">OS_note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-05 22:28:24" itemprop="dateCreated datePublished" datetime="2019-10-05T22:28:24+08:00">2019-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-10 09:03:47" itemprop="dateModified" datetime="2019-10-10T09:03:47+08:00">2019-10-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="鸟哥的Linux私房菜"><a href="#鸟哥的Linux私房菜" class="headerlink" title="鸟哥的Linux私房菜"></a>鸟哥的Linux私房菜</h4><p>Linux常用命令：</p>
-<p>计算器：bc</p>
-<p>翻页：[shift] + { [pgup]|[pgdn] }</p>
-<p>求助：date –help 或 man date 或 info date</p>
-<p>关机：shutdown</p>
-<p><strong>vim指令</strong></p>
-<p>在一般指令模式中：</p>
-<p>/word：向光标之下寻找一个名称为word的字符串</p>
-<p>?word：向光标之上寻找一个名称为word的字符串</p>
-<p>n：重复前一个搜寻动作</p>
-<p>N：反向进行前一个搜寻动作</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/05/py_note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/05/py_note1/" class="post-title-link" itemprop="url">py_note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-05 19:28:53" itemprop="dateCreated datePublished" datetime="2019-10-05T19:28:53+08:00">2019-10-05</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import 模块名</span><br><span class="line">模块名.xxx = 引用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from 模块名 import *</span><br><span class="line">xxx = 拷贝  # 能修改属性值　　</span><br><span class="line"></span><br><span class="line">函数,类... : &quot;import 模块名&quot; 和 &quot;from 模块名 import *&quot; 都是引用</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/02/LaTeX笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/02/LaTeX笔记/" class="post-title-link" itemprop="url">LaTeX笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-02 11:19:04" itemprop="dateCreated datePublished" datetime="2019-10-02T11:19:04+08:00">2019-10-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-05 16:04:32" itemprop="dateModified" datetime="2019-10-05T16:04:32+08:00">2019-10-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <font color="pink">还是要养成记笔记的习惯才好</font>
-
-<p>既然大家都那么推崇LaTeX，那还是学着用好了。</p>
-<p>LaTeX配置环境：TeXLive；编辑器：Texstudio。</p>
-<h4 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h4><p>很多markdown编辑器都支持LaTeX数学公式。</p>
-<p>分两种模式：行内模式（行文中插入），行间模式（单独成行）。</p>
-<p>使用equation环境对公式编号。</p>
-<h4 id="中文支持"><a href="#中文支持" class="headerlink" title="中文支持"></a>中文支持</h4><p>引入CJK宏包并应用CJK环境。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\documentclass[UTF8]&#123;article&#125;</span><br><span class="line"></span><br><span class="line">\usepackage&#123;ctex&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line"></span><br><span class="line">我和我的祖国，一刻也不能分割。</span><br><span class="line"></span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
-<p>或者，ctexart那几个环境相当于是在“\begin{document}”和“\end{document}”之间自动加入CJK环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\documentclass[UTF8]&#123;ctexart&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line"></span><br><span class="line">无论我走到哪里，都留下一首赞歌。</span><br><span class="line"></span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/xueruini/thuthesis" target="_blank" rel="noopener">清华的论文模版</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -902,14 +904,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

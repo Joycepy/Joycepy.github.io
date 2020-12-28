@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="评教模块 教学中心，新增评教一栏，教师可以查看研究生的评教结果（选课人数、评教人数、分项平均分、总平均分、学生文字评价） backend/modules/api/v1/models/lessonVote/AcademicMasterStudentVote.php 前端src\views\teacher\TeachingCenter.vue src\router\fullpath.js中设置路径、组">
+<meta name="keywords" content="yii2,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cc-develop-note-iv">
+<meta property="og:url" content="http://yoursite.com/2020/12/28/cc-develop-note-iv/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="评教模块 教学中心，新增评教一栏，教师可以查看研究生的评教结果（选课人数、评教人数、分项平均分、总平均分、学生文字评价） backend/modules/api/v1/models/lessonVote/AcademicMasterStudentVote.php 前端src\views\teacher\TeachingCenter.vue src\router\fullpath.js中设置路径、组">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/12/28/cc-develop-note-iv/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201214162924955.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/28/cc-develop-note-iv/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201216220627346.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/28/cc-develop-note-iv/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201218114223567.png">
+<meta property="og:updated_time" content="2020-12-28T12:31:07.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cc-develop-note-iv">
+<meta name="twitter:description" content="评教模块 教学中心，新增评教一栏，教师可以查看研究生的评教结果（选课人数、评教人数、分项平均分、总平均分、学生文字评价） backend/modules/api/v1/models/lessonVote/AcademicMasterStudentVote.php 前端src\views\teacher\TeachingCenter.vue src\router\fullpath.js中设置路径、组">
+<meta name="twitter:image" content="http://yoursite.com/2020/12/28/cc-develop-note-iv/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201214162924955.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/28/cc-develop-note-iv/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cc-develop-note-iv | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/28/cc-develop-note-iv/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cc-develop-note-iv
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-28 20:31:06 / 修改时间：20:31:07" itemprop="dateCreated datePublished" datetime="2020-12-28T20:31:06+08:00">2020-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="评教模块"><a href="#评教模块" class="headerlink" title="评教模块"></a>评教模块</h2><p><img src="//yoursite.com/2020/12/28/cc-develop-note-iv/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201214162924955.png" alt="image-20201214162924955"></p>
+<p>教学中心，新增评教一栏，教师可以查看研究生的评教结果（选课人数、评教人数、分项平均分、总平均分、学生文字评价）</p>
+<p>backend/modules/api/v1/models/lessonVote/AcademicMasterStudentVote.php</p>
+<h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>src\views\teacher\TeachingCenter.vue</p>
+<p>src\router\fullpath.js中设置路径、组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">"/vote-result/:lessonID"</span>,</span><br><span class="line">        name: <span class="string">"评教结果查看"</span>,</span><br><span class="line">            component: <span class="function"><span class="params">resolve</span> =&gt;</span></span><br><span class="line">            <span class="built_in">require</span>([</span><br><span class="line">                <span class="string">"@/views/lesson/AllStudentHomeworkInfoList"</span></span><br><span class="line">            ], resolve)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>404：</strong>路由需要设置权限，路由需要对应到菜单<code>/vote-result/:LessonID</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">getTableData()&#123;</span><br><span class="line">    <span class="comment">// 获取评教选课人数、评教人数、分项平均分、总平均分、学生文字评价</span></span><br><span class="line">    <span class="keyword">this</span>.axios.get(<span class="string">'/lesson-vote/get-vote-analysis'</span>, &#123;</span><br><span class="line">        params: &#123;</span><br><span class="line">            LessonID: <span class="keyword">this</span>.$route.params.lessonID</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.data.success) &#123;</span><br><span class="line">            <span class="keyword">this</span>.tableData.totalStudentNum=res.data.SelectNum</span><br><span class="line">            <span class="keyword">this</span>.tableData.votedStudentNum=res.data.voteNum</span><br><span class="line">            <span class="keyword">this</span>.tableData.eachTermAvgScore=res.data.SGScoreArr</span><br><span class="line">            <span class="keyword">this</span>.tableData.allTermAvgScore=res.data.avgScore</span><br><span class="line">            <span class="keyword">this</span>.tableData.allVoteText=res.data.proposal</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.tableData)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">"error"</span>,</span><br><span class="line">                message: res.data</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).catch(util.catchError)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>重新设计数据库表 cc_academic_master_lesson_vote_analysis 和 cc_academic_master_sg_lesson_avgscore，把评教的分析结果存起来，前端查询时直接查表，如果没有该项课程的分析结果，再去执行类似models/lessonVote/AcademicMasterStudentVote.php里的sql语句。</p>
+<p>文字评价直接查 cc_academic_master_student_vote 表</p>
+<p>是否查表：LID 是否已存在</p>
+<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><h4 id="编写Model"><a href="#编写Model" class="headerlink" title="编写Model"></a>编写Model</h4><h5 id="分项平均分"><a href="#分项平均分" class="headerlink" title="分项平均分"></a>分项平均分</h5><p>backend/modules/api/v1/models/lessonVote/AcademicMasterSGLessonAvgScore.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取21项SG的平均分，data 以字典存储，key：SGName，value：AvgScore</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getSGVoteItemAvgArray</span><span class="params">($LessonID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 21条记录</span></span><br><span class="line">    $SGLessonAvgScore=AcademicMasterSGLessonAvgScore::findAll([<span class="string">'LessonID'</span>=&gt;$LessonID]);</span><br><span class="line">    $res=[];</span><br><span class="line">    <span class="keyword">if</span>($SGLessonAvgScore===<span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 需要先进行平均分计算</span></span><br><span class="line">        $StudentVoteIDArr=AcademicMasterStudentVote::findAll([<span class="string">'LessonID'</span>=&gt;$LessonID])[<span class="string">'StudentVoteID'</span>];</span><br><span class="line">        $SGItemScoreArr=AcademicMasterSGItemScore::find()-&gt;where([<span class="string">'in'</span>,<span class="string">'StudentVoteID'</span>,$StudentVoteIDArr])-&gt;all();</span><br><span class="line">        $avgScoreArr=[];</span><br><span class="line">        <span class="keyword">for</span> ($i=<span class="number">1</span>;$i&lt;<span class="number">22</span>;$i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $avgScore[$i]=<span class="number">0.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $count=count($SGItemScoreArr)/<span class="number">21.0</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($SGItemScoreArr <span class="keyword">as</span> $SGItem)&#123;</span><br><span class="line">            $avgScoreArr[$SGItem[<span class="string">'SGVoteID'</span>]]+=$SGItem[<span class="string">'Score'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> ($i=<span class="number">1</span>;$i&lt;<span class="number">22</span>;$i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $avgScore[$i]=$avgScoreArr[$i]/$count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 保存21条记录</span></span><br><span class="line">        $transaction=Yii::$app-&gt;db-&gt;beginTransaction(<span class="string">'SERIALIZABLE'</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> ($i = <span class="number">1</span>; $i &lt; <span class="number">22</span>; $i++)</span><br><span class="line">            &#123;</span><br><span class="line">                $model = <span class="keyword">new</span> AcademicMasterSGLessonAvgScore();</span><br><span class="line">                $model[<span class="string">'LessonID'</span>]=$LessonID;</span><br><span class="line">                $model[<span class="string">'SGVoteID'</span>]=$i;</span><br><span class="line">                $model[<span class="string">'SGVoteItemAvg'</span>]=$avgScoreArr[$i];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!$model-&gt;save())&#123;</span><br><span class="line">                    $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'毕业状态保存失败！'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            $transaction-&gt;commit();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (\<span class="keyword">Exception</span> $exception)  &#123;</span><br><span class="line">            $transaction-&gt;rollBack();</span><br><span class="line">            $res[<span class="string">'data'</span>] = $exception-&gt;getMessage();</span><br><span class="line">            <span class="keyword">return</span> $res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">foreach</span> ($SGLessonAvgScore <span class="keyword">as</span> $item) &#123;</span><br><span class="line">        $SGVoteName=AcademicMasterSGVote::findOne($item[<span class="string">'SGVoteID'</span>])[<span class="string">'SGVoteName'</span>];</span><br><span class="line">        $SGVoteItemAvg=$item[<span class="string">'SGVoteItemAvg'</span>];</span><br><span class="line">        $res[<span class="string">'data'</span>][$SGVoteName]=$SGVoteItemAvg;</span><br><span class="line">    &#125;</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="人数及总平均分"><a href="#人数及总平均分" class="headerlink" title="人数及总平均分"></a>人数及总平均分</h5><p>backend/modules/api/v1/models/lessonVote/AcademicMasterLessonVoteAnalysis.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getAcademicMasterLessonVoteAnalysis</span><span class="params">($LessonID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 获取评教计算结果</span></span><br><span class="line">    $LessonVoteAnalysis=AcademicMasterLessonVoteAnalysis::findOne([<span class="string">'LessonID'</span>=&gt;$LessonID]);</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>($LessonVoteAnalysis===<span class="keyword">null</span>)</span><br><span class="line">    &#123; <span class="comment">// 需要进行计算</span></span><br><span class="line">        $sql = <span class="string">"</span></span><br><span class="line"><span class="string">        SELECT</span></span><br><span class="line"><span class="string">          count(cc_lesson_student.StudentID) AS 'SelectNum',</span></span><br><span class="line"><span class="string">          c.`VoteNum`,</span></span><br><span class="line"><span class="string">          c.`avgScore`</span></span><br><span class="line"><span class="string">        FROM</span></span><br><span class="line"><span class="string">        (</span></span><br><span class="line"><span class="string">          SELECT</span></span><br><span class="line"><span class="string">            count( k.sum ) AS 'VoteNum',</span></span><br><span class="line"><span class="string">            sum( k.sum ) / count( k.sum ) AS 'avgScore'</span></span><br><span class="line"><span class="string">          FROM</span></span><br><span class="line"><span class="string">            (</span></span><br><span class="line"><span class="string">              SELECT</span></span><br><span class="line"><span class="string">                t.StudentID,</span></span><br><span class="line"><span class="string">                sum( Score ) / 105 * 100 AS sum </span></span><br><span class="line"><span class="string">              FROM</span></span><br><span class="line"><span class="string">                (</span></span><br><span class="line"><span class="string">                  SELECT</span></span><br><span class="line"><span class="string">                    cc_lesson_student.StudentID,</span></span><br><span class="line"><span class="string">                    cc_academic_master_student_vote.StudentVoteID </span></span><br><span class="line"><span class="string">                  FROM</span></span><br><span class="line"><span class="string">                    cc_lesson_student</span></span><br><span class="line"><span class="string">                    LEFT OUTER JOIN cc_academic_master_student_vote ON cc_lesson_student.StudentID = cc_academic_master_student_vote.StudentID</span></span><br><span class="line"><span class="string">                  WHERE</span></span><br><span class="line"><span class="string">                    cc_lesson_student.LessonID=:LessonID and cc_academic_master_student_vote.LessonID=:LessonID</span></span><br><span class="line"><span class="string">                ) AS t,</span></span><br><span class="line"><span class="string">                cc_academic_master_sg_item_score </span></span><br><span class="line"><span class="string">              WHERE</span></span><br><span class="line"><span class="string">                t.StudentVoteID = cc_academic_master_sg_item_score.StudentVoteID </span></span><br><span class="line"><span class="string">              GROUP BY</span></span><br><span class="line"><span class="string">                t.StudentVoteID </span></span><br><span class="line"><span class="string">            ) AS k</span></span><br><span class="line"><span class="string">          )as c, cc_lesson_student</span></span><br><span class="line"><span class="string">         WHERE cc_lesson_student.LessonID=:LessonID"</span>;</span><br><span class="line">        $db = Yii::$app-&gt;db;</span><br><span class="line">        $data = $db-&gt;createCommand($sql)</span><br><span class="line">            -&gt;bindValue(<span class="string">':LessonID'</span>, $LessonID)</span><br><span class="line">            -&gt;queryAll();</span><br><span class="line">        $model=<span class="keyword">new</span> AcademicMasterLessonVoteAnalysis();</span><br><span class="line">        $model[<span class="string">'LessonID'</span>]=$LessonID;</span><br><span class="line">        $model[<span class="string">'SelectNum'</span>]=$data[<span class="string">'SelectNum'</span>];</span><br><span class="line">        $model[<span class="string">'VoteNum'</span>]=$data[<span class="string">'VoteNum'</span>];</span><br><span class="line">        $model[<span class="string">'AvgScore'</span>]=$data[<span class="string">'AvgScore'</span>];</span><br><span class="line">        <span class="keyword">if</span> (!$model-&gt;save()) &#123;</span><br><span class="line">            $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">            $res[<span class="string">'data'</span>] = $model-&gt;errors;</span><br><span class="line">        &#125;</span><br><span class="line">        $LessonVoteAnalysis=AcademicMasterLessonVoteAnalysis::findOne([<span class="string">'LessonID'</span>=&gt;$LessonID]);</span><br><span class="line">    &#125;</span><br><span class="line">    $res[<span class="string">'data'</span>]=$LessonVoteAnalysis;</span><br><span class="line">    $res[<span class="string">'success'</span>] = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写SQL语句时结合Navicat视图</p>
+<h5 id="文字评教"><a href="#文字评教" class="headerlink" title="文字评教"></a>文字评教</h5><p>backend/modules/api/v1/models/lessonVote/AcademicMasterStudentVote.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据LessonID返回文字评价</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getVoteProposal</span><span class="params">($LessonID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $proposal=[];</span><br><span class="line">    $sql = <span class="string">"</span></span><br><span class="line"><span class="string">        SELECT</span></span><br><span class="line"><span class="string">            cc_academic_master_student_vote.Proposal1, </span></span><br><span class="line"><span class="string">            cc_academic_master_student_vote.Proposal2</span></span><br><span class="line"><span class="string">        FROM</span></span><br><span class="line"><span class="string">            cc_academic_master_student_vote</span></span><br><span class="line"><span class="string">        WHERE</span></span><br><span class="line"><span class="string">            cc_academic_master_student_vote.LessonID =:LessonID"</span>;</span><br><span class="line">    $db = Yii::$app-&gt;db;</span><br><span class="line">    $data = $db-&gt;createCommand($sql)</span><br><span class="line">        -&gt;bindValue(<span class="string">':LessonID'</span>, $LessonID)</span><br><span class="line">        -&gt;queryAll();</span><br><span class="line">    <span class="keyword">return</span> array_filter(array_merge($data[<span class="string">'Proposal1'</span>],$data[<span class="string">'Proposal2'</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PHP 要过滤数组中的所有值为空的元素(false、null、’’、0)，可直接用 <a href="http://php.net/manual/zh/function.array-filter.php" target="_blank" rel="noopener">array_filter()</a> 函数。</p>
+<h4 id="编写controller"><a href="#编写controller" class="headerlink" title="编写controller"></a>编写controller</h4><p>backend/modules/api/v1/controllers/LessonVoteController.php</p>
+<p>路由<code>/lesson-vote</code>默认对应LessonVoteController，在main.php里写是为了美化url，路由就是 lesson-votes 了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取评教分析</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionGetVoteAnalysis</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $request = \Yii::$app-&gt;request;</span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;getIsOptions()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;ResponseOptions(<span class="keyword">$this</span>-&gt;verbs()[<span class="string">'get-vote-analysis'</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    $LessonID = $request-&gt;get(<span class="string">"LessonID"</span>);</span><br><span class="line">    <span class="comment">// 获取SG分项平均分</span></span><br><span class="line">    $SGVoteItemAvgArray=AcademicMasterSGLessonAvgScore::getSGVoteItemAvgArray($LessonID);</span><br><span class="line">    <span class="comment">// 获取评教总平均分及人数</span></span><br><span class="line">    $LessonVoteAnalysis=AcademicMasterLessonVoteAnalysis::getAcademicMasterLessonVoteAnalysis($LessonID);</span><br><span class="line">    <span class="comment">// 获取文字评价</span></span><br><span class="line">    $proposal=AcademicMasterStudentVote::getVoteProposal($LessonID);</span><br><span class="line"></span><br><span class="line">    $res[<span class="string">'success'</span>]=<span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(!$LessonVoteAnalysis[<span class="string">'success'</span>]||!$SGVoteItemAvgArray[<span class="string">'success'</span>])&#123;</span><br><span class="line">        $res[<span class="string">'success'</span>]=<span class="keyword">false</span>;</span><br><span class="line">        $res[<span class="string">'data'</span>]=<span class="string">'LessonVoteAnalysis/SGVoteItemAvgArray'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $res[<span class="string">'data'</span>]=array_merge($LessonVoteAnalysis[<span class="string">'data'</span>],$SGVoteItemAvgArray[<span class="string">'data'</span>]);</span><br><span class="line">    $res[<span class="string">'data'</span>][<span class="string">'proposal'</span>]=$proposal;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="//yoursite.com/2020/12/28/cc-develop-note-iv/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201216220627346.png" alt="image-20201216220627346"></p>
+<p>请求后端 API 之前也需要给基础教师加入权限</p>
+<p>或者在<code>backend/modules/api/v1/controllers/base/BaseController.php</code>中去掉注释</p>
+<p><img src="//yoursite.com/2020/12/28/cc-develop-note-iv/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201218114223567.png" alt="image-20201218114223567"></p>
+<p>需要注意 Divided by 0 的情况， <code>== 0</code>和<code>=== 0</code>的区别</p>
+<h2 id="毕业设计模块"><a href="#毕业设计模块" class="headerlink" title="毕业设计模块"></a>毕业设计模块</h2><p>学生账户登录，本科毕业设计模块（需要管理员先修改“毕业设计“的进度），学生打印表格时保留文档样式，以word格式导出。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li><del>在后端生成 word 文件，传输到前端。src\views\graduateProject\ExportGraduateFile.vue</del></li>
+<li><p>在前端拿到表格数据，生成 word。backend/modules/api/v1/controllers/GraduateProjectController.php 的 actionExportGraduateFile($fid) 函数</p>
+<p>&lt;el<em>-</em>main&gt; ：主要区域容器。\<el-footer> ：底栏容器。</el-footer></p>
+</li>
+</ul>
+<p><strong>参考</strong>：<a href="https://www.shuzhiduo.com/A/gVdneg9N5W/" target="_blank" rel="noopener">https://www.shuzhiduo.com/A/gVdneg9N5W/</a></p>
+<p><strong>需要的插件</strong>：docxtemplater、jszip-utils、jszip、FileSaver。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载题目审批表</span></span><br><span class="line">downloadTopicApprovalForm(i) &#123;</span><br><span class="line">    <span class="keyword">let</span> _this = <span class="keyword">this</span>;</span><br><span class="line">    <span class="comment">// 判断有无附加商品来选择word模版</span></span><br><span class="line">    <span class="comment">// 读取并获得模板文件的二进制内容</span></span><br><span class="line">    <span class="keyword">let</span> filePath=<span class="string">""</span>;</span><br><span class="line">    <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            filePath=<span class="string">"static/file/TopicApprovalForm.docx"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            filePath=<span class="string">"static/file/MidtermCheckForm.docx"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            filePath=<span class="string">"static/file/TeacherScoreForm.docx"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            filePath=<span class="string">"static/file/ReplyRecordForm.docx"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    JSZipUtils.getBinaryContent(filePath, <span class="function"><span class="keyword">function</span> (<span class="params">error, content</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// console.log("-----", content);</span></span><br><span class="line">        <span class="comment">// input.docx是模板。我们在导出的时候，会根据此模板来导出对应的数据</span></span><br><span class="line">        <span class="comment">// 抛出异常</span></span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            <span class="keyword">throw</span> error;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 创建一个JSZip实例，内容为模板的内容</span></span><br><span class="line">        <span class="keyword">let</span> zip = <span class="keyword">new</span> JSZip(content);</span><br><span class="line">        <span class="comment">// console.log("+++++", zip);</span></span><br><span class="line">        <span class="comment">// 创建并加载docxtemplater实例对象</span></span><br><span class="line">        <span class="keyword">let</span> doc = <span class="keyword">new</span> Docxtemplater();</span><br><span class="line">        <span class="comment">// console.log("/////", doc);</span></span><br><span class="line">        doc.loadZip(zip);</span><br><span class="line">        <span class="comment">// console.log("=====", doc);</span></span><br><span class="line">        <span class="comment">// 设置模板变量的值</span></span><br><span class="line">        doc.setData(&#123;</span><br><span class="line">            <span class="comment">// 导出价格表全部信息</span></span><br><span class="line">            ..._this.studentInfoForm,</span><br><span class="line">            <span class="comment">// 导出价格表商品信息</span></span><br><span class="line">            ..._this.infoForm,</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 用模板变量的值替换所有模板变量</span></span><br><span class="line">            doc.render();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="comment">// 抛出异常</span></span><br><span class="line">            <span class="keyword">let</span> e = &#123;</span><br><span class="line">                message: error.message,</span><br><span class="line">                name: error.name,</span><br><span class="line">                stack: error.stack,</span><br><span class="line">                properties: error.properties,</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(&#123; <span class="attr">error</span>: e &#125;));</span><br><span class="line">            <span class="keyword">throw</span> error;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 生成一个代表docxtemplater对象的zip文件（不是一个真实的文件，而是在内存中的表示）</span></span><br><span class="line">        <span class="keyword">let</span> out = doc.getZip().generate(&#123;</span><br><span class="line">            type: <span class="string">"blob"</span>,</span><br><span class="line">            mimeType:</span><br><span class="line">            <span class="string">"application/vnd.openxmlformats-officedocument.wordprocessingml.document"</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 将目标文件对象保存为目标类型的文件，并命名</span></span><br><span class="line">        saveAs(out, _this.studentInfoForm.StudentName + <span class="string">"-题目审批表.docx"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><code>undefined</code>问题在前端解决；</p>
+<p>学院由后端传值时判断backend/modules/api/v1/models/graduateProject/GraduateProjectStudentModel.php  getStudentInfo($id)</p>
+<h2 id="实验室网站"><a href="#实验室网站" class="headerlink" title="实验室网站"></a>实验室网站</h2><p>mstsc /admin /v:192.168.190.191</p>
+<p>dbis_atd_record表</p>
+<p>backend\models\AttendanceRule\Attendance.php</p>
+<p>backend\controllers\attendance\AtdOffdaysController.php</p>
+<p>time-insert\time_insert.php</p>
+<p>frontend\controllers\TimingInsertController.php</p>
+<p>考勤管理导入节假日</p>
+<p>新增页面导入数据库数据</p>
+<p>脚本：\192.168.190.206\Personal\xulicheng\XLC-DELL-530\DBISWork\DBISWEB</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/yii2/" rel="tag"># yii2</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/cc-develop-note-v/" rel="prev" title="cc-develop-note-v">
+      <i class="fa fa-chevron-left"></i> cc-develop-note-v
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/28/HTTP连接池/" rel="next" title="HTTP连接池">
+      HTTP连接池 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#评教模块"><span class="nav-number">1.</span> <span class="nav-text">评教模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端"><span class="nav-number">1.1.</span> <span class="nav-text">前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.2.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端"><span class="nav-number">1.3.</span> <span class="nav-text">后端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写Model"><span class="nav-number">1.3.1.</span> <span class="nav-text">编写Model</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分项平均分"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">分项平均分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#人数及总平均分"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">人数及总平均分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文字评教"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">文字评教</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写controller"><span class="nav-number">1.3.2.</span> <span class="nav-text">编写controller</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#毕业设计模块"><span class="nav-number">2.</span> <span class="nav-text">毕业设计模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验室网站"><span class="nav-number">3.</span> <span class="nav-text">实验室网站</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://jerrymousez.github.io/" title="https://jerrymousez.github.io/" rel="noopener" target="_blank">JZ</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

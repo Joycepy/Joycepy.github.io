@@ -158,6 +158,440 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/Palindrome-Number/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/01/Palindrome-Number/" class="post-title-link" itemprop="url">Palindrome Number</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-01 10:43:00" itemprop="dateCreated datePublished" datetime="2019-07-01T10:43:00+08:00">2019-07-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目描述：判断回文数字</p>
+<p>解决方案：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">不用将数字转成字符串，而是在数字长度一半的地方，将右半部分反转，与左半部分进行比较</span></span><br><span class="line"><span class="comment">若相等，则为回文数字；否则不是。</span></span><br><span class="line"><span class="comment">判断一般的位置：左边的数字不大于右边的数字</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (x &lt; <span class="number">10</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">int</span> left = x, right = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (!(left % <span class="number">10</span>))<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//末尾是0的情况</span></span><br><span class="line">	<span class="keyword">while</span> (left &gt; right)&#123;</span><br><span class="line">		right = right * <span class="number">10</span> + (left % <span class="number">10</span>);</span><br><span class="line">		left /= <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">if</span> ((left / <span class="number">10</span>) &gt; <span class="number">0</span> &amp;&amp; (left / <span class="number">10</span>) &lt;= right)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (left == right|| (left / <span class="number">10</span>) == right)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/爬虫/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/29/爬虫/" class="post-title-link" itemprop="url">爬虫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-29 12:09:11" itemprop="dateCreated datePublished" datetime="2019-06-29T12:09:11+08:00">2019-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-30 11:35:50" itemprop="dateModified" datetime="2019-06-30T11:35:50+08:00">2019-06-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="http://c.biancheng.net/view/2011.html" target="_blank" rel="noopener">学习链接</a></p>
+<p>案例：<a href="http://www.cntour.cn/" target="_blank" rel="noopener">中国旅游网</a>，<a href="http://fanyi.youdao.com/" target="_blank" rel="noopener">有道翻译</a></p>
+<p>快捷键【Ctrl+U】打开源码页面</p>
+<p><strong>合法性：</strong>如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。</p>
+<p><strong>准备工作：</strong>在 PyCharm 中安装 requests 库</p>
+<p><strong>基本原理：</strong>网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。</p>
+<h4 id="开始爬虫"><a href="#开始爬虫" class="headerlink" title="开始爬虫"></a>开始爬虫</h4><p>所有在源码中的数据请求方式都是GET</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line">url = <span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml = requests.get(url)        <span class="comment">#Get方式获取网页数据</span></span><br><span class="line">print(strhtml.text)</span><br></pre></td></tr></table></figure>
+<p>用 GET 方式获取数据需要调用 requests 库中的 get 方法：requests.get(url)，这个方法获得一个url对象，代表整个网页，如果只需网页中的源码，使用.text</p>
+<p>在开发者模式中，依次单击“Network”按钮和“XHR”按钮，找到翻译数据，将 Headers 中的 URL 复制出来，并赋值给 url。POST 请求数据必须构建请求头。复制From Data中的请求参数并构建一个新字典。使用 requests.post 方法请求表单数据。将字符串格式的数据转换成 JSON 格式数据，并根据数据结构，提取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_translate_date</span><span class="params">(word=None)</span>:</span></span><br><span class="line">    url = <span class="string">'http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule'</span></span><br><span class="line">    From_data=&#123;<span class="string">'i'</span>:word,<span class="string">'from'</span>:<span class="string">'zh-CHS'</span>,<span class="string">'to'</span>:<span class="string">'en'</span>,<span class="string">'smartresult'</span>:<span class="string">'dict'</span>,<span class="string">'client'</span>:<span class="string">'fanyideskweb'</span>,<span class="string">'salt'</span>:<span class="string">'15477056211258'</span>,<span class="string">'sign'</span>:<span class="string">'b3589f32c38bc9e3876a570b8a992604'</span>,<span class="string">'ts'</span>:<span class="string">'1547705621125'</span>,<span class="string">'bv'</span>:<span class="string">'b33a2f3f9d09bde064c9275bcb33d94e'</span>,<span class="string">'doctype'</span>:<span class="string">'json'</span>,<span class="string">'version'</span>:<span class="string">'2.1'</span>,<span class="string">'keyfrom'</span>:<span class="string">'fanyi.web'</span>,<span class="string">'action'</span>:<span class="string">'FY_BY_REALTIME'</span>,<span class="string">'typoResult'</span>:<span class="string">'false'</span>&#125;</span><br><span class="line">    <span class="comment">#请求表单数据</span></span><br><span class="line">    response = requests.post(url,data=From_data)</span><br><span class="line">    <span class="comment">#将Json格式字符串转字典</span></span><br><span class="line">    content = json.loads(response.text)</span><br><span class="line">    print(content)</span><br><span class="line">    <span class="comment">#打印翻译后的数据</span></span><br><span class="line">    <span class="comment">#print(content['translateResult'][0][0]['tgt'])</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    get_translate_date(<span class="string">'我爱中国'</span>)</span><br></pre></td></tr></table></figure>
+<p>POST请求有道翻译{“errorcode<em>“</em>:50}——把URL中把<code>_o</code>去掉</p>
+<p>json模块主要有四个比较重要的函数，分别是：</p>
+<ul>
+<li><code>dump</code> - 将Python对象按照JSON格式序列化到文件中</li>
+<li><code>dumps</code> - 将Python对象处理成JSON格式的字符串</li>
+<li><code>load</code> - 将文件中的JSON数据反序列化成对象</li>
+<li><code>loads</code> - 将字符串的内容反序列化成Python对象</li>
+</ul>
+<h4 id="Beautiful-Soup-解析网页"><a href="#Beautiful-Soup-解析网页" class="headerlink" title="Beautiful Soup 解析网页"></a>Beautiful Soup 解析网页</h4><p>安装 bs4 库，安装 lxml 库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span>    BeautifulSoup</span><br><span class="line">url=<span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml=requests.get(url)</span><br><span class="line">soup=BeautifulSoup(strhtml.text,<span class="string">'lxml'</span>)</span><br><span class="line">data = soup.select(<span class="string">'#main&gt;div&gt;div.mtop.firstMod.clearfix&gt;div.centerBox&gt;ul.newsList&gt;li&gt;a'</span>)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>首先，HTML 文档将被转换成 Unicode 编码格式，然后 Beautiful Soup 选择最合适的解析器来解析这段文档，此处指定 lxml 解析器进行解析。解析后便将复杂的 HTML 文档转换成树形结构，并且每个节点都是 Python 对象。将解析后的文档存储到新建的变量 soup 中。用 select（选择器）定位数据，方法：开发者模式，将鼠标光标停留在对应的数据位置并右击，“Copy”➔“Copy Selector”，使用 soup.select 引用这个路径。</p>
+<h4 id="清洗和组织数据"><a href="#清洗和组织数据" class="headerlink" title="清洗和组织数据"></a>清洗和组织数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">'title'</span>:item.get_text(),</span><br><span class="line">        <span class="string">'link'</span>:item.get(<span class="string">'href'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>标题在＜a＞标签中，提取标签的正文用 get_text() 方法。链接在＜a＞标签的 href 属性中，提取标签中的 href 属性用 get() 方法，在括号中指定要提取的属性数据，即 get(＇href＇)，用正则表达式提取 ID (re库中)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">"title"</span>:item.get_text(),</span><br><span class="line">        <span class="string">"link"</span>:item.get(<span class="string">'href'</span>),</span><br><span class="line">        <span class="string">'ID'</span>:re.findall(<span class="string">'\d+'</span>,item.get(<span class="string">'href'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>\d匹配数字，+匹配前一个字符1次或多次。 re 库的 findall 方法，第一个参数表示正则表达式，第二个参数表示要提取的文本</p>
+<p>re.compile(r’^/question’)是正则表达式 匹配  ‘/question’开头</p>
+<h4 id="应对反爬虫"><a href="#应对反爬虫" class="headerlink" title="应对反爬虫"></a>应对反爬虫</h4><p>在 Request headers 中构造浏览器的请求头，封装自己。服务器识别浏览器访问的方法就是判断 keyword 是否为 Request headers 下的 User-Agent</p>
+<p>………………</p>
+<hr>
+<p>关于json编码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">obj = &#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br><span class="line">json.dumps(obj)</span><br><span class="line">print(json.dumps(obj))</span><br><span class="line">print(json.dumps(obj, ensure_ascii=<span class="keyword">False</span>))</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"\u6d4b\u8bd5"</span>&#125;</span><br><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/27/神经网络学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/27/神经网络学习/" class="post-title-link" itemprop="url">神经网络学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-27 11:06:55" itemprop="dateCreated datePublished" datetime="2019-06-27T11:06:55+08:00">2019-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-30 11:35:48" itemprop="dateModified" datetime="2019-06-30T11:35:48+08:00">2019-06-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>logistic回归的问题：1、过拟合或欠拟合；2、消耗大量资源</p>
+<p>神经重接实验——存在学习算法可以同时处理视觉、听觉和触觉，而不需要运行上千个不同的程序或算法</p>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p>输入层、输出层、隐藏层，偏置单元 值为1</p>
+<p>由输入层计算出输出：向前传播，有效解决非线性假设函数</p>
+<p>神经网络就相当于通过初始特征学习到新的特征, 再通过新的特征进行logistic回归得到输出结果</p>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>通过改变参数进行逻辑与、或、非运算，将这三个神经单元组成一个神经网络可得到同或运算</p>
+<h4 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h4><h4 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h4><p>求出”梯度”即偏导项</p>
+<p>展开参数</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/26/String-to-Integer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/26/String-to-Integer/" class="post-title-link" itemprop="url">String to Integer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-26 22:54:30 / 修改时间：23:00:09" itemprop="dateCreated datePublished" datetime="2019-06-26T22:54:30+08:00">2019-06-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;42&quot;</span><br><span class="line">Output: 42</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;   -42&quot;</span><br><span class="line">Output: -42</span><br><span class="line">Explanation: The first non-whitespace character is &apos;-&apos;, which is the minus sign.</span><br><span class="line">             Then take as many numerical digits as possible, which gets 42.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;4193 with words&quot;</span><br><span class="line">Output: 4193</span><br><span class="line">Explanation: Conversion stops at digit &apos;3&apos; as the next character is not a numerical digit.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;words and 987&quot;</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: The first non-whitespace character is &apos;w&apos;, which is not a numerical </span><br><span class="line">             digit or a +/- sign. Therefore no valid conversion could be performed.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;-91283472332&quot;</span><br><span class="line">Output: -2147483648</span><br><span class="line">Explanation: The number &quot;-91283472332&quot; is out of the range of a 32-bit signed integer.</span><br><span class="line">             Thefore INT_MIN (−231) is returned.</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>主要就是要考虑的细节比较多，特殊的情况及其处理在注释中给出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = str.length();</span><br><span class="line">	<span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> numLen = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> minus = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">bool</span> hasNum = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len &amp;&amp; ((str[s] == <span class="string">' '</span> &amp;&amp; !hasNum) || str[s] == <span class="string">'0'</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//第二个条件针对"0  123"</span></span><br><span class="line">		<span class="keyword">if</span> (str[s] == <span class="string">'0'</span>)hasNum = <span class="literal">true</span>;</span><br><span class="line">		++s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!hasNum)</span><br><span class="line">	&#123;<span class="comment">//hasNum的判断针对"0-1"</span></span><br><span class="line">		<span class="comment">//if-else语句针对"-+1"，"-+1"，"+1"</span></span><br><span class="line">		<span class="keyword">if</span> (str[s] == <span class="string">'-'</span>) &#123; ++s; minus = <span class="literal">true</span>; &#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (str[s] == <span class="string">'+'</span>) &#123; ++s; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len &amp;&amp; (str[s] == <span class="string">'0'</span>))++s;<span class="comment">//针对"   +0 123"，"-000000000000001"，"  0000000000012345678"</span></span><br><span class="line">	<span class="keyword">if</span> (str[s]&lt;<span class="string">'0'</span> || str[s]&gt;<span class="string">'9'</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (s &lt; len&amp;&amp;str[s] &gt;= <span class="string">'0'</span> &amp;&amp; str[s] &lt;= <span class="string">'9'</span>&amp;&amp;numLen&lt;<span class="number">11</span>)</span><br><span class="line">	&#123;<span class="comment">//INT_MAX是10位数，numLen针对"20000000000000000000"</span></span><br><span class="line">		res *= <span class="number">10</span>;</span><br><span class="line">		res += (str[s] - <span class="string">'0'</span>);</span><br><span class="line">		++s; ++numLen;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (minus)res *= (<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">if</span> (res &gt; INT_MAX)<span class="keyword">return</span> INT_MAX;</span><br><span class="line">	<span class="keyword">if</span> (res &lt; INT_MIN) <span class="keyword">return</span> INT_MIN;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外看到一个解决方法，在处理数字串前面的空白、0、正负号时更简洁：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> neg = <span class="literal">false</span>, caled = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span>::iterator it=str.begin(); it!=str.end(); ++it) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">' '</span> &amp;&amp; !caled) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">'-'</span> &amp;&amp; !caled) &#123; neg = <span class="literal">true</span>; caled = <span class="literal">true</span>; <span class="keyword">continue</span>; &#125;</span><br><span class="line">            <span class="keyword">if</span> ( *it == <span class="string">'+'</span> &amp;&amp; !caled) &#123; neg = <span class="literal">false</span>; caled = <span class="literal">true</span>; <span class="keyword">continue</span>; &#125;</span><br><span class="line">            <span class="keyword">if</span> ( *it &gt;= <span class="string">'0'</span> &amp;&amp; *it &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">                tmp = *it - <span class="string">'0'</span>;</span><br><span class="line">                caled = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span> ( res &gt; <span class="number">0</span> &amp;&amp; !neg &amp;&amp;</span><br><span class="line">                    (( res &gt; INT_MAX / <span class="number">10</span>) || ((INT_MAX - res*<span class="number">10</span>) &lt; tmp)) ) &#123;</span><br><span class="line">                    res = INT_MAX;</span><br><span class="line">                    <span class="keyword">return</span> res;&#125;</span><br><span class="line">                <span class="keyword">if</span> (res &gt; <span class="number">0</span> &amp;&amp; neg &amp;&amp;</span><br><span class="line">                    (( <span class="number">-1</span> * res &lt; INT_MIN / <span class="number">10</span>) || (res*<span class="number">-10</span> &lt;= INT_MIN + tmp)) ) &#123;</span><br><span class="line">                    res = INT_MIN;</span><br><span class="line">                    <span class="keyword">return</span> res;&#125;</span><br><span class="line">                res = res*<span class="number">10</span> + tmp;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (caled) res = neg ? <span class="number">-1</span> * res : res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/26/Reverse-Integer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/26/Reverse-Integer/" class="post-title-link" itemprop="url">Reverse Integer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-26 21:56:57" itemprop="dateCreated datePublished" datetime="2019-06-26T21:56:57+08:00">2019-06-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>Given a 32-bit signed integer, reverse digits of an integer. Returns 0 when the reversed integer overflows.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 123</span><br><span class="line">Output: 321</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: -123</span><br><span class="line">Output: -321</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 120</span><br><span class="line">Output: 21</span><br></pre></td></tr></table></figure>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> b = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> tmp = a;</span><br><span class="line">	<span class="keyword">if</span> (a&lt;<span class="number">0</span>)</span><br><span class="line">		tmp *= (<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">int</span> mod = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (tmp &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		k = tmp % (mod);</span><br><span class="line">		tmp /= mod;</span><br><span class="line">		b *= <span class="number">10</span>;</span><br><span class="line">		b += k;</span><br><span class="line">	&#125;</span><br><span class="line">	b=(a &gt; <span class="number">0</span>) ? b : (<span class="number">-1</span>)*b;</span><br><span class="line">	<span class="keyword">if</span> (b &gt; INT_MAX || b &lt; INT_MIN)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要需要注意的地方是int和long long数据类型的区别。使用INT_MAX和INT_MIN可以表示int类型的最值。</p>
+<p>unsigned   int   0～4294967295<br>int   -2147483648～2147483647  [$−2^{31},  2^{31} − 1​$]<br>unsigned long 0～4294967295<br>long   -2147483648～2147483647<br>long long的最大值：9223372036854775807<br>long long的最小值：-9223372036854775808<br>unsigned long long的最大值：1844674407370955161</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/ZigZag-Conversion/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/25/ZigZag-Conversion/" class="post-title-link" itemprop="url">ZigZag Conversion</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-25 22:24:28 / 修改时间：22:42:36" itemprop="dateCreated datePublished" datetime="2019-06-25T22:24:28+08:00">2019-06-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>The string <code>&quot;PAYPALISHIRING&quot;</code> is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure>
+<p>And then read line by line: <code>&quot;PAHNAPLSIIGYIR&quot;</code></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">思路：找出每一行的字母位置的规律，具体做法是将所有的字母分组，每一组是一个'v'字形，</span></span><br><span class="line"><span class="comment">每一组中，除了最上面一行和最下面一行，都会有两个间隔规律的字母处于同一行中</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">zigzag</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> numRows)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (numRows == <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	<span class="built_in">string</span>* r=<span class="keyword">new</span> <span class="built_in">string</span>[numRows];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numRows; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		r[i] = <span class="string">""</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> groupSize = <span class="number">2</span> * numRows - <span class="number">2</span>;<span class="comment">//组的大小</span></span><br><span class="line">	<span class="keyword">int</span> size = s.length();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numRows; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = i;</span><br><span class="line">		<span class="keyword">while</span> (j &lt; size)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//若没有在最开始讨论“只有一行”的情况，这里会进入死循环</span></span><br><span class="line">			r[i] += s[j];</span><br><span class="line">			<span class="keyword">int</span> k = <span class="number">2</span> * (numRows - i - <span class="number">1</span>) ;<span class="comment">//每一组中处于同一行的字母的间隔</span></span><br><span class="line">			<span class="keyword">if</span> (k &gt; <span class="number">0</span> &amp;&amp;(i)&amp;&amp; ((j + k) &lt; size))</span><br><span class="line">				<span class="comment">//不是最上面一行和最下面一行，并且小于总字符串长度</span></span><br><span class="line">				r[i] += s[j + k];</span><br><span class="line">			j += groupSize;<span class="comment">//查找每个组</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numRows; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		res += r[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s1 = <span class="string">"PAYPALISHIRING"</span>;</span><br><span class="line">	<span class="keyword">int</span> num1 = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; zigzag(<span class="string">"AB"</span>, <span class="number">2</span>) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>学习一个更精简的解决方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">convert</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (numRows == <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; rows(min(numRows, <span class="keyword">int</span>(s.size())));</span><br><span class="line">        <span class="keyword">int</span> curRow = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> goingDown = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : s) &#123;</span><br><span class="line">            rows[curRow] += c;</span><br><span class="line">            <span class="keyword">if</span> (curRow == <span class="number">0</span> || curRow == numRows - <span class="number">1</span>) goingDown = !goingDown;</span><br><span class="line">            curRow += goingDown ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> ret;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">string</span> row : rows) ret += row;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>复杂度比最上面的做法低，依次遍历总的字符串，比较巧的地方是改变子字符串的行号，用goingDown表示此时向上（+1）还是向下（-1）走，若是此时curRow是最上面一行或最下面一行，则变换方向，即goingDown取反。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/24/智能商务及大数据综合实践安排/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -610,906 +1044,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/算法复习笔记（六）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/12/算法复习笔记（六）/" class="post-title-link" itemprop="url">算法复习笔记（六）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-06-12 09:41:27 / 修改时间：10:58:47" itemprop="dateCreated datePublished" datetime="2019-06-12T09:41:27+08:00">2019-06-12</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="判断集合S中是否存在有两个其和等于x的元素"><a href="#判断集合S中是否存在有两个其和等于x的元素" class="headerlink" title="判断集合S中是否存在有两个其和等于x的元素"></a>判断集合S中是否存在有两个其和等于x的元素</h4><p>将S排序，借用辅助数组$S^{‘}=x-S$，合并$S^{‘}$和S</p>
-<h4 id="dutch-national-flag-problem"><a href="#dutch-national-flag-problem" class="headerlink" title="dutch national flag problem"></a>dutch national flag problem</h4><p>红色球要全部在数组的左侧，白色球全部在中间，蓝色球全部在右侧，在遍历一次所有元素的情况下完成排序。</p>
-<h4 id="maximum-sub-segment-sum"><a href="#maximum-sub-segment-sum" class="headerlink" title="maximum-sub-segment-sum"></a>maximum-sub-segment-sum</h4><p>针对每一个元素，有两个部分需要关注：① “过去部分” pre_sum；② “当前部分”nums[i]本身。有两种选择，① 加上pre_sum，本身融入到子串当中；② 以“当前部分”为子串起始位置，完全抛弃“过去部分”。</p>
-<h4 id="最大子矩阵"><a href="#最大子矩阵" class="headerlink" title="最大子矩阵"></a>最大子矩阵</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0, -2, -7,  0, 3</span><br><span class="line">9,  2, -6,  2, 5</span><br><span class="line">-4, 1, -4,  1, 6</span><br><span class="line">-1, 8,  0, -2, 2</span><br></pre></td></tr></table></figure>
-<p>借鉴或者转为最大子序列，需要加一个辅助矩阵：全部子列和（totalColSum）</p>
-<p>有了该辅助矩阵，我们就可以轻松求出指定列的子列和：</p>
-<p>0, -2, -7, 0, 3<br>9, 0, -13, 2, 8<br>5, 1, -17, 3, 14<br>4, 9, -17, 1, 16</p>
-<ul>
-<li>假如当前的子矩阵是{0,1}行，可直接得到子列和为9,0,-13,2,8</li>
-<li>假如当前的子矩阵是{1,2}行，可通过totalColSum的第2行减去第0行的数据而得5,3,-4,3,11</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（三）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/10/计组复习笔记（三）/" class="post-title-link" itemprop="url">计组复习笔记（三）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-10 20:12:51" itemprop="dateCreated datePublished" datetime="2019-06-10T20:12:51+08:00">2019-06-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-17 11:18:50" itemprop="dateModified" datetime="2019-06-17T11:18:50+08:00">2019-06-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h1><p><strong>ALU used for</strong></p>
-<ol>
-<li>Load/Store: F = add</li>
-<li>Branch: F = subtract</li>
-<li>R-type: F depends on funct field</li>
-</ol>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\11.PNG" alt="11"></p>
-<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>提高吞吐率，并未减少单一指令的执行时间（延迟latency）</p>
-<p><strong>吞吐率</strong> TP：单位时间内流水线所完成的任务数量或输出结果的数量</p>
-<p>$TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完n个任务所用的时间</p>
-<p><strong>加速比</strong> S：完成同样一批任务，顺序执行所用的时间与使用流水线所用的时间之比</p>
-<p>$S=T_0/T_k$</p>
-<p><strong>效率</strong> E：流水线上的设备利用率，即时空图上，N个任务占用的时空区与K个流水段占用的总时空区之比。由于流水线有建立时间和排空时间，各段并不总是满负荷工作的。</p>
-<p>E=n个任务占用的时空区/k个流水段占用的时空区=n/(n-k+1)</p>
-<p>在时空图上体现为执行所有指令需要的时间和实际用的时间，多余的时间由建立时间和排空时间造成</p>
-<p>5个处理步骤：IF，ID，EX，MEM，WB</p>
-<h3 id="冒险"><a href="#冒险" class="headerlink" title="冒险"></a>冒险</h3><h4 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h4><p>硬件占用：内存读写—IM，DM分开</p>
-<h4 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h4><p>拿错数据</p>
-<ol>
-<li>前推/旁路</li>
-<li>重新安排代码避免阻塞</li>
-</ol>
-<p>C code for A = B + E; C = B + F</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
-<p>重新安排代码:</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h4><p>取错指令</p>
-<ol>
-<li>阻塞</li>
-<li>分支预测</li>
-</ol>
-<p>静态预测</p>
-<p>动态预测</p>
-<p>当预测错误时，流水线控制必须确保被错误预测的分支后面的指令执行不会生效，并且在正确的分支地址处重新开始启动流水线。</p>
-<h3 id="流水线数据通路"><a href="#流水线数据通路" class="headerlink" title="流水线数据通路"></a>流水线数据通路</h3><h4 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h4><p>IF/ID，ID/EX，EX/MEM，MEM/WB</p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\12.PNG" alt="12"></p>
-<h4 id="最终的数据通路与控制"><a href="#最终的数据通路与控制" class="headerlink" title="最终的数据通路与控制"></a>最终的数据通路与控制</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\13.PNG" alt="13"></p>
-<h3 id="数据冒险：旁路与阻塞"><a href="#数据冒险：旁路与阻塞" class="headerlink" title="数据冒险：旁路与阻塞"></a>数据冒险：旁路与阻塞</h3><h4 id="冒险条件"><a href="#冒险条件" class="headerlink" title="冒险条件"></a>冒险条件</h4><p>前提：写操作(EX/MEM.RegWrite, MEM/WB.RegWrite有效)，写目的寄存器不能是$zero</p>
-<p>1a. EX/MEM.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 10</p>
-<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 10</p>
-<p>2a. MEM/WB.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 01</p>
-<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 01</p>
-<p>1—Fwd from EX/MEM pipeline reg</p>
-<p>2—Fwd from MEM/WB pipeline reg</p>
-<p>ForwardA=0：第一个ALU操作数来自寄存器，ForwardB同理</p>
-<h4 id="旁路单元"><a href="#旁路单元" class="headerlink" title="旁路单元"></a>旁路单元</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\14.PNG" alt="14"></p>
-<p>01选通MEM/WB；10选通EX/MEM</p>
-<p>==为什么有两个Rt啊？还有下面加的红色语句我也没有理解目的所在==</p>
-<p>更复杂的潜在数据冒险：比如一个寄存器对多个数字进行求和运算，一系列连续的指令将会读写到同一寄存器：</p>
-<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>第二条指令的EX/MEM数据才是最新的。因此，改变MEM冒险的控制策略：</p>
-<p><strong>MEM hazard</strong></p>
-<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​     <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                   <font color="red">and (EX/MEM.RegisterRd = ID/EX.RegisterRs))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRs))<br>   ForwardA = 01</p>
-<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​      <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                  <font color="red"> and (EX/MEM.RegisterRd = ID/EX.RegisterRt))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRt))<br>   ForwardB = 01</p>
-<h4 id="Load-Use冒险检测单元"><a href="#Load-Use冒险检测单元" class="headerlink" title="Load-Use冒险检测单元"></a>Load-Use冒险检测单元</h4><p>工作在ID级，从而可以在装载指令与紧随其后需要它的结果的指令间插入阻塞</p>
-<p>阻塞条件：ID/EX.MemRead and   ((ID/EX.RegisterRt = IF/ID.RegisterRs) or    (ID/EX.RegisterRt = IF/ID.RegisterRt))</p>
-<p>插入空指令：把ID/EX流水线寄存器的EX、MEM、WB级的控制信号都置为0.仍向前传递，但控制信号为0不会进行Reg和MEM的写操作。（事实上只需将RegWrite和MenWrite置为0）</p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\15.PNG" alt="15"></p>
-<p><strong>通路</strong></p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\16.PNG" alt="16"></p>
-<p>冒险检测控制单元控制PC和IF/ID流水线寄存器的写入，以及在实际控制信号与全0中进行选择的多选器。若冒险条件为真，阻塞并清除所有控制字段。</p>
-<h3 id="控制冒险-1"><a href="#控制冒险-1" class="headerlink" title="控制冒险"></a>控制冒险</h3><p>增加寄存器比较电路，如果参与比较的两个寄存器，是两步之前的ALU结果，可以通过旁路解决冒险。如果参与比较的两个寄存器其中有一个，是前一步的ALU结果或是两步之前load的结果，需要一个阻塞。如果参与比较的两个寄存器其中有一个，是前一步的load的结果，需要两个阻塞。</p>
-<h4 id="动态分支预测"><a href="#动态分支预测" class="headerlink" title="动态分支预测"></a>动态分支预测</h4><p>分支预测缓存Branch prediction buffer (aka branch history table)：一小块按照分支指令的低位地址索引的存储器区，其中包括一位或多位数据用以说明最近是否发生过分支。</p>
-<p>2位预测位</p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\17.PNG" alt="17"></p>
-<p>依然需要花费一个时钟周期的开销，去计算分支目标地址。使用延迟分支或分支目标地址缓存</p>
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>（另一种形式的控制冒险，机制相同，不同的是由异常重置控制信号）</p>
-<p>异常程序计数器EPC：保存出错指令的地址+4</p>
-<p>协处理器CP0</p>
-<p>Jump to handler at 8000 00180</p>
-<p>记录引起异常的原因的两种方法</p>
-<ol>
-<li>Cause寄存器：有一个字段记录引起异常的原因</li>
-<li>向量中断，控制权转移到由异常原因决定的地址处</li>
-</ol>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\18.PNG" alt="18"></p>
-<font color="red">从MEM/WB寄存器WB部分出来的向上向左的那个信号，有点小错误，应该只向Registers，是一个写寄存器的控制信号。</font>
-
-<p>多重中断，硬件对异常进行排序从而使得最先发生异常的指令被中断。优先级最高的异常处理完后，继续处理后面的异常。</p>
-<p>非精确中断/非精确异常：在流水线中，将每一个异常与导致该异常的指令对应起来难度很大，EPC中放入相近的值，由操作系统确定精确位置。精确异常是为了支持虚拟存储器。</p>
-<h3 id="指令级并行"><a href="#指令级并行" class="headerlink" title="指令级并行"></a>指令级并行</h3><p>增加流水线的指令级并行程度：</p>
-<ol>
-<li>增加流水线的深度—-更多的重叠</li>
-<li>复制计算机内部部件的数量—每个流水既可以启动多条指令—-多发射multiple issue</li>
-</ol>
-<h4 id="多发射"><a href="#多发射" class="headerlink" title="多发射"></a>多发射</h4><p>CPI可能小于1，可使用IPC</p>
-<p>静态多发射（在编译时）</p>
-<p>动态多发射（在执行时）</p>
-<p>发射槽 issue slot</p>
-<p>Speculation 推测：编译器或处理器推测指令结果以消除其他指令对该结果的依赖。</p>
-<p>推测错误时需要回卷。    指令重排、缓存结果</p>
-<h4 id="静态多发射处理器"><a href="#静态多发射处理器" class="headerlink" title="静态多发射处理器"></a>静态多发射处理器</h4><p>使用编译器封装指令并处理冒险，若无可同时发射的，用nop代替</p>
-<p>发射包 issue packet：在一个时空周期内发射的多条指令的集合。可有编译器静态生成或处理器动态生成。对一个周期内能发射的多条指令有所限制。</p>
-<p>超长指令字VLIW</p>
-<p>例：Two-issue packets</p>
-<p>One ALU/branch instruction</p>
-<p>One load/store instruction</p>
-<p> <strong>数据通路</strong></p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\19.PNG" alt="19"></p>
-<p>数据冒险：</p>
-<p>EX数据：同一个包中，can’t use ALU result in load/store</p>
-<p>load-use：会增加延迟</p>
-<p><strong>调度</strong></p>
-<p>Loop: lw   \$t0,0(\$s1)      # \$t0=array element<br>​      addu \$t0, \$t0,\$s2    # add scalar in \$s2<br>​      sw   \$t0,0(\$s1)      # store result<br>​      addi \$s1,\$s1,–4      # decrement pointer<br>​      bne  \$s1,\$zero, Loop # branch $s1!=0</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>ALU/branch</th>
-<th>Load/store</th>
-<th>cycle</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Loop:</td>
-<td>nop</td>
-<td>lw   t0, 0($s1)</td>
-<td>1</td>
-</tr>
-<tr>
-<td></td>
-<td>addi   s1,   $s1,–4</td>
-<td>nop</td>
-<td>2</td>
-</tr>
-<tr>
-<td></td>
-<td>addu   t0,   $t0, $s2</td>
-<td>nop</td>
-<td>3</td>
-</tr>
-<tr>
-<td></td>
-<td>bne  s1,   $zero, Loop</td>
-<td>sw   \$t0,   4($s1)</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-<p> 循环展开（循环体复制4份）：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>ALU/branch</th>
-<th>Load/store</th>
-<th>cycle</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Loop:</td>
-<td>addi   s1,   $s1,–16</td>
-<td>lw   \$t0, 0($s1)</td>
-<td>1</td>
-</tr>
-<tr>
-<td></td>
-<td>nop</td>
-<td>lw   t1, 12($s1)</td>
-<td>2</td>
-</tr>
-<tr>
-<td></td>
-<td>addu   t0,   t0, $s2</td>
-<td>lw   \$t2, 8($s1)</td>
-<td>3</td>
-</tr>
-<tr>
-<td></td>
-<td>addu   t1,   t1, $s2</td>
-<td>lw   \$t3, 4($s1)</td>
-<td>4</td>
-</tr>
-<tr>
-<td></td>
-<td>addu   t2,   t2, $s2</td>
-<td>sw   \$t0,   <font color="red">16</font>($s1)</td>
-<td>5</td>
-</tr>
-<tr>
-<td></td>
-<td>addu   t3,   t4, $s2</td>
-<td>sw   \$t1,   12($s1)</td>
-<td>6</td>
-</tr>
-<tr>
-<td></td>
-<td>nop</td>
-<td>sw   t2,   8($s1)</td>
-<td>7</td>
-</tr>
-<tr>
-<td></td>
-<td>bne  s1,   $zero, Loop</td>
-<td>sw   \$t3,   4($s1)</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-<p>寄存器重命名——引入临时寄存器，消除虚假的数据依赖（反相关）</p>
-<font color="red">标红处是16而不是0，是因为第一行\$t0取的是\$s1未减去16处的值，从第二行开始，通过旁路技术，$s1已减去16</font>
-
-<h4 id="动态多发射处理器"><a href="#动态多发射处理器" class="headerlink" title="动态多发射处理器"></a>动态多发射处理器</h4><p>也叫超标量处理器</p>
-<p>指令顺序发射，乱序执行，顺序提交。处理器决定每个周期几条指令，硬件保证正确性。</p>
-<p>流水线被划分为：取指与发射单元、多个功能单元、一个提交单元（含重排序缓冲区）。每个功能单元有自己的缓冲区（保留站）用于保存操作数和操作。</p>
-<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\20.PNG" alt="20"></p>
-<p><strong>寄存器重命名</strong></p>
-<p>保留站和重排序缓冲区提供寄存器重命名机制。发射指令时，它先被复制到合适的功能单元的保留站。如果操作数在寄存器堆中或重排序缓冲区中可用，那么立即数被复制到保留站中。否则该指令一直缓存在保留站中。若指令已发射，那么操作数对应的寄存器的值可以被覆盖。如果操作数不在寄存器堆中或重排序缓冲区中，那么他应该是某个功能单元的结果，硬件帮助定位该功能单元，计算出结果时直接从功能单元复制到保留站，跳过寄存器堆。</p>
-<h5 id="推测"><a href="#推测" class="headerlink" title="推测"></a>推测</h5><p><strong>Predict branch and continue issuing</strong></p>
-<p>Don’t commit until branch outcome determined</p>
-<p><strong>Load speculation</strong></p>
-<p>Avoid load and cache miss delay</p>
-<ol>
-<li>Predict the effective address</li>
-<li>Predict loaded value</li>
-<li>Load before completing outstanding stores</li>
-<li>Bypass stored values to load unit</li>
-</ol>
-<p>Don’t commit load until speculation cleared</p>
-<p><strong>为什么需要动态调度？</strong></p>
-<ol>
-<li>并不是所有的阻塞都可以预知。动态调度在一些指令阻塞时调度其他指令，以掩盖阻塞。</li>
-<li>对于分支指令，若采用动态推测而不是用动态调度，会极大限制指令级并行度。</li>
-<li>流水线延迟和发射宽度根据处理器的具体实现的不同有很大差别。</li>
-</ol>
-<p>多发射的阻碍：窗口期有限、内存访问延迟、带宽受限</p>
-<p>动态调度和推测消耗能源</p>
-<p>指令集、数据通路和控制的设计之间相互影响</p>
-<hr>
-<font color="green"><a href="http://landcareweb.com/questions/43313/tui-ce-he-yu-ce-zhi-jian-de-chai-yi" target="_blank" rel="noopener">预测和推测之间有什么区别？</a></font>
-
-<p>分支预测由处理器完成，以试图确定在条件跳转之后执行将继续的位置，以便它可以从存储器读取下一条指令。</p>
-<p>推测执行更进一步，并确定执行下一条指令的结果。如果分支预测是正确的，则使用结果，否则将其丢弃。即使代码中没有实际的条件分支，也可以应用推测执行。处理器可以从通常将连续执行的若干指令确定结果，但是可以例如通过算术溢出中断来停止执行。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（二）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/10/计组复习笔记（二）/" class="post-title-link" itemprop="url">计组复习笔记（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-06-10 16:08:24 / 修改时间：19:31:43" itemprop="dateCreated datePublished" datetime="2019-06-10T16:08:24+08:00">2019-06-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="计算机的算术运算"><a href="#计算机的算术运算" class="headerlink" title="计算机的算术运算"></a>计算机的算术运算</h2><h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h3><p>高位HI，低位LO</p>
-<p>Instructions</p>
-<p>mult rs, rt  /  multu rs, rt    64-bit product in HI/LO</p>
-<p>mfhi rd  /  mflo rd    Move from HI/LO to rd，Can test HI value to see if product overflows 32 bits</p>
-<p>mul rd, rs, rt    Least-significant 32 bits of product –&gt; rd</p>
-<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h3><h3 id="浮点运算"><a href="#浮点运算" class="headerlink" title="浮点运算"></a>浮点运算</h3><h4 id="数值表示"><a href="#数值表示" class="headerlink" title="数值表示"></a>数值表示</h4><font color="red">尾数精度=尾数位数+1</font>
-
-<p>单精度规格化数：阶码取值范围在1~254之间；尾数可以取任何值。</p>
-<p>对于float型，特殊的值：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>阶码/指数</th>
-<th>尾数</th>
-<th>数值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+/-</td>
-<td>全0</td>
-<td>全0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全1(=255)</td>
-<td>全0</td>
-<td>+无穷/-无穷</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全0</td>
-<td>非0</td>
-<td>非规格化数</td>
-</tr>
-<tr>
-<td>+/-</td>
-<td>全1(=255)</td>
-<td>非0</td>
-<td>非数NaN</td>
-</tr>
-</tbody>
-</table>
-<p>移码</p>
-<p>精度范围</p>
-<p>高级语言中可以定义多种数据类型，因此需要存取不同长度操作数的数据传输指令。</p>
-<p>对阶的时候，需要小阶向大阶看齐，因为大阶如果向小阶看齐，那么就要左移，不符号规格化的要求。</p>
-<p>浮点数乘法运算结果规格化：不需要左移，最多需要一次右移；除法：不需要右移，最多需要一次左移。正常的运算过程下，若尾数为0，则结果的阶码也置为0.</p>
-<p>浮点加法不满足结合律</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/数据库复习笔记（四）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/08/数据库复习笔记（四）/" class="post-title-link" itemprop="url">数据库复习笔记（四）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-08 15:23:44" itemprop="dateCreated datePublished" datetime="2019-06-08T15:23:44+08:00">2019-06-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-14 09:41:17" itemprop="dateModified" datetime="2019-06-14T09:41:17+08:00">2019-06-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h2><p>parse - convert（Parse Tree -&gt; Logical Query Plan） - apply laws（Improving the L.Q.P） - estimate result sizes - consider physical plans - estimate costs - pick best - execute</p>
-<p>选择和投影尽量早做</p>
-<font color="red">后面整个么懂——反正考试不做要求</font>
-
-<p>Parameters for Estimation</p>
-<p>M: # of available main memory buffers (estimate) </p>
-<p>Kept as statistics for each relation R:</p>
-<p>–T(R) : # of tuples in R</p>
-<p>–B(R): # of blocks to hold all tuples of R</p>
-<p>–V(R, A): # of distinct values for attribute R.A</p>
-<p>  = SELECT COUNT (DISTINCT A) FROM R  </p>
-<p>•Physical operators </p>
-<p>–to implement physical query plans</p>
-<p>–selections, joins</p>
-<p>–one-pass, two-pass, (multi-pass)</p>
-<p>–based on scanning, sorting, hashing, existing indexes</p>
-<h2 id="Crash-Recovery"><a href="#Crash-Recovery" class="headerlink" title="Crash Recovery"></a>Crash Recovery</h2><h3 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h3><p>从后向前恢复</p>
-<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure undo logging. After a system crash, we find the following log entries on disk:</p>
-<p>\<start t1="">;&lt;T1,A,5&gt;;\<start t2="">, &lt;T1,B,1&gt;; \<commit t1="">;&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">; \<start t3="">;&lt;T3,A,10&gt;;\<start t4="">; &lt;T4,A,11&gt;, &lt;T3,C,7&gt;;&lt;T4,B,22&gt;</start></start></commit></commit></start></start></p>
-<p>The last four actions in the schedule were incrementing each object by 1(e.g.&lt;T4,A,11&gt; was updating A to 12). How many different combinations of values of values for A,B,and C could possibly exist on disk at the time of the system crash?</p>
-<font color="red">A: 10,11,12；B: 22,23；C: 7,8。共12种可能</font>
-
-<font color="green"> &lt;T4,A,11&gt;的只能体现，此时内存中的A被T3改成了11，但是磁盘上有没有被T3改过呢？不知道。内存中写了&lt;Ti, X, v&gt;，才可以改内存中的数据，所有&lt;Ti, X, v&gt;flush之后，才可以改磁盘数据。</font>
-
-<h3 id="Redo日志"><a href="#Redo日志" class="headerlink" title="Redo日志"></a>Redo日志</h3><p>从前向后恢复</p>
-<p>恢复速度极慢 -&gt; 静态检查点</p>
-<h4 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses pure redo logging. The initial database state was A=0,B=1,C=2. After a system crash, we find the following log entries on disk:</p>
-<p>\<start t1="">,&lt;T1,A,5&gt;,\<start t2="">, &lt;T1,B,1&gt;, \<commit t1="">,&lt;T2,B,11&gt;,&lt;T2,C,8&gt;,\<commit t2="">, \<ckpt>,\<start t3="">,&lt;T3,A,10&gt;,\<start t4="">, &lt;T4,A,11&gt;, &lt;T3,C,7&gt;, &lt;T4,B,22&gt;</start></start></ckpt></commit></commit></start></start></p>
-<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
-<p>A: 5；B: 11；C: 8。有一种可能</p>
-<h3 id="Undo-redo日志"><a href="#Undo-redo日志" class="headerlink" title="Undo/redo日志"></a>Undo/redo日志</h3><p>&lt;Ti, X, Old-X-value, New-X-value&gt;</p>
-<p>恢复时，从前向后redo完成(有commit)的，从后向前undo未完成的</p>
-<h4 id="动态检查点"><a href="#动态检查点" class="headerlink" title="动态检查点"></a>动态检查点</h4><start ckpt="" ti,t2,…(未完成的事务undo)="">
-
-<h4 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h4><p>Consider a system that uses undo-redo logging. After a system crash, we find the following log entries on disk:</p>
-<p>\<start t1="">&lt;T1,A,5,0&gt;\<start t2="">&lt;T1,B,1,2&gt;\<commit t1="">&lt;T2,B,2,3&gt;</commit></start></start></p>
-<p><start ckpt(t2)="">&lt;T2,C,8,9&gt;\<commit t2="">\<end ckpt=""></end></commit></start></p>
-<p>\<start t3="">&lt;T3,A,0,10&gt;\<start t4="">&lt;T4,A,10,11&gt;&lt;T3,C,9,7&gt;&lt;T4,B,3,22&gt;</start></start></p>
-<p>How many different combinations of values for A,B, and C could possibly exist on disk at the time of the system crash?</p>
-<p>A: 0,10,11；B: 3,22；C: 8,9,7</p>
-<p>共18种可能</p>
-<p>undo: T3,T4；redo: T2</p>
-<p>结果：0,3,9</p>
-<h2 id="Concurrency-Control"><a href="#Concurrency-Control" class="headerlink" title="Concurrency Control"></a>Concurrency Control</h2><p>优先图</p>
-<h3 id="可串行调度"><a href="#可串行调度" class="headerlink" title="可串行调度"></a>可串行调度</h3><h4 id="乐观方法"><a href="#乐观方法" class="headerlink" title="乐观方法"></a>乐观方法</h4><h4 id="悲观方法"><a href="#悲观方法" class="headerlink" title="悲观方法"></a>悲观方法</h4><p>两段锁协议</p>
-<p>共享锁：</p>
-<p>写读后写的元素，可以直接上写锁，或者先上读锁，写的时候再升级为写锁；提倡第二种。</p>
-<p>更新锁：解决两个事务对同一元素上了读锁，形成死锁的问题。If Ti wants to read A and knows it</p>
-<p>may later want to write A, it requests an update lock (not shared)</p>
-<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>一次封锁法：对所有要用的数据都加锁</p>
-<h4 id="顺序封锁法"><a href="#顺序封锁法" class="headerlink" title="顺序封锁法"></a>顺序封锁法</h4><p>调度器1负责按照rule1，rule3给事务加锁；调度器2负责按照rule2形成调度。</p>
-<h4 id="意向锁-IX，IS"><a href="#意向锁-IX，IS" class="headerlink" title="意向锁 IX，IS"></a>意向锁 IX，IS</h4><p>插入时需锁父表，上Lx；删除时上Lx</p>
-<h4 id="锁表"><a href="#锁表" class="headerlink" title="锁表"></a>锁表</h4><table>
-<thead>
-<tr>
-<th></th>
-<th>IS</th>
-<th>IX</th>
-<th>S</th>
-<th>X</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IS</td>
-<td>T</td>
-<td>T</td>
-<td>T</td>
-<td>F</td>
-</tr>
-<tr>
-<td>IX</td>
-<td>T</td>
-<td>T</td>
-<td>F</td>
-<td>F</td>
-</tr>
-<tr>
-<td>S</td>
-<td>T</td>
-<td>F</td>
-<td>T</td>
-<td>F</td>
-</tr>
-<tr>
-<td>X</td>
-<td>F</td>
-<td>F</td>
-<td>F</td>
-<td>F</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>S</th>
-<th>X</th>
-<th>U</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>S</td>
-<td>T</td>
-<td>F</td>
-<td>T</td>
-</tr>
-<tr>
-<td>X</td>
-<td>F</td>
-<td>F</td>
-<td>F</td>
-</tr>
-<tr>
-<td>U</td>
-<td>F</td>
-<td>F</td>
-<td>F</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Parent  Child locked in</th>
-<th>Child can be locked in</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IS</td>
-<td>IS,S</td>
-</tr>
-<tr>
-<td>IX</td>
-<td>IS,S,IX,X</td>
-</tr>
-<tr>
-<td>S</td>
-<td>[S,IS; not necessary]</td>
-</tr>
-<tr>
-<td>X</td>
-<td>NONE</td>
-</tr>
-</tbody>
-</table>
-<h4 id="事务的特性（ACID"><a href="#事务的特性（ACID" class="headerlink" title="事务的特性（ACID)"></a>事务的特性（ACID)</h4><p>•原子性（Atomicity）</p>
-<p>•一致性（Consistency）</p>
-<p>•隔离性（Isolation）</p>
-<p>•持续性（Durability）</p>
-</start>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/07/201812CET6_3Comp/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/07/201812CET6_3Comp/" class="post-title-link" itemprop="url">201812CET6_3Comp</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-07 10:56:39" itemprop="dateCreated datePublished" datetime="2019-06-07T10:56:39+08:00">2019-06-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="How-to-balance-job-responsibilities-and-personal-interests"><a href="#How-to-balance-job-responsibilities-and-personal-interests" class="headerlink" title="How to balance job responsibilities and personal interests"></a>How to balance job responsibilities and personal interests</h3><font color="red">「personal interests」指「个人兴趣」还是「个人利益」？</font>
-
-<p>我觉得出题人没必要在这种词上面作妖，两种解释都有道理，而根据两外两个题：extracurriculer和leisure，此处应该是爱好的意思。</p>
-<font color="blue">Along with the development of society</font>， more and more problems <font color="blue">are brought to our attention</font>； one of the most serious problems is how to <font color="blue">reach the balance between</font> job responsibilities and personal interests. People have different <font color="blue">attitudes towards </font>the problem.<br><br><font color="blue">It is generally agreed that job responsibilities has been playing an increasingly important role in our life</font>， because we need to complete them to earn money for life. But if people put too much time on work， their<font color="blue"> mental conditions will be damaged and suffer from kinds of diseases</font>. The<font color="blue"> sub health</font> of workers has <font color="blue">attracted extensive attention</font> of the society， which can be found in TV programs， newspapers， university classes and many aspect of our everyday life. Thus， in addition to work responsibility， people should develop personal interests using spare time. Then， they could enjoy the life and get rest <font color="blue">both physically and mentally</font>. However， if people invest too much time on personal interests， their career developments may be affected and lost opportunities for a better life.<br><br>From what has been discussed above， we may<font color="blue"> safely draw the conclusions </font>that people should focus on work responsibility during work time and develop personal interests on spare time.<br><br>———-<br><br>Recently, the topic of hobby has been<font color="blue"> brought to public attention</font>. We can find many examples easily: modern people‘ s <font color="blue">workload </font>makes people <font color="blue">out of breath </font>and<font color="blue"> leaves them no time for their interest. </font>
-
-<p>If this situation <font color="blue">continues to worsen</font>, their physical and mental status <font color="blue">raises the alarm</font>. Thus, it’s <font color="blue">urgent</font> to<font color="blue"> strike a good balance between working duties and personal hobbies</font>. For one thing, too much work<font color="blue"> gives rise to immunity deterioration</font>, which causes many health problems. For another, <font color="blue">constructive pastime</font> helps us <font color="blue">live in a positive cycle.</font></p>
-<p>Therefore, what we should do is to find enough time to develop our hobbies<font color="blue"> by finishing the task on time </font>and arranging some beneficial activities <font color="blue">off work</font>. For example, regular exercise is<font color="blue"> a commendable way </font>to get relaxed. By doing exercises your body can<font color="blue"> produce a hormone</font> that makes you <font color="blue">recover from exhaustion</font>. What’s more you can<font color="blue"> transfer your focus from busy job by</font> reading an interesting book or listening to a favorite song,<font color="blue"> thereby getting your intense nerves calm down.</font></p>
-<h4 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h4><p>workload n. (某一人或组织的)工作量，工作负担</p>
-<p>immunity n. 免疫力;受保护;豁免;免除</p>
-<p>deterioration n. 恶化，变坏；退化；堕落</p>
-<p>commendable adj. 值得赞扬(或嘉许)的</p>
-<p>hormone n. 激素;荷尔蒙</p>
-<p>thereby adv. 因此;由此;从而</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/算法复习笔记（五）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/06/算法复习笔记（五）/" class="post-title-link" itemprop="url">算法复习笔记（五）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-06 23:07:14" itemprop="dateCreated datePublished" datetime="2019-06-06T23:07:14+08:00">2019-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 19:42:32" itemprop="dateModified" datetime="2019-06-07T19:42:32+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h3><p>容量、源点、汇点、流；流f满足容量条件和守恒定理</p>
-<p>在边上用剩余的容量向前推（前向边，c(e)-f(e)）， 并且在已经有流的边上向后推（后向边，f(e)，可撤销的容量）， 使它转向一个不同的方向。 </p>
-<p>剩余图:  $G_f$= (V, $E_f$). 具有正的剩余容量的剩余边。$ E_f$= {e} ∪{$e^R$}.</p>
-<p>令P是$G_f$中一条简单的s-t路径（增广路径）。bottleneck(P,f)是P上任何边关于流f的最小剩余容量。算法augment(f,P)在G中产生一 个新的流f’.不断调整Gf来获取更大的流量.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Augment(f, P) &#123; </span><br><span class="line">    b ←bottleneck(P) </span><br><span class="line">    foreach e ∈P &#123; <span class="comment">//宽度优先或者广度优先搜索，代价为 O(m+n)=O(m); </span></span><br><span class="line">        <span class="keyword">if</span>(e ∈E) f(e) ←f(e) + b </span><br><span class="line">        <span class="keyword">else</span> f(eR) ←f(e) -b &#125; </span><br><span class="line">    <span class="keyword">return</span> f &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ford-Fulkerson(G,s,t,c)&#123;</span><br><span class="line">    foreach e ∈E f(e)←0</span><br><span class="line">    Gf ← residual graph</span><br><span class="line">    <span class="keyword">while</span>(there exists augmenting path P)&#123;</span><br><span class="line">        f ← Augment(f,c,P)</span><br><span class="line">        update Gf</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Ford-Fulkerson算法可以在 O(mC)时间内实现</p>
-<h4 id="最大流与最小割"><a href="#最大流与最小割" class="headerlink" title="最大流与最小割"></a>最大流与最小割</h4><p>v(f)≤c(A,B)，每个流的值是以每个割的容量为上界的。证明：流f的值=A的出度-A的入度≤A的出度=割(A,B)的容量</p>
-<p>最大流的值等于最小割</p>
-<h4 id="选择好的增广路径"><a href="#选择好的增广路径" class="headerlink" title="选择好的增广路径"></a>选择好的增广路径</h4><p>选择了一条瓶颈容量很小的增广路径， 导致收敛很慢！— 选择具有大的瓶颈容量的路径，进展会更大些</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Scaling-Max-Flow(G, s, t, c) &#123; </span><br><span class="line">    foreach e ∈E  f(e) ←0 </span><br><span class="line">    ∆←largest power of <span class="number">2</span> &lt;= Max of Ce out of s </span><br><span class="line">    Gf←residual graph</span><br><span class="line">	<span class="keyword">while</span>(∆≥<span class="number">1</span>) &#123; <span class="comment">// 外层While循环的迭代次数至多是 1 + ⎡log2 C⎤ </span></span><br><span class="line">        Gf(∆)←∆-residual graph </span><br><span class="line">        <span class="keyword">while</span>(there exists augmenting path P in Gf(∆)) &#123; </span><br><span class="line">            <span class="comment">//在∆缩放阶段，每次增广增加的流值至少是∆.</span></span><br><span class="line">            <span class="comment">//在一个缩放阶段增广次数至多是2m</span></span><br><span class="line">            f ←augment(f, c, P) <span class="comment">//一次增广用O(m)时间(包括建立图，找到合适路径)</span></span><br><span class="line">            update Gf(∆) </span><br><span class="line">        &#125; </span><br><span class="line">        ∆←∆/ <span class="number">2</span> </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="二分匹配问题"><a href="#二分匹配问题" class="headerlink" title="二分匹配问题"></a>二分匹配问题</h3><h4 id="构造最大流"><a href="#构造最大流" class="headerlink" title="构造最大流"></a>构造最大流</h4><p>构造图G’ = (L ∪R∪{s, t},  E’ ). 连接原图L到R的每条边, 每条边赋予单位容 量；增加一个源点s, 从s到L中的每个结点连接一 条边，每条边赋予单位容量；增加一个终点t, 从R中的每个结点到t连接一 条边，每条边赋予单位容量。</p>
-<p> G中最大匹配的数目与所定义的G‘中最大流值相同. </p>
-<p>令n=|L|=|R|,m是G的边数，一般假定初始问题中每个结点至少存在一条关联边， 因此m&gt;=n/2. </p>
-<p>时间复杂度：C=|L|=n,根据以前O(mC)的界——Ford-Fulkerson算法在 O(mn)时间内找到二部图中的一个最大匹配</p>
-<h2 id="NP与计算的难解性"><a href="#NP与计算的难解性" class="headerlink" title="NP与计算的难解性"></a>NP与计算的难解性</h2><table>
-<thead>
-<tr>
-<th>贪心算法</th>
-<th>区间调度</th>
-<th>O(nlogn)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>分治策略</td>
-<td>FFT</td>
-<td>O(nlogn)</td>
-</tr>
-<tr>
-<td>动态规划</td>
-<td>编辑距离</td>
-<td>O(n^2)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="多项式时间规约"><a href="#多项式时间规约" class="headerlink" title="多项式时间规约"></a>多项式时间规约</h3><p>如果对于问题Y：能用多项式个标准的计算步骤，加上多项式次调用解问题X的黑盒子来解问题Y，则：Y多项式时间可归约到X，或X至少想Y一样难（相对于多项式时间）</p>
-<p>$Y≤_pX$ （有传递性）</p>
-<p>如果X能在多项式时间内求解，则Y也能在多项式时间内求解；如果Y能在多项式时间内求解，则X也能在多项式时间内求解。</p>
-<h4 id="独立集问题"><a href="#独立集问题" class="headerlink" title="独立集问题"></a>独立集问题</h4><p>G=(V,E)，G包含大小至少为k的独立集吗？G包含大小至多为k的顶点覆盖吗？</p>
-<p>S是一个独立集当且仅当它的补图V-S是一个顶点覆盖。</p>
-<p><strong>集合覆盖</strong>：比顶点覆盖更具一般性，顶点覆盖$≤_p$集合覆盖</p>
-<p><strong>使用零件归约</strong></p>
-<p>合取范式，可满足性问题SAT，3-SAT：三元可满足性</p>
-<p>3-SAT$≤_p$独立集</p>
-<p>构造：连接一个三角形的三个顶点（需要同时考虑三个三角形，从三个三角形中各取一个点），并把每个项与它的否定项连接起来。</p>
-<p>3-SAT$≤_p$独立集$≤_p$顶点覆盖$≤_p$集合覆盖</p>
-<p>寻找问题$≤_p$判别问题</p>
-<h3 id="有效证书和NP的定义"><a href="#有效证书和NP的定义" class="headerlink" title="有效证书和NP的定义"></a>有效证书和NP的定义</h3><p>对于判定问题： A解问题X</p>
-<p>存在多项式时间解法的问题的集合P</p>
-<p>判断素性：用2到根号N来判断N是否能被这些数整除，算法的时间复杂度是指数级别的；AKS算法为多项式级别。</p>
-<p>证书串t包含s是X的“yes”实例的证据。</p>
-<p>存在t使得：|t|≤p(|s|)且B(s,t)=yes，则B是问题X的有效验证程序，t是证书。</p>
-<p>NP是所有存在有效验证程序的问题的集合</p>
-<h4 id="例"><a href="#例" class="headerlink" title="例"></a><strong>例</strong></h4><p>独立集问题：</p>
-<p>证书：至少有k个顶点的集合；验证程序B：核实这些顶点中的任何两两之间没有边连接。</p>
-<h4 id="NP完全问题"><a href="#NP完全问题" class="headerlink" title="NP完全问题"></a>NP完全问题</h4><p>电路可满足性</p>
-<p>NP问题要么是P，要么是NP完全问题</p>
-<p>难问题的部分分类：</p>
-<ol>
-<li>包装问题：独立集、集合包装</li>
-<li>覆盖问题：顶点覆盖、集合覆盖</li>
-<li>划分问题：三维匹配、图着色</li>
-<li>排序问题：哈密顿图、哈密顿回路、巡回售货员问题</li>
-<li>数值问题：子集和，带开放时间和截止时间的调度问题</li>
-<li>约束满足问题：SAT，3SAT</li>
-</ol>
-<p><img src="//yoursite.com/2019/06/06/算法复习笔记（五）/Users\asus\AppData\Roaming\Typora\typora-user-images\1559907526582.png" alt="1559907526582"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1576,14 +1114,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

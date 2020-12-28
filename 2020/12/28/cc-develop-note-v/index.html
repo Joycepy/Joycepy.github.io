@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="新闻敏感词过滤 新建数据库表 cc_news_sensitive，在后端依次匹配并替换敏感文本内容为“**”，在前端显示出来，没有敏感词后再上传保存。 注意附件上传时的id及对应关系，不要重复上传 feat-filter-news-sensitive-words 分支 （暂时只处理”新建“，不处理”新增“） 后端model：backend/modules/api/v1/models/news/Ne">
+<meta name="keywords" content="yii2,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cc-develop-note-v">
+<meta property="og:url" content="http://yoursite.com/2020/12/28/cc-develop-note-v/index.html">
+<meta property="og:site_name" content="Joyce&#39; Blog">
+<meta property="og:description" content="新闻敏感词过滤 新建数据库表 cc_news_sensitive，在后端依次匹配并替换敏感文本内容为“**”，在前端显示出来，没有敏感词后再上传保存。 注意附件上传时的id及对应关系，不要重复上传 feat-filter-news-sensitive-words 分支 （暂时只处理”新建“，不处理”新增“） 后端model：backend/modules/api/v1/models/news/Ne">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/12/28/cc-develop-note-v/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201227211648167.png">
+<meta property="og:updated_time" content="2020-12-28T12:31:01.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cc-develop-note-v">
+<meta name="twitter:description" content="新闻敏感词过滤 新建数据库表 cc_news_sensitive，在后端依次匹配并替换敏感文本内容为“**”，在前端显示出来，没有敏感词后再上传保存。 注意附件上传时的id及对应关系，不要重复上传 feat-filter-news-sensitive-words 分支 （暂时只处理”新建“，不处理”新增“） 后端model：backend/modules/api/v1/models/news/Ne">
+<meta name="twitter:image" content="http://yoursite.com/2020/12/28/cc-develop-note-v/Users/pcy/AppData/Roaming/Typora/typora-user-images/image-20201227211648167.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/28/cc-develop-note-v/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cc-develop-note-v | Joyce' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Joyce' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/28/cc-develop-note-v/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cc-develop-note-v
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-28 20:31:00 / 修改时间：20:31:01" itemprop="dateCreated datePublished" datetime="2020-12-28T20:31:00+08:00">2020-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="新闻敏感词过滤"><a href="#新闻敏感词过滤" class="headerlink" title="新闻敏感词过滤"></a>新闻敏感词过滤</h2><p><img src="//yoursite.com/2020/12/28/cc-develop-note-v/Users\pcy\AppData\Roaming\Typora\typora-user-images\image-20201227211648167.png" alt="image-20201227211648167"></p>
+<p>新建数据库表 cc_news_sensitive，在后端依次匹配并替换敏感文本内容为“**”，在前端显示出来，没有敏感词后再上传保存。</p>
+<p>注意附件上传时的id及对应关系，不要重复上传</p>
+<p>feat-filter-news-sensitive-words 分支</p>
+<p>（暂时只处理”新建“，不处理”新增“）</p>
+<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>model：backend/modules/api/v1/models/news/NewsSensitiveModel.php</p>
+<h4 id="关键词匹配"><a href="#关键词匹配" class="headerlink" title="关键词匹配"></a>关键词匹配</h4><ul>
+<li>遍历文本</li>
+<li>正则表达式</li>
+<li>DFA算法。前两种方法当需要匹配的关键词数量增大时，效率很低。Deterministic Finite automation，确定性的有穷状态自动机。从一个状态输入一个字符集合能到达下一个确定的状态。<a href="https://github.com/FireLustre/php-dfa-sensitive" target="_blank" rel="noopener">https://github.com/FireLustre/php-dfa-sensitive</a></li>
+</ul>
+<p>mb_substr() 函数返回字符串的一部分， substr() 函数只针对英文字符，如果要分割的中文文字则需要使用 mb_substr()。</p>
+<p>backend/modules/api/v1/models/news/NewsModel.php:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 过滤新闻中的敏感词</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">filterNews</span><span class="params">($data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $db=Yii::$app-&gt;db;</span><br><span class="line">    $sql=<span class="string">"SELECT cc_news_sensitive.WordContent FROM cc_news_sensitive"</span>;</span><br><span class="line">    $words=$db-&gt;createCommand($sql)-&gt;queryAll();</span><br><span class="line">    $sensitiveArr=[];</span><br><span class="line">    <span class="keyword">foreach</span> ($words <span class="keyword">as</span> $word) &#123;</span><br><span class="line">        $sensitiveArr[]=$word[<span class="string">'WordContent'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $res[<span class="string">'sensitive'</span>]=<span class="keyword">false</span>;</span><br><span class="line">    $content=$data[<span class="string">'Content'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建敏感词库树</span></span><br><span class="line">    $handle = SensitiveHelper::init()-&gt;setTree($sensitiveArr);</span><br><span class="line">    <span class="comment">// 检测是否含有敏感词</span></span><br><span class="line">    $isLegal = $handle-&gt;islegal($content);</span><br><span class="line">    <span class="keyword">if</span>($isLegal===<span class="keyword">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 含有敏感词</span></span><br><span class="line">        $res[<span class="string">'sensitive'</span>]=<span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">// 敏感词替换为**</span></span><br><span class="line">        $filterContent = $handle-&gt;replace($content, <span class="string">'**'</span>);</span><br><span class="line">        $res[<span class="string">'newContent'</span>]=$filterContent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>backend/modules/api/v1/controllers/NewsController.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加新闻</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionPostNews</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $request = \Yii::$app-&gt;request;</span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;getIsOptions()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;ResponseOptions(<span class="keyword">$this</span>-&gt;verbs()[<span class="string">'post-news'</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    $data = $request-&gt;getBodyParams();</span><br><span class="line">    $filterRes=NewsModel::filterNews($data);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($filterRes[<span class="string">'sensitive'</span>]===<span class="keyword">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        $res[<span class="string">'success'</span>] = <span class="keyword">false</span>;</span><br><span class="line">        $res[<span class="string">'sensitive'</span>]=<span class="keyword">true</span>;</span><br><span class="line">        $res[<span class="string">'newContent'</span>]=$filterRes[<span class="string">'newContent'</span>];</span><br><span class="line">        $res[<span class="string">'data'</span>]=$data;</span><br><span class="line">        <span class="keyword">return</span> $res;</span><br><span class="line">    &#125;</span><br><span class="line">    date_default_timezone_set(<span class="string">'PRC'</span>);</span><br><span class="line">    $data[<span class="string">'PublishTime'</span>] = date(<span class="string">'Y-m-d H:i:s'</span>, time());</span><br><span class="line">    $data[<span class="string">'UpdateTime'</span>] = $data[<span class="string">'PublishTime'</span>];</span><br><span class="line">    $data[<span class="string">'DeleteStatus'</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    $res=NewsModel::postNews($data);</span><br><span class="line">    $res[<span class="string">'sensitive'</span>]=<span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>src\views\news\NewsCompose.vue 的 postNews()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">.then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.data.success === <span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="comment">// 添加新闻之后，服务器返回新闻ID，传给对应的上传组件</span></span><br><span class="line">        <span class="keyword">this</span>.NIDForm.NID = res.data.data.NID;</span><br><span class="line">        <span class="comment">// 上传附件操作</span></span><br><span class="line">        <span class="keyword">this</span>.$refs.upload.submit();</span><br><span class="line">        <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">            type: <span class="string">"success"</span>,</span><br><span class="line">            message: <span class="string">"发布成功!"</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">this</span>.newsJumpTip = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">this</span>.goToNewsList();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.data.sensitive === <span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 含有敏感词</span></span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">"info"</span>,</span><br><span class="line">                message: <span class="string">"已将敏感词替换为**，请检查后重新上传！"</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 重新显示修改后的内容</span></span><br><span class="line">            <span class="keyword">this</span>.newsForm.newsContent = res.data.newContent;</span><br><span class="line">            <span class="keyword">this</span>.$refs.tinymce.setContent(<span class="keyword">this</span>.newsForm.newsContent);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.$message(&#123;</span><br><span class="line">                type: <span class="string">"error"</span>,</span><br><span class="line">                message: <span class="string">"发布失败，请检查信息是否都已正确填写!"</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>数据修改后没有在视图中同时显示，因此使用 this.$refs 获取 tinymce 组件，调用 setContent() 方法手动更新。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/yii2/" rel="tag"># yii2</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/cc-develop-note-iii/" rel="prev" title="cc-front/backend-develop-note-3">
+      <i class="fa fa-chevron-left"></i> cc-front/backend-develop-note-3
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/28/cc-develop-note-iv/" rel="next" title="cc-develop-note-iv">
+      cc-develop-note-iv <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#新闻敏感词过滤"><span class="nav-number">1.</span> <span class="nav-text">新闻敏感词过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#后端"><span class="nav-number">1.1.</span> <span class="nav-text">后端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键词匹配"><span class="nav-number">1.1.1.</span> <span class="nav-text">关键词匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端"><span class="nav-number">1.2.</span> <span class="nav-text">前端</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Joyce" src="/images/logo.jpg">
+  <p class="site-author-name" itemprop="name">Joyce</p>
+  <div class="site-description" itemprop="description">Growing Path</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Joycepy" title="GitHub → https://github.com/Joycepy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/pichunying@gmail.com" title="E-Mail → pichunying@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tiffanychou21.github.io/" title="https://tiffanychou21.github.io/" rel="noopener" target="_blank">ZCF</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://jybwob.tk/" title="http://jybwob.tk/" rel="noopener" target="_blank">JYB</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flippedyue.github.io/" title="https://flippedyue.github.io/" rel="noopener" target="_blank">JY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://jerrymousez.github.io/" title="https://jerrymousez.github.io/" rel="noopener" target="_blank">JZ</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joyce</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -158,6 +158,413 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/LongestCommonPrefix/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/LongestCommonPrefix/" class="post-title-link" itemprop="url">LongestCommonPrefix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-08 16:33:04 / 修改时间：16:45:23" itemprop="dateCreated datePublished" datetime="2019-09-08T16:33:04+08:00">2019-09-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font color="blue">注意数组为空的情况！！！</font>
+
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一组字符串，输出这些字符串共有的最长前缀</p>
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>二重循环，外层是字符串长度向后移动，内层是每个字符串依次比较。得到了最容易想到的解决方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> size = strs.size();</span><br><span class="line">	<span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	<span class="keyword">int</span>* lens = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">	<span class="keyword">int</span> min= strs[<span class="number">0</span>].length();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		lens[i] = strs[i].length();</span><br><span class="line">		<span class="keyword">if</span> (lens[i] &lt; min)</span><br><span class="line">			min = lens[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> ch;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; min &amp;&amp; flag; ++i)<span class="comment">//字符串长度</span></span><br><span class="line">	&#123;</span><br><span class="line">		ch = strs[<span class="number">0</span>][i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size; ++j)<span class="comment">//遍历每个字符串</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (strs[j][i] != ch)</span><br><span class="line">			&#123;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			s = s + ch;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是提交之后发现内存使用量太大，难道是因为我开了一个记录长度的数组？突然想到递归也是可以解决的。</p>
+<p>查了一下其他人的做法，发现了自己的不足：需要返回的字符串prefix，不需要一个个字母地附加。当字符串数组strs不为空时，令prefix=strs[0]，然后外层遍历res的字符，内层遍历strs数组，利用strs[i].indexOf(prefix) != 0和prefix.substring(0, prefix.length() - 1)已有的函数。这样空间复杂度为O(1)。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/Roman-to-Integer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/Roman-to-Integer/" class="post-title-link" itemprop="url">Roman-to-Integer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-08 08:14:05 / 修改时间：08:22:12" itemprop="dateCreated datePublished" datetime="2019-09-08T08:14:05+08:00">2019-09-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>犯了一个严重的错误，居然忘了switch-case，在执行完一个case之后是继续向下走的！因此注意是否要在每个case中加‘break’</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>罗马数字转阿拉伯数字。注意类似“4”和“9”的情况。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>想到了最简单地解决方法：从前向后遍历，遇到字母就加上对应的数字，只不过要注意‘I’等字母，看是否出现类似“4”和“9”的情况。更高效的方法暂时还没想到。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.length();</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">switch</span> (s[i])</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">1000</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">500</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'C'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'D'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">400</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'M'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">900</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">100</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">100</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'L'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">50</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'X'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'L'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">40</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'C'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">90</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">10</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'V'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">5</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'V'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">4</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'X'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">9</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/07/integer-to-roman/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/07/integer-to-roman/" class="post-title-link" itemprop="url">integer-to-roman</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-09-07 20:09:15 / 修改时间：21:05:47" itemprop="dateCreated datePublished" datetime="2019-09-07T20:09:15+08:00">2019-09-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <font color="pink">半个小时写完了代码，提交之后一遍过，这种感觉还是比较爽的。</font>
+
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>阿拉伯数字转罗马数字，符号与对应数值如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Symbol       Value</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
+<p>需要注意的是减法的情况（4和9）</p>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>有限的几个字母，比较好处理，先将数字减至1000以下，这个过程中只用考虑M的个数；然后就可以按照位数，循环地处理剩下的数字了。对于剩下的数字，位数上数字为4和9的需要单独处理，剩下的就是字符串循环加，数字循环减。用k来表示此时处理到的基数，k=100,10,1.最后退出循环，返回字符串。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> remain = num;</span><br><span class="line">	<span class="keyword">while</span> ((remain / <span class="number">1000</span>) &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		res += <span class="string">"M"</span>;</span><br><span class="line">		remain -= <span class="number">1000</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">while</span> (k &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> ((remain / k) &gt; <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> ((remain / k) == <span class="number">9</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				remain -= <span class="number">9</span> * k;</span><br><span class="line">				<span class="keyword">if</span> (k == <span class="number">100</span>)</span><br><span class="line">					res += <span class="string">"CM"</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (k == <span class="number">10</span>)</span><br><span class="line">					res += <span class="string">"XC"</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="string">"IX"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				remain -= <span class="number">5</span> * k;</span><br><span class="line">				<span class="keyword">if</span> (k == <span class="number">100</span>)</span><br><span class="line">					res += <span class="string">"D"</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (k == <span class="number">10</span>)</span><br><span class="line">					res += <span class="string">"L"</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="string">"V"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ((remain / k) == <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			remain -= <span class="number">4</span>*k;</span><br><span class="line">			<span class="keyword">if</span> (k == <span class="number">100</span>)</span><br><span class="line">				res += <span class="string">"CD"</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (k == <span class="number">10</span>)</span><br><span class="line">				res += <span class="string">"XL"</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="string">"IV"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ((remain / k) &lt; <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span> ((remain / k) &gt; <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				remain -= k;</span><br><span class="line">				<span class="keyword">if</span> (k == <span class="number">100</span>)</span><br><span class="line">					res += <span class="string">"C"</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (k == <span class="number">10</span>)</span><br><span class="line">					res += <span class="string">"X"</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="string">"I"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		k /= <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/container-with-most-water/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/27/container-with-most-water/" class="post-title-link" itemprop="url">container-with-most-water</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-08-27 11:03:13 / 修改时间：18:50:30" itemprop="dateCreated datePublished" datetime="2019-08-27T11:03:13+08:00">2019-08-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>Given <em>n</em> non-negative integers <em>a1</em>, <em>a2</em>, …, <em>an</em> , where each represents a point at coordinate (<em>i</em>, <em>ai</em>). <em>n</em> vertical lines are drawn such that the two endpoints of line <em>i</em> is at (<em>i</em>, <em>ai</em>) and (<em>i</em>, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
+<p><strong>Note:</strong> You may not slant the container and <em>n</em> is at least 2.</p>
+<p>相当于要找数组中的某两个数，使得这两个数的间距与两数中的较小数的乘积取最大值。比较直接的方法是遍历，时间复杂度为O(n^2)。若要智取，可以考虑不断缩减两个数的间距，通过减小长度，增加高度的方法增大面积。两个数中，哪个数更大，就向那一边移动。</p>
+<p><font color="red">两个数相等怎么办呢？</font>两边方向都可以。因为最终高度取决于较小的数，而两个等高的柱子之间，要么比他们更高，但距离更小；要么高度和距离都更小。唯一可能增大面积的情况是等高柱子中间的两个最大的数组合，但无论从哪一边移动，都会遇到这个情况，不会被遗漏。这样的方法每个数只遍历一遍，时间复杂度为O(n)。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = height.size()<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> right = len;</span><br><span class="line">	<span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> low = height[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">while</span> (len &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (height[left] &lt; height[right])</span><br><span class="line">		&#123;</span><br><span class="line">			low = height[left];</span><br><span class="line">			max = max &gt; low*len ? max : low * len;</span><br><span class="line">			++left;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			low = height[right];</span><br><span class="line">			max = max &gt; low*len ? max : low * len;</span><br><span class="line">			--right;</span><br><span class="line">		&#125;</span><br><span class="line">		--len;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/Regular-Expression/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/23/Regular-Expression/" class="post-title-link" itemprop="url">Regular Expression</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-23 22:45:27" itemprop="dateCreated datePublished" datetime="2019-08-23T22:45:27+08:00">2019-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-24 19:41:03" itemprop="dateModified" datetime="2019-08-24T19:41:03+08:00">2019-08-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个字符串 s 和一个字符规律 p，实现一个支持 ‘.’ 和 ‘*’ 的正则表达式匹配。</p>
+<p>‘.’ 匹配任意单个字符<br>‘*’ 匹配零个或多个前面的那一个元素</p>
+<p><strong>说明:</strong></p>
+<p>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/regular-expression-matching" target="_blank" rel="noopener">https://leetcode-cn.com/problems/regular-expression-matching</a></p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>使用==动态规划==的方法。如果s[0..i) 成功匹配 p[0..j) ，令dp[i][j]为true，否则为false。”.”的情况较易处理，主要需要考虑”*“的影响，它可能表示多个连续相同的字母，也可能使它的前一个字母“消失”。一、p[j - 1] != ‘*‘，这是最简单的情况，只需要直接比较当前的两个字母，并向前移动 i 和 j ；二、p[j - 1] == ‘*‘，根据前面分析的’*‘的两种作用，这里需要细分为两种情况。在所有的情况下，i 和 j 都在单个或一起向前移，所以需要一个二重循环，在最内层用 if - else 对dp进行赋值。注意dp[0][0] = 1，表示s和p都为空串；dp[0][j]=0，表示s串前推到头时，如果p串还未结束，则返回false。</p>
+<p><strong>状态转移方程：</strong></p>
+<ol>
+<li><code>dp[i][j] = dp[i - 1][j - 1]</code>, if <code>p[j - 1] != &#39;*&#39; &amp;&amp; (s[i - 1] == p[j - 1] || p[j - 1] == &#39;.&#39;)</code>;</li>
+<li><code>dp[i][j] = dp[i][j - 2]</code>, if <code>p[j - 1] == &#39;*&#39;</code> and the pattern repeats for 0 time;</li>
+<li><code>dp[i][j] = dp[i - 1][j] &amp;&amp; (s[i - 1] == p[j - 2] || p[j - 2] == &#39;.&#39;)</code>, if <code>p[j - 1] == &#39;*&#39;</code> and the pattern repeats for at least 1 time.</li>
+</ol>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s,<span class="built_in">string</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = s.length(), n = p.length();</span><br><span class="line">	<span class="keyword">bool</span> **dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[m+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m + <span class="number">1</span>; ++i)	</span><br><span class="line">		dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; ++j)</span><br><span class="line">			dp[i][j] = <span class="number">0</span>;</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (p[j - <span class="number">1</span>] == <span class="string">'*'</span>)</span><br><span class="line">				dp[i][j] = dp[i][j - <span class="number">2</span>] || (i&gt;<span class="number">0</span>&amp;&amp;dp[i - <span class="number">1</span>][j] &amp;&amp; (s[i - <span class="number">1</span>] == p[j - <span class="number">2</span>] || p[j - <span class="number">2</span>] == <span class="string">'.'</span>));</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				dp[i][j] = i&gt;<span class="number">0</span> &amp;&amp; dp[i - <span class="number">1</span>][j - <span class="number">1</span>] &amp;&amp; (s[i - <span class="number">1</span>] == p[j - <span class="number">1</span>] || p[j - <span class="number">1</span>] == <span class="string">'.'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[m][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h3><p>报错：<font color="red">string subscript out of range</font></p>
+<p>解决：可能的原因是数组索引超出范围。在此次代码中出现这个问题的原因是我把 j 写成 i 了，导致访问数组是下标超限。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/mini-pro-note3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/15/mini-pro-note3/" class="post-title-link" itemprop="url">mini-pro-note3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-15 13:49:48" itemprop="dateCreated datePublished" datetime="2019-08-15T13:49:48+08:00">2019-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-10 21:18:18" itemprop="dateModified" datetime="2020-02-10T21:18:18+08:00">2020-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="小游戏开发"><a href="#小游戏开发" class="headerlink" title="小游戏开发"></a>小游戏开发</h1><p>开发与调试环境：IDE: 在webStorm里开发，node和babel(es5和es6做转换)等前端工具链。</p>
+<p>游戏开发——面向对象</p>
+<p>canvas——剪裁和重绘的过程</p>
+<p>“精灵”指游戏中一切呈现的元素</p>
+<p><strong>es5:</strong> use strict</p>
+<h4 id="模块分解"><a href="#模块分解" class="headerlink" title="模块分解"></a>模块分解</h4><p>game.js程序入口；main.js程序主类，初始化canvas和全局对象；director.js控制游戏逻辑；DataStore.js储存长期保存的变量；ResourceLoader.js资源加载器；Sprite.js游戏精灵的基类……</p>
+<p><strong>图片原理：</strong>cavas：背景层+铅笔层+陆地层+小鸟</p>
+<p>关于铅笔：定期随机创建两组</p>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>wx.createCanvas()在适配器文件js/libs/weapp-adapter.js中已经调用了一次，返回的canvas是全局变量，不能在适配器文件后面再调用该函数，否则会离屏。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/14/cpp-tutorial-note2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -549,447 +956,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/mini-pro-Note1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/29/mini-pro-Note1/" class="post-title-link" itemprop="url">mini-pro-Note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-29 22:45:23" itemprop="dateCreated datePublished" datetime="2019-07-29T22:45:23+08:00">2019-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-03 23:23:45" itemprop="dateModified" datetime="2019-08-03T23:23:45+08:00">2019-08-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> MOOC教程：<a href="https://www.icourse163.org/learn/HZIC-1205901813?tid=1206204209#/learn/content" target="_blank" rel="noopener">https://www.icourse163.org/learn/HZIC-1205901813?tid=1206204209#/learn/content</a></p>
-<p>微信小程序诞生背景：网页速度慢，APP开发、下载及更新问题，借助微信的推广</p>
-<ol>
-<li><p><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/quickstart/getstart.html#%E7%94%B3%E8%AF%B7%E5%B8%90%E5%8F%B7" target="_blank" rel="noopener">注册微信小程序</a></p>
-</li>
-<li><p><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank" rel="noopener">安装开发者工具</a></p>
-</li>
-<li><p>创建小程序</p>
-</li>
-</ol>
-<p>项目文件结构：</p>
-<p>pages：小程序的页面，每个页面有js(定义函数)，wxml，wxss(页面样式)，json(配置文件)文件</p>
-<p>app：全局页面，app.json中pages第一行是进入小程序的首页，windows状态栏、导航栏等设置</p>
-<p>在index.js的data里面定义参数(可定义初始值或之后赋值)，bindViewTag定义事件处理函数，在index.wxml里使用，变量要使用双括号。</p>
-<p>右下方窗口APPData中可查看登录者微信设置</p>
-<p><strong>tabBar</strong>：</p>
-<p>在app.json文件中与window同级，若要为按钮增加图标，需要将图片保存在与pages同级的文件夹(images)中，iconPath指的是没有被选中时的按钮图标，selectedIconPath表示被选中时的图标。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"tabBar"</span>:&#123;</span><br><span class="line">  <span class="string">"list"</span>:[</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"pagePath"</span>:<span class="string">"pages/index/index"</span>,</span><br><span class="line">      <span class="string">"text"</span>:<span class="string">"首页"</span>,</span><br><span class="line">      <span class="string">"iconPath"</span>:<span class="string">"images/first1.png"</span>,</span><br><span class="line">      <span class="string">"selectedIconPath"</span>:<span class="string">"images/first2.png"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"pagePath"</span>: <span class="string">"pages/logs/logs"</span>,</span><br><span class="line">      <span class="string">"text"</span>: <span class="string">"日志"</span>,</span><br><span class="line">      <span class="string">"iconPath"</span>: <span class="string">"images/log1.png"</span>,</span><br><span class="line">      <span class="string">"selectedIconPath"</span>: <span class="string">"images/log2.png"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ] </span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p><strong>调试</strong>可使用console.log(&lt;要打印的内容&gt;)</p>
-<p>C语言测试小程序，增加做题情况</p>
-<h3 id="我的页面模块开发"><a href="#我的页面模块开发" class="headerlink" title="我的页面模块开发"></a><strong>我的页面</strong>模块开发</h3><p><img src="//yoursite.com/2019/07/29/mini-pro-Note1/blog\source\_posts\3.PNG" alt="3"></p>
-<p>要使 wx.login 方法的 wx.request()中的 url 实现访问后台，需要前往<a href="https://zjgsujiaoxue.applinzi.com/index.php/Page/Index/register进行进行使用注册。" target="_blank" rel="noopener">https://zjgsujiaoxue.applinzi.com/index.php/Page/Index/register进行进行使用注册。</a> 调用该接口需要 2 个参数，即开发者的 appid 与 appsecret。</p>
-<p><strong>微信官方 UI 库 WeUI</strong></p>
-<p>将 style 文件夹拷贝至自己开发的项目后，在 app.wxss 文件中使用 @import 导入 weui 的样式</p>
-<p><strong>bindchange 事件</strong></p>
-<p>当输入框中的内容发生改变时， 触发对应的事件处理函数，并且输入框中的值可以通过 event.detail.value 来获取</p>
-<p>在wxml中使用\<view>的 class 类最后新加一个 submit 子类，在 wxss 文件中写 submit 子类样式的相关属性</view></p>
-<p><strong>openAlert 函数</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/Dino-Run/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/27/Dino-Run/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-27 23:19:33" itemprop="dateCreated datePublished" datetime="2019-07-27T23:19:33+08:00">2019-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:12:00" itemprop="dateModified" datetime="2020-02-10T21:12:00+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<p>title: Dino Run<br>tags: tip—</p>
-<p>强化学习训练把dino run玩到4000分，<a href="https://blog.paperspace.com/dino-run/" target="_blank" rel="noopener">教程链接</a>，需要云服务器，所以放弃了。</p>
-<p>在网上找到了外挂的方法：<a href="https://blog.csdn.net/weixin_41474364/article/details/85613923" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41474364/article/details/85613923</a></p>
-<p>根据判断X轴方向小恐龙和前面物品距离进行自动跳跃，添加了代码避免小恐龙跳过蛋糕、避而不吃，调整了对障碍物需要跳跃的高度判断，防止小恐龙看到低飞的鸟儿迎面而上，还有能够在代码执行后，自动开始游戏。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TrexRunnerBot</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> makeKeyArgs = (keyCode) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> preventDefault = () =&gt; void <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;keyCode, preventDefault&#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> upKeyArgs = makeKeyArgs(<span class="number">38</span>);</span><br><span class="line">  <span class="keyword">const</span> downKeyArgs = makeKeyArgs(<span class="number">40</span>);</span><br><span class="line">  <span class="keyword">const</span> startArgs = makeKeyArgs(<span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!Runner().playing) &#123;</span><br><span class="line">    Runner().onKeyDown(startArgs);</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      Runner().onKeyUp(startArgs);</span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">conquerTheGame</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!Runner || !Runner().horizon.obstacles[<span class="number">0</span>]) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> obstacle = Runner().horizon.obstacles[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (obstacle.typeConfig &amp;&amp; obstacle.typeConfig.type === <span class="string">'SNACK'</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (needsToTackle(obstacle) &amp;&amp; closeEnoughToTackle(obstacle)) tackle(obstacle);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">needsToTackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.yPos !== <span class="number">50</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">closeEnoughToTackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.xPos &lt;= Runner().currentSpeed * <span class="number">18</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">tackle</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isDuckable(obstacle)) &#123;</span><br><span class="line">      duck();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      jumpOver(obstacle);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isDuckable</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obstacle.yPos === <span class="number">50</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Runner().onKeyDown(downKeyArgs);</span><br><span class="line"></span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      Runner().onKeyUp(downKeyArgs);</span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">jumpOver</span><span class="params">(obstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isNextObstacleCloseTo(obstacle))</span><br><span class="line">      jumpFast();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      Runner().onKeyDown(upKeyArgs);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isNextObstacleCloseTo</span><span class="params">(currentObstacle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> nextObstacle = Runner().horizon.obstacles[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nextObstacle &amp;&amp; nextObstacle.xPos - currentObstacle.xPos &lt;= Runner().currentSpeed * <span class="number">42</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">jumpFast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Runner().onKeyDown(upKeyArgs);</span><br><span class="line">    Runner().onKeyUp(upKeyArgs);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;conquerTheGame: conquerTheGame&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let bot = TrexRunnerBot();</span><br><span class="line">let botInterval = setInterval(bot.conquerTheGame, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-<p>将代码复制到console，回车，会自动进行跳跃，获取分数的速度依然和正常游玩的玩家是一样的，小恐龙走一步记一分。</p>
-<p>下面的方法，可以在短时间内迅速加分：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Runner.instance_.setSpeed(<span class="number">99999</span>); 试试 瞬间 满分</span><br><span class="line">window.tempGameOver = Runner.instance_.gameOver;</span><br><span class="line">Runner.instance_.gameOver = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;&#125;<span class="comment">// 不会死亡</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/关于Nodejs/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/26/关于Nodejs/" class="post-title-link" itemprop="url">关于Nodejs</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-26 22:51:03" itemprop="dateCreated datePublished" datetime="2019-07-26T22:51:03+08:00">2019-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-07-27 00:01:39" itemprop="dateModified" datetime="2019-07-27T00:01:39+08:00">2019-07-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h4><p>npm其实是Node.js的包管理工具（package manager）</p>
-<p>安装过程中遇到的问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! audit No package.json found: Cannot audit a project without a package.json</span><br></pre></td></tr></table></figure>
-<p>是没有json文件的问题</p>
-<p>解决：输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --yes</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/互联网数据库大作业Note3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/25/互联网数据库大作业Note3/" class="post-title-link" itemprop="url">互联网数据库大作业Note3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-25 11:41:46" itemprop="dateCreated datePublished" datetime="2019-07-25T11:41:46+08:00">2019-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:19:22" itemprop="dateModified" datetime="2020-02-10T21:19:22+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="yii将提示改为中文"><a href="#yii将提示改为中文" class="headerlink" title="yii将提示改为中文"></a>yii将提示改为中文</h4><p>例如验证是否为空的提示，可以在common\config\main.php中加 ‘language’=&gt;’zh-CN’，与components同级</p>
-<p>另外，修改时区可使用’timeZone’=&gt;’Asia/Shanghai’，</p>
-<p>例如提示密码或用户名错误的提示，可在common\models\LoginForm.php文件中修改</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/win_tree文件树/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/18/win_tree文件树/" class="post-title-link" itemprop="url">win_tree文件树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-18 20:48:09" itemprop="dateCreated datePublished" datetime="2019-07-18T20:48:09+08:00">2019-07-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:24:12" itemprop="dateModified" datetime="2020-02-10T21:24:12+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>发现windows可以很方便地生成文件树，方法如下：</p>
-<p>cmd进入在当前目录，执行命令: </p>
-<p><code>tree /F &gt; 文档结构图.txt</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/git-note/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/17/git-note/" class="post-title-link" itemprop="url">git操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-17 10:27:42" itemprop="dateCreated datePublished" datetime="2019-07-17T10:27:42+08:00">2019-07-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>小结<br>要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；<br>关联后，使用命令git push -u origin master第一次推送master分支的所有内容；<br>此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；</p>
-<p>小结<br>要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。<br>Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。<br><a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:michaelliao/gitskills.git<br><a href="https://github.com/michaelliao/gitskills.git" target="_blank" rel="noopener">https://github.com/michaelliao/gitskills.git</a></p>
-<p>小结<br>Git鼓励大量使用分支：<br>查看分支：git branch<br>创建分支：git branch <name><br>切换分支：git checkout <name><br>创建+切换分支：git checkout -b <name><br>合并某分支到当前分支：git merge <name><br>删除分支：git branch -d <name></name></name></name></name></name></p>
-<p>小结<br>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；<br>当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，<br>再git stash pop，回到工作现场。</p>
-<p>小结<br>开发一个新feature，最好新建一个分支；<br>如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。</name></p>
-<p>小结<br>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。<br>解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。<br>用git log –graph命令可以看到分支合并图。</p>
-<p>小结<br>Git分支十分强大，在团队开发中应该充分应用。<br>合并分支时，加上–no-ff参数就可以用普通模式合并，合并后的历史有分支，<br>能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。</p>
-<p>小结<br>查看远程库信息，使用git remote -v；<br>本地新建的分支如果不推送到远程，对其他人就是不可见的；<br>从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；<br>在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；<br>建立本地分支和远程分支的关联，使用git branch –set-upstream branch-name origin/branch-name；<br>从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</p>
-<p>小结<br>命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；<br>命令git tag -a <tagname> -m “blablabla…”可以指定标签信息；<br>命令git tag可以查看所有标签</tagname></tagname></p>
-<p>小结<br>命令git push origin <tagname>可以推送一个本地标签；<br>命令git push origin –tags可以推送全部未推送过的本地标签；<br>命令git tag -d <tagname>可以删除一个本地标签；<br>命令git push origin :refs/tags/<tagname>可以删除一个远程标签。</tagname></tagname></tagname></p>
-<p>小结<br>在GitHub上，可以任意Fork开源仓库；<br>自己拥有Fork后的仓库的读写权限；<br>可以推送pull request给官方仓库来贡献代码。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1056,14 +1026,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

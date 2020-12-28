@@ -158,6 +158,552 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/数据库大作业笔记（九）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/15/数据库大作业笔记（九）/" class="post-title-link" itemprop="url">数据库大作业笔记（九）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-15 09:33:35" itemprop="dateCreated datePublished" datetime="2019-05-15T09:33:35+08:00">2019-05-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mysql抛出异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF(!(new.eqpid LIKE CONCAT(new.catid,&apos;%&apos;))) </span><br><span class="line">THEN SIGNAL SQLSTATE &apos;HY000&apos; SET MESSAGE_TEXT = &apos;输入错误&apos; ; </span><br><span class="line">-- set new.eqpid=NULL; </span><br><span class="line">ELSE insert into audit_equipment VALUES(new.eqpid,user(),now(),1); </span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
+<p>php:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    $model = <span class="keyword">new</span> Equipment();</span><br><span class="line">    <span class="keyword">if</span> ($model-&gt;load(Yii::$app-&gt;request-&gt;post()) &amp;&amp; $model-&gt;save()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'view'</span>, <span class="string">'id'</span> =&gt; $model-&gt;eqpid]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span>(\<span class="keyword">Exception</span> $e)&#123;</span><br><span class="line">   </span><br><span class="line">   &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'create'</span>, [</span><br><span class="line">        <span class="string">'model'</span> =&gt; $model,</span><br><span class="line">]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/算法大作业笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/14/算法大作业笔记（二）/" class="post-title-link" itemprop="url">算法大作业笔记（二）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-14 23:19:21" itemprop="dateCreated datePublished" datetime="2019-05-14T23:19:21+08:00">2019-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-17 08:30:11" itemprop="dateModified" datetime="2019-05-17T08:30:11+08:00">2019-05-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color="red">这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？</font>有一个坏消息：</p>
+<p><img src="//yoursite.com/2019/05/14/算法大作业笔记（二）/桌面\时光以南\算法导论\作业\图片\6.png" width="70%"></p>
+<p>目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。</p>
+<h4 id="数独问题的图搜索策略"><a href="#数独问题的图搜索策略" class="headerlink" title="数独问题的图搜索策略"></a>数独问题的图搜索策略</h4><p>深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。</p>
+<h5 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h5><ol>
+<li>把起始节点S放到一个叫做OPEN的未扩展节点表中(简称OPEN表).如果此节点为一目标节点,则得到一个解</li>
+<li>建立一个叫做 CLOSED的已扩展节点表简称 CLOSED表)其初始为空表</li>
+<li>如果OPEN为一空表,则失败退出.</li>
+<li>把第一个节点(节点n)从OPEN表移到CLOSED表</li>
+<li>如果节点n的深度等于最大深度,则转向(3).</li>
+<li>扩展节点n产生其全部后裔,并把它们放入OPEN表的前头.如果没有后裔,则转向(3)</li>
+<li>如果后继节点中有任一个为目标节点,则求得一个解.成功退出;否则,转向(3).</li>
+</ol>
+<h5 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h5><p>search(c)：参数c为单元格地址,给定一个c对该单元格所在行、列,所在小九宮格已有数字进行判断,返回还允许填入的数字,用有效数字序列的字符串格式表示,比如返回“1356”,表示该单元格还可以填入1、3、5、6中任一数字,返回“”,表示该单元格无数可填,此时检查OPEN表,若空,则失败退出,在递归程序中返回上一级。</p>
+<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>图着色可以应用到多面体的面着色</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/数据库大作业笔记（八）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/14/数据库大作业笔记（八）/" class="post-title-link" itemprop="url">数据库大作业笔记（八）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-14 20:13:13 / 修改时间：20:13:14" itemprop="dateCreated datePublished" datetime="2019-05-14T20:13:13+08:00">2019-05-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="PHP与数据库中的查询"><a href="#PHP与数据库中的查询" class="headerlink" title="PHP与数据库中的查询"></a>PHP与数据库中的查询</h4><h5 id="查询构造器"><a href="#查询构造器" class="headerlink" title="查询构造器"></a>查询构造器</h5><p>典型用法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$rows = (<span class="keyword">new</span> \yii\db\Query())</span><br><span class="line">    -&gt;select([<span class="string">'id'</span>, <span class="string">'email'</span>])</span><br><span class="line">    -&gt;from(<span class="string">'user'</span>)</span><br><span class="line">    -&gt;where([<span class="string">'last_name'</span> =&gt; <span class="string">'Smith'</span>])</span><br><span class="line">    -&gt;limit(<span class="number">10</span>)</span><br><span class="line">    -&gt;all();</span><br></pre></td></tr></table></figure>
+<p>上面的代码将会生成并执行如下的SQL语句，其中 <code>:last_name</code> 参数绑定了 字符串 <code>&#39;Smith&#39;</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">`id`</span>, <span class="string">`email`</span> </span><br><span class="line"><span class="keyword">FROM</span> <span class="string">`user`</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="string">`last_name`</span> = :last_name</span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h5 id="创建查询"><a href="#创建查询" class="headerlink" title="创建查询"></a>创建查询</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$query-&gt;select([<span class="string">'user.id AS user_id'</span>, <span class="string">'email'</span>]);</span><br><span class="line"><span class="comment">// 等同于：</span></span><br><span class="line">$query-&gt;select([<span class="string">'user_id'</span> =&gt; <span class="string">'user.id'</span>, <span class="string">'email'</span>]);</span><br><span class="line"><span class="comment">// 等同于：</span></span><br><span class="line">$query-&gt;select(<span class="string">'user.id AS user_id, email'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// SELECT * FROM `user`</span></span><br><span class="line">$query-&gt;from(<span class="string">'user'</span>);</span><br></pre></td></tr></table></figure>
+<p>SQL 语句当中的 <code>WHERE</code> 子句：</p>
+<ul>
+<li>字符串格式，例如：<code>&#39;status=1&#39;</code></li>
+<li>哈希格式，例如： <code>[&#39;status&#39; =&gt; 1, &#39;type&#39; =&gt; 2]</code></li>
+<li>操作符格式，例如：<code>[&#39;like&#39;, &#39;name&#39;, &#39;test&#39;]</code></li>
+<li>对象格式，例如：<code>new LikeCondition(&#39;name&#39;, &#39;LIKE&#39;, &#39;test&#39;)</code></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$query-&gt;where(<span class="string">'status=1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或使用参数绑定来绑定动态参数值</span></span><br><span class="line">$query-&gt;where(<span class="string">'status=:status'</span>, [<span class="string">':status'</span> =&gt; $status]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原生 SQL 在日期字段上使用 MySQL YEAR() 函数</span></span><br><span class="line">$query-&gt;where(<span class="string">'YEAR(somedate) = 2015'</span>);</span><br></pre></td></tr></table></figure>
+<p>千万不要像如下的例子一样直接在条件语句当中嵌入变量，特别是当这些变量来源于终端用户输入的时候， 因为这样我们的软件将很容易受到 SQL 注入的攻击。(嘘~我的代码里就这样写过，悄咪咪的)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 危险！千万别这样干，除非你非常的确定 $status 是一个整型数值。</span></span><br><span class="line">$query-&gt;where(<span class="string">"status=$status"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$status = <span class="number">10</span>;</span><br><span class="line">$search = <span class="string">'yii'</span>;</span><br><span class="line"></span><br><span class="line">$query-&gt;where([<span class="string">'status'</span> =&gt; $status]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($search)) &#123;</span><br><span class="line">    $query-&gt;andWhere([<span class="string">'like'</span>, <span class="string">'title'</span>, $search]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果 $search 不为空，那么将会生成如下 SQL 语句：</span></span><br><span class="line">... WHERE (`status` = <span class="number">10</span>) <span class="keyword">AND</span> (`title` LIKE <span class="string">'%yii%'</span>)</span><br></pre></td></tr></table></figure>
+<p>这次作业中的查询主要用了like操作符：</p>
+<p><strong>like</strong>：第一个操作数应为一个字段名称或 DB 表达式， 第二个操作数可以使字符串或数组， 代表第一个操作数需要模糊查询的值。比如，[‘like’, ‘name’, ‘tester’] 会生成 name LIKE ‘%tester%’。 如果范围值是一个数组，那么将会生成用 AND 串联起来的 多个 like 语句。例如，[‘like’, ‘name’, [‘test’, ‘sample’]] 将会生成 name LIKE ‘%test%’ AND name LIKE ‘%sample%’</p>
+<h5 id="过滤条件"><a href="#过滤条件" class="headerlink" title="过滤条件"></a>过滤条件</h5><p>filterWhere()用于通常需要忽略用户输入的空值。</p>
+<p>andfilterWhere()类似于andWhere()</p>
+<p>使用yii\helpers\Html::submitButton() 方法生成提交按钮</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/2018_06_summary/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/14/2018_06_summary/" class="post-title-link" itemprop="url">2018_06作文与翻译总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-14 10:33:39" itemprop="dateCreated datePublished" datetime="2019-05-14T10:33:39+08:00">2019-05-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>2018年6月三套六级题目的作文与翻译已经学习完了，今天再粗略地过一遍短语和句型，做下笔记方便以后查找。</p>
+<ol>
+<li>成为不可或缺的一部分 <strong>become an integral part of</strong> </li>
+<li>开车上下班 <strong>drive to and from work</strong></li>
+<li>交通拥堵和停车位不足的问题日益严峻 <strong>more prevalent traffic gridlock and inadequate parking space</strong></li>
+<li>出台新规 <strong>roll out new rules</strong> </li>
+<li>限制 <strong>rein in</strong></li>
+<li>新能源汽车 <strong>new energy vehicles</strong></li>
+<li>采取一些措施，支持… <strong>take some measure to support</strong></li>
+<li>促使…做… <strong>prompted … to …</strong> /  <strong>drive … to…</strong></li>
+</ol>
+<p><strong>It is an undeniable fact that …</strong></p>
+<p><strong>lay a solid foundation for </strong></p>
+<p><strong>commercial activities</strong></p>
+<p><strong>plays a crucial role</strong> in <strong>boosting an organization</strong></p>
+<p><strong>To begin with</strong></p>
+<p><strong>have passion for work</strong></p>
+<p><strong>achieve mutual consensus</strong>, <strong>build harmonious cooperation and have effective communication</strong></p>
+<p><strong>is beneficial to</strong></p>
+<p><strong>create a pleasant working atmosphere</strong></p>
+<p><strong>not surprisingly</strong></p>
+<p><strong>spur continuous development</strong> of the individuals</p>
+<p><strong>Taking into account</strong></p>
+<p><strong>arrive at a conclusion</strong> that it is <strong>sensible</strong> for</p>
+<p><strong>keep in mind</strong></p>
+<p><strong>a win-win situation</strong></p>
+<ol>
+<li>最大最快的高速铁路网 <strong>the largest and fastest high-speed rail network</strong></li>
+<li>高铁 <strong>the CRH</strong>(China Railway High-Speed) train</li>
+<li>高铁站 <strong>high-speed rail station</strong></li>
+<li>高铁列车的突出优势在于准时 the <strong>outstanding advantage</strong> of the CRH train is <strong>punctuality</strong></li>
+<li>基本不受天气的影响 is <strong>basically not affected by</strong> weather</li>
+<li>乘高铁上下班 <strong>commute by CRH train</strong> </li>
+</ol>
+<p><strong>have a major influence on a kid’s development</strong></p>
+<p>is <strong>crucial and indispensable</strong> in <strong>maintaining the relationship</strong></p>
+<p><strong>only when</strong> a student … <strong>is he or she willing to</strong> </p>
+<p><strong>look to the teacher for guidance and support</strong></p>
+<p><strong>are weary of</strong></p>
+<p><strong>drop out of school</strong></p>
+<p><strong>transform their whole life</strong></p>
+<p><strong>has the full trust of</strong> sb.</p>
+<p>is  <strong>motivated</strong> to </p>
+<p><strong>consciousness and initiative</strong> of learning</p>
+<p>The <strong>credibility</strong> between teachers and students <strong>is not something that can built in a day</strong></p>
+<p><strong>comprehend the students’ actual demands and offer timely help</strong></p>
+<p><strong>be respectful to</strong></p>
+<p>is <strong>a must</strong></p>
+<ol>
+<li>最主要的交通工具 the leading means of transportation</li>
+<li>中国城乡 China’s cities and villages</li>
+<li>一度被称为“自行车王国”  was once called “the Kingdom of Bicycles”</li>
+<li>随着城市交通拥堵和空气污染日益严重 with traffic congestion and air pollution becoming more and more serious</li>
+<li>中国企业家 China’s entrepreneurs</li>
+<li>共享单车（shared bikes）的商业模式 business model of bike-sharing</li>
+<li>出行 get around</li>
+<li>自行车道 bike lanes</li>
+</ol>
+<p>Today, <strong>in the context of</strong> this era <strong>featured by</strong> increasing <strong>commercialization and digitalization</strong>,</p>
+<p><strong>mutually-trusted relations</strong></p>
+<p><strong>particularly</strong> important</p>
+<p><strong>take a leading role</strong> in</p>
+<p><strong>be honest with</strong></p>
+<p><strong>has a dishonest attitude toward</strong></p>
+<p><strong>lack purchasing confidence in</strong></p>
+<p><strong>bring huge economic loss to</strong> the business</p>
+<p><strong>side effect</strong></p>
+<p>The <strong>collapse</strong> of Sanlu <strong>Mike Power Company</strong></p>
+<p>a <strong>testament</strong> to</p>
+<p>the <strong>incident</strong> of <strong>poisonous</strong> milk</p>
+<p><strong>exerted devasting consequences on</strong></p>
+<p>the <strong>proliferation</strong> of <strong>counterfeit goods</strong></p>
+<p><strong>lose confidence in</strong> <strong>domestic products</strong></p>
+<p><strong>have no alternative but to</strong></p>
+<p><strong>resort to foreign brands</strong></p>
+<p><strong>it is high time</strong> for us to <strong>strengthen</strong>…</p>
+<p><strong>promote</strong> the healthy development of …</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/数据库大作业笔记（七）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/13/数据库大作业笔记（七）/" class="post-title-link" itemprop="url">数据库大作业笔记（七）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 20:57:19" itemprop="dateCreated datePublished" datetime="2019-05-13T20:57:19+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-14 10:03:47" itemprop="dateModified" datetime="2019-05-14T10:03:47+08:00">2019-05-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>####事务</p>
+<p>作业要求写含事务应用的删除操作，这描述，总觉得不是很清晰，是在PHP里写事务还是在MySQL里写呢？最开始考虑到MySQL没法存事务，所以我是改写了delete()函数，代码如下：</p>
+<p>Path:common\models\Borrow.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delete</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       $db = Yii::$app-&gt;db;</span><br><span class="line">       $transaction = $db-&gt;beginTransaction();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           $result = <span class="keyword">$this</span>-&gt;deleteInternal();</span><br><span class="line">           <span class="keyword">if</span> ($result === <span class="keyword">false</span>) &#123;</span><br><span class="line">               $db-&gt;createCommand(<span class="string">'INSERT INTO audit_borrow VALUES(user(),now(),0)'</span>)-&gt;execute();</span><br><span class="line">               $transaction-&gt;rollBack();</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               $db-&gt;createCommand(<span class="string">'INSERT INTO audit_borrow VALUES(user(),now(),1)'</span>)-&gt;execute();</span><br><span class="line">               $transaction-&gt;commit();</span><br><span class="line">           &#125;</span><br><span class="line">           &#125; <span class="keyword">catch</span>(\<span class="keyword">Exception</span> $e) &#123;</span><br><span class="line">               $transaction-&gt;rollBack();</span><br><span class="line">               <span class="keyword">throw</span> $e;</span><br><span class="line">           &#125; <span class="keyword">catch</span>(\Throwable $e) &#123;</span><br><span class="line">               $transaction-&gt;rollBack();</span><br><span class="line">               <span class="keyword">throw</span> $e;</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>后来想到可以在存储过程里写事务，这样的话应该会更符合要求吧。在这之前还是要先学一下事务的写法：</p>
+<ul>
+<li>在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。</li>
+<li>事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。</li>
+<li>事务用来管理 insert,update,delete 语句</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line">CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_delete`(IN `newborwid` CHAR(2), IN `username` CHAR(20))</span><br><span class="line">    DETERMINISTIC</span><br><span class="line">BEGIN</span><br><span class="line">DECLARE t_error INTEGER;</span><br><span class="line">DECLARE    CONTINUE HANDLER FOR SQLEXCEPTION SET t_error = 1;</span><br><span class="line">START TRANSACTION;</span><br><span class="line">-- 由于有外键约束，要注意下面两句的先后顺序！</span><br><span class="line">INSERT INTO audit_borrow VALUES(username,now(),newborwid);</span><br><span class="line">DELETE FROM borrow where borwid=newborwid;</span><br><span class="line">IF t_error = 1 THEN</span><br><span class="line">ROLLBACK;</span><br><span class="line">ELSE</span><br><span class="line">COMMIT;</span><br><span class="line">END IF;</span><br><span class="line">select newborwid;</span><br><span class="line">END$$</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+<p>我们建立的数据库一般都是 InnoDB 数据库，其上建立的表是事务性表，也就是事务安全的。这时，若SQL语句或触发器执行失败，MySQL 会回滚事务，有：</p>
+<p>①如果 BEFORE 触发器执行失败，SQL 无法正确执行②SQL 执行失败时，AFTER 型触发器不会触发③AFTER 类型的触发器执行失败，SQL 会回滚。</p>
+<h4 id="declare-handler声明异常处理"><a href="#declare-handler声明异常处理" class="headerlink" title="declare handler声明异常处理"></a>declare handler声明异常处理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DECLARE</span><br><span class="line">-- 处理类型 继续或退出</span><br><span class="line">&#123;EXIT | CONTINUE&#125; </span><br><span class="line">HANDLER FOR</span><br><span class="line">-- 触发条件</span><br><span class="line">&#123;error-number | SQLSTATE error-string | condition&#125;</span><br><span class="line">-- 错误触发的操作</span><br><span class="line">SQL statement</span><br><span class="line"></span><br><span class="line">-- example:</span><br><span class="line">declare continue handler for SQLEXCEPTION set L_error=1;</span><br></pre></td></tr></table></figure>
+<p>发生错误的条件有：</p>
+<p>1、MYSQL错误代码</p>
+<p>2、ANSI-standard SQLSTATE code</p>
+<p>3、命名条件。可使用系统内置的SQLEXCEPTION,SQLWARNING和NOT FOUND</p>
+<p>参考<a href="https://www.cnblogs.com/datoubaba/archive/2012/06/20/2556428.html" target="_blank" rel="noopener">文章</a></p>
+<p>嗯，好了，外键约束真是令人头大。最开始因为在audit_borrow和audit_equipment上加了外键约束，导致borrow和equipment, category的删除插入总是出问题。现在，重新写事务：（因为要涉及多张表，上面那个不符合要求）</p>
+<p>Path:backend\controllers\CategoryController.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionDelete</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    $username=Yii::$app-&gt;user-&gt;identity-&gt;username;</span><br><span class="line">    $model = <span class="keyword">$this</span>-&gt;findModel($id);</span><br><span class="line">    <span class="keyword">if</span> (!$model-&gt;load(Yii::$app-&gt;request-&gt;post())) &#123;</span><br><span class="line"></span><br><span class="line">        $command= Yii::$app-&gt;db</span><br><span class="line">            -&gt;createCommand(<span class="string">'call proc_delete(:p0,:p1)'</span>)</span><br><span class="line">            -&gt;bindValues([<span class="string">":p0"</span> =&gt;$model-&gt;catid,<span class="string">":p1"</span>=&gt;$username]);</span><br><span class="line">        $res=$command-&gt;execute();</span><br><span class="line">        <span class="keyword">if</span>($res&gt;=<span class="number">0</span>)</span><br><span class="line">        &#123;             </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'index'</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'index'</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据库存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line">CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_delete`(IN `newcatid` CHAR(2), IN `username` CHAR(20))</span><br><span class="line">    DETERMINISTIC</span><br><span class="line">BEGIN</span><br><span class="line">DECLARE t_error INTEGER;</span><br><span class="line">DECLARE    CONTINUE HANDLER FOR SQLEXCEPTION SET t_error = 1;</span><br><span class="line">START TRANSACTION;</span><br><span class="line">INSERT INTO audit_category VALUES(username,now(),newcatid);</span><br><span class="line">DELETE FROM borrow where eqpid IN(</span><br><span class="line">SELECT eqpid from equipment where equipment.catid=newcatid</span><br><span class="line">);</span><br><span class="line">DELETE FROM equipment where catid=newcatid;</span><br><span class="line">DELETE FROM category where catid=newcatid;</span><br><span class="line">IF t_error = 1 THEN</span><br><span class="line">ROLLBACK;</span><br><span class="line">ELSE</span><br><span class="line">COMMIT;</span><br><span class="line">END IF;</span><br><span class="line">select newcatid;</span><br><span class="line">END$$</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+<font color="blue">注意写分号！！！</font>
+
+<h4 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONCAT(new.catid,&quot;000&quot;)</span><br></pre></td></tr></table></figure>
+<p>注：如果if条件为NULL的话，会走else if语句</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/算法大作业笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/13/算法大作业笔记（一）/" class="post-title-link" itemprop="url">算法大作业笔记（一）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-13 14:34:04" itemprop="dateCreated datePublished" datetime="2019-05-13T14:34:04+08:00">2019-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-14 23:00:27" itemprop="dateModified" datetime="2019-05-14T23:00:27+08:00">2019-05-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><font color="red">参考网上代码，自己和自己之间为0，不算相连，需要修改—&gt;主要原因是有这一句：if (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)</font>
+
+<p>结构体：关于边的信息，保存在bool型的二维数组里；只定义顶点结构。顶点的信息有：行、列、颜色；行和列换成序号吧，更普遍一些。自己到自己，算相连吗……先，算上，不行再改。</p>
+<p>目前connectSudo()已经能正确地返回Sudo的顶点连接信息了。接下来，开始读取顶点的信息吧。嗯，现在getVertex(int n, int m)可以读取需要预着色的点了，无颜色的点色号为-1，返回顶点的数组。getEdges(int n,int x)读取边的信息，有n个顶点x条边，注意输入的是x条边，但矩阵应是对称矩阵，有2x个位置要改变。返回bool型二维数组。接下来，需要准备一些图形的数据了。输入顶点数n，预着色点数m，边数x，颜色总数colornum，两个文件存放数据：</p>
+<ol>
+<li>顶点的信息：m行，每行有两个整数，分别是顶点编号和颜色</li>
+<li>边的信息：x行，每一行分别是两个点的序号，表示这两点相连</li>
+</ol>
+<h4 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h4><h5 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h5><p>贪心原则：把一个颜色用到不再能用了为止。</p>
+<p>扫描所有未着色的顶点集，对其中的每个顶点，确定是否与已着新颜色的任何顶点都不相邻。若不相邻，则着色。</p>
+<font color="red">WelchPowell文件里的代码为什么在着色之前要将顶点按照度数递减的次序排序呢？</font>
+
+<p>目前代码对graph1中的数据进行了测试，无误。graph1中存的是17条边的信息。主要代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printVertex</span><span class="params">(vertex* ver,<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; ver[i].index &lt;&lt; <span class="string">" "</span> &lt;&lt; ver[i].color &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造顶点信息,预着色</span></span><br><span class="line"><span class="function">vertex* <span class="title">getVertexes</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vertex* vertexes = <span class="keyword">new</span> vertex[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;<span class="comment">//n为顶点个数，m为已着色的顶点数</span></span><br><span class="line">		vertexes[i].index = i;</span><br><span class="line">		vertexes[i].color = <span class="number">-1</span>;<span class="comment">//-1表示未着色</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">-1</span>;<span class="comment">//需要着色的顶点序号和色号</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		vertexes[tmp1].color = tmp2;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vertexes;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造边的信息</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">getEdges</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ifstream read;</span><br><span class="line">	read.open(<span class="string">"graph1.txt"</span>);</span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		edges[tmp1][tmp2] = <span class="number">1</span>;</span><br><span class="line">		edges[tmp2][tmp1] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	read.close();</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用贪心算法为图着色</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">colorGraph</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="keyword">int</span> x,<span class="keyword">int</span> colornum)</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//n为顶点个数，m为预着色的点的个数,x为边的条数，colornum为颜色数</span></span><br><span class="line">	vertex* vertexes = getVertexes(n,m);</span><br><span class="line">	<span class="keyword">bool</span>** edges = getEdges(n, x);</span><br><span class="line">	<span class="keyword">int</span> notcolor = n - m;<span class="comment">//未着色的点的个数</span></span><br><span class="line">	<span class="keyword">int</span> nowcol = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (notcolor)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span> (vertexes[i].color == <span class="number">-1</span>)&#123;<span class="comment">// 当前顶点未着色</span></span><br><span class="line">				<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">					<span class="keyword">if</span> (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)&#123;</span><br><span class="line">						flag = <span class="number">0</span>;</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (flag) &#123; vertexes[i].color = nowcol; --notcolor; &#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++nowcol;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; nowcol &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	printVertex(vertexes, n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//connectSudo();</span></span><br><span class="line">	printSudoVertex(getVertexes(<span class="number">81</span>,<span class="number">9</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	colorGraph(<span class="number">8</span>,<span class="number">0</span>,<span class="number">17</span>,<span class="number">4</span>);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h4><h5 id="无预着色："><a href="#无预着色：" class="headerlink" title="无预着色："></a>无预着色：</h5><p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\1.png" width="25%"><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\2.png" width="25%"></p>
+<p>graph1.txt(8个点，0个预着色点，17条边，4个颜色)</p>
+<p>graph2.txt(7个点，0个预着色，12条边，4个颜色)</p>
+<p>graph3.txt(4个点，0个预着色，5条边，4个颜色)</p>
+<p>graph4.txt(6个点，0个预着色，7条边，2个颜色)</p>
+<font color="green">（以上数据测试无误，撒花~~~）</font>
+
+<h5 id="预着色："><a href="#预着色：" class="headerlink" title="预着色："></a>预着色：</h5><p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\3.png" width="15%"><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\4.png" width="25%"></p>
+<p>graph5.txt(6个点，3个预着色，6条边，2个颜色)</p>
+<p>color5.txt</p>
+<p>graph6.txt(7个点，2个预着色，12条边，7个颜色)</p>
+<p>color6.txt</p>
+<p>哦豁，graph6出问题了，去debug吧 .-_-.   </p>
+<p>嗯，还好，输入数据的问题，不是程序的问题，数据已修正。</p>
+<font color="green">（以上数据测试无误，撒花~~~）</font>
+
+<h4 id="Sudo"><a href="#Sudo" class="headerlink" title="Sudo"></a>Sudo</h4><p>需要先对connectSudo()做一些修改，edge[i][i]应该为false。</p>
+<p>然后，现在，先去准备一些Sudo<font color="blue">(注意顶点下标和色号都是从0开始的噢！)</font></p>
+<p><img src="//yoursite.com/2019/05/13/算法大作业笔记（一）/桌面\时光以南\算法导论\作业\图片\5.png" width="75%"></p>
+<p>这里的测试大概会出问题了，因为贪心算法目光短浅<font color="red">（贪心算法不足以解决所有的数独问题，因为我们没有考虑到每一个位置可能填上的所有数字，而只是贪心地填上当前满足条件的数字，所以之后的其他空格就不一定有数可填了）</font>，准备好……</p>
+<p>好了，果然，用了11种颜色。纪念一下我失败的代码，下一篇里该做修改了~_~</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vertex</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> index,color;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printSudoEdges</span><span class="params">(<span class="keyword">bool</span>** edges, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ofstream write;</span><br><span class="line">	write.open(<span class="string">"sudoConnection.txt"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			write &lt;&lt; edges[i][j] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		write &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	write.close();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printSudoVertex</span><span class="params">(vertex* ver)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;setw(<span class="number">4</span>)&lt;&lt; ver[<span class="number">9</span> * i + j].color &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造数独的边</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">connectSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">81</span>;<span class="comment">//数独有81个顶点</span></span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[<span class="number">81</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[<span class="number">81</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">81</span>; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//同行同列相连</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cur_index = i * <span class="number">9</span> + j;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = j+<span class="number">1</span>; k &lt; <span class="number">9</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				edges[cur_index][i * <span class="number">9</span> + k] = <span class="number">1</span>;<span class="comment">//行相连</span></span><br><span class="line">				edges[i * <span class="number">9</span> + k][cur_index] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = i+<span class="number">1</span>; k &lt; <span class="number">9</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				edges[cur_index][j + k * <span class="number">9</span>] = <span class="number">1</span>;<span class="comment">//列相连</span></span><br><span class="line">				edges[j + k * <span class="number">9</span>][cur_index] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//同宫相连</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">3</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> cur_index = <span class="number">9</span> * i + <span class="number">3</span> * j + k;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> p = j+<span class="number">1</span>; p &lt; <span class="number">3</span>; p++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//同宫同列</span></span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * p + k] = <span class="number">1</span>;</span><br><span class="line">					edges[<span class="number">9</span> * i + <span class="number">3</span> * p + k][cur_index] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> q = k+<span class="number">1</span>; q &lt; <span class="number">3</span>; q++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//同宫同行</span></span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * j + q] = <span class="number">1</span>;</span><br><span class="line">					edges[cur_index][<span class="number">9</span> * i + <span class="number">3</span> * j + q] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	printSudoEdges(edges, <span class="number">81</span>);</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printVertex</span><span class="params">(vertex* ver,<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; ver[i].index &lt;&lt; <span class="string">" "</span> &lt;&lt; ver[i].color &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造顶点信息,预着色</span></span><br><span class="line"><span class="function">vertex* <span class="title">getVertexes</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	vertex* vertexes = <span class="keyword">new</span> vertex[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;<span class="comment">//n为顶点个数，m为已着色的顶点数</span></span><br><span class="line">		vertexes[i].index = i;</span><br><span class="line">		vertexes[i].color = <span class="number">-1</span>;<span class="comment">//-1表示未着色</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">-1</span>;<span class="comment">//需要着色的顶点序号和色号</span></span><br><span class="line">	<span class="keyword">if</span> (m &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ifstream read;</span><br><span class="line">		read.open(filename);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">			vertexes[tmp1].color = tmp2;</span><br><span class="line">		&#125;</span><br><span class="line">		read.close();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vertexes;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造边的信息</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span>** <span class="title">getEdges</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> x,<span class="keyword">const</span> <span class="keyword">char</span>* filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ifstream read;</span><br><span class="line">	read.open(filename);</span><br><span class="line">	<span class="keyword">bool</span>** edges = <span class="keyword">new</span> <span class="keyword">bool</span>*[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		edges[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">			edges[i][j] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp1 = <span class="number">0</span>, tmp2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		read &gt;&gt; tmp1 &gt;&gt; tmp2;</span><br><span class="line">		edges[tmp1][tmp2] = <span class="number">1</span>;</span><br><span class="line">		edges[tmp2][tmp1] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	read.close();</span><br><span class="line">	<span class="keyword">return</span> edges;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用贪心算法为图着色</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">colorGraph</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="keyword">int</span> colornum, vertex* vertexes, <span class="keyword">bool</span>** edges)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> notcolor = n - m;<span class="comment">//未着色的点的个数</span></span><br><span class="line">	<span class="keyword">int</span> nowcol = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (notcolor)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span> (vertexes[i].color == <span class="number">-1</span>)&#123;<span class="comment">// 当前顶点未着色</span></span><br><span class="line">				<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">					<span class="keyword">if</span> (edges[i][j] &amp;&amp; vertexes[j].color == nowcol)&#123;</span><br><span class="line">						flag = <span class="number">0</span>;</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (flag) &#123; vertexes[i].color = nowcol; --notcolor; &#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++nowcol;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (colornum &lt; nowcol)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed"</span> &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; nowcol &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	printVertex(vertexes, n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSudo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//connectSudo();</span></span><br><span class="line">	<span class="comment">//printSudoVertex(getVertexes(81,30,"sudoColor1.txt"));</span></span><br><span class="line">	colorGraph(<span class="number">81</span>, <span class="number">30</span>, <span class="number">9</span>, getVertexes(<span class="number">81</span>, <span class="number">30</span>, <span class="string">"sudoColor1.txt"</span>), connectSudo());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testGraph</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> x, <span class="keyword">int</span> colornum, <span class="keyword">const</span> <span class="keyword">char</span>* colorfile, <span class="keyword">const</span> <span class="keyword">char</span>* graphfile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//n为顶点个数，m为预着色的点的个数,x为边的条数，colornum为颜色数</span></span><br><span class="line">	vertex* vertexes = getVertexes(n, m, colorfile);</span><br><span class="line">	<span class="keyword">bool</span>** edges = getEdges(n, x, graphfile);</span><br><span class="line">	colorGraph(n,m,colornum,vertexes, edges);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//testGraph(7,2,12,7,"graph6.txt","color6.txt");</span></span><br><span class="line">	testSudo();</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/数据库大作业笔记（六）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -488,486 +1034,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/2018_06CET6_3_Translation/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/10/2018_06CET6_3_Translation/" class="post-title-link" itemprop="url">2018_06CET6_3_Translation</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-10 08:53:37" itemprop="dateCreated datePublished" datetime="2019-05-10T08:53:37+08:00">2019-05-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Translation-30-minutes"><a href="#Translation-30-minutes" class="headerlink" title="Translation (30 minutes)"></a>Translation (30 minutes)</h4><p>自行车曾经是中国城乡最主要的交通工具，中国一度被称为“自行车王国”。如今，随着城市交通拥堵和空气污染日益严重，骑自行车又开始流行起来。近来，中国企业家将移动互联网 技术与传统自行车结合在一起，发明了一种称为共享单车（shared bikes）的商业模式。共享单车的出现使骑车出行更加方便，人们仅需一部手机就可以随时使用共享单车。为了鼓励人们骑车出行，很多城市修建了自行车道。现在，越来越多的中国人也喜欢通过骑车健身。</p>
-<p>Bicycles used to be <font color="red"> the leading means of transportation</font> in  <font color="#00ffff">  China’s cities and villages </font>, and China was <font color="Brown">once called</font> <font color="#FF8C00">“the Kingdom of Bicycles”</font>. Nowadays, with <font color="#8FBC8F">traffic congestion and air pollution</font> becoming more and more serious in cities, riding a bicycle is becoming popular again. Recently, China’s <font color="#ADFF2F">entrepreneurs</font> have <font color="#FF1493">combined mobile Internet technologies with bicycles</font>combined mobile Internet technologies with bicycles and invented the <font color="#FFD700">business model of bike-sharing</font>business model of bike-sharing. <font color="#008000">The appearance of shared bikes</font> has made it more convenient for people to <font color="#000080">get around</font>, and people can ride bikes at any time only with the help of a mobile phone. To encourage people to travel by bike, many cities have built <font color="#87CEEB">bike lanes</font>. Now, more and more Chinese people like exercising by riding bikes.</p>
-<h5 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h5><p>今天的笔记可能过于鲜艳，是因为我顺便熟悉了一下Markdown修改字体颜色、大小、格式的语法:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;font 更改语法&gt;文字内容&lt;/font&gt;</span><br><span class="line">更改语法包括：</span><br><span class="line">color=#0099ff   更改字体颜色</span><br><span class="line">face="黑体"   更改字体</span><br><span class="line">size= 7     更改字体大小</span><br><span class="line"></span><br><span class="line">&lt;font face="微软雅黑"&gt;我是微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face="STCAIYUN"&gt;我是华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=6 face="黑体"&gt;color=#0099ff size=72 face="黑体"&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
-<font face="微软雅黑">我是微软雅黑</font><br><font face="STCAIYUN">我是华文彩云</font><br><font color="#0099ff" size="6" face="黑体">color=#0099ff size=6 face=”黑体”</font>
-
-<p><strong>以下是今天的英语内容</strong></p>
-<p>经过我再次阅读范文，我觉得文中都是正常水平，没有需要特意学习的，背就是了 哈哈哈哈</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/数据库大作业笔记（三）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/09/数据库大作业笔记（三）/" class="post-title-link" itemprop="url">数据库大作业笔记（三）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-09 11:24:04 / 修改时间：15:18:04" itemprop="dateCreated datePublished" datetime="2019-05-09T11:24:04+08:00">2019-05-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="数据库插入异常"><a href="#数据库插入异常" class="headerlink" title="数据库插入异常"></a>数据库插入异常</h5><p>mySql报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Column count doesn&apos;t match value count at row 1</span><br></pre></td></tr></table></figure>
-<p>网上给出的原因一致是：数据的个数、类型不符，或者就是中英文符号混用了。折腾了很久，终于发现是触发器导致了异常！！！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TRIGGER add_audit AFTER INSERT ON equipment</span><br><span class="line"> FOR EACH ROW BEGIN</span><br><span class="line">insert into audit_equipment VALUES(new.eqpid,user(),now(),1);</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
-<p>怎么回事呢——改了audit_equipment表的属性，但忘了改equipment中的触发器，实际上是插入audit_equipment表时失败了，但是报错时就会显示equipment的插入失败。</p>
-<h4 id="在MySQL中CHECK约束是无效的"><a href="#在MySQL中CHECK约束是无效的" class="headerlink" title="在MySQL中CHECK约束是无效的"></a>在MySQL中CHECK约束是无效的</h4><p>可以把对日期的约束写在yii中，也可以用触发器代替；</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/数据库大作业笔记（二）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/08/数据库大作业笔记（二）/" class="post-title-link" itemprop="url">数据库大作业笔记（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-08 16:42:50 / 修改时间：23:44:04" itemprop="dateCreated datePublished" datetime="2019-05-08T16:42:50+08:00">2019-05-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>含有事务应用的删除操作</strong></p>
-<p>path：E:\Xampp\htdocs\yii2\sport_equipment\common\models\Equipment.php</p>
-<p>public function delete()</p>
-<p>​    {</p>
-<p>​        if (!$this-&gt;isTransactional(self::OP_DELETE)) {</p>
-<p>​            return $this-&gt;deleteInternal();</p>
-<p>​        }</p>
-<p>$db = Yii::$app-&gt;db;</p>
-<p>$transaction = $db-&gt;beginTransaction();</p>
-<p>try {</p>
-<p>​    $db-&gt;createCommand(‘UPDATE post SET status=1 WHERE id=1’)-&gt;execute();</p>
-<p>​    $result = $this-&gt;deleteInternal();</p>
-<p>​    if ($result === false) {</p>
-<p>​        $transaction-&gt;rollBack();</p>
-<p>​    } else {</p>
-<p>​        </p>
-<p>​        $transaction-&gt;commit();</p>
-<p>​    }</p>
-<p>​    } catch(\Exception $e) {</p>
-<p>​        $transaction-&gt;rollBack();</p>
-<p>​        throw $e;</p>
-<p>​    } catch(\Throwable $e) {</p>
-<p>​        $transaction-&gt;rollBack();</p>
-<p>​        throw $e;</p>
-<p>​    }</p>
-<p>​    }</p>
-<h5 id="mySql获取当前时间"><a href="#mySql获取当前时间" class="headerlink" title="mySql获取当前时间"></a>mySql获取当前时间</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">current_date</span>(), <span class="keyword">curdate</span>(), <span class="keyword">curdate</span>() + <span class="number">0</span>;      <span class="comment"># '2018-03-09' '2018-03-09'  20180309</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">current_time</span>(), <span class="keyword">curtime</span>(), <span class="keyword">curtime</span>() + <span class="number">0</span>;      <span class="comment"># 16:49:41  16:49:41  164941</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">current_time</span>(<span class="number">2</span>), <span class="keyword">curtime</span>(<span class="number">2</span>), <span class="keyword">curtime</span>(<span class="number">2</span>) + <span class="number">0</span>;   <span class="comment"># 16:50:50  16:50:50  165050.01</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">now</span>(), <span class="keyword">now</span>(<span class="number">3</span>), <span class="keyword">now</span>(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">2018-03-09 16:53:51       2018-03-09 16:53:51.163        2018-03-09 16:53:51.163791</span><br></pre></td></tr></table></figure>
-<h5 id="数据库插入时报错"><a href="#数据库插入时报错" class="headerlink" title="数据库插入时报错"></a>数据库插入时报错</h5><p>The SQL being executed was: INSERT INTO <code>equipment</code> (<code>eqpid</code>, <code>catid</code>) VALUES (‘c2002’, ‘c2’)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Error Info: Array</span><br><span class="line">(</span><br><span class="line">    [0] =&gt; 21S01</span><br><span class="line">    [1] =&gt; 1136</span><br><span class="line">    [2] =&gt; Column count doesn&apos;t match value count at row 1</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>Caused by: PDOException</p>
-<p>SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn’t match value count at row 1</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/2018_06CET6_3/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/08/2018_06CET6_3/" class="post-title-link" itemprop="url">2018_06CET6_3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-08 00:02:29 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2019-05-08T00:02:29+08:00">2019-05-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h4><p>Directions: For this part, you are allowed 30 minutes to write an essay on the importance of building trust between businesses and consumers. You can cite examples to illustrate your views. You should write at least 150 words but no more than 200 words. </p>
-<p>The Importance of Building Trust Between Businesses and Consumers</p>
-<p>Today, <strong>in the context of</strong> this era <strong>featured by</strong> increasing <strong>commercialization and digitalization</strong>, <strong>mutually-trusted relations</strong> between businesses and consumers <strong>appear to be</strong> <strong>particularly</strong> important.</p>
-<p>As for me, businesses should <strong>take a leading role</strong> in establishing the trust relationship: <strong>to be honest with</strong> their consumers. Firstly, if a business <strong>has a dishonest attitude toward its</strong> <strong>customers</strong>, the customers will <strong>lack purchasing confidence in</strong> its goods or services, which will <strong>bring huge economic loss to</strong> the business.</p>
-<p>What’s worse, the <strong>adverse side effect</strong> of such <strong>dishonesty</strong> can <strong>endanger</strong> the business and it is impossible to recover. The <strong>collapse</strong> of Sanlu <strong>Mike Power Company</strong> is a <strong>testament</strong> to this. Moreover, the <strong>incident</strong> of <strong>poisonous</strong> milk has <strong>exerted devasting consequences on</strong> the whole milk powder market. Besides, because of the <strong>proliferation</strong> of <strong>counterfeit goods,</strong> more consumers <strong>lose confidence in</strong> <strong>domestic products</strong>, and then they <strong>have no alternative but to</strong> <strong>resort to foreign brands</strong>, which is one reason why <strong>cross-border online shopping</strong> is <strong>gain</strong>ing more and more popularity in China.</p>
-<p>Therefore, <strong>it is high time</strong> for us to <strong>strengthen</strong> the importance of maintaining trust between businesses and consumers to <strong>promote</strong> the healthy development of the whole social economy.</p>
-<h5 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h5><ul>
-<li>business 企业；individual businesses个体工商户；</li>
-</ul>
-<p>The company was a family business.</p>
-<p>这家公司是一个家族企业。</p>
-<ul>
-<li>consumer&amp;customer</li>
-</ul>
-<p>A <strong>consumer</strong> is a person who buys things or uses services. 消费者</p>
-<p>A <strong>customer</strong> is someone who buys goods or services, especially from a shop. 顾客</p>
-<ul>
-<li>context: 环境；上下文；来龙去脉；</li>
-</ul>
-<p>We are doing this work in the context of reforms in the economic, social and cultural spheres(领域).</p>
-<ul>
-<li>be featured by … 以…为特征</li>
-<li>adverse: 不利的，相反的，敌对的</li>
-</ul>
-<p>adverse effect 不利影响，副作用</p>
-<p>adverse weather恶劣天气</p>
-<ul>
-<li>testament: 确实的证明，遗嘱，圣约</li>
-<li>exert: 施加影响，运用权威；耗费精力</li>
-</ul>
-<p>exert  oneself 努力；尽力</p>
-<p>exert an influence on 对…产生影响</p>
-<p>Don’t exert yourself unnecessarily.不要无谓地耗费自己的精力。</p>
-<ul>
-<li>proliferation: 增殖；扩散；分芽繁殖</li>
-</ul>
-<p>Proliferation and use of open source assets.开放源码资产的使用和扩散。</p>
-<ul>
-<li>counterfeit: [][][adj.]伪造的，假冒的，假装的，虚假的；[v.]伪造，假装，酷似；[n.]仿冒品</li>
-</ul>
-<p>conunterfeit products 假货</p>
-<ul>
-<li>resort to: 依靠，诉诸，常去</li>
-</ul>
-<p>resort to unjust means 借助不正当的手段</p>
-<p>If other means fail, we shall resort to force. 如果其他手段均失败，我们就将诉诸武力。</p>
-<ul>
-<li>商业化和数字化 commercialization and digitalization</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/Yii框架的那些坑（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/07/Yii框架的那些坑（一）/" class="post-title-link" itemprop="url">Yii框架的那些坑（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-07 21:18:28" itemprop="dateCreated datePublished" datetime="2019-05-07T21:18:28+08:00">2019-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-10 21:19:09" itemprop="dateModified" datetime="2020-02-10T21:19:09+08:00">2020-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="文件存在，但显示404，如图："><a href="#文件存在，但显示404，如图：" class="headerlink" title="文件存在，但显示404，如图："></a>文件存在，但显示404，如图：</h5><p><img src="//yoursite.com/2019/05/07/Yii框架的那些坑（一）/blog\source\_posts\yii404.png" alt="yii404"></p>
-<p><a href="http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex" target="_blank" rel="noopener">http://localhost:8081/yii2/sport_equipment/backend/web/index.php?r=audit_equipment%2Findex</a>这是最后正确的路由，最开始试了audit_Equipment，auditEquipment，甚至还有audit-Equipment，文件就在那儿，咋就404呢？最后试出来，得用小写字母——“audit_equipment”，其实具体原理我也不懂。另外补充：Model的命名，只能是字母或写划线：“Only word characters and backslashes are allowed.”</p>
-<h5 id="显示数据库中的视图"><a href="#显示数据库中的视图" class="headerlink" title="显示数据库中的视图"></a>显示数据库中的视图</h5><p>在访问<a href="http://localhost:8081/yii2/sport_equipment/frontend/web/时，报错：" target="_blank" rel="noopener">http://localhost:8081/yii2/sport_equipment/frontend/web/时，报错：</a></p>
-<p>Invalid Configuration – yii\base\InvalidConfigException<br>The ‘label’ option is required.</p>
-<p>我想做成：当前用户为游客时，不显示vborrow，当前用户登录后，vborrow才显示出来，可以点击，尝试之后，代码如下：</p>
-<p>Path: frontend\views\layouts\main.php</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">   <span class="meta">&lt;?php</span></span><br><span class="line">   NavBar::begin([</span><br><span class="line">       <span class="string">'brandLabel'</span> =&gt; Yii::$app-&gt;name,</span><br><span class="line">       <span class="string">'brandUrl'</span> =&gt; Yii::$app-&gt;homeUrl,</span><br><span class="line">       <span class="string">'options'</span> =&gt; [</span><br><span class="line">           <span class="string">'class'</span> =&gt; <span class="string">'navbar-inverse navbar-fixed-top'</span>,</span><br><span class="line">       ],</span><br><span class="line">   ]);</span><br><span class="line">   <span class="comment">//这里显示的是游客和已登录用户都能看到的内容</span></span><br><span class="line">   $menuItems = [</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'Home'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/index'</span>]],</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'About'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/about'</span>]],</span><br><span class="line">       [<span class="string">'label'</span> =&gt; <span class="string">'Contact'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/contact'</span>]],</span><br><span class="line">   ];</span><br><span class="line"><span class="comment">//只有游客才能看见的内容</span></span><br><span class="line">   <span class="keyword">if</span> (Yii::$app-&gt;user-&gt;isGuest) &#123;</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Signup'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/signup'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Login'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/site/login'</span>]];</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">//只有已登录用户才能看见的内容，这里如果格式不对，会出现“The 'label' option is required.”的错误</span></span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vborrow'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vborrow/index'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vstudent'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vstudent/index'</span>]];</span><br><span class="line">       $menuItems[] = [<span class="string">'label'</span> =&gt; <span class="string">'Vteacher'</span>, <span class="string">'url'</span> =&gt; [<span class="string">'/vteacher/index'</span>]];</span><br><span class="line">       $menuItems[] =<span class="string">'&lt;li&gt;'</span></span><br><span class="line">           . Html::beginForm([<span class="string">'/site/logout'</span>], <span class="string">'post'</span>)</span><br><span class="line">           . Html::submitButton(</span><br><span class="line">               <span class="string">'Logout ('</span> . Yii::$app-&gt;user-&gt;identity-&gt;username . <span class="string">')'</span>,</span><br><span class="line">               [<span class="string">'class'</span> =&gt; <span class="string">'btn btn-link logout'</span>]</span><br><span class="line">           )</span><br><span class="line">           . Html::endForm()</span><br><span class="line">           . <span class="string">'&lt;/li&gt;'</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">echo</span> Nav::widget([</span><br><span class="line">       <span class="string">'options'</span> =&gt; [<span class="string">'class'</span> =&gt; <span class="string">'navbar-nav navbar-right'</span>],</span><br><span class="line">       <span class="string">'items'</span> =&gt; $menuItems,</span><br><span class="line">   ]);</span><br><span class="line">   NavBar::end();</span><br><span class="line">   <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>因为视图没有主键，所以无法用gii生成CURD，所以复制了其他数据表的控制器和视图文件，在上边作了修改。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/数据库大作业笔记（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/07/数据库大作业笔记（一）/" class="post-title-link" itemprop="url">数据库大作业笔记（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-05-07 09:54:24 / 修改时间：11:30:40" itemprop="dateCreated datePublished" datetime="2019-05-07T09:54:24+08:00">2019-05-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="mysql的外键约束"><a href="#mysql的外键约束" class="headerlink" title="mysql的外键约束"></a>mysql的外键约束</h5><p> InnoDB拒绝任何试着在子表创建一个外键值而不匹配在父表中的候选键值的INSERT或UPDATE操作（InnoDB是MySQL的数据库引擎之一）。有五种外键约束：</p>
-<ul>
-<li>cascade：从父表中删除或更新，且自动删除或更新自表中匹配的行。ON DELETE CASCADE和ON UPDATE CASCADE</li>
-<li>set null：从父表删除或更新行，并设置子表中的外键列为NULL。ON DELETE SET NULL和ON UPDATE SET NULL</li>
-<li>no action： InnoDB拒绝对父表的删除或更新操作。</li>
-<li>restrict(默认值)：拒绝对父表的删除或更新操作。NO ACTION和RESTRICT都一样，删除ON DELETE或ON UPDATE子句。（一些数据库系统有延期检查，并且NO ACTION是一个延期检查。在MySQL中，外键约束是被立即检查的，所以NO ACTION和RESTRICT是同样的）。</li>
-<li>set default：InnoDB拒绝包含ON DELETE SET DEFAULT或ON UPDATE SET DEFAULT</li>
-</ul>
-<p>在yii框架生成的表单中，若对子表中外键属性进行插入时，输入空值，点保存会报错，修改方法为：</p>
-<p>在model中重写yii\base\Model::rule()方法，设置外键属性栏为必填(required)：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">rules</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        <span class="comment">// name，email，subject 和 body 特性是 `require`（必填）的</span></span><br><span class="line">        [[<span class="string">'name'</span>, <span class="string">'email'</span>, <span class="string">'subject'</span>, <span class="string">'body'</span>], <span class="string">'required'</span>],</span><br><span class="line"></span><br><span class="line">        <span class="comment">// email 特性必须是一个有效的 email 地址</span></span><br><span class="line">        [<span class="string">'email'</span>, <span class="string">'email'</span>],</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="输入固定长度的字符串"><a href="#输入固定长度的字符串" class="headerlink" title="输入固定长度的字符串"></a>输入固定长度的字符串</h5><p>起因是，我就想让学号是7位的，但是在数据库设成char(7)，然后输入长度小于7的，它就自动在后面补空格了，所以还是要从yii框架这边的输入规则下手，和上面的操作一样，增加min规则：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="string">'prsid'</span>], <span class="string">'string'</span>, <span class="string">'max'</span> =&gt; <span class="number">7</span>,<span class="string">'min'</span>=&gt; <span class="number">7</span>]</span><br></pre></td></tr></table></figure>
-<p><img src="//yoursite.com/2019/05/07/数据库大作业笔记（一）/blog\source\_posts\min_string.PNG" alt="min_string"></p>
-<h5 id="yii框架创建下拉列表"><a href="#yii框架创建下拉列表" class="headerlink" title="yii框架创建下拉列表"></a>yii框架创建下拉列表</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* <span class="doctag">@var</span> $form yii\widgets\ActiveForm */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $form-&gt;field($model, <span class="string">'category'</span>)-&gt;dropdownList([</span><br><span class="line">        <span class="number">1</span> =&gt; <span class="string">'item 1'</span>, </span><br><span class="line">        <span class="number">2</span> =&gt; <span class="string">'item 2'</span></span><br><span class="line">    ],</span><br><span class="line">    [<span class="string">'prompt'</span>=&gt;<span class="string">'Select Category'</span>]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>但是我现在觉得，我需要的“性别”那一栏，单选列表更合适喔，所以：</p>
-<h5 id="yii框架创建单选列表"><a href="#yii框架创建单选列表" class="headerlink" title="yii框架创建单选列表"></a>yii框架创建单选列表</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* <span class="doctag">@var</span> $form yii\widgets\ActiveForm */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $form-&gt;field($model, <span class="string">'category'</span>)-&gt;radioList([</span><br><span class="line">    <span class="number">1</span> =&gt; <span class="string">'radio 1'</span>, </span><br><span class="line">    <span class="number">2</span> =&gt; <span class="string">'radio 2'</span></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
-<p>前面是需要存入数据库的字段，后面是显示的文字，具体地：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>= $form-&gt;field($model, <span class="string">'sex'</span>)-&gt;radioList([<span class="string">'m'</span>=&gt;<span class="string">'男'</span>,<span class="string">'f'</span>=&gt;<span class="string">'女'</span>]) <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?</span>= $form-&gt;field($model, <span class="string">'ptype'</span>)-&gt;radioList([<span class="number">1</span>=&gt;<span class="string">'学生'</span>,<span class="number">2</span>=&gt;<span class="string">'教职工'</span>]) <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?</span>= $form-&gt;field($model, <span class="string">'degree'</span>)-&gt;dropdownList([</span><br><span class="line">    <span class="string">'本科生'</span> =&gt; <span class="string">'本科生'</span>,</span><br><span class="line">    <span class="string">'硕士'</span> =&gt; <span class="string">'硕士'</span>,</span><br><span class="line">    <span class="string">'博士'</span> =&gt; <span class="string">'博士'</span>,</span><br><span class="line">]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="//yoursite.com/2019/05/07/数据库大作业笔记（一）/Users\asus\AppData\Roaming\Typora\typora-user-images\1557199635204.png" alt="1557199635204"></p>
-<p>index页面明明是有的，怎么就404了？！！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1034,14 +1104,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">306</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
