@@ -158,232 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/算法复习笔记（四）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/04/算法复习笔记（四）/" class="post-title-link" itemprop="url">算法复习笔记（四）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 18:04:17" itemprop="dateCreated datePublished" datetime="2019-06-04T18:04:17+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-12 11:10:20" itemprop="dateModified" datetime="2019-06-12T11:10:20+08:00">2019-06-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><font color="red">找到用较小子问题的最优解来表达更大规模问题的最优解的一个递推的等式。</font>
-
-<h3 id="带权的区间调度"><a href="#带权的区间调度" class="headerlink" title="带权的区间调度"></a>带权的区间调度</h3><p>对区间j定义p(j)为使得区间i与j不相交的最大的标记i &lt; j, i是最右边的与j不冲突的区间。<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>max{v_j+OPT(p(j)),OPT(j-1)},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="递归的备忘录形式-自顶向下"><a href="#递归的备忘录形式-自顶向下" class="headerlink" title="递归的备忘录形式 自顶向下"></a>递归的备忘录形式 自顶向下</h4><p>用一个数组M[0…n]保存中间计算结果</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Input: n,  s1,...,sn,  f1,...,fn,   v1,...,vn</span><br><span class="line">sort jobs by finish times so that f1 &lt;= f2 &lt;=...&lt;= fn <span class="comment">//O(nlogn)</span></span><br><span class="line">compute p(<span class="number">1</span>)，p(<span class="number">2</span>),...,p(n) <span class="comment">//如果已对开始时间排序，只需O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j<span class="number">-1</span> to n</span><br><span class="line">	M[j]=empty</span><br><span class="line">M[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">M-Compute_Opt(j)&#123; <span class="comment">//O(n) ，每次递归时，M[]被填充一个，至多有2n次递归调用</span></span><br><span class="line">    <span class="keyword">if</span> (M[j] is empty)&#123;</span><br><span class="line">        M[j]=max(wj+M-Compute_Opt(p(j)),M-Compute_Opt(j<span class="number">-1</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> M[j]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="输出最优解-O-n"><a href="#输出最优解-O-n" class="headerlink" title="输出最优解 O(n)"></a>输出最优解 O(n)</h4><p>j属于一个区间集合{1,…,j} 的最优解当且仅当：$v_j+OPT(p(j)) &gt; OPT(j-1)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Find-Solution(j)&#123;</span><br><span class="line">    <span class="keyword">if</span>(j=<span class="number">0</span>)</span><br><span class="line">        output nothing</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(vj+M[p(j)] &gt;M[j<span class="number">-1</span>])</span><br><span class="line">        print j</span><br><span class="line">        Find-Solution(p(j))</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        Find-Solution(j<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="迭代算法计算M-自底向上"><a href="#迭代算法计算M-自底向上" class="headerlink" title="迭代算法计算M[] 自底向上"></a>迭代算法计算M[] 自底向上</h4><p>Input: n, s1,…,sn, f1,…,fn , v1,…,vn </p>
-<p>Sort jobs by finish times so that f1≤f2≤… ≤fn.</p>
-<p>Computep(1), p(2), …, p(n)</p>
-<p>Iterative-Compute-Opt { //O(n)</p>
-<p>​    M[0] = 0 forj = 1 to n </p>
-<p>​    M[j] = max(vj+ M[p(j)], M[j-1]) </p>
-<p>}</p>
-<p>区别动态规划与分治策略：子问题是否独立</p>
-<h3 id="分段的最小二乘"><a href="#分段的最小二乘" class="headerlink" title="分段的最小二乘"></a>分段的最小二乘</h3><p>罚分度量函数:  E + c L  在所有直线上的平方误差之和E，直线的数目L</p>
-<p>OPT(j) =对于点pi, pi+1, . . . , pj的最优解 </p>
-<p>e(i, j)  = 关系到pi, pi+1, . . . , pj的任何直线的最小误差<br>$$<br>OPT(j)=\begin{cases}<br>0,\quad if\ j=0 \\<br>min_{1≤i≤j}{e(i,j)+c+OPT(i-1)},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="自底向上"><a href="#自底向上" class="headerlink" title="自底向上"></a>自底向上</h4><p>INPUT: n, p1,…,pN,c</p>
-<p>Segmented-Least-Squares() { </p>
-<p>​    M[0] = 0 </p>
-<p>​    for j = 1 to n </p>
-<p>​        for i = 1 to j </p>
-<p>​            compute the least square error eij for the segment pi,…, pj //O(n)<br>​    for j = 1 to n </p>
-<p>​        M[j] =$min_{1≤i≤j}{e(i,j)+c+OPT(i-1)}$ //O(n^2) </p>
-<p>​    return M[n]<br>}</p>
-<p>总的算法代价是O(n^3)；如果预先计算了统计信息e(i, j) ，那么代价就是 O(n^2)</p>
-<h4 id="通过数组M-向回寻找计算最优的划分"><a href="#通过数组M-向回寻找计算最优的划分" class="headerlink" title="通过数组M 向回寻找计算最优的划分"></a>通过数组M 向回寻找计算最优的划分</h4><p>Find-Segments(j) </p>
-<p>​    If j=0 then </p>
-<p>​        不用输出 </p>
-<p>​    Else </p>
-<p>​        找一个使得e(i,j)+c+M[i-1]最小的i </p>
-<p>​    输出这一段{pi,…,pj}作为直线段，以及输出递归函数Find-Segments(i-1)的结果 </p>
-<p>End if</p>
-<h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p>增加一个变量<br>$$<br>OPT(i,w)=\begin{cases}<br>0,\quad if\ i=0 \\<br>OPT(i-1,w),\quad if\ wi&gt;w \\<br>max{OPT(i-1,w),vi+OPT(i-1,w-wi)},\quad otherwise<br>\end{cases}<br>$$<br>自底向上算法，填满一个n*W的二维数组</p>
-<p>Input: n, w1,…,wN, v1,…,vN</p>
-<p>for w = 0 to W </p>
-<p>​    M[0, w] = 0</p>
-<p>for i = 1 to n </p>
-<p>​    for w = 1 to W </p>
-<p>​        if(wi&gt; w) </p>
-<p>​            M[i, w] = M[i-1, w] </p>
-<p>​        else </p>
-<p>​            M[i, w] = $max{OPT(i-1,w),vi+OPT(i-1,w-wi)}$</p>
-<p>return M[n, W]</p>
-<p><img src="//yoursite.com/2019/06/04/算法复习笔记（四）/blog\source\_posts\sql\算法1.PNG" width="60%"></p>
-<p>Θ(nW)，伪多项式。在O(n)时间内找到最优集合。</p>
-<h3 id="RNA二级结构"><a href="#RNA二级结构" class="headerlink" title="RNA二级结构"></a>RNA二级结构</h3><p>没有尖的转弯：S中每个对的两端被至少四个插入的碱基所分割.  即如果(bi, bj) ∈S, 那么i &lt; j -4.<br>$$<br>OPT(i,j)=\begin{cases}<br>0,\quad if\ i≥j-4 \\<br>max{OPT(i,j-1),1+max_t{OPT(i,t-1)+OPT(t+1,j)}},\quad otherwise<br>\end{cases}<br>$$<br>$max_t$遍取所有的t,使得bt与bj是一对被允许的碱基.</p>
-<p>存在O(n^2)个子问题;每次求值用O(n)时间,总运行时间是O(n^3)</p>
-<h3 id="序列比对"><a href="#序列比对" class="headerlink" title="序列比对"></a>序列比对</h3><p>空隙罚分δ; 不匹配罚分$α_{pq}$</p>
-<p> 一个比对M是一些有序配对xi-yj 的集合，每一项至多出现在一个配对中， 而且没有配对交叉.<br>$$<br>OPT(i,j)=\begin{cases}<br>jδ,\quad if\ i=0 \\<br>min\begin{cases}<br>α_{x_iy_j}+OPT(i-1,j-1)\quad\\<br>δ+OPT(i-1,j)\quad \\<br>δ+OPT(i,j-1)\quad<br>\end{cases}\quad otherwise\\<br>iδ,\quad if\ j=0<br>\end{cases}<br>$$</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><strong>Sequence-Alignment(m, n, x1x2…xm, y1y2…yn, δ, α)</strong> { </p>
-<p>for i = 0 to m M[0, i] = iδ </p>
-<p>for j = 0 to n M[j, 0] = jδ</p>
-<p>for i = 1 to m </p>
-<p>​    for j = 1 to n </p>
-<p>​        M[i, j] = min(α[xi, yj] + M[i-1, j-1], δ+ M[i-1, j], δ+ M[i, j-1]) </p>
-<p>returnM[m, n]<br>}</p>
-<p>时间和空间复杂度：Θ(mn)</p>
-<h4 id="线性空间的序列比对"><a href="#线性空间的序列比对" class="headerlink" title="线性空间的序列比对"></a>线性空间的序列比对</h4><p><strong>Space-Efficient-Alignment(X,Y)</strong></p>
-<p>​    数组B[0…m,0…1] </p>
-<p>​    初始化对每个i令B[i,0]=iδ </p>
-<p>​    For j=1,…,n</p>
-<p>​        B[0,1] =jδ </p>
-<p>​        For i=1,…,m </p>
-<p>​            B[i,1]=  min(α[xi, yj] + B[i-1, 0], δ+ B[i-1, 1], δ+ B[i,0]) </p>
-<p>​        Endfor </p>
-<p>​        将B的第一列移到第0列来为下一次迭代留出空间 </p>
-<p>​        对每个i修改B[i,0]=B[i,1] </p>
-<p>​    Endfor</p>
-<p>O(mn)的时间与O(m)的空间.</p>
-<font color="red">最优序列比对算法可以在O(m + n) 空间，O(mn)时间复杂度内完成。把动态规划算法和分治算法结合起来</font>
-
-<p><strong>Divide-and-Conquer-Alignment(X,Y)</strong> </p>
-<p>令m是X中的符号个数 </p>
-<p>令n是Y中的符合个数 </p>
-<p>If m&lt;=1或N&lt;=2, then </p>
-<p>​    使用Alignment(X,Y)计算最优比对 </p>
-<p>调用Space-Efficient-Alignment(X,Y[1:n/2]) </p>
-<p>调用Backward-Space-Efficient-Alignment(X,Y[n/2+1:n]) </p>
-<p>令q是使得f(q,n/2)+g(q,n/2)达到最小的指标 </p>
-<p>把(q,n/2)加到全局表P中 </p>
-<p>Divide-and-Conquer-Alignment(X[1:q],Y[1:n/2]) </p>
-<p>Divide-and-Conquer-Alignment(X[q:m],Y[n/2:n]) </p>
-<p>返回P</p>
-<p>采用待定系数法式的归纳法可以证明算法Divide-and-Conquer在长度为m与n的串上运行时间是O(mn). </p>
-<h3 id="图中的最短路径"><a href="#图中的最短路径" class="headerlink" title="图中的最短路径"></a>图中的最短路径</h3><p>OPT(i, v) 表示至多使用i条边的v-t最短路径的最小费用。<br>$$<br>OPT(i,v)=\begin{cases}<br>0,\quad if\ i=0 \\<br>min{OPT(i-1,v),min_{(v,w)∈E}{OPT(i-1,w)+c_{vw}}},\quad otherwise<br>\end{cases}<br>$$</p>
-<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><strong>Shortest-Path(G, t)</strong> { </p>
-<p>foreach node v ∈V </p>
-<p>​    M[0, v] ←∞ </p>
-<p>M[0, t] ←0<br>for i = 1 to n-1 </p>
-<p>​    foreach node v ∈V </p>
-<p>​        M[i, v] ←M[i-1, v] </p>
-<p>​    foreach edge (v, w) ∈E </p>
-<p>​        M[i, v] ←min { M[i, v], M[i-1, w] + cvw}<br>}</p>
-<p>表M有n^2项，每项O(n)时间计算，时间复杂度：O(n^3)，空间复杂度：O(n^2)</p>
-<h4 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h4><p>对每个结点v更新一个值M[v]，即我们至今已经找到的从v到t的最短路径的长度。为了帮助复原这条最短路径，记录每个结点通向终点t的路径上它后面的第一个结点；只要距离M[v]更新，我们就更新 这个值(first[v]).</p>
-<p>O(mn)时间</p>
-<p>$M[v]=min(M[v],min_{w∈V}(M[w]+c_{vw}))$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PUsh-Based-Shortest-Path(G,s,t)&#123;</span><br><span class="line">    foreach node v∈V&#123;</span><br><span class="line">        M[v]←∞ </span><br><span class="line">        successor[v]←∅</span><br><span class="line">    &#125;</span><br><span class="line">    M[t]=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to n<span class="number">-1</span>&#123;</span><br><span class="line">        foreach node w∈V&#123;</span><br><span class="line">            <span class="keyword">if</span>(M[w]has been updated in previous iteration)&#123;</span><br><span class="line">                foreach node v such that (v,w)∈E &#123;</span><br><span class="line">                    <span class="keyword">if</span>(M[v]&gt;M[w]+Cvw)&#123;</span><br><span class="line">                        M[v]←M[w]+Cvw</span><br><span class="line">                        successor[v]←w   </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> no M[w]value changed in iteration i, stop.</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="图中的负圈"><a href="#图中的负圈" class="headerlink" title="图中的负圈"></a>图中的负圈</h4><p>增加一个终点t。如果G有n个结点且 OPT(n,v)!=OPT(n-1,v),那么一条从v到t 的费用OPT(n,v)的路径P包含一个圈C,并 且C有负费用。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/201812CET6_02Trans/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/04/201812CET6_02Trans/" class="post-title-link" itemprop="url">201812CET6_02Trans</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 10:42:46" itemprop="dateCreated datePublished" datetime="2019-06-04T10:42:46+08:00">2019-06-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><p>近年来,中国越来越多的博物馆免费向公众开放。博物馆展览次数和参观人数都明显增长。在一些广受欢迎的博物馆门前,排长队已很常见。这些博物馆必须采取措施限制参观人数。如今,展览形式越来越多样。一些大型博物馆利用多媒体和虚拟现实等先进技术,使展览更具吸引力。不少博物馆还举办在线展览,人们可在网上观赏珍稀展品。然而,现场观看展品的体验对大多数参观者还是更具吸引力。</p>
-<p>In recent years, more and more museums in China have <font color="green">been opened to the public for free</font>. The number of museums exhibitions and visitors have <font color="green">increased significantly</font>. <font color="green">Queuing up in front of</font> some popular museums is very common, and these museums must take measures to restrict the number of visitors. Today, the form of exhibitions is becoming more <font color="green">diverse</font>. Some large museums use advanced technologies such as <font color="green">multimedia and virtual reality,</font> to make exhibitions more attractive. Many museums also hold online exhibitions where people can view <font color="green">rare exhibits</font> on the Internet. However, the experience of viewing exhibits <font color="green">on site</font> is still more attractive to most visitors.</p>
-<h4 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h4><p>exhibit [ɪɡˈzɪbɪt] v.展览;展出;表现，显示，显出(感情、品质或能力)<br>n.(一件)展览品，陈列品;(在法庭上出示的)物证，证据</p>
-<p>on site 在现场;临场</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/数据库外键约束/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1311,10 +1085,153 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/201712CET6_01Trans/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/29/201712CET6_01Trans/" class="post-title-link" itemprop="url">201712CET6_01Trans</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-29 12:10:28" itemprop="dateCreated datePublished" datetime="2019-05-29T12:10:28+08:00">2019-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-30 11:19:01" itemprop="dateModified" datetime="2019-05-30T11:19:01+08:00">2019-05-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>太湖是中国东部的一个淡水湖,占地面积2250平方公里,是中国第三大淡水湖,仅次于鄱阳和洞庭。太湖约有90个岛屿,大小从几平方米到几平方公里不等。太湖以其独特的“太湖石”而闻名,太湖石常用于装饰中国传统园林。太湖也以高产的捕鱼业闻名。自上世纪70年代后期以来,捕捞鱼蟹对沿湖的居民来说极为重要,并对周边地区的经济作出了重大贡献。太湖地区是中国陶瓷( ceramics)业基地之一,其中宜兴的陶瓷厂家生产举世闻名的宜兴紫砂壶( clay teapot)。</p>
+<p>Taihu Lake, a freshwater lake in eastern China, <strong>with an area of</strong> 2250 square kilometers, is the third largest freshwater lake in China, <strong>second to</strong> Poyang and Dongting Lake. Taihu Lake <strong>encompasses</strong> about 90 islands, <strong>ranging in size from</strong> several square meters to several square kilometers. Taihu Lake is famous for its unique “Taihu Stone”, which is often used to decorate traditional Chinese <strong>gardens</strong>. Taihu Lake is also well-known for its high-yield fishing industry. Fishing for fish and crabs since the late 1970s has <strong>been of great importance to inhabitants there and made great contribution to the economy of the surrounding areas</strong>. Taihu Lake region is also a base for China’s <strong>ceramic</strong> industry, where manufacturers in Yixing produce the world-famous Yixing <strong>clay teapot</strong>.</p>
+<h5 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h5><p>a freshwater lake 淡水湖</p>
+<p>encompass [ɪnˈkʌmpəs] v.包含，涉及;包围;</p>
+<p>ranging in size from … to …</p>
+<p> high-yield fishing industry 高产的捕鱼业</p>
+<p>ceramic [səˈræmɪk] n. 陶瓷器 adj. 陶器的</p>
+<p>garden 园林</p>
+<p>inhabitant [ɪnˈhæbɪtənt] n. (某地的)居民，栖息动物</p>
+<p>Here‘s mud in your eye! 祝你幸福！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/伪代码规范/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/28/伪代码规范/" class="post-title-link" itemprop="url">伪代码规范</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-28 17:30:21 / 修改时间：18:14:17" itemprop="dateCreated datePublished" datetime="2019-05-28T17:30:21+08:00">2019-05-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在伪代码中，每一条指令占一行(else if 例外)，指令后不跟任何符号，缩进表示程序中的分支结构<br>定义变量的语句不用写出来，但必须在注释中给出</p>
+<p>某些指令或子任务可以用文字来叙述，例如，”设x是A中的最大项”，这里A是一个数组；或者”将x插入L中”，这里L是一个链表<br>算术表达式可以使用通常的算术运算符（+，-，*，/，以及表示幂的^）。逻辑表达式可以使用关系运算符=,≠,&lt;,&gt;,≤和≥，以及逻辑运算符与(and),或（or），非（not）。</p>
+<p>赋值语句：a←b 。<br>这里a是变量、数组项，b是算术表达式、逻辑表达式或指针表达式。<br>变量交换：a<->b<br>goto语句导致转向具有指定标号的语句。</-></p>
+<p>条件语句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i=<span class="number">10</span></span><br><span class="line">    then xxxx  <span class="comment">//if 后面必定跟上then，else后面不用跟then</span></span><br><span class="line">    elseif i=<span class="number">9</span> <span class="comment">//elseif 要连在一起写,else 和 then 要对齐</span></span><br><span class="line">        then xxxx</span><br><span class="line">        yyyy</span><br><span class="line">    <span class="keyword">else</span> xxxx<span class="comment">//else 跟在elseif 的 then 对齐</span></span><br></pre></td></tr></table></figure>
+<p>循环：while和for </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> time&lt;<span class="number">10</span></span><br><span class="line">    <span class="keyword">do</span>  xxxxx                  <span class="comment">//while后面必定要紧跟缩进的do</span></span><br><span class="line">    xxxxx</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> var init to limit by incr <span class="keyword">do</span></span><br><span class="line">    s</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i←<span class="number">0</span> to <span class="number">10</span>        <span class="comment">//for、while、if 后面的条件语句都不用加括号</span></span><br><span class="line">    <span class="keyword">do</span> ...                 <span class="comment">//for后面必定要紧跟缩进的do</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>exit语句可以在通常的结束条件满足之前，被用来结束while循环或者for循环的执行。exit导致转向到紧接在包含exit的（最内层）while或者for循环后面的一个语句。</p>
+<p>return用来指出一个算法执行的终点；如果算法在最后一条指令之后结束，它通常是被省略的；它被用得最多的场合是检测到不合需要的条件时。return的后面可以紧接被括在引号的信息。</p>
+<p>算法中的注释被括在/<em> </em>/之中。诸如read和output之类的各种输入或者输出也在需要时被用到。</p>
+<p>原文：<a href="https://blog.csdn.net/u010126059/article/details/51077514" target="_blank" rel="noopener">https://blog.csdn.net/u010126059/article/details/51077514</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1381,14 +1298,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

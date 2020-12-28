@@ -158,195 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/22/BT-interview-note-i/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/22/BT-interview-note-i/" class="post-title-link" itemprop="url">BT-interview-note-i</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-22 23:12:00" itemprop="dateCreated datePublished" datetime="2020-11-22T23:12:00+08:00">2020-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-23 00:08:05" itemprop="dateModified" datetime="2020-11-23T00:08:05+08:00">2020-11-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="字节跳动飞书后端一面"><a href="#字节跳动飞书后端一面" class="headerlink" title="字节跳动飞书后端一面"></a>字节跳动飞书后端一面</h4><p>上来先自我介绍，再问掌握的==技术栈==。然后开始问基础知识：</p>
-<h5 id="Java的反射机制"><a href="#Java的反射机制" class="headerlink" title="Java的反射机制"></a>Java的反射机制</h5><p>Java的反射（Reflection）机制提供动态获取类的信息，以及动态调用对象的方法的功能。反射机制的几大功能：==在运行时==，</p>
-<ul>
-<li>判断任意一个对象所属类。</li>
-<li>构造任意一个对象。</li>
-<li>判断任意一个类所具备的成员变量和方法</li>
-<li><p>调用任意一个对象的方法。</p>
-<p>通常而言：程序运行时容许改变程序结构和变量类型称为动态语言。因而可知Java并非动态语言，可是Java的Reflection机制，能够运行时加载、探知、使用编译期间彻底未知classes。因此Reflection是Java视为动态语言的关键性质，容许在程序运行时经过Reflection APIs 取得任何一个已知名称的class的内部信息（包括父类，接口，变量，方法等）。</p>
-</li>
-</ul>
-<p>IOC：Inversion of Control —— 控制反转，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象。</p>
-<p>DI：Dependency Injection —— 依赖注入，在系统运行中，动态的向某个对象提供它所需要的其他对象。</p>
-<p>AOP —— Asepct-Orentid-Programming，面向切面编程，把与核心业务逻辑无关的代码全部抽取出来，放置到某个地方集中管理，然后在具体运行时，再由容器动态织入这些共有代码。</p>
-<h5 id="Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC"><a href="#Java虚拟机内存回收机制，什么是Full-GC，如何避免Full-GC" class="headerlink" title="Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC"></a>Java虚拟机内存回收机制，什么是Full GC，如何避免Full GC</h5><p>堆内存划分为 Eden、Survivor 和 Tenured/Old 空间。</p>
-<ul>
-<li>从年轻代空间（包括 Eden 和 Survivor 区域）回收内存被称为 Minor GC；</li>
-<li>对老年代GC称为Major GC；</li>
-<li>而Full GC是对整个堆来说的；</li>
-</ul>
-<p>发生Full GC的情况及避免方法：</p>
-<ol>
-<li>直接调用System.gc</li>
-<li>旧生代空间不足。调优时应尽量做到让对象在Minor GC阶段被回收、让对象在新生代多存活一段时间及不要创建过大的对象及数组。</li>
-<li>Permanet Generation空间满。增大Perm Gen空间或转为使用CMS GC。</li>
-<li>CMS GC时出现promotion failed和concurrent mode failure。增大survivorspace、旧生代空间或调低触发并发GC的比率。</li>
-<li>统计得到的Minor GC晋升到旧生代的平均大小大于旧生代的剩余空间</li>
-<li>对于使用RMI来进行RPC或管理的Sun JDK应用而言，默认情况下会一小时执行一次Full GC</li>
-</ol>
-<h5 id="http和https什么区别"><a href="#http和https什么区别" class="headerlink" title="http和https什么区别"></a>http和https什么区别</h5><p><a href="https://blog.csdn.net/xionghuixionghui/article/details/68569282" target="_blank" rel="noopener">https://blog.csdn.net/xionghuixionghui/article/details/68569282</a></p>
-<p>1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p>
-<p>2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p>
-<p>3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p>
-<p>4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p>
-<p>（好像还问了一道网络题，记不清了……）</p>
-<h5 id="什么是跨域问题？如何解决跨域问题？"><a href="#什么是跨域问题？如何解决跨域问题？" class="headerlink" title="什么是跨域问题？如何解决跨域问题？"></a>什么是跨域问题？如何解决跨域问题？</h5><p>由浏览器的同源策略造成。同源是指，域名，协议，端口均相同。</p>
-<p>解决方法：</p>
-<ol>
-<li>JSONP</li>
-<li>代理</li>
-<li>PHP端修改header（XHR2方式）</li>
-</ol>
-<h5 id="算法：二分查找"><a href="#算法：二分查找" class="headerlink" title="算法：二分查找"></a>算法：二分查找</h5><p>是指在有序数组中查找某一特定元素的算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束;如果特定元素大于或者小于中间元素,则在数组大于或小于中间元素的那一半中查找，且跟开始一样从中间元素开始比较。如果在某一步骤数组为空,则代表找不到。这种搜索算法每-次比较都使搜索范围缩小一半。</p>
-<h5 id="索引是什么？索引过多会出现什么问题？"><a href="#索引是什么？索引过多会出现什么问题？" class="headerlink" title="索引是什么？索引过多会出现什么问题？"></a>索引是什么？索引过多会出现什么问题？</h5><p>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。通过使用索引，可以让数据库系统不必扫描整个表，而是直接定位到符合条件的记录，这样就大大加快了查询速度。</p>
-<p>1.一个索引会在update或insert时增加一次I/O, 对于操作系统底层来说是非常损耗性能的。<br>2.索引过多会导致索引文件过大， 系统在寻址时查询时间增长。</p>
-<p>在表上建立的每个索引都会增加存储开销，索引对于插入、删除、更新操作也会增加处理上的开销。另外，过多的复合索引，在有单字段索引的情况下，一般都是没有存在价值的；相反，还会降低数据增加删除时的性能，特别是对频繁更新的表来说，负面影响更大。</p>
-<h5 id="hashmap-数据结构"><a href="#hashmap-数据结构" class="headerlink" title="hashmap 数据结构"></a>hashmap 数据结构</h5><font color="grey">真 每次必问啊</font>
-
-<p>hasnmap是一个链表的数组，对于每个 key-value对元素，根据其key的哈希，该元素被分配到某个桶当中，桶使用链表实现，链表的节点包含了一个key，一个value，以及一个指向下一个节点的指针。当桶的大小大于8时会转化为红黑树存储数据。</p>
-<p><img src="https://img-blog.csdn.net/20180811174815551?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppYW5nZV96aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<ul>
-<li><a href="https://blog.csdn.net/jiange_zh/article/details/81588983" target="_blank" rel="noopener">https://blog.csdn.net/jiange_zh/article/details/81588983</a></li>
-<li><a href="https://blog.csdn.net/daiyuhe/article/details/89424736" target="_blank" rel="noopener">https://blog.csdn.net/daiyuhe/article/details/89424736</a></li>
-</ul>
-<p><a href="https://www.jianshu.com/p/8b372f3a195d" target="_blank" rel="noopener">https://www.jianshu.com/p/8b372f3a195d</a></p>
-<h5 id="你对飞书怎么看？有没有了解过飞书的开放平台？"><a href="#你对飞书怎么看？有没有了解过飞书的开放平台？" class="headerlink" title="你对飞书怎么看？有没有了解过飞书的开放平台？"></a>你对飞书怎么看？有没有了解过飞书的开放平台？</h5><p><del>我不想看</del><a href="https://www.feishu.cn/product/overview" target="_blank" rel="noopener">https://www.feishu.cn/product/overview</a></p>
-<p><del>没有，下次一定</del><a href="https://www.feishu.cn/webinar/feishu-openapi" target="_blank" rel="noopener">https://www.feishu.cn/webinar/feishu-openapi</a></p>
-<font color="grey">居然只面了十五分钟？？就挺突然的。而且用的是飞书视频，没有考编程？？算法题 也挺 意外的……整理之后发现一半的题目回答都有点凉啊</font>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/21/spider-for-hiresearch/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/21/spider-for-hiresearch/" class="post-title-link" itemprop="url">spider for hiresearch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-21 08:41:55 / 修改时间：10:57:22" itemprop="dateCreated datePublished" datetime="2020-11-21T08:41:55+08:00">2020-11-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>xlrd</code> 是python环境下对excel中的数据进行读取的一个模板，可以进行的操作有：</p>
-<ul>
-<li>读取有效单元格的行数、列数</li>
-<li>读取指定行（列）的所有单元格的值</li>
-<li>读取指定单元格的值</li>
-<li>读取指定单元格的数据类型</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 78</span><br></pre></td></tr></table></figure>
-<p>调整ChromeDriver版本，下载chromedriver.exe放到Script文件夹下。</p>
-<p>Code from JZ : </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> Select</span><br><span class="line"></span><br><span class="line">subject = <span class="string">'基因'</span></span><br><span class="line">lang = <span class="string">'中文'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取excel中的信息, 然后根据信息爬虫</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 打开浏览器</span></span><br><span class="line">    url = <span class="string">'http://www.hiresearch.cn/pcomp'</span></span><br><span class="line">    browser = webdriver.Chrome()</span><br><span class="line">    browser.get(url)</span><br><span class="line">    browser.maximize_window()</span><br><span class="line">    <span class="comment"># 先添加两个搜索框</span></span><br><span class="line">    add_element = browser.find_element_by_xpath(<span class="string">'//*[@id="logic_1"]/div[1]/a'</span>)</span><br><span class="line">    add_element.click()</span><br><span class="line">    add_element.click()</span><br><span class="line">    <span class="comment"># 输入主题</span></span><br><span class="line">    subject_text = browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword1"]'</span>)</span><br><span class="line">    subject_text.click()</span><br><span class="line">    subject_text.send_keys(subject)</span><br><span class="line">    <span class="comment"># 语言全选按钮</span></span><br><span class="line">    all_lan = browser.find_element_by_xpath(<span class="string">'//*[@id="searchForm"]/div[3]/div/div[4]/div[2]/div/div[1]/div/div/label'</span>)</span><br><span class="line">    all_lan.click()</span><br><span class="line">    <span class="comment"># 中文按钮</span></span><br><span class="line">    ch = browser.find_element_by_xpath(<span class="string">'//*[@id="lblcn"]'</span>)</span><br><span class="line">    ch.click()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 选择类别</span></span><br><span class="line">    Select(browser.find_element_by_xpath(<span class="string">'//*[@id="SltType2"]'</span>)).select_by_visible_text(<span class="string">'基金名称'</span>)</span><br><span class="line">    Select(browser.find_element_by_xpath(<span class="string">'//*[@id="SltType3"]'</span>)).select_by_visible_text(<span class="string">'基金类别'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 选择年份</span></span><br><span class="line">    browser.find_element_by_xpath(<span class="string">'//*[@id="limit_bar"]'</span>).click()</span><br><span class="line">    browser.find_element_by_xpath(<span class="string">'//*[@id="rangeYear"]'</span>).click()</span><br><span class="line">    <span class="comment"># 读取信息</span></span><br><span class="line">    name = <span class="string">'limit-pcy.xlsx'</span></span><br><span class="line">    wb = xlrd.open_workbook(filename=name)  <span class="comment"># 打开文件</span></span><br><span class="line"></span><br><span class="line">    sheet1 = wb.sheet_by_index(<span class="number">0</span>)  <span class="comment"># 通过索引获取表格</span></span><br><span class="line">    type1s = sheet1.col_values(<span class="number">2</span>)  <span class="comment"># 获取类别</span></span><br><span class="line">    type2s = sheet1.col_values(<span class="number">3</span>)  <span class="comment"># 获取自类别</span></span><br><span class="line">    years = sheet1.col_values(<span class="number">4</span>)  <span class="comment"># 年份</span></span><br><span class="line">    counts = sheet1.col_values(<span class="number">5</span>)  <span class="comment"># 数量</span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    beq = <span class="number">0</span></span><br><span class="line">    end = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; len(years):</span><br><span class="line">        type1 = type1s[i]</span><br><span class="line">        browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword2"]'</span>).clear()</span><br><span class="line">        browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword2"]'</span>).click()</span><br><span class="line">        browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword2"]'</span>).send_keys(type1)</span><br><span class="line">        type2 = type2s[i]</span><br><span class="line">        <span class="keyword">if</span> len(type2) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).clear()</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).click()</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).send_keys(type2)</span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                add_element.click()</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).clear()</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).click()</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="TxtKeyword3"]'</span>).send_keys(type2)</span><br><span class="line">        year = years[i]</span><br><span class="line">        <span class="keyword">if</span> type(year) == float:</span><br><span class="line">            beq = end = int(year)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ss = year.split(<span class="string">'-'</span>)</span><br><span class="line">            beq = int(ss[<span class="number">0</span>])</span><br><span class="line">            end = int(ss[<span class="number">1</span>])</span><br><span class="line">        <span class="comment"># 如果年份有-需要处理一下</span></span><br><span class="line">        Select(browser.find_element_by_xpath(<span class="string">'//*[@id="SltBeginYear"]'</span>)).select_by_visible_text(str(beq))</span><br><span class="line">        Select(browser.find_element_by_xpath(<span class="string">'//*[@id="SltEndYear"]'</span>)).select_by_visible_text(str(end))</span><br><span class="line">        <span class="comment"># 开始检索</span></span><br><span class="line">        browser.find_element_by_xpath(<span class="string">'//*[@id="btnsearch1"]'</span>).click()</span><br><span class="line">        count = int(counts[i])</span><br><span class="line">        sleep(<span class="number">2</span>)</span><br><span class="line">        <span class="comment"># 从1到count</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range((count + <span class="number">99</span>) // <span class="number">100</span>):</span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="tabExport"]'</span>).click()</span><br><span class="line">            Select(browser.find_element_by_xpath(<span class="string">'//*[@id="modalExport"]'</span>)).select_by_visible_text(<span class="string">'项目 + 所有成果'</span>)</span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportFrom"]'</span>).clear()</span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportFrom"]'</span>).click()</span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportFrom"]'</span>).send_keys(j * <span class="number">100</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportTo"]'</span>).clear()</span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportTo"]'</span>).click()</span><br><span class="line">            <span class="keyword">if</span> count &gt;= j * <span class="number">100</span> + <span class="number">100</span>:</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportTo"]'</span>).send_keys(j * <span class="number">100</span> + <span class="number">100</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                browser.find_element_by_xpath(<span class="string">'//*[@id="modalExportTo"]'</span>).send_keys(count)</span><br><span class="line"></span><br><span class="line">            browser.find_element_by_xpath(<span class="string">'//*[@id="modalBtnExport"]'</span>).click()</span><br><span class="line">            sleep(<span class="number">3</span>)</span><br><span class="line">        print(type1, type2, beq, end, count)</span><br><span class="line">        handle = browser.current_window_handle</span><br><span class="line">        handles = browser.window_handles</span><br><span class="line">        <span class="keyword">for</span> newhandle <span class="keyword">in</span> handles:</span><br><span class="line">            <span class="comment"># 筛选新打开的窗口B</span></span><br><span class="line">            <span class="keyword">if</span> newhandle != handle:</span><br><span class="line">                browser.switch_to_window(newhandle)</span><br><span class="line">                browser.close()</span><br><span class="line">        browser.switch_to_window(handle)</span><br><span class="line">        sleep(<span class="number">10</span>)</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">'success!'</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/20/数的子结构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -935,10 +746,163 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/06/java-note-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/06/java-note-1/" class="post-title-link" itemprop="url">java-note-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-06 15:47:47 / 修改时间：15:47:48" itemprop="dateCreated datePublished" datetime="2020-10-06T15:47:47+08:00">2020-10-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="SSM-SSH框架"><a href="#SSM-SSH框架" class="headerlink" title="SSM/SSH框架"></a>SSM/SSH框架</h4><p>SSH是指 Struts2 Spring Hibernate三个框架。SSM是指SpringMVC Spring MyBatis。对于MVC框架，SSH是Structs2做controller，hibernate负责持久化层；SSM是SpringMVC做controller，MyBatis负责持久化层。Structs2是Action级别，SpringMVC是方法级别，更容易实现RESTful风格。</p>
+<p>SSM和SSH的共同点：由Spring以来至如DI管理各层组件；使用面向切面编程AOP管理事务、日志、权限等。</p>
+<h4 id="后端编程"><a href="#后端编程" class="headerlink" title="后端编程"></a>后端编程</h4><p>框架、负载均衡、灾难恢复、缓存、消息、分布式、搜索等。</p>
+<h2 id="Java动态代理"><a href="#Java动态代理" class="headerlink" title="Java动态代理"></a>Java动态代理</h2><ol>
+<li>静态代理</li>
+<li>JDK动态代理</li>
+<li>CGLib动态代理</li>
+</ol>
+<p>动态代理是JDK运行期间动态创建class字节码并加载的过程。</p>
+<h4 id="为什么要用Java动态代理？"><a href="#为什么要用Java动态代理？" class="headerlink" title="为什么要用Java动态代理？"></a>为什么要用Java动态代理？</h4><p>类方法数量越来越多时，静态代理的代码量会十分庞大。</p>
+<p><img src="https://pic2.zhimg.com/v2-39a95afda496c248a56a5103e76837ec_r.jpg?source=1940ef5c" alt="preview"></p>
+<p>Java动态代理只能对interface进行操作，不能对class操作：</p>
+<p>class（非abstract）可以被实例化，interface不能被实例化，所有的interface变量都是通过向上转型并指向某个实例的。Java动态代理机制可以在运行期动态创建interface实例。</p>
+<p>在运行期间动态创建一个interface实例：</p>
+<ol>
+<li>定义InvocationHandler实例用于实现接口的方法调用；</li>
+<li>通过Proxy.newProxyInstance()创建interface实例，需要三个参数：<ol>
+<li>接口类的ClassLoader；</li>
+<li>需要实现的接口数组；</li>
+<li>InvocationHandler实例</li>
+</ol>
+</li>
+<li>将返回的Object转为接口类型。</li>
+</ol>
+<h4 id="动态字节码的生成"><a href="#动态字节码的生成" class="headerlink" title="动态字节码的生成"></a>动态字节码的生成</h4><h5 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h5><p>字节码通常指的是已经经过编译，但与特定机器代码无关，需要解释器转译后才能成为机器代码的中间代码。字节码通常不像源码一样可以让人阅读，而是编码后的数值常量、引用、指令等构成的序列。 字节码主要为了实现特定软件运行和软件环境、与硬件环境无关。字节码的实现方式是通过编译器和虚拟机。 <a href="https://zh.wikipedia.org/zh-cn/字节码" target="_blank" rel="noopener">维基百科</a></p>
+<h5 id="ASM、CGLib"><a href="#ASM、CGLib" class="headerlink" title="ASM、CGLib"></a>ASM、CGLib</h5><p>ASM 框架可以直接操作字节码，动态修改类和方法，CGLib (Code Generation Library，代码生成库) 底层也是由ASM实现。ASM将对代码的操作包装成一个访问者，在解析JVM加载到的字节码时调用。ClassReader 是 ASM 代码的入口，通过它解析二进制字节码，实例化时它时，我们需要传入一个 ClassVisitor，在这个 Visitor 里，我们可以实现 visitMethod() / visitAnnotation() 等方法，用以定义对类结构（如方法、字段、注解）的访问方法。而 ClassWriter 接口继承了 ClassVisitor 接口，我们在实例化类访问器时，将 ClassWriter “注入” 到里面，以实现对类写入的声明。（<a href="https://zhenbianshu.github.io/2018/11/control_jvm_byte_code.html）" target="_blank" rel="noopener">https://zhenbianshu.github.io/2018/11/control_jvm_byte_code.html）</a></p>
+<p>CGLib 常应用于 AOP 框架，提供方法的拦截，加入相应的业务逻辑代码。</p>
+<p>Java是静态语言，放到JVM中运行之前需要先进行编译。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/04/factorial-trailing-zeroes/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/04/factorial-trailing-zeroes/" class="post-title-link" itemprop="url">factorial-trailing-zeroes</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-04 17:42:44" itemprop="dateCreated datePublished" datetime="2020-10-04T17:42:44+08:00">2020-10-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个整数 <em>n</em>，返回 <em>n</em>! 结果尾数中零的数量。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>乘积末尾能出现 0 的都是由 2*5 得到的，2的数量肯定比5多，因此只需要关注有多少个5就可以了。</p>
+<ol>
+<li><p>循环。每隔5个数出现一个5，每隔25个数出现两个5，每隔125个数出现三个5，……，因此5的个数是：$n/5+n/25+n/125+…$，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n&gt;=<span class="number">5</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        n/=<span class="number">5</span>;</span><br><span class="line">        res+=n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>递归。$f(n)=f(n/5)+n/5$，为什么能写成递归的形式？举个栗子，对于阶乘126!而言，数字126最接近的5的倍数是125，且$125 = 25x5$，也就是说对126!分解质因数，其一定能分解成$126! = 25x5 x 24x5 x 23x5 x 22x5 x…x 3x5 x 2x5 x 1x5 x…$形式，该式子中首先已经出现了25个5，但是仍需计算25!的阶乘中总共有多少个五，故可递归。<br>链接：<a href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/172-jie-cheng-hou-de-ling-di-gui-jie-fa-liang-xing/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/172-jie-cheng-hou-de-ling-di-gui-jie-fa-liang-xing/</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;<span class="number">5</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> n/<span class="number">5</span>+trailingZeroes(n/<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1005,14 +969,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

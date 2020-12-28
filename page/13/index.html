@@ -158,172 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/maximal-rectangle/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/04/maximal-rectangle/" class="post-title-link" itemprop="url">maximal-rectangle & merge-sorted-array</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-04 21:18:25" itemprop="dateCreated datePublished" datetime="2020-03-04T21:18:25+08:00">2020-03-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-05 21:37:52" itemprop="dateModified" datetime="2020-03-05T21:37:52+08:00">2020-03-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>暴力求解：</strong>主要的想法是，对于矩阵中的每一个元素，向上找：以其为右下顶点的矩形面积，找的过程中，矩形的长是这一列中最小的连续“1”的数量，宽是行数之差。需要一个辅助矩阵count，count[i][j]用来记录matrix[i][j]在i这一行前面连续的“1”的数量。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> row = matrix.size();</span><br><span class="line">	<span class="keyword">if</span> (!row)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> col = matrix[<span class="number">0</span>].size();</span><br><span class="line">	<span class="keyword">if</span> (!col)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; count;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)</span><br><span class="line">		count.push_back(&#123; (matrix[i][<span class="number">0</span>] - <span class="string">'0'</span>) &#125;);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; col; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (matrix[i][j - <span class="number">1</span>] == <span class="string">'0'</span>)</span><br><span class="line">				count[i].push_back(matrix[i][j] - <span class="string">'0'</span>);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				count[i].push_back(count[i][j - <span class="number">1</span>] + matrix[i][j] - <span class="string">'0'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> res = count[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (matrix[i][j] == <span class="string">'1'</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> width = count[i][j];</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span> (matrix[k][j] == <span class="string">'0'</span>)<span class="keyword">break</span>;</span><br><span class="line">					width = count[k][j] &lt; width ? count[k][j] : width;</span><br><span class="line">					<span class="keyword">int</span> area = width * (i - k + <span class="number">1</span>);</span><br><span class="line">					res = area &gt; res ? area : res;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行用时 :28 ms, 在所有 C++ 提交中击败了57.09%的用户</p>
-<p>内存消耗 :12.3 MB, 在所有 C++ 提交中击败了13.35%的用户</p>
-<p><strong>借助单调栈：</strong></p>
-<p><img src="https://pic.leetcode-cn.com/aabb1b287134cf950aa80526806ef4025e3920d57d237c0369ed34fae83e2690-image.png" alt="1"></p>
-<p>还是用到了上面的count矩阵，从左往右竖着划分，可以看做有col个求最大矩形柱状面积的图。此时count[i][j]就表示在第j列时，第i个柱子的高度。</p>
-<p>对于单个求largestRectangleArea的情况，可以借助单调递增栈来解决，当柱子的高度递增时，将i入栈，若当前高度更小，则需要将i弹出栈直到不违背递增性质。在弹出栈的过程中需要算面积。为了编程方便，可以在一开始将高度0插入到第一个柱子之前。</p>
-<h4 id="附"><a href="#附" class="headerlink" title="附"></a>附</h4><h4 id="C-template："><a href="#C-template：" class="headerlink" title="C++ template："></a>C++ template：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">int</span> DIM, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DotProduce</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> T <span class="title">result</span> <span class="params">(T* a, T* b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *a * *b + DotProduce&lt;DIM<span class="number">-1</span>, T&gt;::result(a+<span class="number">1</span>, b+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//The end criterion is the case of a one-dimensional vector:</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DotProduce</span>&lt;1, T&gt;&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> T <span class="title">result</span> <span class="params">(T* a, T* b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *a * *b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>Thus, for</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dot_produce&lt;<span class="number">3</span>&gt;(a,b)</span><br></pre></td></tr></table></figure>
-<p>the instantiation process computes the following:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DotProduce&lt;<span class="number">3</span>, <span class="keyword">int</span>&gt;::result(a, b)</span><br><span class="line">    = *a * *b + DotProduce&lt;<span class="number">2</span>, <span class="keyword">int</span>&gt;::result(a+<span class="number">1</span>, b+<span class="number">1</span>)</span><br><span class="line">    = *a * *b + (*(a+<span class="number">1</span>) * *(b+<span class="number">1</span>) + DotProduce&lt;<span class="number">1</span>, <span class="keyword">int</span>&gt;::result(a+<span class="number">2</span>, b+<span class="number">2</span>))</span><br><span class="line">    = *a * *b + (*(a+<span class="number">1</span>) * *(b+<span class="number">1</span>) +(*(a+<span class="number">2</span>) * *(b+<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
-<p>元编程（Metaprogramming）是指某类计算机程序的编写，这类计算机程序编写或者操纵其他程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作。 很多情况下与手工编写全部代码相比工作效率更高。</p>
-<p><strong>volatile关键字</strong>是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素更改。</p>
-<h4 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。</p>
-<p>说明:</p>
-<p>初始化 nums1 和 nums2 的元素数量分别为 m 和 n。<br>你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。</p>
-<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span>) &#123; nums1 = nums2; <span class="keyword">return</span>;&#125;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">0</span>)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">int</span> k1 = <span class="number">0</span>, k2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (nums1[k1]&lt;= nums2[k2])</span><br><span class="line">		&#123;</span><br><span class="line">			v.push_back(nums1[k1]);</span><br><span class="line">			k1++;</span><br><span class="line">			<span class="keyword">if</span> (k1 == m)<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			v.push_back(nums2[k2]);</span><br><span class="line">			k2++;</span><br><span class="line">			<span class="keyword">if</span> (k2 == n)<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (k2!=n)</span><br><span class="line">		v.push_back(nums2[k2++]);</span><br><span class="line">	<span class="keyword">while</span> (k1 != m)</span><br><span class="line">		v.push_back(nums1[k1++]);</span><br><span class="line">	nums1 = v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span>) &#123; nums1 = nums2; <span class="keyword">return</span>; &#125;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">0</span>)<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">auto</span> it2 = nums2.begin();</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (*it2 &lt;= nums1[k])</span><br><span class="line">		&#123;</span><br><span class="line">			it2++;</span><br><span class="line">			<span class="keyword">if</span> (it2 == nums2.end())<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			it2 = nums2.insert(it2, nums1[k]);</span><br><span class="line">			k++;</span><br><span class="line">			<span class="keyword">if</span> (k == m)<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (k &lt; m)nums2.push_back(nums1[k++]);</span><br><span class="line">	nums1.clear();</span><br><span class="line">	nums1 = nums2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/largest-rectangle-in-histogram/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/02/largest-rectangle-in-histogram/" class="post-title-link" itemprop="url">largest-rectangle-in-histogram</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-02 15:12:36" itemprop="dateCreated datePublished" datetime="2020-03-02T15:12:36+08:00">2020-03-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-03 11:52:48" itemprop="dateModified" datetime="2020-03-03T11:52:48+08:00">2020-03-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>其实就是两个柱子之间的事情吧。进行组合选出最大值。</p>
-<p>哈哈哈一次过！虽然时空效率不是很好，但至少证明抓住本质 困难题目也会变成简单题目。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> vsize = heights.size();</span><br><span class="line">	<span class="keyword">if</span> (!vsize)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> res = heights[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vsize; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i&amp;&amp;heights[i - <span class="number">1</span>] &gt;= heights[i])</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">int</span> low = heights[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; vsize; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			low = heights[j] &lt; low ? heights[j] : low;</span><br><span class="line">			<span class="keyword">int</span> area = (j - i + <span class="number">1</span>)*low;</span><br><span class="line">			res = area &gt; res ? area : res;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看了官方解析，觉得自己数据结构还是没学好。</p>
-<p><strong>单调递增栈操作规则</strong></p>
-<ol>
-<li>如果新的元素比栈顶元素大，就入栈</li>
-<li>如果新的元素较小，那就一直把栈内元素弹出来，直到栈顶比新元素小</li>
-</ol>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li>对于一个高度，如果能得到向左和向右的边界</li>
-<li>那么就能对每个高度求一次面积</li>
-<li>遍历所有高度，即可得出最大面积</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; heights)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">	heights.insert(heights.begin(), <span class="number">0</span>);</span><br><span class="line">	heights.push_back(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; heights.size(); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (!st.empty() &amp;&amp; heights[st.back()] &gt; heights[i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cur = st.back();</span><br><span class="line">			st.pop_back();</span><br><span class="line">			ans = max(ans, (i<span class="number">-1</span> - st.back()) * heights[cur]);</span><br><span class="line">		&#125;</span><br><span class="line">		st.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/remove-duplicates-from-sorted-list/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -848,10 +682,188 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/VMware-&-Ubuntu/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/VMware-&-Ubuntu/" class="post-title-link" itemprop="url">VMware & Ubuntu</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-14 08:53:32" itemprop="dateCreated datePublished" datetime="2020-02-14T08:53:32+08:00">2020-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-27 19:58:00" itemprop="dateModified" datetime="2020-02-27T19:58:00+08:00">2020-02-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="设置Vmware自动调整窗口大小"><a href="#设置Vmware自动调整窗口大小" class="headerlink" title="设置Vmware自动调整窗口大小"></a>设置Vmware自动调整窗口大小</h3><ol>
+<li><p>安装Vmware Tools，重启无效，则：</p>
+</li>
+<li><p>手工安装Vmware tools：终端窗口命令如下：<br>sudo apt-get autoremove open-vm-tools<br>sudo apt-get install open-vm-tools<br>sudo apt-get install open-vm-tools-desktop</p>
+</li>
+<li><p>如果上面的命令执行并重启之后仍然没有效果：关机–&gt;设置–&gt;硬件–&gt;显示器：</p>
+<p>指定监视器设置：数量设为1，分辨率为主机(我是win)的分辨率，关闭拉伸模式。开机，在“查看”中可以进行屏幕自适应设置。</p>
+</li>
+</ol>
+<h4 id="Write-a-“Hello-World”-program-compile-it-then-run-it-under-GNU-Linux"><a href="#Write-a-“Hello-World”-program-compile-it-then-run-it-under-GNU-Linux" class="headerlink" title="Write a “Hello World” program, compile it, then run it under GNU/Linux."></a>Write a “Hello World” program, compile it, then run it under GNU/Linux.</h4><p>输入 gcc hell.c<br>输入 ./a.out</p>
+<h4 id="Write-a-Makefile-to-compile-the-“Hello-World”-program"><a href="#Write-a-Makefile-to-compile-the-“Hello-World”-program" class="headerlink" title="Write a Makefile to compile the “Hello World” program"></a>Write a Makefile to compile the “Hello World” program</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CC      = gcc</span><br><span class="line">CFLAGS  = -g</span><br><span class="line">RM      = rm -f</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">default: all</span><br><span class="line"></span><br><span class="line">all: Hello</span><br><span class="line"></span><br><span class="line">Hello: Hello.c</span><br><span class="line">    $(CC) $(CFLAGS) -o Hello Hello.c</span><br><span class="line"></span><br><span class="line">clean veryclean:</span><br><span class="line">    $(RM) Hello</span><br></pre></td></tr></table></figure>
+<h4 id="GDB的基本使用"><a href="#GDB的基本使用" class="headerlink" title="GDB的基本使用"></a>GDB的基本使用</h4><p>next和 step类似于vs中的f10和f11</p>
+<p>基本命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gdb &lt;executable name&gt;   开始调试</span><br><span class="line">break &lt;source code line number&gt;  打断点</span><br><span class="line">run   运行</span><br><span class="line">continue</span><br><span class="line">watch &lt;var&gt;   当变量值改变时会被通知</span><br><span class="line">quit   退出</span><br></pre></td></tr></table></figure>
+<p>git log –name=1711436 过滤查看手动修改过的记录</p>
+<h4 id="how-to-use-tmux"><a href="#how-to-use-tmux" class="headerlink" title="how to use tmux"></a>how to use <code>tmux</code></h4><p>tmux一种需要学习成本的Linux终端的分屏方式。</p>
+<p>All commands in Tmux start with a prefix, which by default is <code>ctrl+b</code>.</p>
+<p>离开tmux返回shell：<code>Ctrl+b</code> <code>d</code></p>
+<p> get a list of the currently running sessions type:<code>tmux ls</code></p>
+<p>attach to session <code>0</code>: <code>tmux attach-session -t 0</code></p>
+<ul>
+<li><code>Ctrl+b</code> <code>c</code> Create a new window (with shell)</li>
+<li><code>Ctrl+b</code> <code>w</code> Choose window from a list</li>
+<li><code>Ctrl+b</code> <code>0</code> Switch to window 0 (by number )</li>
+<li><code>Ctrl+b</code> <code>,</code> Rename the current window</li>
+<li><code>Ctrl+b</code> <code>%</code> Split current pane horizontally into two panes</li>
+<li><code>Ctrl+b</code> <code>&quot;</code> Split current pane vertically into two panes</li>
+<li><code>Ctrl+b</code> <code>o</code> Go to the next pane</li>
+<li><code>Ctrl+b</code> <code>;</code> Toggle between the current and previous pane</li>
+<li><code>Ctrl+b</code> <code>x</code> Close the current pane</li>
+</ul>
+<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>When you want to commit the change, type</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit --allow-empty</span><br></pre></td></tr></table></figure>
+<p>The <code>--allow-empty</code> option is necessary, because usually the change is already committed by development tracing system. Without this option, <code>git</code> will reject no-change commits. </p>
+<h4 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h4><p>vim提供了强有力的函数跳转的插件功能</p>
+<p>首先要安装ctags， 在ubuntu下直接输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install exuberant-ctags</span><br></pre></td></tr></table></figure>
+<p>接着，在源文件目录树执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctags -R</span><br></pre></td></tr></table></figure>
+<p>即可在目录下生成一个tags文件， 这个文件就是所有函数和变量的索引列表。(通过ls可以看见)</p>
+<p>若E257:cstag:找不到tag，解决：在.vimrc中增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set tags=tags;</span><br><span class="line">set autochdir</span><br></pre></td></tr></table></figure>
+<p>make的时候可以make -j4，4线程编译可以加快速度</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/search-a-2d-matrix/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/13/search-a-2d-matrix/" class="post-title-link" itemprop="url">search-a-2d-matrix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-13 10:38:30" itemprop="dateCreated datePublished" datetime="2020-02-13T10:38:30+08:00">2020-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-24 23:06:20" itemprop="dateModified" datetime="2020-02-24T23:06:20+08:00">2020-02-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：</p>
+<p>每行中的整数从左到右按升序排列。<br>每行的第一个整数大于前一行的最后一个整数。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>先二分法找行，再二分法找列。</p>
+<p>最后提交的版本：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> row = matrix.size();</span><br><span class="line">	<span class="keyword">if</span> (!row)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> col = matrix[<span class="number">0</span>].size();</span><br><span class="line">	<span class="keyword">if</span> (!col)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> up = <span class="number">0</span>, down = row<span class="number">-1</span>, mid = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (up &lt;= down)</span><br><span class="line">	&#123;</span><br><span class="line">		mid = (up + down) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (matrix[mid][<span class="number">0</span>] == target)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (matrix[mid][<span class="number">0</span>] &gt; target)</span><br><span class="line">			down = mid - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (matrix[mid][col - <span class="number">1</span>] &lt; target)</span><br><span class="line">		&#123;</span><br><span class="line">			up = mid + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> left = <span class="number">0</span>, right = col<span class="number">-1</span>, center;</span><br><span class="line">	<span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">	&#123;</span><br><span class="line">		center = (left + right) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (matrix[mid][center] == target)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (matrix[mid][center] &lt; target)left = center+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> right = center<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是修改<font color="red">之前</font>找行数的while循环。修改之后的明显时间上快了许多。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (up &lt;= down)</span><br><span class="line">	&#123;</span><br><span class="line">		mid = (up + down) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (matrix[mid][<span class="number">0</span>] &gt; target)</span><br><span class="line">			down = mid<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (matrix[mid][<span class="number">0</span>] &lt; target)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (mid&lt;row - <span class="number">1</span> &amp;&amp; matrix[mid + <span class="number">1</span>][<span class="number">0</span>]&gt;target)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			up = mid+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -918,14 +930,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

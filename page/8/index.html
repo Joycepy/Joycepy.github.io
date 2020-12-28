@@ -158,144 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/30/sum-root-to-leaf-numbers/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/sum-root-to-leaf-numbers/" class="post-title-link" itemprop="url">sum-root-to-leaf-numbers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-30 20:21:03 / 修改时间：20:48:35" itemprop="dateCreated datePublished" datetime="2020-04-30T20:21:03+08:00">2020-04-30</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树，它的每个结点都存放一个 0-9 的数字，每条从根到叶子节点的路径都代表一个数字。例如，从根到叶子节点路径 1-&gt;2-&gt;3 代表数字 123。计算从根到叶子节点生成的所有数字之和。</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(TreeNode* root, <span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tmp = i * <span class="number">10</span> + root-&gt;val;</span><br><span class="line">	<span class="keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right)</span><br><span class="line">		<span class="keyword">return</span> tmp;</span><br><span class="line">	<span class="keyword">return</span> helper(root-&gt;left, tmp) + helper(root-&gt;right, tmp);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sumNumbers</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> helper(root, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我这是怎么了啊……</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/28/word-ladder/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/word-ladder/" class="post-title-link" itemprop="url">word-ladder</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-28 10:05:35 / 修改时间：12:47:02" itemprop="dateCreated datePublished" datetime="2020-04-28T10:05:35+08:00">2020-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定两个单词（beginWord 和 endWord）和一个字典，找到从 beginWord 到 endWord 的最短转换序列的长度。转换需遵循如下规则：</p>
-<ol>
-<li><p>每次转换只能改变一个字母。</p>
-</li>
-<li><p>转换过程中的中间单词必须是字典中的单词。</p>
-</li>
-</ol>
-<p>说明:</p>
-<ol>
-<li>如果不存在这样的转换序列，返回 0。</li>
-<li>所有单词具有相同的长度。</li>
-<li>所有单词只由小写字母组成。</li>
-<li>字典中不存在重复的单词。</li>
-<li>你可以假设 beginWord 和 endWord 是非空的，且二者不相同。</li>
-</ol>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>无向无权图中，每个单词作为节点，差距只有一个字母的两个单词之间连一条边。问题变成找到从起点到终点的最短路径，如果存在的话。因此可以使用<code>广度优先搜索</code>方法。</p>
-<p>为了快速的找到这些相邻节点，我们对给定的 <code>wordList</code> 做一个预处理，将单词中的某个字母用 <code>*</code> 代替。这步预处理找出了单词表中所有单词改变某个字母后的通用状态，更方便也更快的找到相邻节点。否则，对于每个单词我们需要遍历整个字母表查看是否存在一个单词与它相差一个字母，这将花费很多时间。预处理操作在广度优先搜索之前高效的建立了邻接表。</p>
-<p>如果使用两个同时进行的广搜可以有效地减少搜索空间。一边从 beginWord 开始，另一边从 endWord 开始。我们每次从两边各扩展一个节点，当发现某一时刻两边都访问了某一顶点时就停止搜索。这就是双向广度优先搜索，它可以可观地减少搜索空间大小，从而降低时间和空间复杂度。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; dict(wordList.begin(), wordList.end());</span><br><span class="line">        <span class="keyword">if</span> (dict.find(endWord) == dict.end() ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 初始化起始和终点</span></span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; beginSet, endSet, tmp, visited;</span><br><span class="line">        beginSet.insert(beginWord);</span><br><span class="line">        endSet.insert(endWord);</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!beginSet.empty() &amp;&amp; !endSet.empty())&#123;</span><br><span class="line">            <span class="keyword">if</span> (beginSet.size() &gt; endSet.size())&#123;</span><br><span class="line">                tmp = beginSet;</span><br><span class="line">                beginSet = endSet;</span><br><span class="line">                endSet = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">            tmp.clear();</span><br><span class="line">            <span class="keyword">for</span> ( <span class="built_in">string</span> word : beginSet)&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.size(); i++)&#123;</span><br><span class="line">                    <span class="keyword">char</span> old = word[i];</span><br><span class="line">                    <span class="keyword">for</span> ( <span class="keyword">char</span> c = <span class="string">'a'</span>; c &lt;= <span class="string">'z'</span>; c++)&#123;</span><br><span class="line">                        <span class="keyword">if</span> ( old == c) <span class="keyword">continue</span>;</span><br><span class="line">                        word[i] = c;</span><br><span class="line">                        <span class="keyword">if</span> (endSet.find(word) != endSet.end())&#123;</span><br><span class="line">                            <span class="keyword">return</span> len+<span class="number">1</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (visited.find(word) == visited.end() &amp;&amp; dict.find(word) != dict.end())&#123;</span><br><span class="line">                            tmp.insert(word);</span><br><span class="line">                            visited.insert(word);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    word[i] = old;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            beginSet = tmp;</span><br><span class="line">            len++;</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">作者：xu-zhou-geng</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/word-ladder/solution/cpp-yi-ge-si-lu-de-zhuan-bian-cong-1156msjia-su-da/</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/single-number/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -905,10 +767,152 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/populating-next-right-pointers-in-each-node-ii/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/13/populating-next-right-pointers-in-each-node-ii/" class="post-title-link" itemprop="url">populating-next-right-pointers-in-each-node-ii</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-13 21:42:37 / 修改时间：23:09:59" itemprop="dateCreated datePublished" datetime="2020-04-13T21:42:37+08:00">2020-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个二叉树填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。初始状态下，所有 next 指针都被设置为 NULL。</p>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>你只能使用常量级额外空间。</li>
+<li>使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>诶？和之前的题目还不一样了，不能直接算出来什么时候该分层了。那就，只能，递归了呗？（队列依然是可以使用的，以后再说吧）</p>
+<p>核心是getNextNoNullChild，根据root，找到下一级右手第一个<br>然后分情况讨论，对每个节点：<br>左子右子都有，则左子next指向右子，右子next指向getNextNoNullChild<br>只有左子，左子指向getNextNoNullChild，<br>只有右子，右子指向getNextNoNullChild，</p>
+<p>注意：递归时要先递归右子树，否则上级节点next关系没建好，下级无法成功getNextNoNullChild</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node* <span class="title">getNextNoNullChild</span><span class="params">(Node* root)</span></span>&#123;</span><br><span class="line">	Node* t = root;</span><br><span class="line">	<span class="keyword">while</span> (t-&gt;next != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;next-&gt;left!= <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> t-&gt;next-&gt;left;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;next-&gt;right != <span class="literal">NULL</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> t-&gt;next-&gt;right;</span><br><span class="line">		&#125;</span><br><span class="line">		t = t-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root||(!root-&gt;left&amp;&amp;!root-&gt;right))<span class="keyword">return</span> root;</span><br><span class="line">	<span class="keyword">if</span> (root-&gt;left&amp;&amp;root-&gt;right)&#123;</span><br><span class="line">		root-&gt;left-&gt;next = root-&gt;right;</span><br><span class="line">		root-&gt;right-&gt;next = getNextNoNullChild(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (!root-&gt;right)&#123;</span><br><span class="line">		root-&gt;left-&gt;next = getNextNoNullChild(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		root-&gt;right-&gt;next = getNextNoNullChild(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//先递归右子树</span></span><br><span class="line">	<span class="comment">//否则右子树根节点next关系没建立好，左子树到右子树子节点无法正确挂载</span></span><br><span class="line">	root-&gt;right = connect(root-&gt;right);</span><br><span class="line">	root-&gt;left = connect(root-&gt;left);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<font color="red">注意学习递归的顺序！！自顶向下！先右后左！</font>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/11/populating-next-right-pointers-in-each-node/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/11/populating-next-right-pointers-in-each-node/" class="post-title-link" itemprop="url">populating-next-right-pointers-in-each-node</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-11 22:53:27" itemprop="dateCreated datePublished" datetime="2020-04-11T22:53:27+08:00">2020-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-13 00:39:03" itemprop="dateModified" datetime="2020-04-13T00:39:03+08:00">2020-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个<strong>完美二叉树</strong>，其所有叶子节点都在同一层，每个父节点都有两个子节点。</p>
+<p>填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p>
+<p>初始状态下，所有 next 指针都被设置为 NULL。</p>
+<p><strong>提示：</strong></p>
+<ul>
+<li>你只能使用常量级额外空间。</li>
+<li>使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</li>
+</ul>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!root)<span class="keyword">return</span> root;</span><br><span class="line">	<span class="comment">//类似于层次遍历</span></span><br><span class="line">	<span class="built_in">queue</span>&lt;Node*&gt; q;</span><br><span class="line">	Node* t = root;</span><br><span class="line">	q.push(t);</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		t = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;left&amp;&amp;t-&gt;right) &#123;</span><br><span class="line">			q.push(t-&gt;left);</span><br><span class="line">			q.push(t-&gt;right);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!q.empty())</span><br><span class="line">			t-&gt;next = q.front();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			t-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	t = root;</span><br><span class="line">	<span class="keyword">while</span> (t-&gt;right)</span><br><span class="line">	&#123;</span><br><span class="line">		t-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		t = t-&gt;right;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> root;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!root)<span class="keyword">return</span> root;</span><br><span class="line">	<span class="comment">//类似于层次遍历</span></span><br><span class="line">	<span class="built_in">queue</span>&lt;Node*&gt; q;</span><br><span class="line">	Node* t = root;</span><br><span class="line">	q.push(t);</span><br><span class="line">	<span class="keyword">int</span> level = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		t = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">if</span> (t-&gt;left&amp;&amp;t-&gt;right) &#123;</span><br><span class="line">			q.push(t-&gt;left);</span><br><span class="line">			q.push(t-&gt;right);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (q.empty()||q.size() == <span class="built_in">pow</span>(<span class="number">2</span>, level))</span><br><span class="line">		&#123;</span><br><span class="line">			t-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">			level++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			t-&gt;next = q.front();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -975,14 +979,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

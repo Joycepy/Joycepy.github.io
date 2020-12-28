@@ -158,146 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/数据库大作业笔记（九）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/15/数据库大作业笔记（九）/" class="post-title-link" itemprop="url">数据库大作业笔记（九）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-15 09:33:35" itemprop="dateCreated datePublished" datetime="2019-05-15T09:33:35+08:00">2019-05-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>mysql抛出异常：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF(!(new.eqpid LIKE CONCAT(new.catid,&apos;%&apos;))) </span><br><span class="line">THEN SIGNAL SQLSTATE &apos;HY000&apos; SET MESSAGE_TEXT = &apos;输入错误&apos; ; </span><br><span class="line">-- set new.eqpid=NULL; </span><br><span class="line">ELSE insert into audit_equipment VALUES(new.eqpid,user(),now(),1); </span><br><span class="line">END IF;</span><br></pre></td></tr></table></figure>
-<p>php:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    $model = <span class="keyword">new</span> Equipment();</span><br><span class="line">    <span class="keyword">if</span> ($model-&gt;load(Yii::$app-&gt;request-&gt;post()) &amp;&amp; $model-&gt;save()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;redirect([<span class="string">'view'</span>, <span class="string">'id'</span> =&gt; $model-&gt;eqpid]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;<span class="keyword">catch</span>(\<span class="keyword">Exception</span> $e)&#123;</span><br><span class="line">   </span><br><span class="line">   &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'create'</span>, [</span><br><span class="line">        <span class="string">'model'</span> =&gt; $model,</span><br><span class="line">]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/算法大作业笔记（二）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/14/算法大作业笔记（二）/" class="post-title-link" itemprop="url">算法大作业笔记（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-14 23:19:21" itemprop="dateCreated datePublished" datetime="2019-05-14T23:19:21+08:00">2019-05-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-17 08:30:11" itemprop="dateModified" datetime="2019-05-17T08:30:11+08:00">2019-05-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color="red">这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？</font>有一个坏消息：</p>
-<p><img src="//yoursite.com/2019/05/14/算法大作业笔记（二）/桌面\时光以南\算法导论\作业\图片\6.png" width="70%"></p>
-<p>目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。</p>
-<h4 id="数独问题的图搜索策略"><a href="#数独问题的图搜索策略" class="headerlink" title="数独问题的图搜索策略"></a>数独问题的图搜索策略</h4><p>深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。</p>
-<h5 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h5><ol>
-<li>把起始节点S放到一个叫做OPEN的未扩展节点表中(简称OPEN表).如果此节点为一目标节点,则得到一个解</li>
-<li>建立一个叫做 CLOSED的已扩展节点表简称 CLOSED表)其初始为空表</li>
-<li>如果OPEN为一空表,则失败退出.</li>
-<li>把第一个节点(节点n)从OPEN表移到CLOSED表</li>
-<li>如果节点n的深度等于最大深度,则转向(3).</li>
-<li>扩展节点n产生其全部后裔,并把它们放入OPEN表的前头.如果没有后裔,则转向(3)</li>
-<li>如果后继节点中有任一个为目标节点,则求得一个解.成功退出;否则,转向(3).</li>
-</ol>
-<h5 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h5><p>search(c)：参数c为单元格地址,给定一个c对该单元格所在行、列,所在小九宮格已有数字进行判断,返回还允许填入的数字,用有效数字序列的字符串格式表示,比如返回“1356”,表示该单元格还可以填入1、3、5、6中任一数字,返回“”,表示该单元格无数可填,此时检查OPEN表,若空,则失败退出,在递归程序中返回上一级。</p>
-<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>图着色可以应用到多面体的面着色</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/数据库大作业笔记（八）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1034,10 +894,139 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/2018_06CET6_3_Translation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/10/2018_06CET6_3_Translation/" class="post-title-link" itemprop="url">2018_06CET6_3_Translation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-10 08:53:37" itemprop="dateCreated datePublished" datetime="2019-05-10T08:53:37+08:00">2019-05-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Translation-30-minutes"><a href="#Translation-30-minutes" class="headerlink" title="Translation (30 minutes)"></a>Translation (30 minutes)</h4><p>自行车曾经是中国城乡最主要的交通工具，中国一度被称为“自行车王国”。如今，随着城市交通拥堵和空气污染日益严重，骑自行车又开始流行起来。近来，中国企业家将移动互联网 技术与传统自行车结合在一起，发明了一种称为共享单车（shared bikes）的商业模式。共享单车的出现使骑车出行更加方便，人们仅需一部手机就可以随时使用共享单车。为了鼓励人们骑车出行，很多城市修建了自行车道。现在，越来越多的中国人也喜欢通过骑车健身。</p>
+<p>Bicycles used to be <font color="red"> the leading means of transportation</font> in  <font color="#00ffff">  China’s cities and villages </font>, and China was <font color="Brown">once called</font> <font color="#FF8C00">“the Kingdom of Bicycles”</font>. Nowadays, with <font color="#8FBC8F">traffic congestion and air pollution</font> becoming more and more serious in cities, riding a bicycle is becoming popular again. Recently, China’s <font color="#ADFF2F">entrepreneurs</font> have <font color="#FF1493">combined mobile Internet technologies with bicycles</font>combined mobile Internet technologies with bicycles and invented the <font color="#FFD700">business model of bike-sharing</font>business model of bike-sharing. <font color="#008000">The appearance of shared bikes</font> has made it more convenient for people to <font color="#000080">get around</font>, and people can ride bikes at any time only with the help of a mobile phone. To encourage people to travel by bike, many cities have built <font color="#87CEEB">bike lanes</font>. Now, more and more Chinese people like exercising by riding bikes.</p>
+<h5 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h5><p>今天的笔记可能过于鲜艳，是因为我顺便熟悉了一下Markdown修改字体颜色、大小、格式的语法:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;font 更改语法&gt;文字内容&lt;/font&gt;</span><br><span class="line">更改语法包括：</span><br><span class="line">color=#0099ff   更改字体颜色</span><br><span class="line">face="黑体"   更改字体</span><br><span class="line">size= 7     更改字体大小</span><br><span class="line"></span><br><span class="line">&lt;font face="微软雅黑"&gt;我是微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face="STCAIYUN"&gt;我是华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=6 face="黑体"&gt;color=#0099ff size=72 face="黑体"&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<font face="微软雅黑">我是微软雅黑</font><br><font face="STCAIYUN">我是华文彩云</font><br><font color="#0099ff" size="6" face="黑体">color=#0099ff size=6 face=”黑体”</font>
+
+<p><strong>以下是今天的英语内容</strong></p>
+<p>经过我再次阅读范文，我觉得文中都是正常水平，没有需要特意学习的，背就是了 哈哈哈哈</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/数据库大作业笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/09/数据库大作业笔记（三）/" class="post-title-link" itemprop="url">数据库大作业笔记（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-05-09 11:24:04 / 修改时间：15:18:04" itemprop="dateCreated datePublished" datetime="2019-05-09T11:24:04+08:00">2019-05-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="数据库插入异常"><a href="#数据库插入异常" class="headerlink" title="数据库插入异常"></a>数据库插入异常</h5><p>mySql报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Column count doesn&apos;t match value count at row 1</span><br></pre></td></tr></table></figure>
+<p>网上给出的原因一致是：数据的个数、类型不符，或者就是中英文符号混用了。折腾了很久，终于发现是触发器导致了异常！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TRIGGER add_audit AFTER INSERT ON equipment</span><br><span class="line"> FOR EACH ROW BEGIN</span><br><span class="line">insert into audit_equipment VALUES(new.eqpid,user(),now(),1);</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<p>怎么回事呢——改了audit_equipment表的属性，但忘了改equipment中的触发器，实际上是插入audit_equipment表时失败了，但是报错时就会显示equipment的插入失败。</p>
+<h4 id="在MySQL中CHECK约束是无效的"><a href="#在MySQL中CHECK约束是无效的" class="headerlink" title="在MySQL中CHECK约束是无效的"></a>在MySQL中CHECK约束是无效的</h4><p>可以把对日期的约束写在yii中，也可以用触发器代替；</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1104,14 +1093,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -158,164 +158,6 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/Palindrome-Number/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/01/Palindrome-Number/" class="post-title-link" itemprop="url">Palindrome Number</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-01 10:43:00" itemprop="dateCreated datePublished" datetime="2019-07-01T10:43:00+08:00">2019-07-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>题目描述：判断回文数字</p>
-<p>解决方案：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">不用将数字转成字符串，而是在数字长度一半的地方，将右半部分反转，与左半部分进行比较</span></span><br><span class="line"><span class="comment">若相等，则为回文数字；否则不是。</span></span><br><span class="line"><span class="comment">判断一般的位置：左边的数字不大于右边的数字</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (x &lt; <span class="number">10</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">int</span> left = x, right = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (!(left % <span class="number">10</span>))<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//末尾是0的情况</span></span><br><span class="line">	<span class="keyword">while</span> (left &gt; right)&#123;</span><br><span class="line">		right = right * <span class="number">10</span> + (left % <span class="number">10</span>);</span><br><span class="line">		left /= <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">if</span> ((left / <span class="number">10</span>) &gt; <span class="number">0</span> &amp;&amp; (left / <span class="number">10</span>) &lt;= right)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (left == right|| (left / <span class="number">10</span>) == right)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/爬虫/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/29/爬虫/" class="post-title-link" itemprop="url">爬虫</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-29 12:09:11" itemprop="dateCreated datePublished" datetime="2019-06-29T12:09:11+08:00">2019-06-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-30 11:35:50" itemprop="dateModified" datetime="2019-06-30T11:35:50+08:00">2019-06-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="http://c.biancheng.net/view/2011.html" target="_blank" rel="noopener">学习链接</a></p>
-<p>案例：<a href="http://www.cntour.cn/" target="_blank" rel="noopener">中国旅游网</a>，<a href="http://fanyi.youdao.com/" target="_blank" rel="noopener">有道翻译</a></p>
-<p>快捷键【Ctrl+U】打开源码页面</p>
-<p><strong>合法性：</strong>如果网站有 robots.txt 文档，要判断是否有禁止访客获取的数据。</p>
-<p><strong>准备工作：</strong>在 PyCharm 中安装 requests 库</p>
-<p><strong>基本原理：</strong>网页请求分为request和response两个环节，request分get和post两种方式，写爬虫前要先确定向谁发送请求，用什么方式发送。</p>
-<h4 id="开始爬虫"><a href="#开始爬虫" class="headerlink" title="开始爬虫"></a>开始爬虫</h4><p>所有在源码中的数据请求方式都是GET</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line">url = <span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml = requests.get(url)        <span class="comment">#Get方式获取网页数据</span></span><br><span class="line">print(strhtml.text)</span><br></pre></td></tr></table></figure>
-<p>用 GET 方式获取数据需要调用 requests 库中的 get 方法：requests.get(url)，这个方法获得一个url对象，代表整个网页，如果只需网页中的源码，使用.text</p>
-<p>在开发者模式中，依次单击“Network”按钮和“XHR”按钮，找到翻译数据，将 Headers 中的 URL 复制出来，并赋值给 url。POST 请求数据必须构建请求头。复制From Data中的请求参数并构建一个新字典。使用 requests.post 方法请求表单数据。将字符串格式的数据转换成 JSON 格式数据，并根据数据结构，提取数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_translate_date</span><span class="params">(word=None)</span>:</span></span><br><span class="line">    url = <span class="string">'http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule'</span></span><br><span class="line">    From_data=&#123;<span class="string">'i'</span>:word,<span class="string">'from'</span>:<span class="string">'zh-CHS'</span>,<span class="string">'to'</span>:<span class="string">'en'</span>,<span class="string">'smartresult'</span>:<span class="string">'dict'</span>,<span class="string">'client'</span>:<span class="string">'fanyideskweb'</span>,<span class="string">'salt'</span>:<span class="string">'15477056211258'</span>,<span class="string">'sign'</span>:<span class="string">'b3589f32c38bc9e3876a570b8a992604'</span>,<span class="string">'ts'</span>:<span class="string">'1547705621125'</span>,<span class="string">'bv'</span>:<span class="string">'b33a2f3f9d09bde064c9275bcb33d94e'</span>,<span class="string">'doctype'</span>:<span class="string">'json'</span>,<span class="string">'version'</span>:<span class="string">'2.1'</span>,<span class="string">'keyfrom'</span>:<span class="string">'fanyi.web'</span>,<span class="string">'action'</span>:<span class="string">'FY_BY_REALTIME'</span>,<span class="string">'typoResult'</span>:<span class="string">'false'</span>&#125;</span><br><span class="line">    <span class="comment">#请求表单数据</span></span><br><span class="line">    response = requests.post(url,data=From_data)</span><br><span class="line">    <span class="comment">#将Json格式字符串转字典</span></span><br><span class="line">    content = json.loads(response.text)</span><br><span class="line">    print(content)</span><br><span class="line">    <span class="comment">#打印翻译后的数据</span></span><br><span class="line">    <span class="comment">#print(content['translateResult'][0][0]['tgt'])</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    get_translate_date(<span class="string">'我爱中国'</span>)</span><br></pre></td></tr></table></figure>
-<p>POST请求有道翻译{“errorcode<em>“</em>:50}——把URL中把<code>_o</code>去掉</p>
-<p>json模块主要有四个比较重要的函数，分别是：</p>
-<ul>
-<li><code>dump</code> - 将Python对象按照JSON格式序列化到文件中</li>
-<li><code>dumps</code> - 将Python对象处理成JSON格式的字符串</li>
-<li><code>load</code> - 将文件中的JSON数据反序列化成对象</li>
-<li><code>loads</code> - 将字符串的内容反序列化成Python对象</li>
-</ul>
-<h4 id="Beautiful-Soup-解析网页"><a href="#Beautiful-Soup-解析网页" class="headerlink" title="Beautiful Soup 解析网页"></a>Beautiful Soup 解析网页</h4><p>安装 bs4 库，安装 lxml 库</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests        <span class="comment">#导入requests包</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span>    BeautifulSoup</span><br><span class="line">url=<span class="string">'http://www.cntour.cn/'</span></span><br><span class="line">strhtml=requests.get(url)</span><br><span class="line">soup=BeautifulSoup(strhtml.text,<span class="string">'lxml'</span>)</span><br><span class="line">data = soup.select(<span class="string">'#main&gt;div&gt;div.mtop.firstMod.clearfix&gt;div.centerBox&gt;ul.newsList&gt;li&gt;a'</span>)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
-<p>首先，HTML 文档将被转换成 Unicode 编码格式，然后 Beautiful Soup 选择最合适的解析器来解析这段文档，此处指定 lxml 解析器进行解析。解析后便将复杂的 HTML 文档转换成树形结构，并且每个节点都是 Python 对象。将解析后的文档存储到新建的变量 soup 中。用 select（选择器）定位数据，方法：开发者模式，将鼠标光标停留在对应的数据位置并右击，“Copy”➔“Copy Selector”，使用 soup.select 引用这个路径。</p>
-<h4 id="清洗和组织数据"><a href="#清洗和组织数据" class="headerlink" title="清洗和组织数据"></a>清洗和组织数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">'title'</span>:item.get_text(),</span><br><span class="line">        <span class="string">'link'</span>:item.get(<span class="string">'href'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-<p>标题在＜a＞标签中，提取标签的正文用 get_text() 方法。链接在＜a＞标签的 href 属性中，提取标签中的 href 属性用 get() 方法，在括号中指定要提取的属性数据，即 get(＇href＇)，用正则表达式提取 ID (re库中)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    result=&#123;</span><br><span class="line">        <span class="string">"title"</span>:item.get_text(),</span><br><span class="line">        <span class="string">"link"</span>:item.get(<span class="string">'href'</span>),</span><br><span class="line">        <span class="string">'ID'</span>:re.findall(<span class="string">'\d+'</span>,item.get(<span class="string">'href'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-<p>\d匹配数字，+匹配前一个字符1次或多次。 re 库的 findall 方法，第一个参数表示正则表达式，第二个参数表示要提取的文本</p>
-<p>re.compile(r’^/question’)是正则表达式 匹配  ‘/question’开头</p>
-<h4 id="应对反爬虫"><a href="#应对反爬虫" class="headerlink" title="应对反爬虫"></a>应对反爬虫</h4><p>在 Request headers 中构造浏览器的请求头，封装自己。服务器识别浏览器访问的方法就是判断 keyword 是否为 Request headers 下的 User-Agent</p>
-<p>………………</p>
-<hr>
-<p>关于json编码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">obj = &#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br><span class="line">json.dumps(obj)</span><br><span class="line">print(json.dumps(obj))</span><br><span class="line">print(json.dumps(obj, ensure_ascii=<span class="keyword">False</span>))</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"\u6d4b\u8bd5"</span>&#125;</span><br><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"测试"</span>&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/27/神经网络学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1044,10 +886,378 @@
   
   
 
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/算法复习笔记（六）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/12/算法复习笔记（六）/" class="post-title-link" itemprop="url">算法复习笔记（六）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-06-12 09:41:27 / 修改时间：10:58:47" itemprop="dateCreated datePublished" datetime="2019-06-12T09:41:27+08:00">2019-06-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="判断集合S中是否存在有两个其和等于x的元素"><a href="#判断集合S中是否存在有两个其和等于x的元素" class="headerlink" title="判断集合S中是否存在有两个其和等于x的元素"></a>判断集合S中是否存在有两个其和等于x的元素</h4><p>将S排序，借用辅助数组$S^{‘}=x-S$，合并$S^{‘}$和S</p>
+<h4 id="dutch-national-flag-problem"><a href="#dutch-national-flag-problem" class="headerlink" title="dutch national flag problem"></a>dutch national flag problem</h4><p>红色球要全部在数组的左侧，白色球全部在中间，蓝色球全部在右侧，在遍历一次所有元素的情况下完成排序。</p>
+<h4 id="maximum-sub-segment-sum"><a href="#maximum-sub-segment-sum" class="headerlink" title="maximum-sub-segment-sum"></a>maximum-sub-segment-sum</h4><p>针对每一个元素，有两个部分需要关注：① “过去部分” pre_sum；② “当前部分”nums[i]本身。有两种选择，① 加上pre_sum，本身融入到子串当中；② 以“当前部分”为子串起始位置，完全抛弃“过去部分”。</p>
+<h4 id="最大子矩阵"><a href="#最大子矩阵" class="headerlink" title="最大子矩阵"></a>最大子矩阵</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0, -2, -7,  0, 3</span><br><span class="line">9,  2, -6,  2, 5</span><br><span class="line">-4, 1, -4,  1, 6</span><br><span class="line">-1, 8,  0, -2, 2</span><br></pre></td></tr></table></figure>
+<p>借鉴或者转为最大子序列，需要加一个辅助矩阵：全部子列和（totalColSum）</p>
+<p>有了该辅助矩阵，我们就可以轻松求出指定列的子列和：</p>
+<p>0, -2, -7, 0, 3<br>9, 0, -13, 2, 8<br>5, 1, -17, 3, 14<br>4, 9, -17, 1, 16</p>
+<ul>
+<li>假如当前的子矩阵是{0,1}行，可直接得到子列和为9,0,-13,2,8</li>
+<li>假如当前的子矩阵是{1,2}行，可通过totalColSum的第2行减去第0行的数据而得5,3,-4,3,11</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/计组复习笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/10/计组复习笔记（三）/" class="post-title-link" itemprop="url">计组复习笔记（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-10 20:12:51" itemprop="dateCreated datePublished" datetime="2019-06-10T20:12:51+08:00">2019-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-17 11:18:50" itemprop="dateModified" datetime="2019-06-17T11:18:50+08:00">2019-06-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h1><p><strong>ALU used for</strong></p>
+<ol>
+<li>Load/Store: F = add</li>
+<li>Branch: F = subtract</li>
+<li>R-type: F depends on funct field</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\11.PNG" alt="11"></p>
+<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>提高吞吐率，并未减少单一指令的执行时间（延迟latency）</p>
+<p><strong>吞吐率</strong> TP：单位时间内流水线所完成的任务数量或输出结果的数量</p>
+<p>$TP=n/T_k=n/[(n+k-1)*δt]$，n为任务数，$T_k$是处理完n个任务所用的时间</p>
+<p><strong>加速比</strong> S：完成同样一批任务，顺序执行所用的时间与使用流水线所用的时间之比</p>
+<p>$S=T_0/T_k$</p>
+<p><strong>效率</strong> E：流水线上的设备利用率，即时空图上，N个任务占用的时空区与K个流水段占用的总时空区之比。由于流水线有建立时间和排空时间，各段并不总是满负荷工作的。</p>
+<p>E=n个任务占用的时空区/k个流水段占用的时空区=n/(n-k+1)</p>
+<p>在时空图上体现为执行所有指令需要的时间和实际用的时间，多余的时间由建立时间和排空时间造成</p>
+<p>5个处理步骤：IF，ID，EX，MEM，WB</p>
+<h3 id="冒险"><a href="#冒险" class="headerlink" title="冒险"></a>冒险</h3><h4 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h4><p>硬件占用：内存读写—IM，DM分开</p>
+<h4 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h4><p>拿错数据</p>
+<ol>
+<li>前推/旁路</li>
+<li>重新安排代码避免阻塞</li>
+</ol>
+<p>C code for A = B + E; C = B + F</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<p>重新安排代码:</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t1</span>, <span class="number">0</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t2</span>, <span class="number">4</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">lw	</span>$<span class="built_in">t4</span>, <span class="number">8</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t3</span>, $<span class="built_in">t1</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t3</span>, <span class="number">12</span>($<span class="built_in">t0</span>)</span><br><span class="line"><span class="keyword">add	</span>$<span class="built_in">t5</span>, $<span class="built_in">t1</span>, $<span class="built_in">t4</span></span><br><span class="line"><span class="keyword">sw	</span>$<span class="built_in">t5</span>, <span class="number">16</span>($<span class="built_in">t0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h4><p>取错指令</p>
+<ol>
+<li>阻塞</li>
+<li>分支预测</li>
+</ol>
+<p>静态预测</p>
+<p>动态预测</p>
+<p>当预测错误时，流水线控制必须确保被错误预测的分支后面的指令执行不会生效，并且在正确的分支地址处重新开始启动流水线。</p>
+<h3 id="流水线数据通路"><a href="#流水线数据通路" class="headerlink" title="流水线数据通路"></a>流水线数据通路</h3><h4 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h4><p>IF/ID，ID/EX，EX/MEM，MEM/WB</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\12.PNG" alt="12"></p>
+<h4 id="最终的数据通路与控制"><a href="#最终的数据通路与控制" class="headerlink" title="最终的数据通路与控制"></a>最终的数据通路与控制</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\13.PNG" alt="13"></p>
+<h3 id="数据冒险：旁路与阻塞"><a href="#数据冒险：旁路与阻塞" class="headerlink" title="数据冒险：旁路与阻塞"></a>数据冒险：旁路与阻塞</h3><h4 id="冒险条件"><a href="#冒险条件" class="headerlink" title="冒险条件"></a>冒险条件</h4><p>前提：写操作(EX/MEM.RegWrite, MEM/WB.RegWrite有效)，写目的寄存器不能是$zero</p>
+<p>1a. EX/MEM.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 10</p>
+<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 10</p>
+<p>2a. MEM/WB.RegisterRd = ID/EX.RegisterRs≠ 0    ForwardA = 01</p>
+<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt≠ 0    ForwardB = 01</p>
+<p>1—Fwd from EX/MEM pipeline reg</p>
+<p>2—Fwd from MEM/WB pipeline reg</p>
+<p>ForwardA=0：第一个ALU操作数来自寄存器，ForwardB同理</p>
+<h4 id="旁路单元"><a href="#旁路单元" class="headerlink" title="旁路单元"></a>旁路单元</h4><p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\14.PNG" alt="14"></p>
+<p>01选通MEM/WB；10选通EX/MEM</p>
+<p>==为什么有两个Rt啊？还有下面加的红色语句我也没有理解目的所在==</p>
+<p>更复杂的潜在数据冒险：比如一个寄存器对多个数字进行求和运算，一系列连续的指令将会读写到同一寄存器：</p>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>第二条指令的EX/MEM数据才是最新的。因此，改变MEM冒险的控制策略：</p>
+<p><strong>MEM hazard</strong></p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​     <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                   <font color="red">and (EX/MEM.RegisterRd = ID/EX.RegisterRs))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRs))<br>   ForwardA = 01</p>
+<p>if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0)<br>​      <font color="red">and not (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0)</font><br>​                  <font color="red"> and (EX/MEM.RegisterRd = ID/EX.RegisterRt))</font><br>​     and (MEM/WB.RegisterRd = ID/EX.RegisterRt))<br>   ForwardB = 01</p>
+<h4 id="Load-Use冒险检测单元"><a href="#Load-Use冒险检测单元" class="headerlink" title="Load-Use冒险检测单元"></a>Load-Use冒险检测单元</h4><p>工作在ID级，从而可以在装载指令与紧随其后需要它的结果的指令间插入阻塞</p>
+<p>阻塞条件：ID/EX.MemRead and   ((ID/EX.RegisterRt = IF/ID.RegisterRs) or    (ID/EX.RegisterRt = IF/ID.RegisterRt))</p>
+<p>插入空指令：把ID/EX流水线寄存器的EX、MEM、WB级的控制信号都置为0.仍向前传递，但控制信号为0不会进行Reg和MEM的写操作。（事实上只需将RegWrite和MenWrite置为0）</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\15.PNG" alt="15"></p>
+<p><strong>通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\16.PNG" alt="16"></p>
+<p>冒险检测控制单元控制PC和IF/ID流水线寄存器的写入，以及在实际控制信号与全0中进行选择的多选器。若冒险条件为真，阻塞并清除所有控制字段。</p>
+<h3 id="控制冒险-1"><a href="#控制冒险-1" class="headerlink" title="控制冒险"></a>控制冒险</h3><p>增加寄存器比较电路，如果参与比较的两个寄存器，是两步之前的ALU结果，可以通过旁路解决冒险。如果参与比较的两个寄存器其中有一个，是前一步的ALU结果或是两步之前load的结果，需要一个阻塞。如果参与比较的两个寄存器其中有一个，是前一步的load的结果，需要两个阻塞。</p>
+<h4 id="动态分支预测"><a href="#动态分支预测" class="headerlink" title="动态分支预测"></a>动态分支预测</h4><p>分支预测缓存Branch prediction buffer (aka branch history table)：一小块按照分支指令的低位地址索引的存储器区，其中包括一位或多位数据用以说明最近是否发生过分支。</p>
+<p>2位预测位</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\17.PNG" alt="17"></p>
+<p>依然需要花费一个时钟周期的开销，去计算分支目标地址。使用延迟分支或分支目标地址缓存</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>（另一种形式的控制冒险，机制相同，不同的是由异常重置控制信号）</p>
+<p>异常程序计数器EPC：保存出错指令的地址+4</p>
+<p>协处理器CP0</p>
+<p>Jump to handler at 8000 00180</p>
+<p>记录引起异常的原因的两种方法</p>
+<ol>
+<li>Cause寄存器：有一个字段记录引起异常的原因</li>
+<li>向量中断，控制权转移到由异常原因决定的地址处</li>
+</ol>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\18.PNG" alt="18"></p>
+<font color="red">从MEM/WB寄存器WB部分出来的向上向左的那个信号，有点小错误，应该只向Registers，是一个写寄存器的控制信号。</font>
+
+<p>多重中断，硬件对异常进行排序从而使得最先发生异常的指令被中断。优先级最高的异常处理完后，继续处理后面的异常。</p>
+<p>非精确中断/非精确异常：在流水线中，将每一个异常与导致该异常的指令对应起来难度很大，EPC中放入相近的值，由操作系统确定精确位置。精确异常是为了支持虚拟存储器。</p>
+<h3 id="指令级并行"><a href="#指令级并行" class="headerlink" title="指令级并行"></a>指令级并行</h3><p>增加流水线的指令级并行程度：</p>
+<ol>
+<li>增加流水线的深度—-更多的重叠</li>
+<li>复制计算机内部部件的数量—每个流水既可以启动多条指令—-多发射multiple issue</li>
+</ol>
+<h4 id="多发射"><a href="#多发射" class="headerlink" title="多发射"></a>多发射</h4><p>CPI可能小于1，可使用IPC</p>
+<p>静态多发射（在编译时）</p>
+<p>动态多发射（在执行时）</p>
+<p>发射槽 issue slot</p>
+<p>Speculation 推测：编译器或处理器推测指令结果以消除其他指令对该结果的依赖。</p>
+<p>推测错误时需要回卷。    指令重排、缓存结果</p>
+<h4 id="静态多发射处理器"><a href="#静态多发射处理器" class="headerlink" title="静态多发射处理器"></a>静态多发射处理器</h4><p>使用编译器封装指令并处理冒险，若无可同时发射的，用nop代替</p>
+<p>发射包 issue packet：在一个时空周期内发射的多条指令的集合。可有编译器静态生成或处理器动态生成。对一个周期内能发射的多条指令有所限制。</p>
+<p>超长指令字VLIW</p>
+<p>例：Two-issue packets</p>
+<p>One ALU/branch instruction</p>
+<p>One load/store instruction</p>
+<p> <strong>数据通路</strong></p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\19.PNG" alt="19"></p>
+<p>数据冒险：</p>
+<p>EX数据：同一个包中，can’t use ALU result in load/store</p>
+<p>load-use：会增加延迟</p>
+<p><strong>调度</strong></p>
+<p>Loop: lw   \$t0,0(\$s1)      # \$t0=array element<br>​      addu \$t0, \$t0,\$s2    # add scalar in \$s2<br>​      sw   \$t0,0(\$s1)      # store result<br>​      addi \$s1,\$s1,–4      # decrement pointer<br>​      bne  \$s1,\$zero, Loop # branch $s1!=0</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>nop</td>
+<td>lw   t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>addi   s1,   $s1,–4</td>
+<td>nop</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   $t0, $s2</td>
+<td>nop</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t0,   4($s1)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p> 循环展开（循环体复制4份）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ALU/branch</th>
+<th>Load/store</th>
+<th>cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop:</td>
+<td>addi   s1,   $s1,–16</td>
+<td>lw   \$t0, 0($s1)</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>lw   t1, 12($s1)</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t0,   t0, $s2</td>
+<td>lw   \$t2, 8($s1)</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t1,   t1, $s2</td>
+<td>lw   \$t3, 4($s1)</td>
+<td>4</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t2,   t2, $s2</td>
+<td>sw   \$t0,   <font color="red">16</font>($s1)</td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>addu   t3,   t4, $s2</td>
+<td>sw   \$t1,   12($s1)</td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td>nop</td>
+<td>sw   t2,   8($s1)</td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td>bne  s1,   $zero, Loop</td>
+<td>sw   \$t3,   4($s1)</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>寄存器重命名——引入临时寄存器，消除虚假的数据依赖（反相关）</p>
+<font color="red">标红处是16而不是0，是因为第一行\$t0取的是\$s1未减去16处的值，从第二行开始，通过旁路技术，$s1已减去16</font>
+
+<h4 id="动态多发射处理器"><a href="#动态多发射处理器" class="headerlink" title="动态多发射处理器"></a>动态多发射处理器</h4><p>也叫超标量处理器</p>
+<p>指令顺序发射，乱序执行，顺序提交。处理器决定每个周期几条指令，硬件保证正确性。</p>
+<p>流水线被划分为：取指与发射单元、多个功能单元、一个提交单元（含重排序缓冲区）。每个功能单元有自己的缓冲区（保留站）用于保存操作数和操作。</p>
+<p><img src="//yoursite.com/2019/06/10/计组复习笔记（三）/blog\source\_posts\sql\20.PNG" alt="20"></p>
+<p><strong>寄存器重命名</strong></p>
+<p>保留站和重排序缓冲区提供寄存器重命名机制。发射指令时，它先被复制到合适的功能单元的保留站。如果操作数在寄存器堆中或重排序缓冲区中可用，那么立即数被复制到保留站中。否则该指令一直缓存在保留站中。若指令已发射，那么操作数对应的寄存器的值可以被覆盖。如果操作数不在寄存器堆中或重排序缓冲区中，那么他应该是某个功能单元的结果，硬件帮助定位该功能单元，计算出结果时直接从功能单元复制到保留站，跳过寄存器堆。</p>
+<h5 id="推测"><a href="#推测" class="headerlink" title="推测"></a>推测</h5><p><strong>Predict branch and continue issuing</strong></p>
+<p>Don’t commit until branch outcome determined</p>
+<p><strong>Load speculation</strong></p>
+<p>Avoid load and cache miss delay</p>
+<ol>
+<li>Predict the effective address</li>
+<li>Predict loaded value</li>
+<li>Load before completing outstanding stores</li>
+<li>Bypass stored values to load unit</li>
+</ol>
+<p>Don’t commit load until speculation cleared</p>
+<p><strong>为什么需要动态调度？</strong></p>
+<ol>
+<li>并不是所有的阻塞都可以预知。动态调度在一些指令阻塞时调度其他指令，以掩盖阻塞。</li>
+<li>对于分支指令，若采用动态推测而不是用动态调度，会极大限制指令级并行度。</li>
+<li>流水线延迟和发射宽度根据处理器的具体实现的不同有很大差别。</li>
+</ol>
+<p>多发射的阻碍：窗口期有限、内存访问延迟、带宽受限</p>
+<p>动态调度和推测消耗能源</p>
+<p>指令集、数据通路和控制的设计之间相互影响</p>
+<hr>
+<font color="green"><a href="http://landcareweb.com/questions/43313/tui-ce-he-yu-ce-zhi-jian-de-chai-yi" target="_blank" rel="noopener">预测和推测之间有什么区别？</a></font>
+
+<p>分支预测由处理器完成，以试图确定在条件跳转之后执行将继续的位置，以便它可以从存储器读取下一条指令。</p>
+<p>推测执行更进一步，并确定执行下一条指令的结果。如果分支预测是正确的，则使用结果，否则将其丢弃。即使代码中没有实际的条件分支，也可以应用推测执行。处理器可以从通常将连续执行的若干指令确定结果，但是可以例如通过算术溢出中断来停止执行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1114,14 +1324,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">310</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
