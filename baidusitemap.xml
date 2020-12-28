@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/2020/12/28/HTTP%E8%BF%9E%E6%8E%A5%E6%B1%A0/</loc>
-    <lastmod>2020-12-28</lastmod>
-  </url>  <url>
-    <loc>http://yoursite.com/2020/12/28/cc-develop-note-iv/</loc>
-    <lastmod>2020-12-28</lastmod>
-  </url>  <url>
-    <loc>http://yoursite.com/2020/12/28/cc-develop-note-v/</loc>
+    <loc>http://yoursite.com/2020/12/28/cc-develop-note-ii/</loc>
     <lastmod>2020-12-28</lastmod>
   </url>  <url>
     <loc>http://yoursite.com/2020/12/28/cc-develop-note-iii/</loc>
@@ -16,7 +10,13 @@
     <loc>http://yoursite.com/2020/12/28/cc-develop-note-i/</loc>
     <lastmod>2020-12-28</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2020/12/28/cc-develop-note-ii/</loc>
+    <loc>http://yoursite.com/2020/12/28/HTTP%E8%BF%9E%E6%8E%A5%E6%B1%A0/</loc>
+    <lastmod>2020-12-28</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/12/28/cc-develop-note-iv/</loc>
+    <lastmod>2020-12-28</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/12/28/cc-develop-note-v/</loc>
     <lastmod>2020-12-28</lastmod>
   </url>  <url>
     <loc>http://yoursite.com/2020/11/28/BT-interview-note-iii/</loc>
