@@ -158,6 +158,94 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/median-of-two-sorted-arrays/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/11/median-of-two-sorted-arrays/" class="post-title-link" itemprop="url">median-of-two-sorted-arrays</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-11 22:35:19" itemprop="dateCreated datePublished" datetime="2019-04-11T22:35:19+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-13 22:41:51" itemprop="dateModified" datetime="2019-04-13T22:41:51+08:00">2019-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>There are two sorted arrays <strong>nums1</strong> and <strong>nums2</strong> of size m and n respectively.</p>
+<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<p>You may assume <strong>nums1</strong> and <strong>nums2</strong> cannot be both empty.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">The median is 2.0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line">The median is (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于复杂度的要求加大了题目的难度，一般容易想到线性级别的解决方法，如果要降到对数级别，要用到二分查找法。这里的二分其实是针对切割的位置。参考了LeetCode上的解答。</p>
+<p><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation" target="_blank" rel="noopener">https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/very-concise-ologminmn-iterative-solution-with-detailed-explanation</a></p>
+<p>为了简化问题，偶数和奇数个数的有序数组，可以综合成一种情况：数组长度为N时，index of L = (N-1)/2, and R is at N/2。 中位数的下标可以表示为(L + R)/2 = (A[(N-1)/2] + A[N/2])/2。函数中使A1是更长的数组。</p>
+<p>设想数组中有更多的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1: [# 1 # 2 # 3 # 4 # 5 #]    (N1 = 5, N1_positions = 11)</span><br><span class="line">A2: [# 1 # 1 # 1 # 1 #]     (N2 = 4, N2_positions = 9)</span><br></pre></td></tr></table></figure>
+<p>两个数组共有2<em>N1 + 2</em>N2 + 2个位置，每次分割后左右分别有N1 + N2个位置，最终的分割应保证L1 &lt;= R1 &amp;&amp; L1 &lt;= R2 &amp;&amp; L2 &lt;= R1 &amp;&amp; L2 &lt;= R2，相当于L1 &lt;= R2&amp;&amp;L2 &lt;= R1。</p>
+<p>在两种情况下需要对切割的位置做出调整：</p>
+<ul>
+<li><p>L1&gt;R2：说明A1左边大数过多，A1的切割点左移，同时A2切割点右移；</p>
+</li>
+<li><p>L2&gt;R1：说明A2左边大数过多，A2的切割点左移，同时A1切割点右移；</p>
+<p>否则，找到的即为中位数的位置，中位数等于(max(L1, L2) + min(R1, R2)) / 2。</p>
+</li>
+</ul>
+<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = nums1.size();</span><br><span class="line">	<span class="keyword">int</span> n = nums2.size();</span><br><span class="line">	<span class="keyword">if</span> (m &lt; n)</span><br><span class="line">		<span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lo = <span class="number">0</span>, hi = n * <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt;= hi)</span><br><span class="line">	&#123;<span class="comment">//移动A2的切割点，A2为长度更短的数组</span></span><br><span class="line">		<span class="keyword">int</span> c2 = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c1 = m + n - c2;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> L1 = (c1 == <span class="number">0</span>) ? INT_MIN : nums1[(c1 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> L2 = (c2 == <span class="number">0</span>) ? INT_MIN : nums2[(c2 - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R1 = (c1 == m*<span class="number">2</span>) ? INT_MAX : nums1[(c1) / <span class="number">2</span>];</span><br><span class="line">		<span class="keyword">double</span> R2 = (c2 == n*<span class="number">2</span>) ? INT_MAX : nums2[(c2) / <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (L1 &gt; R2) lo = c2 + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (L2 &gt; R1)hi = c2 - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (((L1&gt; L2)?L1:L2) + ((R1&lt;R2)?R1:R2)) / <span class="number">2.0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i * <span class="number">2</span> &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums1.push_back(i * <span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; j * j &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		nums2.push_back(j*j);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">double</span> a=findMedianSortedArrays(nums1, nums2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>复杂度：O(log(min(N1, N2))) </p>
+<p>若下标超出数组界限，可以假设有两个额外的值 INT_MAX at A[-1] 和 INT_MAX at A[N]，不影响结果并且简化了情况。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/Machine-Learning-Note5/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -935,91 +1023,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/17/Machine-Learning-Note2/" class="post-title-link" itemprop="url">Machine-Learning-Note2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-17 19:55:43" itemprop="dateCreated datePublished" datetime="2019-03-17T19:55:43+08:00">2019-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-18 20:14:52" itemprop="dateModified" datetime="2019-03-18T20:14:52+08:00">2019-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="矩阵和向量"><a href="#矩阵和向量" class="headerlink" title="矩阵和向量"></a>矩阵和向量</h5><p>大写字母-矩阵，小写字母-向量（特殊的矩阵）  </p>
-<ul>
-<li>加减，数乘</li>
-<li>数据矩阵乘参数向量  </li>
-<li>矩阵乘矩阵-大量运算打包，有结合律无交换律 <h5 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h5>特征量，训练样本数<br>定义第0个向量<br>多元梯度下降法<br><strong>特征缩放</strong>:使不同特征的取值在相近的范围内（例如-1~+1），梯度下降法能更快收敛，减少迭代次数。  </li>
-</ul>
-<p>方法：</p>
-<ol>
-<li>将特征除以最大值</li>
-<li>均值归一化，使特征值的均值为0 &lt;= 减均值，除以范围。<br>解决细长的椭圆等高线，梯度下降时来回波动，速度较慢的问题。  <h5 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h5>根据代价函数随迭代步数增加的变化曲线，判断是否已经收敛。或自动判断，选择合适阈值。<br>若发散或反复升降，选择更小的学习率。<h5 id="选择学习率α"><a href="#选择学习率α" class="headerlink" title="选择学习率α"></a>选择学习率α</h5>大致按3的倍数取值，结合代价函数随迭代步数增加的变化曲线。  </li>
-</ol>
-<h5 id="特征选择—多项式回归"><a href="#特征选择—多项式回归" class="headerlink" title="特征选择—多项式回归"></a>特征选择—多项式回归</h5><p>使数据与模型更好的拟合。<br>特征缩放更显重要。</p>
-<h5 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h5><p>不再像梯度下降中，迭代地求最优解，而是直接一次性求解0最优解。–&gt; 求导，导数置零。<br>加额外的特征变量x_0,用所有的特征变量构造矩阵<br>设计矩阵（特征矩阵的转置）<br>不需要做特征缩放！<br>在Octave中使用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinv(x&apos;*x)*x&apos;*y</span><br></pre></td></tr></table></figure>
-<p>对比梯度下降法与正规方程法：<br>梯度下降法 | 正规方程法<br>—|—<br>需要选择学习率α | 无需选择学习率α<br>需要多次迭代 | 无需多次迭代<br>适用于大样本量 | 样本较多时速度较慢,O(n^3)<br>当样本量大于10^6时，更适合采用梯度下降法。样本量较小时，正规方程法更优。<br>正规方程法适用于线性回归，不适合复杂的算法。</p>
-<h5 id="正规方程以及不可逆性"><a href="#正规方程以及不可逆性" class="headerlink" title="正规方程以及不可逆性"></a>正规方程以及不可逆性</h5><p>不可逆的矩阵（奇异或退化矩阵），很少发生，在软件中可得到正解。–&gt;数值计算问题</p>
-<p> 原因：可能是因为我们使用了冗余的特征,或是我们使用了太多的特征(特征的数量超过了样本的数量)<br>解决：去掉多余特征或使用正规化方法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1086,7 +1093,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">310</span>
+          <span class="site-state-item-count">311</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1147,7 +1154,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -158,6 +158,71 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/remove-nth-node-from-end-of-list/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/01/remove-nth-node-from-end-of-list/" class="post-title-link" itemprop="url">remove-nth-node-from-end-of-list</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-01 20:34:23 / 修改时间：21:25:31" itemprop="dateCreated datePublished" datetime="2019-11-01T20:34:23+08:00">2019-11-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>对于给定的链表，删除倒数第n个节点，返回头节点。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>一个指针遍历两次，或者两个指针遍历一次。对于两个指针p,q，需要固定间隔长度n (p-q=n)，然后同时移动两个指针，直至q移到链表尾。此时q指向需要被移除的节点。注意返回空指针的处理。</p>
+<p>易错情况：</p>
+<p>([1,2],1)  ([1,2],2)  ([1],1)</p>
+<p>编译时报错：<code>error: expected unqualified-id before &#39;while&#39;</code></p>
+<p>原因是在类的定义中误写了循环体。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode *next;</span><br><span class="line">     ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line"> &#125;;	</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode * <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	ListNode *p =head, *q = head;</span><br><span class="line">	<span class="keyword">int</span> i = n;</span><br><span class="line">    <span class="keyword">bool</span> flag=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (i--)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="keyword">if</span>(q-&gt;next)</span><br><span class="line">		    q = q-&gt;next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            flag=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!q-&gt;next&amp;&amp;flag)<span class="comment">//要删除的是头节点</span></span><br><span class="line">		<span class="keyword">if</span> (p-&gt;next)</span><br><span class="line">			<span class="keyword">return</span> p-&gt;next;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (q-&gt;next)</span><br><span class="line">	&#123;</span><br><span class="line">		q = q-&gt;next;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;next = p-&gt;next-&gt;next;</span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/19/4Sum/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -777,72 +842,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/08/Roman-to-Integer/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/08/Roman-to-Integer/" class="post-title-link" itemprop="url">Roman-to-Integer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-09-08 08:14:05 / 修改时间：08:22:12" itemprop="dateCreated datePublished" datetime="2019-09-08T08:14:05+08:00">2019-09-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>犯了一个严重的错误，居然忘了switch-case，在执行完一个case之后是继续向下走的！因此注意是否要在每个case中加‘break’</p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>罗马数字转阿拉伯数字。注意类似“4”和“9”的情况。</p>
-<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>想到了最简单地解决方法：从前向后遍历，遇到字母就加上对应的数字，只不过要注意‘I’等字母，看是否出现类似“4”和“9”的情况。更高效的方法暂时还没想到。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.length();</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">switch</span> (s[i])</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">1000</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">500</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'C'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'D'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">400</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'M'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">900</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">100</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">100</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'L'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">50</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'X'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'L'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">40</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'C'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">90</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">10</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'V'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			res += <span class="number">5</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i + <span class="number">1</span> &lt; len)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'V'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">4</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (s[i + <span class="number">1</span>] == <span class="string">'X'</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					res += <span class="number">9</span>;</span><br><span class="line">					++i;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					res += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				res += <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -909,7 +912,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">310</span>
+          <span class="site-state-item-count">311</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -970,7 +973,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

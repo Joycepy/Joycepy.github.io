@@ -158,6 +158,94 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/算法大作业笔记（六）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/20/算法大作业笔记（六）/" class="post-title-link" itemprop="url">算法大作业笔记（六）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-20 11:43:25" itemprop="dateCreated datePublished" datetime="2019-05-20T11:43:25+08:00">2019-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-21 20:03:14" itemprop="dateModified" datetime="2019-05-21T20:03:14+08:00">2019-05-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> 先了解一下<a href="https://www.cnblogs.com/A-S-KirigiriKyoko/p/6036368.html" target="_blank" rel="noopener">背包问题</a>吧：</p>
+<p>背包问题主要有三类：01背包，完全背包，多重背包</p>
+<h5 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h5><p>有N件物品和一个容量为V的背包。第i件物品的价格（即体积，下同）是w[i]，价值是c[i]。用f[i][j]表示前i个背包装入容量为v的背包中所可以获得的最大价值。对于一个物品，只有两种情况</p>
+<p>　　情况一: 第i件不放进去，这时所得价值为:f[i-1][v]</p>
+<p>　　情况二: 第i件放进去，这时所得价值为：f[i-1][v-c[i]]+w[i] </p>
+<p>状态转移方程：f[i][v] = max(f[i-1][v], f[i-1][v-w[i]]+c[i])</p>
+<h5 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h5><p>有N种物品和一个容量为V的背包，每种物品都有无限件可用。第i种物品的费用是w[i]，价值是c[i]。完全背包和01背包区别就是<font color="red">完全背包物品有无限件，由之前的选或者不选转变成了选或者不选，选几件</font>。</p>
+<p>状态转移方程：f[i][v]=max(f[i-1][v-k*c[i]]+k*w[i]|<font color="red">0&lt;=</font>k*c[i]&lt;=v)</p>
+<h5 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h5><p>有N种物品和一个容量为V的背包。第i种物品最多有n[i]件可用，每件费用是w[i]，价值是c[i]。多了一个限制条件，每个物品规定了可用的次数。</p>
+<p>状态转移方程：f[i][v]=max(f[i-1][v-k*w[i]]+ k*c[i]|<font color="red">0&lt;=k&lt;=n[i]</font>)</p>
+<hr>
+<p>开始新的算法大作业的征程~~</p>
+<h4 id="问题情景"><a href="#问题情景" class="headerlink" title="问题情景"></a>问题情景</h4><p>一个不同长度的彩带集合，用来绑不同大小的礼物盒，不同尺寸的礼物盒需要不同长度的彩带，问：这个固定的彩带集合最多能绑多少个礼物盒？</p>
+<h4 id="贪心算法的尝试"><a href="#贪心算法的尝试" class="headerlink" title="贪心算法的尝试"></a>贪心算法的尝试</h4><p>初步文档已经写好，现在开始写代码。</p>
+<p>首先把需要的排好序的彩带和需求数组、二分查找的指针准备好。</p>
+<p>现在进入while循环，开始二分查找上限。</p>
+<p>现在该写meet()函数，判断当前连续需求是否能满足。</p>
+<p>明天测试一下二分法遍历彩带长度的代码，我觉得会有问题。并完成继续递归的部分。</p>
+<p>二分法遍历彩带长度失败了…….先用for循环吧，明天看看能不能改进。至少现在的代码跑那个样例没有问题。</p>
+<h4 id="动态规划的尝试"><a href="#动态规划的尝试" class="headerlink" title="动态规划的尝试"></a>动态规划的尝试</h4><p>有两种思路：自顶向下和自顶向上。需要考虑不同的情况，得出递推式，然后写代码。</p>
+<p>怎么把动态规划算法和分治算法结合起来呢？？？暂时觉得，这个题用不了分治，每增加一条彩带，现有的所有彩带的剪切方式都是可能改变的。而不像序列比对，前后两部分不会相互影响。</p>
+<hr>
+<p><img src="//yoursite.com/2019/05/20/算法大作业笔记（六）/桌面\时光以南\算法导论\作业\图片\nondyminic.png" alt="nondyminic"></p>
+<p>/(ㄒoㄒ)/~~哭了，动态算法解不了，要用分支界定法，那是个什么东西啊(ㄒoㄒ)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/2017_06CET6_Trans12/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -991,89 +1079,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/算法大作业笔记（二）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/14/算法大作业笔记（二）/" class="post-title-link" itemprop="url">算法大作业笔记（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-14 23:19:21" itemprop="dateCreated datePublished" datetime="2019-05-14T23:19:21+08:00">2019-05-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-17 08:30:11" itemprop="dateModified" datetime="2019-05-17T08:30:11+08:00">2019-05-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color="red">这样的话，证明，贪心算法是不能以最少的颜色解决所有的图着色问题的，啊…那怎么找出最少的颜色啊？？？</font>有一个坏消息：</p>
-<p><img src="//yoursite.com/2019/05/14/算法大作业笔记（二）/桌面\时光以南\算法导论\作业\图片\6.png" width="70%"></p>
-<p>目前，大概是只能选择深度优先搜索了。。。摸摸毛，没有关系，网上的回溯算法很多，也很简单，但是我可以做更多的优化，关键是网上好像都没有预着色的步骤，所以这里可以创新一下。</p>
-<h4 id="数独问题的图搜索策略"><a href="#数独问题的图搜索策略" class="headerlink" title="数独问题的图搜索策略"></a>数独问题的图搜索策略</h4><p>深度优先搜索，出现无解的情况进行回溯，回溯到上一级继续进行尝试。</p>
-<h5 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h5><ol>
-<li>把起始节点S放到一个叫做OPEN的未扩展节点表中(简称OPEN表).如果此节点为一目标节点,则得到一个解</li>
-<li>建立一个叫做 CLOSED的已扩展节点表简称 CLOSED表)其初始为空表</li>
-<li>如果OPEN为一空表,则失败退出.</li>
-<li>把第一个节点(节点n)从OPEN表移到CLOSED表</li>
-<li>如果节点n的深度等于最大深度,则转向(3).</li>
-<li>扩展节点n产生其全部后裔,并把它们放入OPEN表的前头.如果没有后裔,则转向(3)</li>
-<li>如果后继节点中有任一个为目标节点,则求得一个解.成功退出;否则,转向(3).</li>
-</ol>
-<h5 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h5><p>search(c)：参数c为单元格地址,给定一个c对该单元格所在行、列,所在小九宮格已有数字进行判断,返回还允许填入的数字,用有效数字序列的字符串格式表示,比如返回“1356”,表示该单元格还可以填入1、3、5、6中任一数字,返回“”,表示该单元格无数可填,此时检查OPEN表,若空,则失败退出,在递归程序中返回上一级。</p>
-<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>图着色可以应用到多面体的面着色</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/26/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/26/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1140,7 +1149,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">310</span>
+          <span class="site-state-item-count">311</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1201,7 +1210,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

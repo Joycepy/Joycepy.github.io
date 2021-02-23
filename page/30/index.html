@@ -158,6 +158,87 @@
   
   
   <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.jpg">
+      <meta itemprop="name" content="Joyce">
+      <meta itemprop="description" content="Growing Path">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joyce' Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/Machine-Learning-Note2/" class="post-title-link" itemprop="url">Machine-Learning-Note2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 19:55:43" itemprop="dateCreated datePublished" datetime="2019-03-17T19:55:43+08:00">2019-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-03-18 20:14:52" itemprop="dateModified" datetime="2019-03-18T20:14:52+08:00">2019-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="矩阵和向量"><a href="#矩阵和向量" class="headerlink" title="矩阵和向量"></a>矩阵和向量</h5><p>大写字母-矩阵，小写字母-向量（特殊的矩阵）  </p>
+<ul>
+<li>加减，数乘</li>
+<li>数据矩阵乘参数向量  </li>
+<li>矩阵乘矩阵-大量运算打包，有结合律无交换律 <h5 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h5>特征量，训练样本数<br>定义第0个向量<br>多元梯度下降法<br><strong>特征缩放</strong>:使不同特征的取值在相近的范围内（例如-1~+1），梯度下降法能更快收敛，减少迭代次数。  </li>
+</ul>
+<p>方法：</p>
+<ol>
+<li>将特征除以最大值</li>
+<li>均值归一化，使特征值的均值为0 &lt;= 减均值，除以范围。<br>解决细长的椭圆等高线，梯度下降时来回波动，速度较慢的问题。  <h5 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h5>根据代价函数随迭代步数增加的变化曲线，判断是否已经收敛。或自动判断，选择合适阈值。<br>若发散或反复升降，选择更小的学习率。<h5 id="选择学习率α"><a href="#选择学习率α" class="headerlink" title="选择学习率α"></a>选择学习率α</h5>大致按3的倍数取值，结合代价函数随迭代步数增加的变化曲线。  </li>
+</ol>
+<h5 id="特征选择—多项式回归"><a href="#特征选择—多项式回归" class="headerlink" title="特征选择—多项式回归"></a>特征选择—多项式回归</h5><p>使数据与模型更好的拟合。<br>特征缩放更显重要。</p>
+<h5 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h5><p>不再像梯度下降中，迭代地求最优解，而是直接一次性求解0最优解。–&gt; 求导，导数置零。<br>加额外的特征变量x_0,用所有的特征变量构造矩阵<br>设计矩阵（特征矩阵的转置）<br>不需要做特征缩放！<br>在Octave中使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinv(x&apos;*x)*x&apos;*y</span><br></pre></td></tr></table></figure>
+<p>对比梯度下降法与正规方程法：<br>梯度下降法 | 正规方程法<br>—|—<br>需要选择学习率α | 无需选择学习率α<br>需要多次迭代 | 无需多次迭代<br>适用于大样本量 | 样本较多时速度较慢,O(n^3)<br>当样本量大于10^6时，更适合采用梯度下降法。样本量较小时，正规方程法更优。<br>正规方程法适用于线性回归，不适合复杂的算法。</p>
+<h5 id="正规方程以及不可逆性"><a href="#正规方程以及不可逆性" class="headerlink" title="正规方程以及不可逆性"></a>正规方程以及不可逆性</h5><p>不可逆的矩阵（奇异或退化矩阵），很少发生，在软件中可得到正解。–&gt;数值计算问题</p>
+<p> 原因：可能是因为我们使用了冗余的特征,或是我们使用了太多的特征(特征的数量超过了样本的数量)<br>解决：去掉多余特征或使用正规化方法</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Machine-Learning-Note1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -888,81 +969,10 @@
   
   
 
-      
-  
-  
-  <article itemscope="" itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Java11.28/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.jpg">
-      <meta itemprop="name" content="Joyce">
-      <meta itemprop="description" content="Growing Path">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joyce' Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/28/Java11.28/" class="post-title-link" itemprop="url">Java11.28</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-28T00:00:00+08:00">2018-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-12-06 21:16:01" itemprop="dateModified" datetime="2018-12-06T21:16:01+08:00">2018-12-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="JComboBox"><a href="#JComboBox" class="headerlink" title="JComboBox"></a>JComboBox</h3><p>(下拉菜单)</p>
-<p>addItem(),getSelectedItem(),setEditable()</p>
-<h5 id="ComboBoxEditor接口，ListCellRenderer渲染"><a href="#ComboBoxEditor接口，ListCellRenderer渲染" class="headerlink" title="ComboBoxEditor接口，ListCellRenderer渲染"></a>ComboBoxEditor接口，ListCellRenderer渲染</h5><h3 id="Icon接口，由ImageIcon实现"><a href="#Icon接口，由ImageIcon实现" class="headerlink" title="Icon接口，由ImageIcon实现"></a>Icon接口，由ImageIcon实现</h3><p>Jcomponent,提示信息,setBorder设置边框</p>
-<h3 id="JList"><a href="#JList" class="headerlink" title="JList"></a>JList</h3><p>DefaultListModel,ListSelectedionListener</p>
-<h6 id="JTextField-JPasswordField-JFormattedTextField"><a href="#JTextField-JPasswordField-JFormattedTextField" class="headerlink" title="JTextField:JPasswordField,JFormattedTextField"></a>JTextField:JPasswordField,JFormattedTextField</h6><h5 id="Document接口"><a href="#Document接口" class="headerlink" title="Document接口"></a>Document接口</h5><h5 id="JOptionPane-Message-boxes对话框"><a href="#JOptionPane-Message-boxes对话框" class="headerlink" title="JOptionPane,Message boxes对话框"></a>JOptionPane,Message boxes对话框</h5><p>showConfirmDialogue,showOptionDialogue,showInputDialogue</p>
-<h5 id="JDialog"><a href="#JDialog" class="headerlink" title="JDialog"></a>JDialog</h5><h5 id="JSlider-JProgressBar"><a href="#JSlider-JProgressBar" class="headerlink" title="JSlider,JProgressBar"></a>JSlider,JProgressBar</h5><h5 id="JMenubar-JMenu-JMenuItem"><a href="#JMenubar-JMenu-JMenuItem" class="headerlink" title="JMenubar+JMenu+JMenuItem"></a>JMenubar+JMenu+JMenuItem</h5><p>setMenuBar</p>
-<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><p>JComponent–Graphics<br>改写paintComponent</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1029,7 +1039,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">310</span>
+          <span class="site-state-item-count">311</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1090,7 +1100,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
